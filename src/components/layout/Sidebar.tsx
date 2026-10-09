@@ -11,7 +11,7 @@ export default function Sidebar() {
   const visitService = useConsoleStore((s) => s.visitService)
 
   return (
-    <aside className="fixed top-[48px] left-0 w-[220px] h-[calc(100vh-48px)] bg-[#232f3e] overflow-y-auto z-30">
+    <aside className="fixed top-[56px] left-0 w-[220px] h-[calc(100vh-56px)] bg-[#232f3e] overflow-y-auto z-30">
       <nav className="py-2">
         {services.map((service) => {
           const href = `/${service.id}/home`

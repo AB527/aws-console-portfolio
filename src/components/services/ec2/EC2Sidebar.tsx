@@ -43,7 +43,7 @@ export default function EC2Sidebar() {
   const regionParam = region ? `?region=${region}` : ""
 
   return (
-    <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[48px] h-[calc(100vh-48px)] overflow-y-auto flex flex-col">
+    <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
       {/* Service header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
         <span className="text-[16px] font-bold text-gray-900">EC2</span>

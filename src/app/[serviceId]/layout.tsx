@@ -9,7 +9,7 @@ function GenericServiceSidebar({ serviceId }: { serviceId: string }) {
   if (!service) return null
 
   return (
-    <aside className="w-[220px] shrink-0 bg-[#232f3e] sticky top-[48px] h-[calc(100vh-48px)] overflow-y-auto flex flex-col">
+    <aside className="w-[220px] shrink-0 bg-[#232f3e] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
       <div className="px-4 py-3 border-b border-[#3d4f61] flex items-center gap-2">
         <ServiceIcon iconId={service.iconId} color={service.color} size="sm" />
         <div>
@@ -38,7 +38,7 @@ export default function ServiceLayout({
   const serviceId = pathname.split("/")[1] ?? ""
 
   return (
-    <div className="flex min-h-[calc(100vh-48px)]">
+    <div className="flex min-h-[calc(100vh-56px)]">
       <GenericServiceSidebar serviceId={serviceId} />
       <main className="flex-1 min-w-0">{children}</main>
     </div>

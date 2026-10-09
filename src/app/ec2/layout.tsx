@@ -13,7 +13,7 @@ function SidebarFallback() {
 
 export default function EC2Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-[calc(100vh-48px)]">
+    <div className="flex min-h-[calc(100vh-56px)]">
       <Suspense fallback={<SidebarFallback />}>
         <EC2Sidebar />
       </Suspense>

@@ -8,6 +8,12 @@ import AccountDropdown from "./AccountDropdown"
 import NotificationsDropdown from "./NotificationsDropdown"
 import SearchBar from "./SearchBar"
 import regionsData from "@/data/regions.json"
+import notificationsData from "@/data/notifications.json"
+
+const RECENT_NOTIFICATION_COUNT = notificationsData.items.filter((n) => {
+  const diffMs = new Date("2026-06-13").getTime() - new Date(n.date).getTime()
+  return diffMs <= 30 * 24 * 60 * 60 * 1000
+}).length
 
 function TerminalIcon() {
   return (
@@ -119,6 +125,8 @@ function TopbarInner() {
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const setRegion = useConsoleStore((s) => s.setRegion)
   const setCloudShellOpen = useConsoleStore((s) => s.setCloudShellOpen)
+  const notificationsRead = useConsoleStore((s) => s.notificationsRead)
+  const markNotificationsRead = useConsoleStore((s) => s.markNotificationsRead)
 
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [regionOpen, setRegionOpen] = useState(false)
@@ -157,16 +165,16 @@ function TopbarInner() {
   const regionLabel = activeRegion?.full ?? selectedRegion
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-[48px] bg-[#0f1620] border-t-[3px] border-[#4a525d] flex items-center z-40 text-white text-[13px] select-none">
+    <header className="fixed top-0 left-0 right-0 h-[56px] bg-[#0f1620] border-t-[5px] border-[#4a525d] flex items-center z-40 text-white text-[13px] select-none">
       {/* Logo */}
       <a href="/console/home" className="flex items-center justify-center h-full px-3 hover:bg-[#37475a] transition-colors shrink-0">
         <img src="/icons/navbar.png" alt="AWS" className="h-[22px] w-auto" />
       </a>
 
-      <div className="w-px h-5 bg-[#3d4f61] shrink-0" />
+      <div className="w-px h-8 bg-[#3d4f61] mx-1.5 shrink-0" />
 
       {/* Amazon Q */}
-      <button className="flex items-center justify-center h-full px-2.5 hover:bg-[#37475a] transition-colors shrink-0" title="Amazon Q">
+      <button className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0" title="Amazon Q">
         <span className="h-[24px] w-[24px] rounded-[6px] bg-gradient-to-br from-[#3b5bf5] to-[#7b3ff2] flex items-center justify-center">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
             <circle cx="11" cy="11" r="7" stroke="white" strokeWidth="2.4" />
@@ -175,8 +183,10 @@ function TopbarInner() {
         </span>
       </button>
 
+      <div className="w-px h-8 bg-[#3d4f61] mx-1.5 shrink-0" />
+
       {/* Grid icon */}
-      <button className="flex items-center justify-center h-full px-2.5 hover:bg-[#37475a] transition-colors shrink-0 text-gray-300 hover:text-white">
+      <button className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0 text-gray-300 hover:text-[#539fe5]">
         <svg width="18" height="18" viewBox="0 0 15 15" fill="currentColor">
           <rect x="0" y="0" width="4" height="4" rx="0.5" />
           <rect x="5.5" y="0" width="4" height="4" rx="0.5" />
@@ -200,32 +210,44 @@ function TopbarInner() {
         {/* CloudShell */}
         <button
           onClick={() => setCloudShellOpen(true)}
-          className="flex items-center justify-center h-full w-[38px] text-gray-300 hover:bg-[#37475a] hover:text-white transition-colors"
+          className="flex items-center justify-center h-full w-[38px] text-gray-300 hover:text-[#539fe5] transition-colors"
           title="CloudShell"
         >
           <TerminalIcon />
         </button>
 
+        <div className="w-px h-8 bg-[#3d4f61] mx-1.5" />
+
         {/* Notifications bell */}
         <div ref={notifRef} className="relative h-full">
           <button
-            onClick={() => setNotifOpen((o) => !o)}
-            className={`relative flex items-center justify-center h-full w-[38px] text-gray-300 hover:text-white transition-colors ${notifOpen ? "bg-[#37475a] text-white" : "hover:bg-[#37475a]"}`}
+            onClick={() => {
+              setNotifOpen((o) => {
+                const next = !o
+                if (next) markNotificationsRead()
+                return next
+              })
+            }}
+            className={`relative flex items-center justify-center h-full w-[38px] transition-colors ${notifOpen ? "text-[#539fe5]" : "text-gray-300 hover:text-[#539fe5]"}`}
             title="Notifications"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M13.73 21a2 2 0 0 1-3.46 0" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="absolute top-[7px] right-[7px] min-w-[14px] h-[14px] px-[3px] rounded-full bg-[#d13212] text-white text-[9px] font-bold flex items-center justify-center leading-none">
-              1
-            </span>
+            {!notificationsRead && RECENT_NOTIFICATION_COUNT > 0 && (
+              <span className="absolute top-[7px] right-[6px] min-w-[14px] h-[14px] px-[3px] rounded-full bg-[#d13212] text-white text-[9px] font-bold flex items-center justify-center leading-none">
+                {RECENT_NOTIFICATION_COUNT}
+              </span>
+            )}
           </button>
           {notifOpen && <NotificationsDropdown />}
         </div>
 
+        <div className="w-px h-8 bg-[#3d4f61] mx-1.5" />
+
         {/* Help */}
-        <button className="flex items-center justify-center h-full w-[38px] text-gray-300 hover:bg-[#37475a] hover:text-white transition-colors" title="Help">
+        <button className="flex items-center justify-center h-full w-[38px] text-gray-300 hover:text-[#539fe5] transition-colors" title="Help">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
             <circle cx="12" cy="12" r="10" />
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
@@ -233,11 +255,13 @@ function TopbarInner() {
           </svg>
         </button>
 
+        <div className="w-px h-8 bg-[#3d4f61] mx-1.5" />
+
         {/* Settings */}
         <div ref={settingsRef} className="relative h-full">
           <button
             onClick={() => setSettingsOpen((o) => !o)}
-            className={`flex items-center justify-center h-full w-[38px] text-gray-300 hover:text-white transition-colors ${settingsOpen ? "bg-[#37475a]" : "hover:bg-[#37475a]"}`}
+            className={`flex items-center justify-center h-full w-[38px] transition-colors ${settingsOpen ? "text-[#539fe5]" : "text-gray-300 hover:text-[#539fe5]"}`}
             title="Settings"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3">
@@ -248,7 +272,7 @@ function TopbarInner() {
           {settingsOpen && <SettingsDropdown />}
         </div>
 
-        <div className="w-px h-5 bg-[#3d4f61] mx-0.5" />
+        <div className="w-px h-8 bg-[#3d4f61] mx-1.5" />
 
         {/* Region dropdown */}
         <div ref={regionRef} className="relative h-full">
@@ -319,7 +343,7 @@ function TopbarInner() {
 
 export default function Topbar() {
   return (
-    <Suspense fallback={<header className="fixed top-0 left-0 right-0 h-[48px] bg-[#0f1620] border-t-[3px] border-[#4a525d] z-40" />}>
+    <Suspense fallback={<header className="fixed top-0 left-0 right-0 h-[56px] bg-[#0f1620] border-t-[5px] border-[#4a525d] z-40" />}>
       <TopbarInner />
     </Suspense>
   )
