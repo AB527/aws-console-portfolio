@@ -3,20 +3,20 @@ import knowMe from "@/data/know-me.json"
 
 export default function KnowMeWidget() {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col divide-y divide-[#c6c6cd]">
       {knowMe.items.map((item) => {
         const content = (
-          <div className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer">
+          <div className="flex items-center gap-4 py-3 group cursor-pointer">
             <img
               src={`/icons/${item.icon}.svg`}
               alt={item.icon}
-              className="w-7 h-7 rounded-md shrink-0 mt-0.5"
+              className="w-10 h-10 rounded-md shrink-0"
             />
             <div className="min-w-0">
-              <p className="text-[14px] font-semibold text-[#0073bb] group-hover:underline leading-tight">
+              <p className="text-[16px] leading-5 font-bold text-[#006ce0] group-hover:underline">
                 {item.label}
               </p>
-              <p className="text-[12px] font-medium text-gray-500 mt-0.5 leading-snug">{item.description}</p>
+              <p className="text-[#0f141a] mt-1">{item.description}</p>
             </div>
           </div>
         )

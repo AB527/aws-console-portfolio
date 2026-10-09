@@ -89,20 +89,20 @@ export default function WidgetInfoPanel({ widgetId, title, onClose }: WidgetInfo
 
   return (
     <>
-      <div className="bg-white border border-gray-200 rounded-[20px] flex flex-col"
+      <div className="bg-white border border-[#c6c6cd] rounded-[20px] flex flex-col"
         style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}
       >
         {/* Title row */}
         <div className="flex items-start justify-between px-5 pt-5 pb-3">
           <div className="flex items-center gap-1.5">
-            <span className="text-[18px] font-bold text-gray-900 leading-tight">{title}</span>
+            <span className="text-[18px] font-bold text-[#0f141a] leading-tight">{title}</span>
             <svg width="10" height="14" viewBox="0 0 10 14" fill="none" className="mt-0.5 shrink-0">
               <path d="M2 2l6 5-6 5" stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-700 transition-colors text-lg leading-none mt-0.5 shrink-0"
+            className="text-[#656871] hover:text-[#424650] transition-colors text-lg leading-none mt-0.5 shrink-0"
             aria-label="Close"
           >
             ✕
@@ -111,11 +111,11 @@ export default function WidgetInfoPanel({ widgetId, title, onClose }: WidgetInfo
 
         {/* Description */}
         <div className="px-5 pb-4 flex flex-col gap-2.5">
-          <p className="text-[13.5px] text-gray-700 leading-relaxed">{info.description}</p>
+          <p className="text-[13.5px] text-[#424650] leading-relaxed">{info.description}</p>
           {info.note && (
-            <p className="text-[13.5px] text-gray-700 leading-relaxed">
+            <p className="text-[13.5px] text-[#424650] leading-relaxed">
               To view all services, choose{" "}
-              <Link href="/getting-started" className="font-bold text-gray-900 hover:underline" onClick={onClose}>
+              <Link href="/getting-started" className="font-bold text-[#0f141a] hover:underline" onClick={onClose}>
                 View all services
               </Link>{" "}
               at the bottom of the widget.
@@ -125,24 +125,24 @@ export default function WidgetInfoPanel({ widgetId, title, onClose }: WidgetInfo
 
         {/* Was this helpful */}
         <div className="px-5 pb-5">
-          <p className="text-[14px] font-bold text-gray-900 mb-3">Was this content helpful?</p>
+          <p className="text-[14px] font-bold text-[#0f141a] mb-3">Was this content helpful?</p>
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 border-2 border-[#0073bb] text-[#0073bb] rounded-full px-4 py-1.5 text-[13px] font-medium hover:bg-[#eaf4fb] transition-colors">
+            <button className="flex items-center gap-2 border-2 border-[#006ce0] text-[#006ce0] rounded-full px-4 py-1.5 text-[14px] hover:bg-[#f0fbff] transition-colors">
               <span>👍</span> Yes
             </button>
-            <button className="flex items-center gap-2 border-2 border-[#0073bb] text-[#0073bb] rounded-full px-4 py-1.5 text-[13px] font-medium hover:bg-[#eaf4fb] transition-colors">
+            <button className="flex items-center gap-2 border-2 border-[#006ce0] text-[#006ce0] rounded-full px-4 py-1.5 text-[14px] hover:bg-[#f0fbff] transition-colors">
               <span>👎</span> No
             </button>
           </div>
         </div>
 
-        <hr className="border-gray-200 mx-5" />
+        <hr className="border-[#c6c6cd] mx-5" />
 
         {/* Learn more */}
         {info.links.length > 0 && (
           <div className="px-5 pt-4 pb-6">
             <div className="flex items-center gap-1.5 mb-2">
-              <span className="text-[14px] font-bold text-gray-900">Learn more</span>
+              <span className="text-[14px] font-bold text-[#0f141a]">Learn more</span>
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                 <path d="M7 1h4v4M11 1L6 6M2 3H1v8h8v-1" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -153,7 +153,7 @@ export default function WidgetInfoPanel({ widgetId, title, onClose }: WidgetInfo
                   key={link.href}
                   href={link.href}
                   onClick={onClose}
-                  className="text-[13.5px] text-[#0073bb] hover:underline leading-snug"
+                  className="text-[13.5px] text-[#006ce0] hover:underline leading-snug"
                 >
                   {link.label}
                 </Link>

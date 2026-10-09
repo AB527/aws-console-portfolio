@@ -10,20 +10,16 @@ function NavLink({
   href,
   label,
   active,
-  indent = false,
 }: {
   href: string
   label: string
   active: boolean
-  indent?: boolean
 }) {
   return (
     <Link
       href={href}
-      className={`block py-1.5 text-[13px] transition-colors ${indent ? "pl-8 pr-4" : "px-4"} ${
-        active
-          ? "text-[#0073bb] font-medium"
-          : "text-gray-700 hover:text-[#0073bb]"
+      className={`block pl-7 pr-4 py-1.5 text-[14px] leading-5 transition-colors ${
+        active ? "text-[#006ce0] font-bold" : "text-[#424650] hover:text-[#006ce0]"
       }`}
     >
       {label}
@@ -39,16 +35,16 @@ export default function EC2Sidebar() {
 
   const isDashboard = pathname === "/ec2/home" && !view
   const isInstances = view === "instances"
-  const isInstanceTypes = view === "instance-types"
+  const isInstanceTypes = view === "instance-types" || view === "instance-type-finder"
 
   const region = searchParams.get("region") ?? ""
   const regionParam = region ? `?region=${region}` : ""
 
   return (
-    <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
+    <aside className="w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col text-[#0f141a]">
       {/* Service header */}
-      <div className="flex items-center justify-between px-4 py-3">
-        <span className="text-[16px] font-bold text-gray-900">{serviceTitle("ec2")}</span>
+      <div className="flex items-center justify-between pl-7 pr-4 pt-5 pb-3">
+        <span className="text-[20px] leading-6 font-bold">{serviceTitle("ec2")}</span>
         <Link href={`/${regionParam}`} className={SIDEBAR_CLOSE_BUTTON_CLASS} title="Back to console" aria-label="Back to console">
           <SidebarChevron direction="left" />
         </Link>
@@ -59,12 +55,12 @@ export default function EC2Sidebar() {
         <NavLink href={`/ec2/home${regionParam}`} label="Dashboard" active={isDashboard} />
 
         {/* Spacer */}
-        <div className="my-2" />
+        <div className="my-3" />
 
         {/* Projects section */}
         <button
           onClick={() => setInstancesOpen((o) => !o)}
-          className="w-full flex items-center gap-2 px-4 py-1.5 text-[13px] font-bold text-gray-900 hover:bg-gray-50 transition-colors"
+          className="w-full flex items-center gap-3 pl-4 pr-4 py-1.5 text-[16px] leading-5 font-bold hover:text-[#006ce0] transition-colors"
           aria-expanded={instancesOpen}
         >
           <SectionCaret open={instancesOpen} />
@@ -77,13 +73,11 @@ export default function EC2Sidebar() {
               href={`/ec2/home?view=instances${region ? `&region=${region}` : ""}`}
               label="Projects"
               active={isInstances}
-              indent
             />
             <NavLink
               href={`/ec2/home?view=instance-types${region ? `&region=${region}` : ""}`}
               label="Project types"
               active={isInstanceTypes}
-              indent
             />
           </>
         )}

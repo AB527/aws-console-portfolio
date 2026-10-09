@@ -1,164 +1,268 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import ec2Data from "@/data/ec2-projects.json"
+import EC2SplitPanel, { splitPanelPadding } from "./EC2SplitPanel"
 
-const COLS = [
-  "Project type",
-  "Open Source",
-  "Production Grade",
-  "Tech Stack",
-  "Users Served",
-  "Hours Spent",
-  "Scale",
+type SortKey = "id" | "openSource" | "productionGrade" | "techStack" | "usersServed" | "hoursSpent" | "scale"
+const COLS: { key: SortKey; label: string }[] = [
+  { key: "id", label: "Project type" },
+  { key: "openSource", label: "Open source" },
+  { key: "productionGrade", label: "Production grade" },
+  { key: "techStack", label: "Tech stack" },
+  { key: "usersServed", label: "Users served" },
+  { key: "hoursSpent", label: "Hours spent" },
+  { key: "scale", label: "Scale" },
 ]
 
-function SortIcon() {
+const TABS = ["Details", "Projects"]
+
+const OUTLINE_BTN =
+  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
+const LINK = "text-[#006ce0] underline underline-offset-4"
+
+function SortIcon({ dir }: { dir: "asc" | "desc" | null }) {
+  // Filled = active sort column, outlined = sortable but inactive
   return (
-    <svg width="8" height="8" viewBox="0 0 10 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="opacity-40 shrink-0">
-      <path d="M5 1v10M1 7l4 4 4-4M1 5l4-4 4 4" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      className={`shrink-0 ${dir === "asc" ? "rotate-180" : ""}`}
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill={dir ? "currentColor" : "none"}
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+    >
+      <path d="M2 3.5h8L6 9.5z" />
     </svg>
   )
 }
 
-function YesNoBadge({ value }: { value: boolean }) {
+function CopyField({ label, value }: { label: string; value: string }) {
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium ${
-      value ? "bg-green-50 text-green-700 border border-green-200" : "bg-gray-50 text-gray-500 border border-gray-200"
-    }`}>
-      {value ? "Yes" : "No"}
-    </span>
+    <div>
+      <dt className="font-bold">{label}</dt>
+      <dd className="flex items-start gap-2 mt-0.5">
+        <button
+          onClick={() => navigator.clipboard?.writeText(value)}
+          aria-label={`Copy ${label}`}
+          className="shrink-0 mt-0.5 text-[#006ce0] hover:text-[#002b66]"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="8" y="8" width="13" height="13" />
+            <path d="M16 8V3H3v13h5" />
+          </svg>
+        </button>
+        <span className="break-words min-w-0">{value}</span>
+      </dd>
+    </div>
   )
 }
 
-export default function EC2InstanceTypesView() {
+export default function EC2InstanceTypesView({ activeType }: { activeType: string | null }) {
+  const router = useRouter()
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const [search, setSearch] = useState("")
+  const [selectedId, setSelectedId] = useState<string | null>(activeType)
+  const [panelId, setPanelId] = useState<string | null>(activeType)
+  const [panelHeight, setPanelHeight] = useState<number | null>(null)
+  const [activeTab, setActiveTab] = useState(TABS[0])
+  const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "id", dir: "asc" })
+  const [spinning, setSpinning] = useState(false)
 
   const regionInstances = ec2Data.instances.filter((i) => i.region === selectedRegion)
   const typesInRegion = new Set(regionInstances.map((i) => i.instanceType))
 
-  const visibleTypes = ec2Data.instanceTypeDetails.filter((t) => typesInRegion.has(t.id))
+  const enriched = ec2Data.instanceTypeDetails
+    .filter((t) => typesInRegion.has(t.id))
+    .map((t) => {
+      const projects = regionInstances.filter((i) => i.instanceType === t.id)
+      return {
+        ...t,
+        projects,
+        usersServed: projects.reduce((s, i) => s + i.metrics.usersServed, 0),
+        hoursSpent: projects.reduce((s, i) => s + i.metrics.hoursSpent, 0),
+      }
+    })
 
-  const enriched = visibleTypes.map((t) => {
-    const matching = regionInstances.filter((i) => i.instanceType === t.id)
-    return {
-      ...t,
-      usersServed: matching.reduce((s, i) => s + i.metrics.usersServed, 0),
-      hoursSpent: matching.reduce((s, i) => s + i.metrics.hoursSpent, 0),
-      projectCount: matching.length,
-    }
-  })
+  const q = search.trim().toLowerCase()
+  const filtered = enriched
+    .filter((t) => [t.id, t.techStack, t.scale, t.description].some((v) => v.toLowerCase().includes(q)))
+    .sort((a, b) => {
+      const x = a[sort.key]
+      const y = b[sort.key]
+      const order = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y))
+      return order * (sort.dir === "asc" ? 1 : -1)
+    })
 
-  const filtered = enriched.filter((t) => {
-    if (!search) return true
-    const q = search.toLowerCase()
-    return (
-      t.id.toLowerCase().includes(q) ||
-      t.techStack.toLowerCase().includes(q) ||
-      t.scale.toLowerCase().includes(q) ||
-      t.description.toLowerCase().includes(q)
-    )
-  })
+  const selected = enriched.find((t) => t.id === selectedId) ?? null
+  // Keep showing the last project type while the panel slides away
+  const panelType = selected ?? enriched.find((t) => t.id === panelId) ?? null
+
+  const select = (id: string | null) => {
+    setSelectedId(id)
+    if (id) setPanelId(id)
+  }
+
+  const toggleSort = (key: SortKey) =>
+    setSort((s) => ({ key, dir: s.key === key && s.dir === "asc" ? "desc" : "asc" }))
+
+  const handleRefresh = () => {
+    setSpinning(true)
+    router.refresh()
+    setTimeout(() => setSpinning(false), 600)
+  }
 
   return (
-    <div className="p-5">
+    <div
+      className="px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
+      style={selected ? { paddingBottom: splitPanelPadding(panelHeight) } : undefined}
+    >
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <h1 className="text-[18px] font-light text-gray-900">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <h1 className="text-[24px] leading-[30px] font-bold">
           Project types{" "}
-          <span className="text-[15px] text-gray-500">({filtered.length})</span>
+          <span className="font-normal text-[#656871]">
+            ({selected ? `1/${enriched.length}` : enriched.length})
+          </span>
         </h1>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 text-[11px] text-gray-400">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-              <path d="M1 4v6h6M23 20v-6h-6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15" strokeLinecap="round" strokeLinejoin="round" />
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={handleRefresh}
+            aria-label="Refresh"
+            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]"
+          >
+            <svg
+              className={spinning ? "animate-spin" : ""}
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+              <path d="M21 4v5h-5" />
             </svg>
-            Last updated just now
-          </div>
-          <button className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded-full px-3 py-1.5 text-[13px] hover:bg-[#eaf4fb] transition-colors">
-            Project type finder
           </button>
-          <button className="flex items-center gap-1.5 bg-[#ff9900] hover:bg-[#e88a00] text-white rounded-full px-3 py-1.5 text-[13px] transition-colors font-medium">
+          <Link href={`/ec2/home?view=instance-type-finder&region=${selectedRegion}`} className={OUTLINE_BTN}>
+            Project type finder
+          </Link>
+          <button className={OUTLINE_BTN}>
             Actions
-            <svg width="9" height="6" viewBox="0 0 10 6" fill="currentColor">
-              <path d="M1 1l4 4 4-4" strokeLinecap="round" />
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+              <path d="M1 3h8L5 8z" />
             </svg>
           </button>
         </div>
       </div>
 
       {/* Search + pagination */}
-      <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
-        <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-lg px-3 h-8 w-72 shadow-sm">
-          <svg width="12" height="12" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0">
-            <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.75" />
-            <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+      <div className="flex items-center justify-between gap-4 mt-3 mb-2">
+        <div className="flex-1 max-w-[915px] flex items-center gap-2 h-8 px-3 border border-[#8c8c94] rounded-lg bg-white">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#424650" strokeWidth="2.5">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-5-5" />
           </svg>
           <input
             type="text"
             placeholder="Find project type by attribute"
+            aria-label="Find project type by attribute"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="text-[13px] flex-1 focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+            className="flex-1 min-w-0 text-sm placeholder:italic placeholder-[#656871] outline-none bg-transparent"
           />
         </div>
-        <div className="flex items-center gap-1 text-[13px] text-[#0073bb]">
-          <button className="px-2 py-0.5 hover:bg-gray-100 rounded-md text-gray-400">‹</button>
-          <button className="px-2 py-0.5 bg-white border border-[#0073bb] rounded-md font-medium">1</button>
-          <button className="px-2 py-0.5 hover:bg-gray-100 rounded-md text-gray-400">›</button>
+        <div className="flex items-center gap-4 text-[#424650]">
+          <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          <span className="font-bold text-[#0f141a]">1</span>
+          <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+          <span className="w-px h-8 bg-[#c6c6cd]" />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-x-auto">
-        <table className="w-full text-[13px]">
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="w-8 px-3 py-2.5">
-                <input type="checkbox" className="rounded" />
+            <tr className="border-b border-[#c6c6cd]">
+              <th className="w-12 px-4 py-1.5">
+                <span className="flex items-center h-5">
+                  <input
+                    type="checkbox"
+                    checked={!!selected}
+                    onChange={() => select(selected ? null : filtered[0]?.id ?? null)}
+                    aria-label="Toggle selection"
+                    className="block w-4 h-4 m-0 accent-[#006ce0]"
+                  />
+                </span>
               </th>
               {COLS.map((col) => (
-                <th key={col} className="text-left px-3 py-2.5 text-[12px] font-semibold text-gray-600 whitespace-nowrap">
-                  <span className="flex items-center gap-1">{col}<SortIcon /></span>
+                <th key={col.key} className="text-left py-1.5 font-bold text-[#424650]">
+                  <button
+                    onClick={() => toggleSort(col.key)}
+                    className="w-full flex items-center justify-between gap-3 px-4 py-0.5 border-l border-[#c6c6cd] font-bold whitespace-nowrap"
+                  >
+                    {col.label}
+                    <SortIcon dir={sort.key === col.key ? sort.dir : null} />
+                  </button>
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {filtered.map((t) => (
-              <tr key={t.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                <td className="px-3 py-2.5">
-                  <input type="checkbox" className="rounded" />
-                </td>
-                <td className="px-3 py-2.5">
-                  <div className="text-[#0073bb] font-medium">{t.id}</div>
-                  <div className="text-[11px] text-gray-400 mt-0.5">{t.description}</div>
-                </td>
-                <td className="px-3 py-2.5"><YesNoBadge value={t.openSource} /></td>
-                <td className="px-3 py-2.5"><YesNoBadge value={t.productionGrade} /></td>
-                <td className="px-3 py-2.5 text-gray-700 max-w-[200px]">
-                  <span className="leading-snug block">{t.techStack}</span>
-                </td>
-                <td className="px-3 py-2.5 text-gray-800 font-medium">
-                  {t.usersServed >= 1000
-                    ? `${(t.usersServed / 1000).toFixed(0)}k`
-                    : t.usersServed.toLocaleString()}
-                </td>
-                <td className="px-3 py-2.5 text-gray-700">{t.hoursSpent}h</td>
-                <td className="px-3 py-2.5">
-                  <span className="text-[12px] text-gray-600 bg-gray-50 border border-gray-200 rounded-full px-2 py-0.5 whitespace-nowrap">
-                    {t.scale}
-                  </span>
-                </td>
-              </tr>
-            ))}
+            {filtered.map((t) => {
+              const isSelected = t.id === selected?.id
+              return (
+                <tr
+                  key={t.id}
+                  className={
+                    isSelected
+                      ? "bg-[#f0fbff] outline outline-2 -outline-offset-2 outline-[#006ce0]"
+                      : "border-b border-[#ebebf0]"
+                  }
+                >
+                  <td className="w-12 px-4 py-2.5">
+                    <span className="flex items-center h-5">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => select(isSelected ? null : t.id)}
+                        aria-label={`Select ${t.id}`}
+                        className="block w-4 h-4 m-0 accent-[#006ce0]"
+                      />
+                    </span>
+                  </td>
+                  <td className="px-4 py-2.5 whitespace-nowrap">
+                    <button onClick={() => select(t.id)} className={LINK}>
+                      {t.id}
+                    </button>
+                  </td>
+                  <td className="px-4 py-2.5">{String(t.openSource)}</td>
+                  <td className="px-4 py-2.5">{String(t.productionGrade)}</td>
+                  <td className="px-4 py-2.5 whitespace-nowrap">{t.techStack}</td>
+                  <td className="px-4 py-2.5">{t.usersServed.toLocaleString("en-US")}</td>
+                  <td className="px-4 py-2.5">{t.hoursSpent.toLocaleString("en-US")}</td>
+                  <td className="px-4 py-2.5 whitespace-nowrap">{t.scale}</td>
+                </tr>
+              )
+            })}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-12 text-center text-gray-400 text-sm">
-                  {ec2Data.instances.filter((i) => i.region === selectedRegion).length === 0
+                <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-[#424650]">
+                  {regionInstances.length === 0
                     ? `No projects in the selected region (${selectedRegion}).`
                     : "No project types match your search."}
                 </td>
@@ -167,6 +271,83 @@ export default function EC2InstanceTypesView() {
           </tbody>
         </table>
       </div>
+
+      {/* Detail panel */}
+      {panelType && (
+        <EC2SplitPanel
+          title={`Project type: ${panelType.id}`}
+          open={!!selected}
+          height={panelHeight}
+          onResize={setPanelHeight}
+          onClose={() => select(null)}
+        >
+          <div className="flex flex-wrap border-b border-[#c6c6cd] mb-5">
+            {TABS.map((tab, i) => (
+              <div key={tab} className="flex items-center">
+                {i > 0 && <span className="w-px h-6 bg-[#c6c6cd]" />}
+                <button
+                  onClick={() => setActiveTab(tab)}
+                  className={`relative px-5 py-3 text-[16px] leading-5 font-bold whitespace-nowrap transition-colors ${
+                    activeTab === tab ? "text-[#006ce0]" : "text-[#424650] hover:text-[#006ce0]"
+                  }`}
+                >
+                  {tab}
+                  {activeTab === tab && <span className="absolute left-0 right-0 bottom-0 h-1 rounded-t bg-[#006ce0]" />}
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {activeTab === "Details" ? (
+            <dl className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-y-6">
+              {[
+                { label: "Project type", value: panelType.id },
+                { label: "Project family", value: panelType.id.split(".")[0] },
+                { label: "Project size", value: panelType.id.split(".")[1] ?? "–" },
+                { label: "Scale", value: panelType.scale },
+                { label: "Description", value: panelType.description },
+                { label: "Tech stack", value: panelType.techStack },
+                { label: "Open source", value: String(panelType.openSource) },
+                { label: "Production grade", value: String(panelType.productionGrade) },
+                { label: "Projects", value: String(panelType.projects.length) },
+                { label: "Users served", value: panelType.usersServed.toLocaleString("en-US") },
+                { label: "Hours spent", value: panelType.hoursSpent.toLocaleString("en-US") },
+              ].map((field, i) => (
+                <div key={field.label} className={`pr-5 ${i % 4 === 0 ? "" : "xl:pl-5 xl:border-l border-[#c6c6cd]"}`}>
+                  <CopyField label={field.label} value={field.value} />
+                </div>
+              ))}
+            </dl>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#c6c6cd]">
+                  <th className="text-left py-1.5 pr-4 font-bold text-[#424650]">Name</th>
+                  {["Project state", "Users served", "Hours spent"].map((col) => (
+                    <th key={col} className="text-left py-1.5 font-bold text-[#424650]">
+                      <span className="block px-4 border-l border-[#c6c6cd] whitespace-nowrap">{col}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {panelType.projects.map((p) => (
+                  <tr key={p.id} className="border-b border-[#ebebf0] last:border-b-0">
+                    <td className="py-2.5 pr-4">
+                      <Link href={`/ec2/home?view=instances&project=${p.id}&region=${selectedRegion}`} className={LINK}>
+                        {p.name}
+                      </Link>
+                    </td>
+                    <td className="px-4 py-2.5 capitalize">{p.status}</td>
+                    <td className="px-4 py-2.5">{p.metrics.usersServed.toLocaleString("en-US")}</td>
+                    <td className="px-4 py-2.5">{p.metrics.hoursSpent.toLocaleString("en-US")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </EC2SplitPanel>
+      )}
     </div>
   )
 }

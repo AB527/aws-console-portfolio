@@ -11,6 +11,7 @@ import NewsListWidget from "@/components/home/NewsListWidget"
 import announcements from "@/data/announcements.json"
 import blogPosts from "@/data/blog-posts.json"
 import site from "@/data/site.json"
+import { openSans } from "@/lib/awsFont"
 
 export const metadata: Metadata = { title: site.pageTitles.consoleHome }
 
@@ -26,7 +27,17 @@ const widgets: Record<string, React.ReactNode> = {
 
 export default function ConsolePage() {
   return (
-    <div className="min-h-screen bg-[#f2f3f3]">
+    <div className={`${openSans.className} min-h-screen bg-[#f9f9fa] text-[14px] leading-5 text-[#0f141a]`}>
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-6 py-3 bg-white border-b border-[#c6c6cd] text-[#424650]">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 11v6M12 7v.5" />
+        </svg>
+      </div>
       <ConsoleHomeHeader />
       <div className="px-6 pb-8">
         <Suspense fallback={<div className="text-sm text-gray-500 py-4">Loading dashboard...</div>}>
