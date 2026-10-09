@@ -8,8 +8,8 @@ export default function ConsoleHomeHeader() {
   return (
     <div className="flex items-center justify-between px-6 pt-4 pb-2">
       <div className="flex items-center gap-2">
-        <h1 className="text-[22px] font-light text-gray-900 tracking-tight">Console Home</h1>
-        <span className="text-[11px] text-[#0073bb] border border-[#0073bb] rounded px-1.5 py-px font-medium hover:bg-[#eaf4fb] cursor-pointer transition-colors">
+        <h1 className="text-[22px] font-light text-gray-900 tracking-tight">Console home</h1>
+        <span className="text-[13px] text-[#0073bb] hover:underline cursor-pointer font-medium leading-none">
           Info
         </span>
       </div>

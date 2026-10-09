@@ -1,0 +1,23 @@
+{
+  "footer": {
+    "label": "View all announcements",
+    "url": "https://github.com/AB527"
+  },
+  "items": [
+    {
+      "date": "2026-06-19",
+      "title": "Now live: AWS Console-style portfolio rebuilt on Next.js 16",
+      "link": "https://github.com/AB527"
+    },
+    {
+      "date": "2026-05-20",
+      "title": "Recognised in the CERT-In Hall of Fame for responsible vulnerability disclosure",
+      "link": ""
+    },
+    {
+      "date": "2026-04-12",
+      "title": "Indian Patent IN 589608 officially granted",
+      "link": ""
+    }
+  ]
+}

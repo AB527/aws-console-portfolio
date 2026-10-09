@@ -1,0 +1,24 @@
+{
+  "username": "AB527",
+  "profileUrl": "https://github.com/AB527",
+  "stats": [
+    {
+      "id": "repositories",
+      "label": "Public repositories",
+      "value": "24",
+      "caption": "All time"
+    },
+    {
+      "id": "contributions",
+      "label": "Contributions",
+      "value": "0",
+      "caption": "Past 7 days"
+    },
+    {
+      "id": "followers",
+      "label": "Followers",
+      "value": "38",
+      "caption": "Community"
+    }
+  ]
+}

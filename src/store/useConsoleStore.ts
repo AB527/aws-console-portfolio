@@ -42,6 +42,18 @@ function getDefaultLayout(): WidgetLayout[] {
   }))
 }
 
+const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max)
+
+function clampToConfig(w: WidgetLayout): WidgetLayout {
+  const config = dashboardLayout.widgets.find((c) => c.id === w.id)
+  if (!config) return w
+  return {
+    ...w,
+    colSpan: clamp(w.colSpan, config.minColSpan, config.maxColSpan),
+    rowSpan: clamp(w.rowSpan, config.minRowSpan, config.maxRowSpan),
+  }
+}
+
 export const useConsoleStore = create<ConsoleStore>()(
   persist(
     (set) => ({
@@ -85,6 +97,25 @@ export const useConsoleStore = create<ConsoleStore>()(
     }),
     {
       name: "aws-console-state",
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<ConsoleStore>
+        const defaults = getDefaultLayout()
+        const defaultIds = new Set(defaults.map((d) => d.id))
+
+        // Keep the user's arrangement, but drop widgets that no longer exist
+        // and append any newly added default widgets at the end.
+        const kept = (p.widgetLayout ?? [])
+          .filter((w) => defaultIds.has(w.id))
+          .map(clampToConfig)
+        const existingIds = new Set(kept.map((w) => w.id))
+        let nextOrder = kept.reduce((m, w) => Math.max(m, w.order), -1) + 1
+        const merged = [...kept]
+        for (const d of defaults) {
+          if (!existingIds.has(d.id)) merged.push({ ...d, order: nextOrder++ })
+        }
+
+        return { ...current, ...p, widgetLayout: merged }
+      },
       partialize: (state) => ({
         selectedRegion: state.selectedRegion,
         recentlyVisited: state.recentlyVisited,

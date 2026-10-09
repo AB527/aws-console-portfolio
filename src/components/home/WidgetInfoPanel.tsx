@@ -27,10 +27,10 @@ const WIDGET_INFO: Record<string, WidgetInfo> = {
   },
   "system-status": {
     description:
-      "Monitor the operational health of all portfolio services. A green indicator means the service is fully operational and available.",
+      "Track Atharva's open-source activity on GitHub at a glance — public repositories, recent contributions, and followers.",
     links: [
+      { label: "Visit GitHub profile", href: "https://github.com/AB527" },
       { label: "EC2 — Projects", href: "/ec2/home" },
-      { label: "S3 — Documents", href: "/s3/home" },
     ],
   },
   "achievements": {
@@ -48,11 +48,19 @@ const WIDGET_INFO: Record<string, WidgetInfo> = {
       { label: "Getting started", href: "/getting-started" },
     ],
   },
-  "explore": {
+  "announcements": {
     description:
-      "Dive into featured highlights, case studies, and areas of technical expertise that define Atharva's work.",
+      "Stay up to date with Atharva's latest milestones, recognitions, and project launches.",
     links: [
       { label: "View all projects", href: "/ec2/home" },
+      { label: "IAM — Skills & experience", href: "/iam/home" },
+    ],
+  },
+  "blog-posts": {
+    description:
+      "Read Atharva's recent write-ups and articles on DevOps, security, and cloud engineering.",
+    links: [
+      { label: "EC2 — Projects", href: "/ec2/home" },
       { label: "S3 — Documents", href: "/s3/home" },
     ],
   },
