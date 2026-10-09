@@ -5,7 +5,9 @@
     { "id": "compute.large", "description": "Production SaaS" },
     { "id": "compute.medium", "description": "Production Platform" },
     { "id": "iot.medium", "description": "IoT & Research" },
-    { "id": "dev.small", "description": "Developer Tools" }
+    { "id": "dev.small", "description": "Developer Tools" },
+    { "id": "ai.large", "description": "AI Platform" },
+    { "id": "web.medium", "description": "Event & Community Web" }
   ],
   "instanceTypeDetails": [
     {
@@ -47,6 +49,22 @@
       "productionGrade": false,
       "techStack": "Go · AWS CLI",
       "scale": "Open Source"
+    },
+    {
+      "id": "ai.large",
+      "description": "AIOps & FinOps Platform",
+      "openSource": false,
+      "productionGrade": true,
+      "techStack": "AI Agent · Sandboxed Containers",
+      "scale": "Multi-tenant"
+    },
+    {
+      "id": "web.medium",
+      "description": "Event & Community Web Platform",
+      "openSource": true,
+      "productionGrade": true,
+      "techStack": "Next.js · Node.js · PostgreSQL",
+      "scale": "Institutional"
     }
   ],
   "instances": [
@@ -72,7 +90,7 @@
       "status": "stopped",
       "instanceType": "compute.large",
       "techStack": "ECS Fargate + RDS + ElastiCache",
-      "region": "ap-south-17",
+      "region": "ap-south-1",
       "periodFrom": "2025-08-01",
       "periodTo": "2025-12-31",
       "tags": ["Flutter", "AWS", "Node.js", "PostgreSQL", "Cashfree"],
@@ -124,6 +142,36 @@
       "link": "https://github.com/AB527",
       "details": "CLI tool in Go to simplify and automate common AWS deployment tasks for EC2 instances and S3 buckets.",
       "metrics": { "hoursSpent": 100, "usersServed": 200, "scale": "Open Source" }
+    },
+    {
+      "id": "opencai",
+      "name": "OpenCAI — Open Cloud AI",
+      "description": "White-labelled AIOps/FinOps platform with an AI agent for cloud operations",
+      "status": "running",
+      "instanceType": "ai.large",
+      "techStack": "AI Agent + Sandboxed Containers",
+      "region": "ap-south-1",
+      "periodFrom": "2026-01-01",
+      "periodTo": "",
+      "tags": ["AIOps", "FinOps", "AI Agent", "Multi-tenant", "Sandboxed Containers"],
+      "link": "https://github.com/AB527",
+      "details": "OpenCAI (Open Cloud AI) is a white-labelled AIOps/FinOps platform where Administrators manage client organisations, their cloud workspaces and operator accounts. Operators chat with an AI agent that runs cloud-operations and cost-analysis commands for a chosen workspace, in sandboxed containers and only after the operator confirms them.",
+      "metrics": { "hoursSpent": 0, "usersServed": 0, "scale": "Multi-tenant" }
+    },
+    {
+      "id": "aarambh",
+      "name": "Aarambh — IIIT NR Sports Fest",
+      "description": "Official website for IIIT Naya Raipur's annual sports event",
+      "status": "running",
+      "instanceType": "web.medium",
+      "techStack": "Next.js + Node.js + PostgreSQL",
+      "region": "ap-south-17",
+      "periodFrom": "2024-10-18",
+      "periodTo": "",
+      "tags": ["Next.js", "Node.js", "Express", "PostgreSQL", "Prisma", "AWS Amplify"],
+      "link": "https://github.com/AB527/AARAMBH",
+      "details": "Website for Aarambh, the annual sports event at IIIT Naya Raipur, with live scores, event schedules, team standings and a photo gallery. Next.js frontend with a Node.js/Express API and PostgreSQL via Prisma; deployment config for AWS Amplify.",
+      "metrics": { "hoursSpent": 0, "usersServed": 0, "scale": "Institutional" }
     }
   ]
 }

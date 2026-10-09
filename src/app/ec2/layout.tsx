@@ -5,7 +5,7 @@ import { serviceTitle } from "@/lib/serviceTitle"
 function SidebarFallback() {
   return (
     <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200">
-      <div className="px-4 py-3 border-b border-gray-200">
+      <div className="px-4 py-3">
         <span className="text-[16px] font-bold text-gray-900">{serviceTitle("ec2")}</span>
       </div>
     </aside>

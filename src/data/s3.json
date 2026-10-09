@@ -1,5 +1,6 @@
 {
   "serviceId": "s3",
+  "owner": "19c46f0a9e46f706ab5cdc38b3a6f3f1f9ee477e9855bbacc53132d861d5796f",
   "buckets": [
     {
       "id": "internship-letters",
@@ -8,12 +9,13 @@
       "createdDate": "2026-05-01",
       "objects": [
         {
+          "id": "4b380fba-0dc5-40f5-8653-7d556690f26b",
           "key": "infobahn-offer-letter.pdf",
           "size": "245 KB",
           "lastModified": "2026-05-01",
           "type": "application/pdf",
           "storageClass": "Standard",
-          "url": ""
+          "etag": "faad595bdaa193984ff934b2dcef794d"
         }
       ]
     },
@@ -24,20 +26,40 @@
       "createdDate": "2025-01-01",
       "objects": [
         {
-          "key": "cert-in-hall-of-fame.pdf",
-          "size": "120 KB",
+          "id": "266c368c-6f4a-47cc-b978-197d7aed468d",
+          "key": "cert-in-hall-of-fame.jpeg",
+          "size": "146 KB",
           "lastModified": "2025-06-01",
-          "type": "application/pdf",
+          "type": "image/jpeg",
           "storageClass": "Standard",
-          "url": ""
+          "etag": "7e28975a8f2f671845ea3c868af6a948"
         },
         {
-          "key": "patent-IN589608.pdf",
-          "size": "95 KB",
-          "lastModified": "2026-05-01",
+          "id": "066a9090-caf3-4925-a0da-6868f44e4e01",
+          "key": "aws-certified-cloud-practitioner.pdf",
+          "size": "30 KB",
+          "lastModified": "2026-08-31",
           "type": "application/pdf",
           "storageClass": "Standard",
-          "url": ""
+          "etag": "4f0d5a0d83b6b78ba0700df57ccc7a3e"
+        },
+        {
+          "id": "b3f49b5c-8101-418d-8f66-cd7dda73341b",
+          "key": "aws-certified-ai-practitioner.pdf",
+          "size": "30 KB",
+          "lastModified": "2026-08-31",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "etag": "b35a57e998a9096f4756adfd6a8c2e85"
+        },
+        {
+          "id": "2f1bceb0-4f7e-4866-be92-fa289f92fba3",
+          "key": "aws-certified-solutions-architect-associate.pdf",
+          "size": "30 KB",
+          "lastModified": "2026-08-31",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "etag": "dd73797f82a2c816c541a67b655b983f"
         }
       ]
     },
@@ -48,20 +70,22 @@
       "createdDate": "2024-08-01",
       "objects": [
         {
+          "id": "0d4860cc-f1c4-4d32-ba74-3166360ed712",
           "key": "resume-cloud-2026.pdf",
-          "size": "180 KB",
+          "size": "169 KB",
           "lastModified": "2026-06-01",
           "type": "application/pdf",
           "storageClass": "Standard",
-          "url": ""
+          "etag": "6f5ba16cb3482b140d19c3000c2f91be"
         },
         {
+          "id": "c2de347c-a07c-41d6-94a5-96e940c2c596",
           "key": "resume-fullstack-2025.pdf",
           "size": "165 KB",
           "lastModified": "2025-12-01",
           "type": "application/pdf",
           "storageClass": "Standard",
-          "url": ""
+          "etag": "2dbd9b4991e313f522b9f604ccb0a1f2"
         }
       ]
     },
@@ -72,12 +96,13 @@
       "createdDate": "2026-05-01",
       "objects": [
         {
+          "id": "f04efa20-11f5-4b6c-872d-6d4abeb4f411",
           "key": "patent-grant-IN589608.pdf",
-          "size": "210 KB",
+          "size": "2.3 MB",
           "lastModified": "2026-05-01",
           "type": "application/pdf",
           "storageClass": "Standard",
-          "url": ""
+          "etag": "ae99af00b521af37b962c37bd2aeddba"
         }
       ]
     }

@@ -15,12 +15,12 @@
     {
       "id": "services-map",
       "heading": "Service mapping",
-      "body": "EC2 → Projects (production systems). S3 → Documents (resumes, certs). IAM → Skills (groups = skill categories, users = work experiences). CloudWatch → Activity. CloudTrail → Experience timeline."
+      "body": "EC2 → Projects (production systems). S3 → Documents (resumes, certs). IAM → Skills (groups = skill categories, users = work experiences). CloudTrail → Experience timeline."
     },
     {
       "id": "regions",
       "heading": "Regions",
-      "body": "Global services (IAM, S3, VPC) are available in both regions. Region-specific services (EC2, CloudWatch, CloudTrail) will show a 'not available in this region' state if accessed from the wrong region."
+      "body": "Global services (IAM, S3, VPC, CloudTrail) are available in both regions. Region-specific services (EC2) will show a 'not available in this region' state if accessed from the wrong region."
     }
   ]
 }

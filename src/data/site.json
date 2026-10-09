@@ -13,11 +13,19 @@
     "iamSkills": "All skills | Skills",
     "iamUsers": "Role history | Skills",
     "ec2": "Projects",
+    "cloudtrail": "Experience",
+    "cloudtrailEvents": "Event history | Experience",
+    "cloudtrailTrails": "Trails | Experience",
+    "vpc": "Connect",
+    "vpcVpcs": "Your Connects | Connect",
+    "vpcSubnets": "Subnets | Connect",
+    "vpcRouteTables": "Route tables | Connect",
     "privacy": "Privacy Notice",
     "terms": "Terms of Use"
   },
   "detailTitles": {
     "s3": "%s | Documents",
-    "iam": "%s | Skills"
+    "iam": "%s | Skills",
+    "vpc": "%s | Connect"
   }
 }

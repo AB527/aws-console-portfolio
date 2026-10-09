@@ -1,0 +1,59 @@
+{
+  "serviceId": "vpc",
+  "ownerId": "9820173314",
+  "region": "ap-south-1",
+  "vpc": {
+    "id": "connect-0d37e8a9e1f987113",
+    "name": "atharva-bedekar",
+    "state": "Available",
+    "cidr": "10.0.0.0/16"
+  },
+  "subnets": [
+    {
+      "id": "subnet-0024b6d4da0705d96",
+      "name": "social-media",
+      "state": "Available",
+      "cidr": "10.0.1.0/24"
+    },
+    {
+      "id": "subnet-089cd33f39e7b6de5",
+      "name": "email",
+      "state": "Available",
+      "cidr": "10.0.2.0/24"
+    },
+    {
+      "id": "subnet-0aad1cd14915584ea",
+      "name": "website",
+      "state": "Available",
+      "cidr": "10.0.3.0/24"
+    }
+  ],
+  "routeTables": [
+    {
+      "id": "rtb-078caff0ad454aef3",
+      "name": "social-media-rtb",
+      "subnetId": "subnet-0024b6d4da0705d96",
+      "routes": [
+        { "destination": "linkedin", "target": "linkedin.com/in/atharva-bedekar", "url": "https://www.linkedin.com/in/atharva-bedekar" },
+        { "destination": "github", "target": "github.com/AB527", "url": "https://github.com/AB527" },
+        { "destination": "medium", "target": "medium.com/@atharvabedekar527", "url": "https://medium.com/@atharvabedekar527" }
+      ]
+    },
+    {
+      "id": "rtb-0fea9d8d35afd6aba",
+      "name": "email-rtb",
+      "subnetId": "subnet-089cd33f39e7b6de5",
+      "routes": [
+        { "destination": "gmail", "target": "atharvabedekar527@gmail.com", "url": "mailto:atharvabedekar527@gmail.com" }
+      ]
+    },
+    {
+      "id": "rtb-02f6fea1e9d668aa7",
+      "name": "website-rtb",
+      "subnetId": "subnet-0aad1cd14915584ea",
+      "routes": [
+        { "destination": "portfolio", "target": "atharvabedekar.dev", "url": "https://atharvabedekar.dev" }
+      ]
+    }
+  ]
+}

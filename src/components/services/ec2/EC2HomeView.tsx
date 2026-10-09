@@ -18,7 +18,7 @@ export default function EC2HomeView() {
     { label: "GitHub", value: 1, href: "https://github.com/AB527", external: true },
     { label: "Users served", value: totalUsers >= 1000 ? `${Math.round(totalUsers / 1000)}k+` : totalUsers, href: `/ec2/home?view=instances&region=${selectedRegion}` },
     { label: "Projects (stopped)", value: stopped, href: `/ec2/home?view=instances&region=${selectedRegion}` },
-    { label: "Instance types", value: typesInRegion, href: `/ec2/home?view=instance-types&region=${selectedRegion}` },
+    { label: "Project types", value: typesInRegion, href: `/ec2/home?view=instance-types&region=${selectedRegion}` },
     { label: "Regions active", value: 2, href: "/" },
     { label: "Tech companies", value: 3, href: "/iam/users" },
     { label: "Open source repos", value: 1, href: "https://github.com/AB527", external: true },
@@ -178,9 +178,9 @@ export default function EC2HomeView() {
         </section>
       </div>
 
-      {/* Instance alarms */}
+      {/* Project alarms */}
       <section className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
-        <h2 className="text-[14px] font-semibold text-gray-900 mb-3">Instance alarms</h2>
+        <h2 className="text-[14px] font-semibold text-gray-900 mb-3">Project alarms</h2>
         <div className="flex items-center gap-4">
           <a
             href="https://www.linkedin.com/in/atharva-bedekar/"
