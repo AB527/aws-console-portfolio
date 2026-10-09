@@ -18,7 +18,7 @@ export default async function S3Page() {
         <S3SubSidebar title={s3Service?.title} />
 
         {/* Main content */}
-        <div className="flex-1 min-w-0 px-6 py-5">
+        <div className="flex-1 min-w-0 px-4 lg:px-6 py-5">
           {/* Header, tabs and buckets table */}
           <BucketsList />
         </div>

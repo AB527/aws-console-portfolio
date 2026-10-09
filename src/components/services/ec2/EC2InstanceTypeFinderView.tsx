@@ -133,7 +133,7 @@ export default function EC2InstanceTypeFinderView() {
     : []
 
   return (
-    <div className="px-6 py-5 text-[14px] leading-5 text-[#0f141a]">
+    <div className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]">
       <h1 className="text-[24px] leading-[30px] font-bold">Project type finder</h1>
 
       <section className="mt-5 px-5 py-5 bg-white rounded-2xl border border-[#c6c6cd]">

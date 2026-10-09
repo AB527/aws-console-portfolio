@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
+import { useConsoleStore } from "@/store/useConsoleStore"
+import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS, mobileDrawerClass } from "@/components/ui/SidebarIcons"
 
 const NAV_SECTIONS = [
   {
@@ -13,6 +14,7 @@ const NAV_SECTIONS = [
 
 export default function S3SubSidebar({ title }: { title?: string }) {
   const [collapsed, setCollapsed] = useState(false)
+  const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(
     Object.fromEntries(NAV_SECTIONS.map((s) => [s.heading, true]))
   )
@@ -35,7 +37,7 @@ export default function S3SubSidebar({ title }: { title?: string }) {
   }
 
   return (
-    <aside className="w-[232px] shrink-0 bg-white border-r border-gray-200 hidden lg:block">
+    <aside className={`w-[232px] shrink-0 bg-white border-r border-gray-200 ${mobileDrawerClass(mobileNavOpen)}`}>
       <div className="flex items-center justify-between px-4 py-3">
         <span className="text-lg font-bold text-gray-900">{title}</span>
         <button

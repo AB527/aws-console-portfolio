@@ -51,7 +51,7 @@ export default function EC2SplitPanel({
     <section
       aria-hidden={!open}
       style={{ height: height ?? `${PANEL_DEFAULT_VH * 100}vh` }}
-      className={`fixed left-[280px] right-0 bottom-[32px] z-20 bg-white border-t border-gray-300 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] flex flex-col transition-transform duration-300 ease-out ${
+      className={`fixed left-0 lg:left-[280px] right-0 bottom-[32px] z-20 bg-white border-t border-gray-300 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] flex flex-col transition-transform duration-300 ease-out ${
         open ? "translate-y-0" : "translate-y-[calc(100%+32px)]"
       }`}
     >

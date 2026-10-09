@@ -67,7 +67,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
   const router = useRouter()
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const [search, setSearch] = useState("")
-  const [selectedId, setSelectedId] = useState<string | null>(activeType)
+  const [selectedIds, setSelectedIds] = useState<string[]>(activeType ? [activeType] : [])
   const [panelId, setPanelId] = useState<string | null>(activeType)
   const [panelHeight, setPanelHeight] = useState<number | null>(null)
   const [activeTab, setActiveTab] = useState(TABS[0])
@@ -99,13 +99,21 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
       return order * (sort.dir === "asc" ? 1 : -1)
     })
 
-  const selected = enriched.find((t) => t.id === selectedId) ?? null
+  const selectedRows = enriched.filter((t) => selectedIds.includes(t.id))
+  // The detail panel only applies when exactly one project type is selected
+  const selected = selectedRows.length === 1 ? selectedRows[0] : null
+  const allSelected = filtered.length > 0 && filtered.every((t) => selectedIds.includes(t.id))
   // Keep showing the last project type while the panel slides away
   const panelType = selected ?? enriched.find((t) => t.id === panelId) ?? null
 
   const select = (id: string | null) => {
-    setSelectedId(id)
+    setSelectedIds(id ? [id] : [])
     if (id) setPanelId(id)
+  }
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]))
+    setPanelId(id)
   }
 
   const toggleSort = (key: SortKey) =>
@@ -119,7 +127,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
 
   return (
     <div
-      className="px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
+      className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
       style={selected ? { paddingBottom: splitPanelPadding(panelHeight) } : undefined}
     >
       {/* Header */}
@@ -127,7 +135,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
         <h1 className="text-[24px] leading-[30px] font-bold">
           Project types{" "}
           <span className="font-normal text-[#656871]">
-            ({selected ? `1/${enriched.length}` : enriched.length})
+            ({selectedRows.length ? `${selectedRows.length}/${enriched.length}` : enriched.length})
           </span>
         </h1>
         <div className="flex items-center gap-2 flex-wrap">
@@ -202,9 +210,10 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                 <span className="flex items-center h-5">
                   <input
                     type="checkbox"
-                    checked={!!selected}
-                    onChange={() => select(selected ? null : filtered[0]?.id ?? null)}
-                    aria-label="Toggle selection"
+                    checked={allSelected}
+                    ref={(el) => { if (el) el.indeterminate = selectedRows.length > 0 && !allSelected }}
+                    onChange={() => setSelectedIds(selectedRows.length ? [] : filtered.map((t) => t.id))}
+                    aria-label="Select all project types"
                     className="block w-4 h-4 m-0 accent-[#006ce0]"
                   />
                 </span>
@@ -224,7 +233,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
           </thead>
           <tbody>
             {filtered.map((t) => {
-              const isSelected = t.id === selected?.id
+              const isSelected = selectedIds.includes(t.id)
               return (
                 <tr
                   key={t.id}
@@ -239,7 +248,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        onChange={() => select(isSelected ? null : t.id)}
+                        onChange={() => toggleSelect(t.id)}
                         aria-label={`Select ${t.id}`}
                         className="block w-4 h-4 m-0 accent-[#006ce0]"
                       />

@@ -21,6 +21,10 @@ interface ConsoleStore {
   hiddenWidgets: string[]
   cloudShellOpen: boolean
   notificationsRead: boolean
+  mobileNavOpen: boolean
+  amazonQOpen: boolean
+  setAmazonQOpen: (open: boolean) => void
+  setMobileNavOpen: (open: boolean) => void
   setRegion: (r: "ap-south-1" | "ap-south-17") => void
   visitService: (id: string) => void
   setWidgetLayout: (layout: WidgetLayout[]) => void
@@ -65,6 +69,12 @@ export const useConsoleStore = create<ConsoleStore>()(
       hiddenWidgets: [],
       cloudShellOpen: false,
       notificationsRead: false,
+      mobileNavOpen: false,
+      amazonQOpen: false,
+
+      setAmazonQOpen: (open) => set({ amazonQOpen: open }),
+
+      setMobileNavOpen: (open) => set({ mobileNavOpen: open }),
 
       setRegion: (r) => set({ selectedRegion: r }),
 

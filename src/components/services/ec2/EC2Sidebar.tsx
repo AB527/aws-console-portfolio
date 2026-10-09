@@ -4,7 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { serviceTitle } from "@/lib/serviceTitle"
-import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
+import { useConsoleStore } from "@/store/useConsoleStore"
+import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS, mobileDrawerClass } from "@/components/ui/SidebarIcons"
 
 function NavLink({
   href,
@@ -32,6 +33,7 @@ export default function EC2Sidebar() {
   const searchParams = useSearchParams()
   const view = searchParams.get("view")
   const [instancesOpen, setInstancesOpen] = useState(true)
+  const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
 
   const isDashboard = pathname === "/ec2/home" && !view
   const isInstances = view === "instances"
@@ -41,7 +43,7 @@ export default function EC2Sidebar() {
   const regionParam = region ? `?region=${region}` : ""
 
   return (
-    <aside className="w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col text-[#0f141a]">
+    <aside className={`w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col text-[#0f141a] ${mobileDrawerClass(mobileNavOpen)}`}>
       {/* Service header */}
       <div className="flex items-center justify-between pl-7 pr-4 pt-5 pb-3">
         <span className="text-[20px] leading-6 font-bold">{serviceTitle("ec2")}</span>

@@ -75,24 +75,25 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
     return () => document.removeEventListener("mousedown", handler)
   }, [])
 
-  const style: React.CSSProperties = {
+  // Spans are applied from lg up via CSS variables so phones get a single column
+  const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    gridColumn: `span ${layout.colSpan}`,
-    gridRow: `span ${layout.rowSpan}`,
+    "--col": layout.colSpan,
+    "--row": layout.rowSpan,
     opacity: isDragging ? 0.45 : 1,
-  }
+  } as React.CSSProperties
 
   return (
-    <div ref={setNodeRef} style={style} className="relative group min-h-[160px]">
+    <div ref={setNodeRef} style={style} className="relative group min-h-[160px] min-w-0 lg:[grid-column:span_var(--col)] lg:[grid-row:span_var(--row)]">
       <div className="bg-white border border-[#c6c6cd] h-full flex flex-col overflow-hidden rounded-2xl">
         {/* Widget header */}
-        <div className="flex items-center gap-2 pl-3 pr-4 pt-4 pb-3 shrink-0">
+        <div className="flex items-center gap-2 pl-5 lg:pl-3 pr-4 pt-4 pb-3 shrink-0">
           {/* Drag handle */}
           <button
             {...listeners}
             {...attributes}
-            className="text-[#424650] hover:text-[#0f141a] cursor-grab active:cursor-grabbing select-none p-1 shrink-0"
+            className="hidden lg:block text-[#424650] hover:text-[#0f141a] cursor-grab active:cursor-grabbing select-none p-1 shrink-0"
             title="Drag to reorder"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" aria-hidden="true">
@@ -154,7 +155,7 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
         {/* Resize handle */}
         <button
           onClick={onResize}
-          className="absolute bottom-2 right-2 text-[#424650] hover:text-[#006ce0]"
+          className="hidden lg:block absolute bottom-2 right-2 text-[#424650] hover:text-[#006ce0]"
           title="Resize widget"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
@@ -218,7 +219,7 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
     <div className="flex gap-4 items-start">
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={visibleWidgets.map((w) => w.id)} strategy={rectSortingStrategy}>
-          <div className="flex-1 min-w-0 grid grid-cols-4 gap-5 pb-10" style={{ gridAutoRows: "minmax(170px, auto)" }}>
+          <div className="flex-1 min-w-0 grid grid-cols-1 lg:grid-cols-4 gap-5 pb-10" style={{ gridAutoRows: "minmax(170px, auto)" }}>
             {visibleWidgets.map((w) => (
               <SortableWidget
                 key={w.id}
@@ -237,7 +238,7 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
       </DndContext>
 
       {infoWidgetId && (
-        <div className="w-[300px] shrink-0 sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto">
+        <div className="w-[300px] shrink-0 sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto max-lg:fixed max-lg:inset-x-0 max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:max-h-none max-lg:bg-white">
           <WidgetInfoPanel
             widgetId={infoWidgetId}
             title={WIDGET_TITLES[infoWidgetId] ?? infoWidgetId}

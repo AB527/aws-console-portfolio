@@ -63,7 +63,7 @@ export default function EC2HomeView() {
   }
 
   return (
-    <div className="px-6 py-5 flex gap-6 items-start flex-wrap xl:flex-nowrap text-[14px] leading-5 text-[#0f141a]">
+    <div className="px-4 lg:px-6 py-5 flex gap-6 items-start flex-wrap xl:flex-nowrap text-[14px] leading-5 text-[#0f141a]">
       <div className="flex-1 min-w-0 basis-full xl:basis-0 space-y-6">
         {/* Resources */}
         <section className={`${CARD} px-5 py-5`}>

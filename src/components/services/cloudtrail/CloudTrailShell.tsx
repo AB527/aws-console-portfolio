@@ -5,7 +5,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { serviceTitle } from "@/lib/serviceTitle"
 import { openSans } from "@/lib/awsFont"
-import { SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
+import { SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS, mobileDrawerClass } from "@/components/ui/SidebarIcons"
+import { useConsoleStore } from "@/store/useConsoleStore"
+import MobileNavToggle from "@/components/layout/MobileNavToggle"
 
 const NAV = [
   { href: "/cloudtrail/home", label: "Dashboard" },
@@ -16,6 +18,7 @@ const NAV = [
 export default function CloudTrailShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const title = serviceTitle("cloudtrail")
   const current = NAV.find((n) => n.href === pathname) ?? NAV[0]
 
@@ -25,11 +28,7 @@ export default function CloudTrailShell({ children }: { children: React.ReactNod
     >
       {/* Breadcrumb bar */}
       <div className="flex items-center gap-3 px-4 py-2.5 bg-white border-b border-[#c6c6cd] text-[16px]">
-        <span className="w-8 h-8 flex items-center justify-center rounded-full bg-[#006ce0] text-white">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          </svg>
-        </span>
+        <MobileNavToggle />
         <Link href="/cloudtrail/home" className="text-[#006ce0] underline underline-offset-4">
           {title}
         </Link>
@@ -47,7 +46,7 @@ export default function CloudTrailShell({ children }: { children: React.ReactNod
             </button>
           </aside>
         ) : (
-          <aside className="w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] hidden lg:block">
+          <aside className={`w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] ${mobileDrawerClass(mobileNavOpen)}`}>
             <div className="flex items-center justify-between pl-7 pr-4 pt-5 pb-3">
               <span className="text-[20px] leading-6 font-bold">{title}</span>
               <button onClick={() => setCollapsed(true)} aria-label="Collapse sidebar" className={SIDEBAR_CLOSE_BUTTON_CLASS}>
@@ -69,7 +68,7 @@ export default function CloudTrailShell({ children }: { children: React.ReactNod
             </nav>
           </aside>
         )}
-        <main className="flex-1 min-w-0 px-6 py-5">{children}</main>
+        <main className="flex-1 min-w-0 px-4 lg:px-6 py-5">{children}</main>
       </div>
     </div>
   )

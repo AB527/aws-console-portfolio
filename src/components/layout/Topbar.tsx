@@ -8,6 +8,7 @@ import AccountDropdown from "./AccountDropdown"
 import NotificationsDropdown from "./NotificationsDropdown"
 import HelpDropdown from "./HelpDropdown"
 import SearchBar from "./SearchBar"
+import MobileMoreMenu from "./MobileMoreMenu"
 import regionsData from "@/data/regions.json"
 import notificationsData from "@/data/notifications.json"
 
@@ -46,7 +47,7 @@ function RegionDropdown({
   const [tab, setTab] = useState<"regions" | "local-zones">("regions")
 
   return (
-    <div className="absolute right-0 top-full mt-0 w-[300px] bg-[#1a2332] border border-[#2d3f52] rounded-b-xl overflow-hidden shadow-2xl z-50 flex flex-col">
+    <div className="absolute right-0 top-full mt-0 w-[300px] max-md:static max-md:w-full max-md:rounded-none max-md:shadow-none max-md:border-0 max-md:bg-transparent bg-[#1a2332] border border-[#2d3f52] rounded-b-xl overflow-hidden shadow-2xl z-50 flex flex-col">
       {/* Tab switcher */}
       <div className="flex items-center gap-0 px-3 pt-3 pb-2">
         <button
@@ -126,6 +127,8 @@ function TopbarInner() {
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const setRegion = useConsoleStore((s) => s.setRegion)
   const setCloudShellOpen = useConsoleStore((s) => s.setCloudShellOpen)
+  const amazonQOpen = useConsoleStore((s) => s.amazonQOpen)
+  const setAmazonQOpen = useConsoleStore((s) => s.setAmazonQOpen)
   const notificationsRead = useConsoleStore((s) => s.notificationsRead)
   const markNotificationsRead = useConsoleStore((s) => s.markNotificationsRead)
 
@@ -135,6 +138,7 @@ function TopbarInner() {
   const [notifOpen, setNotifOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
   const [pwaOpen, setPwaOpen] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
 
   const settingsRef = useRef<HTMLDivElement>(null)
   const regionRef = useRef<HTMLDivElement>(null)
@@ -157,6 +161,7 @@ function TopbarInner() {
   function handleRegionChange(r: RegionId) {
     setRegion(r)
     setRegionOpen(false)
+    setMoreOpen(false)
     const params = new URLSearchParams(searchParams.toString())
     params.set("region", r)
     router.replace(`${pathname}?${params.toString()}`)
@@ -175,19 +180,19 @@ function TopbarInner() {
         <img src="/icons/navbar.png" alt="AWS" className="h-[22px] w-auto" />
       </a>
 
-      <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0" />
+      <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />
 
       {/* Amazon Q */}
-      <button className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0" title="Amazon Q">
-        <span className="h-[24px] w-[24px] rounded-[6px] bg-gradient-to-br from-[#3b5bf5] to-[#7b3ff2] flex items-center justify-center">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-            <circle cx="11" cy="11" r="7" stroke="white" strokeWidth="2.4" />
-            <path d="M13 13l5 5" stroke="white" strokeWidth="2.4" strokeLinecap="round" />
-          </svg>
-        </span>
+      <button
+        onClick={() => { setMoreOpen(false); setAmazonQOpen(!amazonQOpen) }}
+        aria-expanded={amazonQOpen}
+        className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0"
+        title="Amazon Q"
+      >
+        <img src="/icons/amazon-q.png" alt="" className="h-[24px] w-[24px]" />
       </button>
 
-      <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0" />
+      <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />
 
       {/* Grid icon */}
       <button className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0 text-gray-300 hover:text-[#539fe5]">
@@ -205,15 +210,17 @@ function TopbarInner() {
       </button>
 
       {/* Search */}
-      <div className="flex-1 px-3 min-w-0">
+      <div className="flex-1 flex max-md:justify-end px-1.5 md:px-3 min-w-0">
         <SearchBar />
       </div>
 
       {/* Right side */}
       <div className="flex items-center h-full shrink-0">
+        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 md:hidden" />
+
         {/* CloudShell */}
         <button
-          onClick={() => setCloudShellOpen(true)}
+          onClick={() => { setMoreOpen(false); setCloudShellOpen(true) }}
           className="flex items-center justify-center h-full w-[38px] text-gray-300 hover:text-[#539fe5] transition-colors"
           title="CloudShell"
         >
@@ -250,8 +257,20 @@ function TopbarInner() {
 
         <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5" />
 
+        {/* More menu (phones) */}
+        <button
+          onClick={() => setMoreOpen((o) => !o)}
+          aria-expanded={moreOpen}
+          className={`md:hidden flex items-center gap-1.5 h-full pl-1.5 pr-3 text-[14px] transition-colors ${moreOpen ? "text-[#539fe5]" : "text-gray-200"}`}
+        >
+          More
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="currentColor" aria-hidden="true">
+            <path d="M0 0h10L5 7z" />
+          </svg>
+        </button>
+
         {/* Help */}
-        <div ref={helpRef} className="relative h-full">
+        <div ref={helpRef} className="relative h-full hidden md:block">
           <button
             onClick={() => setHelpOpen((o) => !o)}
             className={`flex items-center justify-center h-full w-[38px] transition-colors ${helpOpen ? "text-[#539fe5]" : "text-gray-300 hover:text-[#539fe5]"}`}
@@ -266,10 +285,10 @@ function TopbarInner() {
           {helpOpen && <HelpDropdown />}
         </div>
 
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5" />
+        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 hidden md:block" />
 
         {/* Settings */}
-        <div ref={settingsRef} className="relative h-full">
+        <div ref={settingsRef} className="relative h-full hidden md:block">
           <button
             onClick={() => setSettingsOpen((o) => !o)}
             className={`flex items-center justify-center h-full w-[38px] transition-colors ${settingsOpen ? "text-[#539fe5]" : "text-gray-300 hover:text-[#539fe5]"}`}
@@ -283,15 +302,16 @@ function TopbarInner() {
           {settingsOpen && <SettingsDropdown />}
         </div>
 
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5" />
+        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 hidden md:block" />
 
         {/* Region dropdown */}
-        <div ref={regionRef} className="relative h-full">
+        <div ref={regionRef} className="relative h-full hidden md:block">
           <button
             onClick={() => setRegionOpen((o) => !o)}
-            className={`flex items-center gap-1 h-full px-3 text-[13px] text-gray-200 hover:text-white transition-colors ${regionOpen ? "bg-[#37475a]" : "hover:bg-[#37475a]"}`}
+            className={`flex items-center gap-1 h-full px-2 md:px-3 text-[13px] text-gray-200 hover:text-white transition-colors ${regionOpen ? "bg-[#37475a]" : "hover:bg-[#37475a]"}`}
           >
-            <span>{regionLabel}</span>
+            <span className="hidden md:inline">{regionLabel}</span>
+            <span className="md:hidden">{activeRegion?.city ?? selectedRegion}</span>
             <ChevronDown />
           </button>
           {regionOpen && (
@@ -303,16 +323,16 @@ function TopbarInner() {
         </div>
 
         {/* Account dropdown */}
-        <div ref={accountRef} className="relative h-full">
+        <div ref={accountRef} className="relative h-full hidden md:block">
           <button
             onClick={() => setAccountOpen((o) => !o)}
             className="group flex flex-col items-end h-full"
           >
-            <span className={`flex items-center gap-2 rounded-b-md px-5 py-0.5 text-[11px] font-semibold text-[#1b242e] transition-colors ${accountOpen ? "bg-[#8b96a3]" : "bg-[#7d8998] group-hover:bg-[#8b96a3]"}`}>
-              Atharva Bedekar (9820173314)
+            <span className={`flex items-center gap-2 rounded-b-md px-2 md:px-5 py-0.5 text-[11px] font-semibold text-[#1b242e] transition-colors ${accountOpen ? "bg-[#8b96a3]" : "bg-[#7d8998] group-hover:bg-[#8b96a3]"}`}>
+              <span className="max-md:max-w-[72px] truncate">Atharva Bedekar (9820173314)</span>
               <ChevronDown />
             </span>
-            <span className="text-[11px] text-white leading-none pt-1.5 pr-5">Atharva Bedekar</span>
+            <span className="hidden md:block text-[11px] text-white leading-none pt-1.5 pr-5">Atharva Bedekar</span>
           </button>
           {accountOpen && (
             <AccountDropdown
@@ -322,6 +342,23 @@ function TopbarInner() {
           )}
         </div>
       </div>
+
+      {moreOpen && (
+        <MobileMoreMenu
+          regionLabel={regionLabel}
+          sections={{
+            account: (
+              <AccountDropdown
+                onClose={() => setMoreOpen(false)}
+                onInstallApp={() => setPwaOpen(true)}
+              />
+            ),
+            regions: <RegionDropdown selectedRegion={selectedRegion} onSelect={handleRegionChange} />,
+            settings: <SettingsDropdown />,
+            help: <HelpDropdown />,
+          }}
+        />
+      )}
 
       {/* PWA install dialog */}
       {pwaOpen && (

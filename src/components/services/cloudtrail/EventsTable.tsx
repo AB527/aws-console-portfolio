@@ -10,7 +10,7 @@ const ATTRIBUTES: { key: Attribute; label: string }[] = [
   { key: "name", label: "Event name" },
   { key: "userName", label: "User name" },
   { key: "source", label: "Event source" },
-  { key: "region", label: "AWS Region" },
+  { key: "region", label: "AB Region" },
 ]
 
 type SortKey = Attribute | "time"
@@ -19,7 +19,7 @@ const COLUMNS: { key: SortKey; label: string }[] = [
   { key: "time", label: "Event time" },
   { key: "userName", label: "User name" },
   { key: "source", label: "Event source" },
-  { key: "region", label: "AWS Region" },
+  { key: "region", label: "AB Region" },
 ]
 
 function SortIcon({ dir }: { dir: "asc" | "desc" | null }) {
