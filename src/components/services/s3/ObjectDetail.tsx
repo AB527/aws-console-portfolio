@@ -23,7 +23,7 @@ export default function ObjectDetail({ bucketId, bucketName, obj }: ObjectDetail
         items={[
           { label: "S3", href: "/s3/home" },
           { label: "Buckets", href: "/s3/home" },
-          { label: bucketName, href: `/s3/home/${bucketId}` },
+          { label: bucketName, href: `/s3/buckets/${bucketId}` },
           { label: obj.key },
         ]}
       />

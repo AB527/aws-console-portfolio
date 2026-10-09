@@ -1,44 +1,42 @@
 import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
 import BucketsList from "@/components/services/s3/BucketsList"
-import s3Data from "@/data/s3.json"
+import S3SubSidebar from "@/components/services/s3/S3SubSidebar"
+import services from "@/data/services.json"
+
+const s3Service = services.find((s) => s.id === "s3")
 
 export default async function S3Page() {
   return (
     <>
       <ServiceVisitor serviceId="s3" />
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-xl font-semibold text-gray-900">S3 — Documents</h1>
-            <p className="text-sm text-gray-500 mt-0.5">Resumes, letters, certifications</p>
-          </div>
-          <span className="text-xs bg-[#e8f5e3] text-[#3F8624] border border-[#b2d9a0] rounded px-2.5 py-1 font-medium">
-            Global
-          </span>
-        </div>
+      <div className="flex bg-[#f2f3f3] min-h-[calc(100vh-56px)]">
+        {/* S3 sub-sidebar */}
+        <S3SubSidebar title={s3Service?.title} />
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 border-l-4 border-l-[#3F8624]">
-            <p className="text-xs text-gray-500 font-medium">Total Buckets</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">{s3Data.buckets.length}</p>
+        {/* Main content */}
+        <div className="flex-1 min-w-0 px-6 py-5 [&_*]:font-bold">
+          {/* Page header */}
+          <div className="flex items-start justify-between mb-4">
+            <h1 className="text-2xl font-semibold text-gray-900">Buckets</h1>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#687078" strokeWidth="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4M12 8h.01" />
+            </svg>
           </div>
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 border-l-4 border-l-[#0073bb]">
-            <p className="text-xs text-gray-500 font-medium">Total Objects</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">
-              {s3Data.buckets.reduce((s, b) => s + b.objects.length, 0)}
-            </p>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 border-l-4 border-l-[#ff9900]">
-            <p className="text-xs text-gray-500 font-medium">Regions</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">
-              {new Set(s3Data.buckets.map((b) => b.region)).size}
-            </p>
-          </div>
-        </div>
 
-        <h2 className="text-sm font-semibold text-gray-700 mb-3">General Purpose Buckets</h2>
-        <BucketsList />
+          {/* Tabs */}
+          <div className="flex items-center gap-6 border-b border-gray-200 mb-5">
+            <div className="flex items-center gap-2 pb-2 -mb-px border-b-[3px] border-[#0073bb]">
+              <span className="text-sm font-semibold text-[#0073bb]">General purpose buckets</span>
+              <span className="text-[11px] font-medium text-white bg-[#545b64] rounded px-1.5 py-0.5">
+                All AWS Regions
+              </span>
+            </div>
+          </div>
+
+          {/* Buckets table */}
+          <BucketsList />
+        </div>
       </div>
     </>
   )

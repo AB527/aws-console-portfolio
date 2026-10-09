@@ -18,7 +18,7 @@ export default function RecentlyVisitedWidget() {
           No recently visited services.
         </p>
         <div className="border-t border-gray-100 pt-2 text-center">
-          <Link href="/getting-started" className="text-[13px] font-semibold text-[#0073bb] hover:underline">
+          <Link href="/console/services" className="text-[13px] font-semibold text-[#0073bb] hover:underline">
             View all services
           </Link>
         </div>
