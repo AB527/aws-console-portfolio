@@ -1,0 +1,129 @@
+{
+  "serviceId": "ec2",
+  "projectTypes": [
+    { "id": "cloud.xlarge", "description": "Enterprise & Government Scale" },
+    { "id": "compute.large", "description": "Production SaaS" },
+    { "id": "compute.medium", "description": "Production Platform" },
+    { "id": "iot.medium", "description": "IoT & Research" },
+    { "id": "dev.small", "description": "Developer Tools" }
+  ],
+  "instanceTypeDetails": [
+    {
+      "id": "cloud.xlarge",
+      "description": "Enterprise & Government Scale",
+      "openSource": false,
+      "productionGrade": true,
+      "techStack": "Node.js · AWS EC2 · RDS · CloudFront",
+      "scale": "National"
+    },
+    {
+      "id": "compute.large",
+      "description": "Production SaaS Platform",
+      "openSource": false,
+      "productionGrade": true,
+      "techStack": "Flutter · ECS Fargate · RDS · ElastiCache",
+      "scale": "Regional"
+    },
+    {
+      "id": "compute.medium",
+      "description": "Production Government Platform",
+      "openSource": false,
+      "productionGrade": true,
+      "techStack": "Node.js · AWS EC2 · RDS · CloudFront",
+      "scale": "Statewide"
+    },
+    {
+      "id": "iot.medium",
+      "description": "IoT & Research (Patented)",
+      "openSource": false,
+      "productionGrade": true,
+      "techStack": "Flutter · Firebase · IoT Hardware",
+      "scale": "Institutional"
+    },
+    {
+      "id": "dev.small",
+      "description": "Developer Tools & OSS",
+      "openSource": true,
+      "productionGrade": false,
+      "techStack": "Go · AWS CLI",
+      "scale": "Open Source"
+    }
+  ],
+  "instances": [
+    {
+      "id": "tffm-platform",
+      "name": "TFFM — Tribal Folklore Festival",
+      "description": "Government platform inaugurated by the Prime Minister of India",
+      "status": "running",
+      "instanceType": "cloud.xlarge",
+      "techStack": "EC2 + RDS + CloudFront + NIC",
+      "region": "ap-south-17",
+      "periodFrom": "2025-03-01",
+      "periodTo": "2025-07-31",
+      "tags": ["Node.js", "AWS EC2", "CloudFront", "PostgreSQL", "NIC"],
+      "link": "https://atharvabedekar.dev",
+      "details": "Full-stack platform for Chhattisgarh Tribal Ministry. Node.js on EC2, RDS PostgreSQL, CloudFront CDN, NIC coordination. Inaugurated by PM of India. Post-pentest security hardening applied.",
+      "metrics": { "hoursSpent": 800, "usersServed": 50000, "scale": "National" }
+    },
+    {
+      "id": "hackoverse-edu",
+      "name": "Hackoverse Edu",
+      "description": "EdTech SaaS with live classes, payments, and course management",
+      "status": "stopped",
+      "instanceType": "compute.large",
+      "techStack": "ECS Fargate + RDS + ElastiCache",
+      "region": "ap-south-17",
+      "periodFrom": "2025-08-01",
+      "periodTo": "2025-12-31",
+      "tags": ["Flutter", "AWS", "Node.js", "PostgreSQL", "Cashfree"],
+      "link": "https://github.com/AB527",
+      "details": "Flutter frontend with AWS ECS Fargate backend, RDS PostgreSQL, ElastiCache for session management, and Cashfree payment gateway integration.",
+      "metrics": { "hoursSpent": 400, "usersServed": 5000, "scale": "Regional" }
+    },
+    {
+      "id": "cg-crime-platform",
+      "name": "CG Police Crime Monitoring",
+      "description": "Crime monitoring platform for Chhattisgarh Police",
+      "status": "running",
+      "instanceType": "compute.medium",
+      "techStack": "EC2 + RDS + CloudFront",
+      "region": "ap-south-17",
+      "periodFrom": "2024-11-01",
+      "periodTo": "2025-02-28",
+      "tags": ["Node.js", "AWS EC2", "RDS PostgreSQL", "CloudFront"],
+      "link": "https://atharvabedekar.dev",
+      "details": "Node.js backend on EC2 with RDS PostgreSQL and CloudFront for Chhattisgarh Police crime data monitoring.",
+      "metrics": { "hoursSpent": 200, "usersServed": 500, "scale": "Statewide" }
+    },
+    {
+      "id": "iiitnr-attendance",
+      "name": "IIIT NR Attendance App",
+      "description": "IoT-based attendance system — Indian Patent IN 589608",
+      "status": "running",
+      "instanceType": "iot.medium",
+      "techStack": "Flutter + Firebase + IoT Hardware",
+      "region": "ap-south-17",
+      "periodFrom": "2024-01-01",
+      "periodTo": "2024-08-31",
+      "tags": ["Flutter", "Firebase", "IoT", "Patent"],
+      "link": "https://github.com/AB527",
+      "details": "Flutter + Firebase attendance app using IoT hardware for automatic marking. Granted Indian Patent IN 589608 in May 2026.",
+      "metrics": { "hoursSpent": 300, "usersServed": 1500, "scale": "Institutional" }
+    },
+    {
+      "id": "aws-easy-deploy",
+      "name": "AWS Easy Deploy",
+      "description": "Open-source Go CLI for fast EC2 and S3 deployments",
+      "status": "running",
+      "instanceType": "dev.small",
+      "techStack": "Go CLI / Open Source",
+      "region": "ap-south-1",
+      "periodFrom": "2025-06-01",
+      "periodTo": "",
+      "tags": ["Go", "AWS CLI", "EC2", "S3", "Open Source"],
+      "link": "https://github.com/AB527",
+      "details": "CLI tool in Go to simplify and automate common AWS deployment tasks for EC2 instances and S3 buckets.",
+      "metrics": { "hoursSpent": 100, "usersServed": 200, "scale": "Open Source" }
+    }
+  ]
+}

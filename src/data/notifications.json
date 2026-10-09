@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "notif-pm2",
+      "type": "ab-managed",
+      "source": "linkedin",
+      "title": "Posted on LinkedIn",
+      "message": "PM2 works with Node, it’ll work with npm. Right? ❌ Wrong. — A common PM2 deployment pitfall explained.",
+      "date": "2026-06-06",
+      "link": "https://www.linkedin.com/posts/atharva-bedekar_nodejs-pm2-devops-share-7466492069910564866-2zue/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADNDaJQBb0gMGVvLY8bJDVm32RY4_Wqu9NE"
+    },
+    {
+      "id": "notif-ec2",
+      "type": "ab-managed",
+      "source": "linkedin",
+      "title": "Posted on LinkedIn",
+      "message": "Quick hack to survive memory crashes without upgrading your EC2 instance — enable swap on t3.micro for CI builds.",
+      "date": "2026-05-30",
+      "link": "https://www.linkedin.com/posts/atharva-bedekar_aws-ec2-devops-share-7462058131410333696-JvXO/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADNDaJQBb0gMGVvLY8bJDVm32RY4_Wqu9NE"
+    }
+  ]
+}

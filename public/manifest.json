@@ -1,0 +1,24 @@
+{
+  "name": "Atharva Bedekar — AWS Console Portfolio",
+  "short_name": "AB Console",
+  "description": "Personal portfolio built as an AWS Management Console",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#232f3e",
+  "theme_color": "#232f3e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
