@@ -1,5 +1,9 @@
+import type { Metadata } from "next"
 import Breadcrumb from "@/components/layout/Breadcrumb"
 import gettingStarted from "@/data/getting-started.json"
+import site from "@/data/site.json"
+
+export const metadata: Metadata = { title: site.pageTitles.gettingStarted }
 
 export default function GettingStartedPage() {
   return (
@@ -14,8 +18,8 @@ export default function GettingStartedPage() {
           <div
             key={section.id}
             className={`bg-white border border-gray-200 px-6 py-5 ${
-              i === 0 ? "rounded-t-sm" : ""
-            } ${i === gettingStarted.sections.length - 1 ? "rounded-b-sm" : "border-b-0"}`}
+              i === 0 ? "rounded-t-2xl" : ""
+            } ${i === gettingStarted.sections.length - 1 ? "rounded-b-2xl" : "border-b-0"}`}
           >
             <h2 className="text-base font-semibold text-gray-800 mb-2">{section.heading}</h2>
             <p className="text-sm text-gray-600 leading-relaxed">{section.body}</p>

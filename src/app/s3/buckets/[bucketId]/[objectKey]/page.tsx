@@ -1,9 +1,18 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import s3Data from "@/data/s3.json"
+import site from "@/data/site.json"
 import ObjectDetail from "@/components/services/s3/ObjectDetail"
 
 interface Props {
   params: Promise<{ bucketId: string; objectKey: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { bucketId, objectKey } = await params
+  const decoded = decodeURIComponent(objectKey)
+  const obj = s3Data.buckets.find((b) => b.id === bucketId)?.objects.find((o) => o.key === decoded)
+  return obj ? { title: site.detailTitles.s3.replace("%s", obj.key) } : {}
 }
 
 export default async function ObjectPage({ params }: Props) {

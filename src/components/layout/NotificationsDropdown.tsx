@@ -77,7 +77,7 @@ export default function NotificationsDropdown() {
   ]
 
   return (
-    <div className="absolute right-0 top-full w-[600px] max-w-[92vw] bg-[#1a2332] text-white rounded-b-md shadow-2xl z-50 flex flex-col max-h-[520px]">
+    <div className="absolute right-0 top-full w-[600px] max-w-[92vw] bg-[#1a2332] text-white rounded-b-xl overflow-hidden shadow-2xl z-50 flex flex-col max-h-[520px]">
       {/* Header */}
       <div className="flex items-center justify-between px-7 pt-6 pb-4 border-b border-[#2d3f52] shrink-0">
         <h3 className="text-[18px] font-semibold text-white">Notifications</h3>

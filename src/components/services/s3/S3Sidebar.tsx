@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import s3Data from "@/data/s3.json"
+import { serviceTitle } from "@/lib/serviceTitle"
 
 function SidebarSection({ label }: { label: string }) {
   return (
@@ -47,8 +48,7 @@ export default function S3Sidebar() {
     <aside className="w-[220px] shrink-0 bg-[#232f3e] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
       {/* Service header */}
       <div className="px-4 py-3 border-b border-[#3d4f61]">
-        <p className="text-[11px] text-gray-400 uppercase tracking-wide font-semibold">S3</p>
-        <p className="text-sm text-white font-medium mt-0.5">Documents</p>
+        <p className="text-base text-white font-bold">{serviceTitle("s3")}</p>
       </div>
 
       <nav className="flex-1 py-2">

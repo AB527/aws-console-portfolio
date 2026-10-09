@@ -24,7 +24,7 @@ function SortIcon() {
 
 function YesNoBadge({ value }: { value: boolean }) {
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium ${
       value ? "bg-green-50 text-green-700 border border-green-200" : "bg-gray-50 text-gray-500 border border-gray-200"
     }`}>
       {value ? "Yes" : "No"}
@@ -78,10 +78,10 @@ export default function EC2InstanceTypesView() {
             </svg>
             Last updated just now
           </div>
-          <button className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded px-3 py-1.5 text-[13px] hover:bg-[#eaf4fb] transition-colors">
+          <button className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded-full px-3 py-1.5 text-[13px] hover:bg-[#eaf4fb] transition-colors">
             Instance type finder
           </button>
-          <button className="flex items-center gap-1.5 bg-[#ff9900] hover:bg-[#e88a00] text-white rounded px-3 py-1.5 text-[13px] transition-colors font-medium">
+          <button className="flex items-center gap-1.5 bg-[#ff9900] hover:bg-[#e88a00] text-white rounded-full px-3 py-1.5 text-[13px] transition-colors font-medium">
             Actions
             <svg width="9" height="6" viewBox="0 0 10 6" fill="currentColor">
               <path d="M1 1l4 4 4-4" strokeLinecap="round" />
@@ -92,7 +92,7 @@ export default function EC2InstanceTypesView() {
 
       {/* Search + pagination */}
       <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
-        <div className="flex items-center gap-2 bg-white border border-gray-300 rounded px-3 h-8 w-72 shadow-sm">
+        <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-lg px-3 h-8 w-72 shadow-sm">
           <svg width="12" height="12" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0">
             <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.75" />
             <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
@@ -106,14 +106,14 @@ export default function EC2InstanceTypesView() {
           />
         </div>
         <div className="flex items-center gap-1 text-[13px] text-[#0073bb]">
-          <button className="px-2 py-0.5 hover:bg-gray-100 rounded text-gray-400">‹</button>
-          <button className="px-2 py-0.5 bg-white border border-[#0073bb] rounded font-medium">1</button>
-          <button className="px-2 py-0.5 hover:bg-gray-100 rounded text-gray-400">›</button>
+          <button className="px-2 py-0.5 hover:bg-gray-100 rounded-md text-gray-400">‹</button>
+          <button className="px-2 py-0.5 bg-white border border-[#0073bb] rounded-md font-medium">1</button>
+          <button className="px-2 py-0.5 hover:bg-gray-100 rounded-md text-gray-400">›</button>
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-gray-200 rounded shadow-sm overflow-x-auto">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-x-auto">
         <table className="w-full text-[13px]">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
@@ -149,7 +149,7 @@ export default function EC2InstanceTypesView() {
                 </td>
                 <td className="px-3 py-2.5 text-gray-700">{t.hoursSpent}h</td>
                 <td className="px-3 py-2.5">
-                  <span className="text-[12px] text-gray-600 bg-gray-50 border border-gray-200 rounded px-2 py-0.5 whitespace-nowrap">
+                  <span className="text-[12px] text-gray-600 bg-gray-50 border border-gray-200 rounded-full px-2 py-0.5 whitespace-nowrap">
                     {t.scale}
                   </span>
                 </td>

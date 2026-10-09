@@ -53,7 +53,7 @@ export default function AchievementsWidget() {
     <div className="-m-3 flex flex-col h-full">
       {/* Controls: filter + search */}
       <div className="flex items-stretch gap-3 px-4 pt-3">
-        <div className="relative border border-gray-400 rounded-lg px-3 pt-2.5 pb-1.5 shrink-0">
+        <div className="relative border border-gray-400 rounded-xl px-3 pt-2.5 pb-1.5 shrink-0">
           <span className="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-gray-700">
             Filter by status
           </span>
@@ -83,7 +83,7 @@ export default function AchievementsWidget() {
           </svg>
         </div>
 
-        <div className="flex-1 flex items-center gap-2 border border-gray-400 rounded-lg px-3 min-w-0">
+        <div className="flex-1 flex items-center gap-2 border border-gray-400 rounded-xl px-3 min-w-0">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-gray-500 shrink-0">
             <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
             <path d="M11 11l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

@@ -49,7 +49,7 @@ export default function BucketsList() {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+    <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
       {/* Card header */}
       <div className="px-4 pt-4">
         <div className="flex items-baseline gap-2">
@@ -100,7 +100,7 @@ export default function BucketsList() {
 
         {/* Search + pagination */}
         <div className="flex items-center gap-2 mt-3">
-          <div className="flex-1 flex items-center gap-2 h-9 px-3 border border-gray-300 rounded-md bg-white">
+          <div className="flex-1 flex items-center gap-2 h-9 px-3 border border-gray-300 rounded-lg bg-white">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#687078" strokeWidth="2">
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.3-4.3" />
@@ -113,18 +113,18 @@ export default function BucketsList() {
               className="flex-1 text-sm text-gray-700 placeholder-gray-400 outline-none bg-transparent"
             />
           </div>
-          <button className="w-8 h-9 flex items-center justify-center rounded-md border border-gray-300 text-gray-500 hover:bg-gray-50">
+          <button className="w-8 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="m15 18-6-6 6-6" />
             </svg>
           </button>
           <span className="text-sm text-gray-700 px-1">1</span>
-          <button className="w-8 h-9 flex items-center justify-center rounded-md border border-gray-300 text-gray-500 hover:bg-gray-50">
+          <button className="w-8 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="m9 18 6-6-6-6" />
             </svg>
           </button>
-          <button className="w-8 h-9 flex items-center justify-center rounded-md border border-gray-300 text-gray-500 hover:bg-gray-50">
+          <button className="w-8 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-50">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="3" />
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />

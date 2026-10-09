@@ -55,7 +55,7 @@ export default function CookiePreferencesDialog({ onClose }: CookiePreferencesDi
       className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="bg-white rounded-lg max-w-lg w-full shadow-2xl max-h-[85vh] flex flex-col">
+      <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl max-h-[85vh] flex flex-col">
         <div className="p-6 border-b border-gray-200 shrink-0">
           <h2 className="text-lg font-semibold text-gray-900">Customize cookie preferences</h2>
           <p className="text-sm text-gray-600 mt-2 leading-relaxed">
@@ -95,13 +95,13 @@ export default function CookiePreferencesDialog({ onClose }: CookiePreferencesDi
         <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 shrink-0">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 text-sm text-gray-700 border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+            className="px-4 py-1.5 text-sm text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 text-sm text-white bg-[#ff9900] rounded hover:bg-[#e88a00] transition-colors font-medium"
+            className="px-4 py-1.5 text-sm text-white bg-[#ff9900] rounded-full hover:bg-[#e88a00] transition-colors font-medium"
           >
             Save preferences
           </button>

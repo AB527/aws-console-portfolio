@@ -34,12 +34,12 @@ export default function ProjectsList() {
           placeholder="Search instances..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-1.5 text-sm w-64 focus:outline-none focus:border-[#0073bb]"
+          className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-64 focus:outline-none focus:border-[#0073bb]"
         />
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1.5 text-sm focus:outline-none focus:border-[#0073bb]"
+          className="border border-gray-300 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:border-[#0073bb]"
         >
           <option value="all">All statuses</option>
           <option value="running">Running</option>
@@ -48,7 +48,7 @@ export default function ProjectsList() {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
@@ -92,7 +92,7 @@ export default function ProjectsList() {
                     <StatusBadge status={inst.status} />
                   </td>
                   <td className="px-4 py-2.5 hidden md:table-cell">
-                    <code className="text-xs font-mono bg-gray-50 border border-gray-200 rounded px-1.5 py-0.5 text-gray-700">{inst.instanceType}</code>
+                    <code className="text-xs font-mono bg-gray-50 border border-gray-200 rounded-md px-1.5 py-0.5 text-gray-700">{inst.instanceType}</code>
                   </td>
                   <td className="px-4 py-2.5 hidden lg:table-cell text-gray-600 text-xs">{inst.region}</td>
                   <td className="px-4 py-2.5 hidden lg:table-cell text-gray-600 text-xs">
@@ -137,7 +137,7 @@ function InstanceDrawer({ inst }: { inst: Instance }) {
         <p className="text-xs text-gray-500 mb-2 font-semibold uppercase tracking-wide">Tags</p>
         <div className="flex flex-wrap gap-1.5">
           {inst.tags.map((tag) => (
-            <span key={tag} className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded">
+            <span key={tag} className="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded-full">
               {tag}
             </span>
           ))}
@@ -146,7 +146,7 @@ function InstanceDrawer({ inst }: { inst: Instance }) {
           href={inst.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 inline-block text-xs text-white bg-[#ff9900] hover:bg-[#e68900] px-3 py-1.5 rounded font-medium transition-colors"
+          className="mt-3 inline-block text-xs text-white bg-[#ff9900] hover:bg-[#e68900] px-3 py-1.5 rounded-full font-medium transition-colors"
         >
           Open Project →
         </a>

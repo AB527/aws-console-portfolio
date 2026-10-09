@@ -1,83 +1,81 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import iamGroups from "@/data/iam-groups.json"
-import iamUsers from "@/data/iam-users.json"
+import iamConsole from "@/data/iam-console.json"
+import { serviceTitle } from "@/lib/serviceTitle"
 
-function SidebarSection({ label }: { label: string }) {
-  return (
-    <div className="px-4 pt-4 pb-1">
-      <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">{label}</span>
-    </div>
-  )
-}
-
-function SidebarItem({
+function NavLink({
   href,
   label,
   active,
   indent = false,
-  dot,
 }: {
   href: string
   label: string
   active: boolean
   indent?: boolean
-  dot?: string
 }) {
   return (
     <Link
       href={href}
-      className={`flex items-center gap-2 py-1.5 text-[13px] transition-colors border-l-2 truncate ${
-        active
-          ? "border-[#ff9900] bg-[#16212e] text-white"
-          : "border-transparent text-gray-300 hover:bg-[#2d3e50] hover:text-white"
-      } ${indent ? "pl-7 pr-4" : "px-4"}`}
+      className={`block py-1.5 text-[14px] transition-colors ${indent ? "pl-9 pr-4" : "px-4"} ${
+        active ? "text-[#0073bb] font-semibold" : "text-gray-700 hover:text-[#0073bb]"
+      }`}
     >
-      {dot && (
-        <span className="w-2 h-2 rounded-sm shrink-0" style={{ backgroundColor: dot }} />
-      )}
-      <span className="truncate">{label}</span>
+      {label}
     </Link>
   )
 }
 
 export default function IAMSidebar() {
   const pathname = usePathname()
+  const { nav } = iamConsole
+  const [open, setOpen] = useState<Record<string, boolean>>(
+    Object.fromEntries(nav.sections.map((s) => [s.id, true]))
+  )
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
   return (
-    <aside className="w-[220px] shrink-0 bg-[#232f3e] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
+    <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
       {/* Service header */}
-      <div className="px-4 py-3 border-b border-[#3d4f61]">
-        <p className="text-[11px] text-gray-400 uppercase tracking-wide font-semibold">IAM</p>
-        <p className="text-sm text-white font-medium mt-0.5">Skills</p>
+      <div className="flex items-start justify-between gap-2 px-4 pt-5 pb-3">
+        <span className="text-[20px] leading-tight font-bold text-gray-900">{serviceTitle("iam")}</span>
+        <Link href="/console/home" className="text-gray-500 hover:text-gray-800 p-1 mt-0.5" title={nav.backLabel}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
       </div>
 
-      <nav className="flex-1 py-2">
-        <SidebarItem href="/iam/home" label="Dashboard" active={pathname === "/iam/home"} />
+      <nav className="flex-1 pb-4">
+        <NavLink href={nav.dashboard.href} label={nav.dashboard.label} active={pathname === nav.dashboard.href} />
 
-        <SidebarSection label="Skill Groups" />
-        {iamGroups.groups.map((group) => (
-          <SidebarItem
-            key={group.id}
-            href={`/iam/groups/${group.id}`}
-            label={group.label}
-            active={pathname === `/iam/groups/${group.id}`}
-            indent
-            dot={group.color}
-          />
-        ))}
-
-        <SidebarSection label="Experience / Roles" />
-        {iamUsers.users.map((user) => (
-          <SidebarItem
-            key={user.id}
-            href={`/iam/users/${user.id}`}
-            label={user.displayName}
-            active={pathname === `/iam/users/${user.id}`}
-            indent
-          />
+        {nav.sections.map((section) => (
+          <div key={section.id} className="mt-3">
+            <button
+              onClick={() => setOpen((o) => ({ ...o, [section.id]: !o[section.id] }))}
+              className="w-full flex items-center gap-2 px-4 py-1.5 text-[14px] font-bold text-gray-900 hover:bg-gray-50 transition-colors"
+              aria-expanded={open[section.id]}
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="currentColor"
+                className={`transition-transform duration-150 ${open[section.id] ? "rotate-0" : "-rotate-90"}`}
+              >
+                <path d="M0 2h10L5 9z" />
+              </svg>
+              {section.label}
+            </button>
+            {open[section.id] &&
+              section.items.map((item) => (
+                <NavLink key={item.href} href={item.href} label={item.label} active={isActive(item.href)} indent />
+              ))}
+          </div>
         ))}
       </nav>
     </aside>

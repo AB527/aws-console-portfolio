@@ -123,7 +123,7 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
               ⋮
             </button>
             {menuOpen && (
-              <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-gray-200 shadow-lg z-20 py-1 rounded-lg">
+              <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-gray-200 shadow-lg z-20 py-1 rounded-xl overflow-hidden">
                 <button
                   onClick={() => { setMenuOpen(false); onRemove() }}
                   className="w-full text-left px-3 py-2 text-[13px] text-gray-700 hover:bg-gray-50"

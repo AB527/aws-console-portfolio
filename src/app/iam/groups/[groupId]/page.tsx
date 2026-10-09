@@ -1,9 +1,17 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import GroupDetail from "@/components/services/iam/GroupDetail"
 import iamGroups from "@/data/iam-groups.json"
+import site from "@/data/site.json"
 
 interface Props {
   params: Promise<{ groupId: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { groupId } = await params
+  const group = iamGroups.groups.find((g) => g.id === groupId)
+  return group ? { title: site.detailTitles.iam.replace("%s", group.label) } : {}
 }
 
 export default async function GroupPage({ params }: Props) {

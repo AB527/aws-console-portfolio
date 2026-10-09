@@ -11,7 +11,7 @@ export default function IAMHome() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* Groups */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
           <h2 className="text-sm font-semibold text-gray-700">Skill Groups</h2>
           <Link href="/iam/groups" className="text-xs text-[#0073bb] hover:underline">
@@ -27,7 +27,7 @@ export default function IAMHome() {
             >
               <div className="flex items-center gap-3">
                 <span
-                  className="w-2 h-full min-h-[16px] rounded-sm"
+                  className="w-2 h-full min-h-[16px] rounded-full"
                   style={{ backgroundColor: group.color }}
                 />
                 <span className="text-sm font-medium text-[#0073bb]">{group.label}</span>
@@ -39,7 +39,7 @@ export default function IAMHome() {
       </div>
 
       {/* Users */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
           <h2 className="text-sm font-semibold text-gray-700">Experience / Roles</h2>
           <Link href="/iam/users" className="text-xs text-[#0073bb] hover:underline">

@@ -6,11 +6,11 @@ export default function KnowMeWidget() {
     <div className="flex flex-col gap-1">
       {knowMe.items.map((item) => {
         const content = (
-          <div className="flex items-start gap-3 p-2.5 rounded-md hover:bg-gray-50 transition-colors group cursor-pointer">
+          <div className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer">
             <img
               src={`/icons/${item.icon}.svg`}
               alt={item.icon}
-              className="w-7 h-7 rounded shrink-0 mt-0.5"
+              className="w-7 h-7 rounded-md shrink-0 mt-0.5"
             />
             <div className="min-w-0">
               <p className="text-[14px] font-semibold text-[#0073bb] group-hover:underline leading-tight">
