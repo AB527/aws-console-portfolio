@@ -1,13 +1,12 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { serviceTitle } from "@/lib/serviceTitle"
 import { openSans } from "@/lib/awsFont"
 import { SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS, mobileDrawerClass } from "@/components/ui/SidebarIcons"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import MobileNavToggle from "@/components/layout/MobileNavToggle"
+import ServiceTopBar from "@/components/layout/ServiceTopBar"
 
 const NAV = [
   { href: "/cloudtrail/home", label: "Dashboard" },
@@ -17,7 +16,8 @@ const NAV = [
 
 export default function CloudTrailShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [collapsed, setCollapsed] = useState(false)
+  const collapsed = useConsoleStore((s) => s.sidebarCollapsed)
+  const setCollapsed = useConsoleStore((s) => s.setSidebarCollapsed)
   const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const title = serviceTitle("cloudtrail")
   const current = NAV.find((n) => n.href === pathname) ?? NAV[0]
@@ -26,17 +26,7 @@ export default function CloudTrailShell({ children }: { children: React.ReactNod
     <div
       className={`${openSans.className} bg-[#f9f9fa] min-h-[calc(100vh-56px)] flex flex-col text-[14px] leading-5 text-[#0f141a]`}
     >
-      {/* Breadcrumb bar */}
-      <div className="flex items-center gap-3 px-4 py-2.5 bg-white border-b border-[#c6c6cd] text-[16px]">
-        <MobileNavToggle />
-        <Link href="/cloudtrail/home" className="text-[#006ce0] underline underline-offset-4">
-          {title}
-        </Link>
-        <svg className="text-[#656871]" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="m9 18 6-6-6-6" />
-        </svg>
-        <span className="font-bold text-[#424650]">{current.label}</span>
-      </div>
+      <ServiceTopBar items={[{ label: title, href: "/cloudtrail/home" }, { label: current.label }]} />
 
       <div className="flex flex-1">
         {collapsed ? (

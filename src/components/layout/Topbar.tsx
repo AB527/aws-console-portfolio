@@ -9,6 +9,8 @@ import NotificationsDropdown from "./NotificationsDropdown"
 import HelpDropdown from "./HelpDropdown"
 import SearchBar from "./SearchBar"
 import MobileMoreMenu from "./MobileMoreMenu"
+import ServicesMenu from "./ServicesMenu"
+import servicesMenu from "@/data/services-menu.json"
 import regionsData from "@/data/regions.json"
 import notificationsData from "@/data/notifications.json"
 
@@ -139,12 +141,14 @@ function TopbarInner() {
   const [helpOpen, setHelpOpen] = useState(false)
   const [pwaOpen, setPwaOpen] = useState(false)
   const [moreOpen, setMoreOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
 
   const settingsRef = useRef<HTMLDivElement>(null)
   const regionRef = useRef<HTMLDivElement>(null)
   const accountRef = useRef<HTMLDivElement>(null)
   const notifRef = useRef<HTMLDivElement>(null)
   const helpRef = useRef<HTMLDivElement>(null)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function handler(e: MouseEvent) {
@@ -153,6 +157,7 @@ function TopbarInner() {
       if (accountRef.current && !accountRef.current.contains(e.target as Node)) setAccountOpen(false)
       if (notifRef.current && !notifRef.current.contains(e.target as Node)) setNotifOpen(false)
       if (helpRef.current && !helpRef.current.contains(e.target as Node)) setHelpOpen(false)
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) setServicesOpen(false)
     }
     document.addEventListener("mousedown", handler)
     return () => document.removeEventListener("mousedown", handler)
@@ -195,7 +200,13 @@ function TopbarInner() {
       <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />
 
       {/* Grid icon */}
-      <button className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0 text-gray-300 hover:text-[#539fe5]">
+      <div ref={servicesRef} className="relative h-full shrink-0">
+      <button
+        onClick={() => { setMoreOpen(false); setServicesOpen((o) => !o) }}
+        aria-expanded={servicesOpen}
+        title={servicesMenu.sections[2].label}
+        className={`flex items-center justify-center h-full px-2.5 transition-colors ${servicesOpen ? "text-[#539fe5]" : "text-gray-300 hover:text-[#539fe5]"}`}
+      >
         <svg width="18" height="18" viewBox="0 0 15 15" fill="currentColor">
           <rect x="0" y="0" width="4" height="4" rx="0.5" />
           <rect x="5.5" y="0" width="4" height="4" rx="0.5" />
@@ -208,6 +219,8 @@ function TopbarInner() {
           <rect x="11" y="11" width="4" height="4" rx="0.5" />
         </svg>
       </button>
+      {servicesOpen && <ServicesMenu onClose={() => setServicesOpen(false)} />}
+      </div>
 
       {/* Search */}
       <div className="flex-1 flex max-md:justify-end px-1.5 md:px-3 min-w-0">

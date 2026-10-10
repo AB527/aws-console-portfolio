@@ -13,7 +13,8 @@ const NAV_SECTIONS = [
 ]
 
 export default function S3SubSidebar({ title }: { title?: string }) {
-  const [collapsed, setCollapsed] = useState(false)
+  const collapsed = useConsoleStore((s) => s.sidebarCollapsed)
+  const setCollapsed = useConsoleStore((s) => s.setSidebarCollapsed)
   const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(
     Object.fromEntries(NAV_SECTIONS.map((s) => [s.heading, true]))

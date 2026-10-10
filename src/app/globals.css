@@ -11,3 +11,23 @@
 body {
   font-family: var(--font-sans);
 }
+
+/* Tailwind v4 leaves buttons with the default arrow; show the hand on anything clickable.
+   In the base layer so cursor-* utilities (grab, row-resize, ...) still win. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"],
+  [role="menuitem"],
+  a[href],
+  summary,
+  select,
+  label[for],
+  input:is([type="checkbox"], [type="radio"], [type="submit"], [type="button"]):not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}

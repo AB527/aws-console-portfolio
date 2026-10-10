@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import EC2Sidebar from "@/components/services/ec2/EC2Sidebar"
 import EC2Breadcrumb from "@/components/services/ec2/EC2Breadcrumb"
-import MobileNavToggle from "@/components/layout/MobileNavToggle"
+import ServiceTopBar from "@/components/layout/ServiceTopBar"
 import { serviceTitle } from "@/lib/serviceTitle"
 import { openSans } from "@/lib/awsFont"
 
@@ -19,12 +19,11 @@ export default function EC2Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${openSans.className} bg-[#f9f9fa] min-h-[calc(100vh-56px)] flex flex-col`}>
       {/* Top bar */}
-      <div className="flex items-center px-4 py-2.5 bg-white border-b border-[#c6c6cd]">
-        <MobileNavToggle />
+      <ServiceTopBar>
         <Suspense fallback={null}>
           <EC2Breadcrumb />
         </Suspense>
-      </div>
+      </ServiceTopBar>
       <div className="flex flex-1">
         <Suspense fallback={<SidebarFallback />}>
           <EC2Sidebar />

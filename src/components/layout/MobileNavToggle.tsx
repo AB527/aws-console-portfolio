@@ -20,17 +20,35 @@ function MobileNavToggleInner() {
   const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const setMobileNavOpen = useConsoleStore((s) => s.setMobileNavOpen)
 
+  const sidebarCollapsed = useConsoleStore((s) => s.sidebarCollapsed)
+  const setSidebarCollapsed = useConsoleStore((s) => s.setSidebarCollapsed)
+
   // Close the drawer whenever navigation happens
   useEffect(() => {
     setMobileNavOpen(false)
   }, [pathname, searchParams, setMobileNavOpen])
 
+  // Sidebars hide themselves from lg up through this attribute (see mobileDrawerClass)
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-sidebar-collapsed", sidebarCollapsed)
+  }, [sidebarCollapsed])
+
+  // Desktop: collapse/expand the sidebar. Phones: slide the drawer in and out.
+  function toggle() {
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      setSidebarCollapsed(!sidebarCollapsed)
+    } else {
+      setSidebarCollapsed(false)
+      setMobileNavOpen(!mobileNavOpen)
+    }
+  }
+
   return (
     <>
       <button
-        onClick={() => setMobileNavOpen(!mobileNavOpen)}
+        onClick={toggle}
         aria-label="Toggle navigation"
-        aria-expanded={mobileNavOpen}
+        aria-expanded={mobileNavOpen || !sidebarCollapsed}
         className={BUTTON_CLASS}
       >
         <HamburgerIcon />

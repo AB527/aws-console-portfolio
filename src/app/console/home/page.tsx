@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import ConsoleHomeHeader from "@/components/home/ConsoleHomeHeader"
 import DashboardGrid from "@/components/home/DashboardGrid"
 import RecentlyVisitedWidget from "@/components/home/RecentlyVisitedWidget"
+import FavouritesWidget from "@/components/home/FavouritesWidget"
 import KnowMeWidget from "@/components/home/KnowMeWidget"
 import GitHubStatsWidget from "@/components/home/GitHubStatsWidget"
 import AchievementsWidget from "@/components/home/AchievementsWidget"
@@ -17,6 +18,7 @@ export const metadata: Metadata = { title: site.pageTitles.consoleHome }
 
 const widgets: Record<string, React.ReactNode> = {
   "recently-visited": <RecentlyVisitedWidget />,
+  "favourites": <FavouritesWidget />,
   "know-me": <KnowMeWidget />,
   "system-status": <GitHubStatsWidget />,
   "achievements": <AchievementsWidget />,
@@ -38,12 +40,9 @@ export default function ConsolePage() {
           <path d="M12 11v6M12 7v.5" />
         </svg>
       </div>
-      <ConsoleHomeHeader />
-      <div className="px-4 lg:px-6 pb-8">
-        <Suspense fallback={<div className="text-sm text-gray-500 py-4">Loading dashboard...</div>}>
-          <DashboardGrid widgets={widgets} />
-        </Suspense>
-      </div>
+      <Suspense fallback={<div className="text-sm text-gray-500 px-4 lg:px-6 py-4">Loading dashboard...</div>}>
+        <DashboardGrid widgets={widgets} header={<ConsoleHomeHeader />} />
+      </Suspense>
     </div>
   )
 }

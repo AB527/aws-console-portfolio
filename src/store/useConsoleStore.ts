@@ -23,6 +23,13 @@ interface ConsoleStore {
   notificationsRead: boolean
   mobileNavOpen: boolean
   amazonQOpen: boolean
+  favorites: string[]
+  addWidgetsOpen: boolean
+  sidebarCollapsed: boolean
+  setSidebarCollapsed: (collapsed: boolean) => void
+  toggleFavorite: (id: string) => void
+  addWidget: (id: string, beforeId?: string) => void
+  setAddWidgetsOpen: (open: boolean) => void
   setAmazonQOpen: (open: boolean) => void
   setMobileNavOpen: (open: boolean) => void
   setRegion: (r: "ap-south-1" | "ap-south-17") => void
@@ -42,7 +49,7 @@ function getDefaultLayout(): WidgetLayout[] {
     colSpan: w.defaultColSpan,
     rowSpan: w.defaultRowSpan,
     order: i,
-    visible: true,
+    visible: w.defaultVisible,
   }))
 }
 
@@ -71,6 +78,39 @@ export const useConsoleStore = create<ConsoleStore>()(
       notificationsRead: false,
       mobileNavOpen: false,
       amazonQOpen: false,
+      favorites: [],
+      addWidgetsOpen: false,
+      sidebarCollapsed: false,
+
+      setSidebarCollapsed: (collapsed) => set({ sidebarCollapsed: collapsed }),
+
+      toggleFavorite: (id) =>
+        set((state) => ({
+          favorites: state.favorites.includes(id)
+            ? state.favorites.filter((x) => x !== id)
+            : [...state.favorites, id],
+        })),
+
+      // Shows a hidden widget, placed before `beforeId` or at the end
+      addWidget: (id, beforeId) =>
+        set((state) => {
+          if (state.widgetLayout.some((w) => w.id === id && w.visible)) return state
+          const ordered = state.widgetLayout
+            .filter((w) => w.visible)
+            .sort((a, b) => a.order - b.order)
+            .map((w) => w.id)
+          const at = beforeId ? ordered.indexOf(beforeId) : -1
+          ordered.splice(at === -1 ? ordered.length : at, 0, id)
+          return {
+            hiddenWidgets: state.hiddenWidgets.filter((x) => x !== id),
+            widgetLayout: state.widgetLayout.map((w) => {
+              const order = ordered.indexOf(w.id)
+              return order === -1 ? w : { ...w, visible: true, order }
+            }),
+          }
+        }),
+
+      setAddWidgetsOpen: (open) => set({ addWidgetsOpen: open }),
 
       setAmazonQOpen: (open) => set({ amazonQOpen: open }),
 
@@ -134,6 +174,7 @@ export const useConsoleStore = create<ConsoleStore>()(
         visualMode: state.visualMode,
         hiddenWidgets: state.hiddenWidgets,
         notificationsRead: state.notificationsRead,
+        favorites: state.favorites,
       }),
     }
   )
