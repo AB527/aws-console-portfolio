@@ -3,6 +3,7 @@
 import Link from "next/link"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
+import { useConsoleStore } from "@/store/useConsoleStore"
 
 interface ServiceLink {
   name: string
@@ -17,6 +18,11 @@ interface Category {
 }
 
 function CategoryBlock({ category }: { category: Category }) {
+  // Services hidden in Unified settings > Account settings; a link is "/<service id>/home"
+  const hiddenServices = useConsoleStore((s) => s.hiddenServices)
+  const visible = category.services.filter((service) => !hiddenServices.includes(service.link?.split("/")[1] ?? ""))
+  if (visible.length === 0) return null
+
   return (
     <section>
       <div className="flex items-center gap-3">
@@ -26,7 +32,7 @@ function CategoryBlock({ category }: { category: Category }) {
       </div>
       {/* Indented to line up under the category name */}
       <ul className="mt-3 pl-9">
-        {category.services.map((service) => (
+        {visible.map((service) => (
           <li key={service.name}>
             {service.link ? (
               <Link href={service.link} className="text-link hover:underline">

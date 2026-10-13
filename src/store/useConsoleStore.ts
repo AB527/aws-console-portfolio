@@ -5,6 +5,32 @@ import { persist } from "zustand/middleware"
 import dashboardLayout from "@data/dashboard-layout.json"
 import { STORE_KEY, type VisualMode } from "@/lib/theme"
 
+type RegionId = "ap-south-1" | "ap-south-17"
+
+// Everything the Unified settings pages can change (see public/data/settings.json)
+export interface ConsoleSettings {
+  language: "browser-default"
+  selectedRegion: RegionId
+  visualMode: VisualMode
+  favoritesBarDisplay: "name-icon" | "icon"
+  favoritesBarIconSize: "small" | "large"
+  rememberRecentlyVisited: boolean
+  qHelpLinks: boolean
+  // Account settings: ids left out of the Region menu and the service lists
+  hiddenRegions: string[]
+  hiddenServices: string[]
+}
+
+const USER_SETTING_DEFAULTS = {
+  language: "browser-default",
+  selectedRegion: "ap-south-1",
+  visualMode: "browser-default",
+  favoritesBarDisplay: "name-icon",
+  favoritesBarIconSize: "large",
+  rememberRecentlyVisited: true,
+  qHelpLinks: true,
+} satisfies Partial<ConsoleSettings>
+
 export interface WidgetLayout {
   id: string
   colSpan: number
@@ -13,12 +39,10 @@ export interface WidgetLayout {
   visible: boolean
 }
 
-interface ConsoleStore {
-  selectedRegion: "ap-south-1" | "ap-south-17"
+interface ConsoleStore extends ConsoleSettings {
   recentlyVisited: string[]
   widgetLayout: WidgetLayout[]
   activeBucket: string | null
-  visualMode: VisualMode
   hiddenWidgets: string[]
   cloudShellOpen: boolean
   notificationsRead: boolean
@@ -36,7 +60,9 @@ interface ConsoleStore {
   setAddWidgetsOpen: (open: boolean) => void
   setAmazonQOpen: (open: boolean) => void
   setMobileNavOpen: (open: boolean) => void
-  setRegion: (r: "ap-south-1" | "ap-south-17") => void
+  setRegion: (r: RegionId) => void
+  applySettings: (patch: Partial<ConsoleSettings>) => void
+  resetUserSettings: () => void
   visitService: (id: string) => void
   setWidgetLayout: (layout: WidgetLayout[]) => void
   setActiveBucket: (id: string | null) => void
@@ -72,11 +98,12 @@ function clampToConfig(w: WidgetLayout): WidgetLayout {
 export const useConsoleStore = create<ConsoleStore>()(
   persist(
     (set) => ({
-      selectedRegion: "ap-south-1",
+      ...USER_SETTING_DEFAULTS,
+      hiddenRegions: [],
+      hiddenServices: [],
       recentlyVisited: [],
       widgetLayout: getDefaultLayout(),
       activeBucket: null,
-      visualMode: "browser-default",
       hiddenWidgets: [],
       cloudShellOpen: false,
       notificationsRead: false,
@@ -126,8 +153,26 @@ export const useConsoleStore = create<ConsoleStore>()(
 
       setRegion: (r) => set({ selectedRegion: r }),
 
+      // Turning off "remember recently visited" also clears what was remembered
+      applySettings: (patch) =>
+        set((state) => ({
+          ...patch,
+          recentlyVisited: patch.rememberRecentlyVisited === false ? [] : state.recentlyVisited,
+        })),
+
+      // Only the user settings: hidden Regions and services belong to the account tab
+      resetUserSettings: () =>
+        set((state) => ({
+          ...USER_SETTING_DEFAULTS,
+          // The default Region may have been hidden on the account tab
+          selectedRegion: state.hiddenRegions.includes(USER_SETTING_DEFAULTS.selectedRegion)
+            ? state.selectedRegion
+            : USER_SETTING_DEFAULTS.selectedRegion,
+        })),
+
       visitService: (id) =>
         set((state) => {
+          if (!state.rememberRecentlyVisited) return state
           const filtered = state.recentlyVisited.filter((x) => x !== id)
           return { recentlyVisited: [id, ...filtered].slice(0, 8) }
         }),
@@ -180,6 +225,13 @@ export const useConsoleStore = create<ConsoleStore>()(
         widgetLayout: state.widgetLayout,
         activeBucket: state.activeBucket,
         visualMode: state.visualMode,
+        language: state.language,
+        favoritesBarDisplay: state.favoritesBarDisplay,
+        favoritesBarIconSize: state.favoritesBarIconSize,
+        rememberRecentlyVisited: state.rememberRecentlyVisited,
+        qHelpLinks: state.qHelpLinks,
+        hiddenRegions: state.hiddenRegions,
+        hiddenServices: state.hiddenServices,
         hiddenWidgets: state.hiddenWidgets,
         notificationsRead: state.notificationsRead,
         favorites: state.favorites,

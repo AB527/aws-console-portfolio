@@ -25,7 +25,8 @@
     "/vpc/subnets": "vpc-subnets",
     "/vpc/route-tables": "vpc-route-tables",
     "/cloudtrail/events": "cloudtrail-events",
-    "/cloudtrail/trails": "cloudtrail-trails"
+    "/cloudtrail/trails": "cloudtrail-trails",
+    "/settings": "unified-settings"
   },
   "topics": {
     "console-home": {
@@ -384,7 +385,7 @@
       "title": "Dashboard",
       "body": [
         {
-          "text": "**Experience** records the work history as **trails** and **events**. The dashboard shows every trail and the most recent role changes."
+          "text": "**Experience** records the work history as **trails** and **events**. The dashboard shows the trails and the most recent role changes for the **Region** selected in the top bar. Switch Region to see the roles held there."
         }
       ],
       "links": [
@@ -457,6 +458,60 @@
         {
           "label": "Project types",
           "href": "/ec2/home?view=instance-types"
+        }
+      ]
+    },
+    "unified-settings": {
+      "title": "General settings",
+      "body": [
+        {
+          "text": "Set defaults for your **language** and **Region** settings and change your **display** preferences. The visual mode can also be set directly by choosing the settings icon in the navigation bar."
+        },
+        {
+          "text": "**Account settings** choose which Regions and services appear in the menus of this console."
+        },
+        {
+          "text": "Settings, favourites and recently visited services are stored in this browser. They do not apply to other visitors or devices."
+        }
+      ],
+      "links": [
+        {
+          "label": "Configuring Unified settings",
+          "href": "https://github.com/AB527/aws-console-portfolio"
+        }
+      ]
+    },
+    "settings-localization": {
+      "title": "Localisation and default region",
+      "body": [
+        {
+          "text": "**Language** follows your browser. The console is available in English only."
+        },
+        {
+          "text": "**Default Region** is the Region the console opens in. Only Regions left visible in **Account settings** are offered."
+        }
+      ],
+      "links": [
+        {
+          "label": "Configuring Unified settings",
+          "href": "https://github.com/AB527/aws-console-portfolio"
+        }
+      ]
+    },
+    "settings-display": {
+      "title": "Display",
+      "body": [
+        {
+          "text": "**Visual mode** switches the console between light and dark. **Browser default** follows your system setting and changes with it."
+        },
+        {
+          "text": "**Favourites bar display** and **Favourites bar icon size** are remembered in this browser."
+        }
+      ],
+      "links": [
+        {
+          "label": "Configuring Unified settings",
+          "href": "https://github.com/AB527/aws-console-portfolio"
         }
       ]
     }

@@ -12,6 +12,7 @@ import MobileMoreMenu from "./MobileMoreMenu"
 import ServicesMenu from "./ServicesMenu"
 import servicesMenu from "@data/services-menu.json"
 import regionsData from "@data/regions.json"
+import services from "@data/services.json"
 import { useData } from "@/hooks/useData"
 
 function TerminalIcon() {
@@ -37,11 +38,16 @@ type RegionId = "ap-south-1" | "ap-south-17"
 function RegionDropdown({
   selectedRegion,
   onSelect,
+  globalService,
 }: {
   selectedRegion: RegionId
   onSelect: (id: RegionId) => void
+  // Title of the current service when it is global: the list is shown but nothing can be chosen
+  globalService?: string
 }) {
   const [tab, setTab] = useState<"regions" | "local-zones">("regions")
+  // Regions hidden in Unified settings > Account settings
+  const hiddenRegions = useConsoleStore((s) => s.hiddenRegions)
 
   return (
     <div className="absolute right-0 top-full mt-0 w-[300px] max-md:static max-md:w-full max-md:rounded-none max-md:shadow-none max-md:border-0 max-md:bg-transparent bg-[#1a2332] border border-[#2d3f52] rounded-b-xl overflow-hidden shadow-2xl z-50 flex flex-col">
@@ -71,6 +77,11 @@ function RegionDropdown({
 
       {tab === "regions" ? (
         <>
+          {globalService && (
+            <p className="px-4 pt-1 pb-2 text-[12px] text-gray-300">
+              {regionsData.globalNote.replace("%s", globalService)}
+            </p>
+          )}
           {/* Region groups */}
           <div className="flex-1 overflow-y-auto">
             {regionsData.groups.map((group) => (
@@ -79,13 +90,14 @@ function RegionDropdown({
                   <p className="text-[12px] font-bold text-white">{group.name}</p>
                 </div>
                 <div>
-                  {group.regions.map((region) => {
-                    const isActive = selectedRegion === region.id
+                  {group.regions.filter((region) => !hiddenRegions.includes(region.id)).map((region) => {
+                    const isActive = !globalService && selectedRegion === region.id
                     return (
                       <button
                         key={region.id}
+                        disabled={!!globalService}
                         onClick={() => onSelect(region.id as RegionId)}
-                        className={`w-full flex items-center justify-between px-4 py-2 text-[13px] hover:bg-[#243447] transition-colors border-t border-[#243447] ${
+                        className={`w-full flex items-center justify-between px-4 py-2 text-[13px] hover:bg-[#243447] disabled:hover:bg-transparent disabled:opacity-50 transition-colors border-t border-[#243447] ${
                           isActive ? "text-[#4db8ff]" : "text-gray-300"
                         }`}
                       >
@@ -176,7 +188,11 @@ function TopbarInner() {
     .flatMap((g) => g.regions)
     .find((r) => r.id === selectedRegion)
 
-  const regionLabel = activeRegion?.full ?? selectedRegion
+  // Documents, Skills and Connect are the same in every Region, so the selector reads "Global" there
+  const service = services.find((s) => s.id === pathname.split("/")[1])
+  const globalService = service?.global ? service.title : undefined
+
+  const regionLabel = globalService ? regionsData.globalLabel : (activeRegion?.full ?? selectedRegion)
 
   return (
     <header className="fixed top-0 left-0 right-0 h-[56px] bg-[#0f1620] border-t-[5px] border-[#7d8998] flex items-center z-40 text-white text-[13px] select-none">
@@ -312,7 +328,7 @@ function TopbarInner() {
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
             </svg>
           </button>
-          {settingsOpen && <SettingsDropdown />}
+          {settingsOpen && <SettingsDropdown onNavigate={() => setSettingsOpen(false)} />}
         </div>
 
         <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 hidden md:block" />
@@ -324,13 +340,14 @@ function TopbarInner() {
             className={`flex items-center gap-1 h-full px-2 md:px-3 text-[13px] text-gray-200 hover:text-white transition-colors ${regionOpen ? "bg-[#37475a]" : "hover:bg-[#37475a]"}`}
           >
             <span className="hidden md:inline">{regionLabel}</span>
-            <span className="md:hidden">{activeRegion?.city ?? selectedRegion}</span>
+            <span className="md:hidden">{globalService ? regionsData.globalLabel : (activeRegion?.city ?? selectedRegion)}</span>
             <ChevronDown />
           </button>
           {regionOpen && (
             <RegionDropdown
               selectedRegion={selectedRegion}
               onSelect={handleRegionChange}
+              globalService={globalService}
             />
           )}
         </div>
@@ -366,8 +383,8 @@ function TopbarInner() {
                 onInstallApp={() => setPwaOpen(true)}
               />
             ),
-            regions: <RegionDropdown selectedRegion={selectedRegion} onSelect={handleRegionChange} />,
-            settings: <SettingsDropdown />,
+            regions: <RegionDropdown selectedRegion={selectedRegion} onSelect={handleRegionChange} globalService={globalService} />,
+            settings: <SettingsDropdown onNavigate={() => setMoreOpen(false)} />,
             help: <HelpDropdown />,
           }}
         />

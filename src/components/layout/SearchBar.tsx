@@ -37,9 +37,10 @@ export default function SearchBar() {
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const visitService = useConsoleStore((s) => s.visitService)
+  const hiddenServices = useConsoleStore((s) => s.hiddenServices)
 
   const results = query.trim().length > 0
-    ? services.filter((s) =>
+    ? services.filter((s) => !hiddenServices.includes(s.id)).filter((s) =>
         s.title.toLowerCase().includes(query.toLowerCase()) ||
         s.description.toLowerCase().includes(query.toLowerCase()) ||
         s.id.toLowerCase().includes(query.toLowerCase())

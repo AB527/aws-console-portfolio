@@ -21,6 +21,8 @@ export default function ServicesMenu({ onClose }: { onClose: () => void }) {
   const recentlyVisited = useConsoleStore((s) => s.recentlyVisited)
   const favorites = useConsoleStore((s) => s.favorites)
   const visitService = useConsoleStore((s) => s.visitService)
+  // Services hidden in Unified settings > Account settings
+  const hiddenServices = useConsoleStore((s) => s.hiddenServices)
   const [sectionId, setSectionId] = useState(menu.sections[0].id)
 
   useEffect(() => {
@@ -32,8 +34,9 @@ export default function ServicesMenu({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   const section = menu.sections.find((s) => s.id === sectionId) ?? menu.sections[0]
-  const items =
+  const items = (
     section.id === "recent" ? byIds(recentlyVisited) : section.id === "favourites" ? byIds(favorites) : services
+  ).filter((s) => !hiddenServices.includes(s.id))
 
   function navigate(serviceId: string) {
     visitService(serviceId)

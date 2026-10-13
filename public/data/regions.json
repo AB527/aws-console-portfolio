@@ -1,4 +1,7 @@
 {
+  "globalLabel": "Global",
+  "globalNote": "%s does not require Region selection.",
+  "emptyNote": "Nothing to display in %s. Choose another Region in the top bar.",
   "groups": [
     {
       "id": "asia-pacific",
