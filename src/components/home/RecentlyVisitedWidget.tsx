@@ -14,11 +14,11 @@ export default function RecentlyVisitedWidget() {
   if (visitedServices.length === 0) {
     return (
       <div className="flex flex-col h-full">
-        <p className="text-[#656871] py-4 text-center flex-1">
+        <p className="text-ink-muted py-4 text-center flex-1">
           No recently visited services.
         </p>
-        <div className="border-t border-[#c6c6cd] pt-3 text-center">
-          <Link href="/console/services" className="text-[#006ce0] hover:underline">
+        <div className="border-t border-line pt-3 text-center">
+          <Link href="/console/services" className="text-link hover:underline">
             View all services
           </Link>
         </div>
@@ -38,19 +38,19 @@ export default function RecentlyVisitedWidget() {
             key={service.id}
             href={`/${service.id}/home`}
             className={`flex items-center gap-3 py-2.5 group/item ${
-              inLastRow ? "" : "border-b border-[#c6c6cd]"
+              inLastRow ? "" : "border-b border-line"
             }`}
           >
             <ServiceIcon iconId={service.iconId} color={service.color} size="sm" />
-            <span className="text-[#006ce0] group-hover/item:underline truncate">
+            <span className="text-link group-hover/item:underline truncate">
               {service.title}
             </span>
           </Link>
           )
         })}
       </div>
-      <div className="mt-auto border-t border-[#c6c6cd] pt-3 text-center">
-        <Link href="/console/services" className="text-[#006ce0] hover:underline">
+      <div className="mt-auto border-t border-line pt-3 text-center">
+        <Link href="/console/services" className="text-link hover:underline">
           View all services
         </Link>
       </div>

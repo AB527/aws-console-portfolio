@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: site.pageTitles.cloudtrailEvents }
 
 export default function CloudTrailEventsPage() {
   return (
-    <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+    <div className="bg-surface rounded-2xl border border-line px-5 py-4">
       <div className="flex items-baseline gap-2">
         <h1 className="text-[20px] leading-6 font-bold">
           Event history <EventCount />

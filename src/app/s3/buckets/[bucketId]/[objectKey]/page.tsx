@@ -32,7 +32,7 @@ export default async function ObjectPage({ params }: Props) {
   if (!obj) notFound()
 
   return (
-    <div className="bg-[#f2f3f3] min-h-[calc(100vh-56px)] flex flex-col">
+    <div className="bg-page min-h-[calc(100vh-56px)] flex flex-col">
       <div className="flex flex-1">
         <ServiceSidebar serviceId="s3" />
         <div className="flex-1 min-w-0">

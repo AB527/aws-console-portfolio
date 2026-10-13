@@ -15,7 +15,7 @@ export default async function EC2Page({ searchParams }: Props) {
   return (
     <>
       <ServiceVisitor serviceId="ec2" />
-      <Suspense fallback={<div className="p-6 text-sm text-gray-500">Loading...</div>}>
+      <Suspense fallback={<div className="p-6 text-sm text-gray-500 dark:text-ink-muted">Loading...</div>}>
         <EC2Dashboard view={view ?? null} activeProject={project ?? null} activeType={type ?? null} />
       </Suspense>
     </>

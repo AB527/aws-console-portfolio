@@ -28,9 +28,9 @@ const widgets: Record<string, React.ReactNode> = {
 
 export default function ConsolePage() {
   return (
-    <div className={`${openSans.className} min-h-screen bg-[#f9f9fa] text-[14px] leading-5 text-[#0f141a]`}>
+    <div className={`${openSans.className} min-h-screen bg-surface-subtle text-[14px] leading-5 text-ink`}>
       <ConsoleHomeShell>
-        <Suspense fallback={<div className="text-sm text-gray-500 px-4 lg:px-6 py-4">Loading dashboard...</div>}>
+        <Suspense fallback={<div className="text-sm text-gray-500 dark:text-ink-muted px-4 lg:px-6 py-4">Loading dashboard...</div>}>
           <DashboardGrid widgets={widgets} header={<ConsoleHomeHeader />} />
         </Suspense>
       </ConsoleHomeShell>

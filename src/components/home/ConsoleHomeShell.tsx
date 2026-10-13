@@ -26,7 +26,7 @@ export default function ConsoleHomeShell({ children, breadcrumb, help: showHelp 
 
   return (
     <>
-      <div className="flex items-center justify-between gap-4 px-4 lg:px-6 py-3 bg-white border-b border-[#c6c6cd] text-[#424650]">
+      <div className="flex items-center justify-between gap-4 px-4 lg:px-6 py-3 bg-surface border-b border-line text-ink-body">
         <div className="flex items-center gap-6 min-w-0">
           {/* The negative margin keeps the bar the height of the bare icon */}
           <NavToggleButton open={navOpen} onClick={() => setNavOpen((o) => !o)} className="-m-2" />

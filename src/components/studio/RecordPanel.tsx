@@ -86,13 +86,13 @@ export default function RecordPanel({ section, data, row, rows, lookups, saving,
       <div className="absolute inset-0 bg-black/40" onClick={cancel} />
       <form
         onSubmit={submit}
-        className="absolute right-0 top-[56px] bottom-[32px] w-[560px] max-w-full flex flex-col bg-white border-l border-[#c6c6cd] shadow-2xl"
+        className="absolute right-0 top-[56px] bottom-[32px] w-[560px] max-w-full flex flex-col bg-surface border-l border-line shadow-2xl"
       >
-        <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-[#c6c6cd]">
-          <h2 className="text-[20px] leading-6 font-bold text-gray-900">
+        <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-line">
+          <h2 className="text-[20px] leading-6 font-bold text-gray-900 dark:text-ink">
             {row ? "Edit" : "Add"} {section.singular}
           </h2>
-          <button type="button" onClick={cancel} aria-label="Close" className="w-8 h-8 text-xl leading-none rounded-full text-[#424650] hover:bg-gray-100">
+          <button type="button" onClick={cancel} aria-label="Close" className="w-8 h-8 text-xl leading-none rounded-full text-ink-body hover:bg-gray-100 dark:hover:bg-surface-subtle">
             ×
           </button>
         </div>
@@ -111,7 +111,7 @@ export default function RecordPanel({ section, data, row, rows, lookups, saving,
                 busy={uploading}
               />
               {field.type === "file" && (uploading || uploadNote) && (
-                <p role="status" className={`mt-1 text-xs font-bold ${uploadNote && !uploadNote.ok ? "text-[#d91515]" : "text-[#00802f]"}`}>
+                <p role="status" className={`mt-1 text-xs font-bold ${uploadNote && !uploadNote.ok ? "text-danger" : "text-success"}`}>
                   {uploading ? "Uploading" : uploadNote?.text}
                 </p>
               )}
@@ -119,23 +119,23 @@ export default function RecordPanel({ section, data, row, rows, lookups, saving,
           ))}
         </div>
 
-        <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-[#c6c6cd]">
+        <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-line">
           {(error || Object.keys(errors).length > 0) && (
-            <span role="alert" className="mr-auto text-sm font-bold text-[#d91515]">
+            <span role="alert" className="mr-auto text-sm font-bold text-danger">
               {error || "Fix the highlighted fields."}
             </span>
           )}
           <button
             type="button"
             onClick={cancel}
-            className="h-8 px-5 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff]"
+            className="h-8 px-5 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={saving || uploading}
-            className="h-8 px-5 rounded-full bg-[#ff9900] text-sm font-bold text-[#0f141a] hover:bg-[#fa6f00] disabled:bg-gray-200 disabled:text-gray-400"
+            className="h-8 px-5 rounded-full bg-[#ff9900] text-sm font-bold text-[#0f141a] hover:bg-[#fa6f00] disabled:bg-gray-200 dark:disabled:bg-line disabled:text-gray-400 dark:disabled:text-ink-disabled"
           >
             {saving ? "Saving" : "Save"}
           </button>

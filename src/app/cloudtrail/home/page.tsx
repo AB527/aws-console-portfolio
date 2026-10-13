@@ -8,9 +8,9 @@ import InfoLink from "@/components/ui/InfoLink"
 
 export const metadata: Metadata = { title: site.pageTitles.cloudtrail }
 
-const CARD = "bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4"
+const CARD = "bg-surface rounded-2xl border border-line px-5 py-4"
 const OUTLINE_BTN =
-  "h-8 px-5 flex items-center rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
+  "h-8 px-5 flex items-center rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
 
 export default function CloudTrailPage() {
   return (

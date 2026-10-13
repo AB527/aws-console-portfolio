@@ -9,7 +9,7 @@ import { routeTableForSubnet, routesFor, subnetArn, type Subnet, type VpcData } 
 
 function BlockPublicAccessOff() {
   return (
-    <span className="inline-flex items-center gap-1.5 text-[#656871]">
+    <span className="inline-flex items-center gap-1.5 text-ink-muted">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <path d="M8 12h8" />

@@ -151,27 +151,27 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
   }
 
   const pillBtn = "h-8 px-5 flex items-center gap-2 rounded-full border-2 text-sm font-bold whitespace-nowrap"
-  const disabledBtn = `${pillBtn} border-[#b4b4bb] text-[#8c8c94] cursor-not-allowed`
-  const activeBtn = `${pillBtn} border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]`
+  const disabledBtn = `${pillBtn} border-ink-disabled text-line-strong cursor-not-allowed`
+  const activeBtn = `${pillBtn} border-link text-link hover:bg-surface-selected`
 
   return (
-    <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
+    <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-ink`}>
       <div className="flex items-baseline gap-2 mb-3">
         <h1 className="text-[24px] leading-[30px] font-bold break-all">{bucket.name}</h1>
         <InfoLink topic="s3-bucket" />
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-[#c6c6cd] mb-5">
-        <span className="relative px-5 py-3 text-[16px] leading-5 font-bold text-[#006ce0]">
+      <div className="flex border-b border-line mb-5">
+        <span className="relative px-5 py-3 text-[16px] leading-5 font-bold text-link">
           Objects
           <span className="absolute left-0 right-0 bottom-0 h-1 rounded-t bg-[#006ce0]" />
         </span>
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+      <div className="bg-surface rounded-2xl border border-line px-5 py-4">
         <h2 className="text-[20px] leading-6 font-bold">
-          Objects <span className="font-normal text-[#656871]">({s3Data ? objects.length : "–"})</span>
+          Objects <span className="font-normal text-ink-muted">({s3Data ? objects.length : "–"})</span>
         </h2>
 
         {/* Toolbar */}
@@ -179,7 +179,7 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
           <button
             onClick={handleRefresh}
             aria-label="Refresh"
-            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]"
+            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-link text-link hover:bg-surface-selected"
           >
             <svg
               className={spinning ? "animate-spin" : ""}
@@ -241,15 +241,15 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
 
         <p className="mt-2">
           Objects are the fundamental entities stored in Documents. You can use{" "}
-          <a className="text-[#006ce0] underline underline-offset-4 cursor-pointer">Documents inventory ↗</a> to get a
+          <a className="text-link underline underline-offset-4 cursor-pointer">Documents inventory ↗</a> to get a
           list of all objects in your bucket. For others to access your objects, you&apos;ll need to explicitly grant
-          them permissions. <a className="text-[#006ce0] underline underline-offset-4 cursor-pointer">Learn more ↗</a>
+          them permissions. <a className="text-link underline underline-offset-4 cursor-pointer">Learn more ↗</a>
         </p>
 
         {/* Search + pagination */}
         <div className="flex items-center justify-between gap-4 mt-3">
-          <div className="flex-1 max-w-[455px] flex items-center gap-2 h-8 px-3 border border-[#8c8c94] rounded-lg bg-white">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#424650" strokeWidth="2.5">
+          <div className="flex-1 max-w-[455px] flex items-center gap-2 h-8 px-3 border border-line-strong rounded-lg bg-surface">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-body)" strokeWidth="2.5">
               <circle cx="11" cy="11" r="7" />
               <path d="m21 21-5-5" />
             </svg>
@@ -258,18 +258,18 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Find objects by prefix"
-              className="flex-1 text-sm placeholder:italic placeholder-[#656871] outline-none bg-transparent"
+              className="flex-1 text-sm placeholder:italic placeholder-ink-muted outline-none bg-transparent"
             />
           </div>
-          <div className="flex items-center gap-4 text-[#424650]">
-            <span className="text-[#b4b4bb]">
+          <div className="flex items-center gap-4 text-ink-body">
+            <span className="text-ink-disabled">
               <Chevron dir="left" />
             </span>
-            <span className="font-bold text-[#0f141a]">1</span>
-            <span className="text-[#b4b4bb]">
+            <span className="font-bold text-ink">1</span>
+            <span className="text-ink-disabled">
               <Chevron dir="right" />
             </span>
-            <span className="w-px h-8 bg-[#c6c6cd]" />
+            <span className="w-px h-8 bg-line" />
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="3" />
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -281,21 +281,21 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
         <div className="mt-3 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#c6c6cd]">
+              <tr className="border-b border-line">
                 <th className="w-12 text-center">
                   <input
                     type="checkbox"
                     checked={allSelected}
                     onChange={(e) => toggleAll(e.target.checked)}
                     aria-label="Select all objects"
-                    className="w-4 h-4 align-middle accent-[#006ce0]"
+                    className="w-4 h-4 align-middle accent-link"
                   />
                 </th>
                 {COLUMNS.map((col) => (
-                  <th key={col.key} className="text-left py-1.5 font-bold text-[#424650]">
+                  <th key={col.key} className="text-left py-1.5 font-bold text-ink-body">
                     <button
                       onClick={() => toggleSort(col.key)}
-                      className="w-full flex items-center justify-between gap-2 px-4 py-0.5 border-l border-[#c6c6cd] font-bold whitespace-nowrap"
+                      className="w-full flex items-center justify-between gap-2 px-4 py-0.5 border-l border-line font-bold whitespace-nowrap"
                     >
                       {col.label}
                       <SortIcon dir={sort.key === col.key ? sort.dir : null} />
@@ -306,14 +306,14 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
             </thead>
             <tbody>
               {objects.map((obj) => (
-                <tr key={obj.key} className="border-b border-[#ebebf0] last:border-b-0">
+                <tr key={obj.key} className="border-b border-line-subtle last:border-b-0">
                   <td className="py-3 text-center">
                     <input
                       type="checkbox"
                       checked={!!selected[obj.key]}
                       onChange={(e) => setSelected((p) => ({ ...p, [obj.key]: e.target.checked }))}
                       aria-label={`Select ${obj.key}`}
-                      className="w-4 h-4 align-middle accent-[#006ce0]"
+                      className="w-4 h-4 align-middle accent-link"
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -321,7 +321,7 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
                       <FileIcon />
                       <Link
                         href={`/s3/buckets/${bucket.id}/${encodeURIComponent(obj.key)}`}
-                        className="text-[#006ce0] underline underline-offset-4 break-all"
+                        className="text-link underline underline-offset-4 break-all"
                       >
                         {obj.key}
                       </Link>
@@ -336,7 +336,7 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
               {!s3Data && <DataStatusRow colSpan={6} label="objects" error={error} onRetry={reload} />}
               {s3Data && objects.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-[#424650]">
+                  <td colSpan={6} className="px-4 py-8 text-center text-ink-body">
                     No objects match &ldquo;{query}&rdquo;
                   </td>
                 </tr>

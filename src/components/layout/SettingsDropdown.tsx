@@ -51,16 +51,13 @@ export default function SettingsDropdown() {
               { id: "light", label: "Light" },
               { id: "dark", label: "Dark" },
             ] as const).map((mode) => {
-              const selectable = mode.id === "browser-default" || mode.id === "light"
               return (
                 <label key={mode.id} className="flex items-center gap-2.5 cursor-pointer">
                   <input
                     type="radio"
                     name="visual-mode"
-                    checked={selectable && visualMode === mode.id}
-                    onChange={() => {
-                      if (selectable) setVisualMode(mode.id as "browser-default" | "light")
-                    }}
+                    checked={visualMode === mode.id}
+                    onChange={() => setVisualMode(mode.id)}
                     className="appearance-none w-[18px] h-[18px] rounded-full border border-white checked:border-[5px] checked:border-[#539fe5] p-[2px] bg-clip-content checked:bg-black cursor-pointer shrink-0"
                   />
                   <span className="text-[13px] text-white">{mode.label}</span>

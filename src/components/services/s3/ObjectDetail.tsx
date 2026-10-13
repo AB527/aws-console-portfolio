@@ -45,7 +45,7 @@ const copy = (text: string) => navigator.clipboard?.writeText(text)
 
 function InfoIcon() {
   return (
-    <svg className="shrink-0 mt-0.5 text-[#006ce0]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg className="shrink-0 mt-0.5 text-link" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <circle cx="12" cy="12" r="10" />
       <path d="M12 11v6M12 7v.5" />
     </svg>
@@ -54,7 +54,7 @@ function InfoIcon() {
 
 function WarningIcon() {
   return (
-    <svg className="shrink-0 mt-0.5 text-[#855900]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg className="shrink-0 mt-0.5 text-warning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <path d="M12 3 2 21h20L12 3z" />
       <path d="M12 10v5M12 18v.5" />
     </svg>
@@ -75,7 +75,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
     <button
       onClick={() => copy(text)}
       aria-label={`Copy ${label}`}
-      className="inline-flex align-middle mr-1.5 text-[#006ce0] hover:text-[#002b66]"
+      className="inline-flex align-middle mr-1.5 text-link hover:text-link-hover"
     >
       <CopyIcon />
     </button>
@@ -85,8 +85,8 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-sm font-bold text-[#0f141a]">{label}</dt>
-      <dd className="text-sm text-[#0f141a] break-all mt-0.5">{children}</dd>
+      <dt className="text-sm font-bold text-ink">{label}</dt>
+      <dd className="text-sm text-ink break-all mt-0.5">{children}</dd>
     </div>
   )
 }
@@ -98,9 +98,9 @@ export default function ObjectDetail({ bucketId, objectKey, files }: ObjectDetai
 
   if (!s3Data || !bucket || !obj) {
     return (
-      <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
+      <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-ink`}>
         <h1 className="text-[24px] leading-[30px] font-bold break-all mb-5">{objectKey}</h1>
-        <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+        <div className="bg-surface rounded-2xl border border-line px-5 py-4">
           <h2 className="text-[20px] leading-6 font-bold">Object overview</h2>
           {/* Loaded but missing: the object was removed from s3.json after this page was built */}
           <DataStatus label="object" error={error || !!s3Data} onRetry={reload} />
@@ -131,9 +131,9 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
   const objectUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${obj.key}`
 
   const activeBtn =
-    "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
+    "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
   const disabledBtn =
-    "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#b4b4bb] text-sm font-bold text-[#8c8c94] cursor-not-allowed whitespace-nowrap"
+    "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-ink-disabled text-sm font-bold text-line-strong cursor-not-allowed whitespace-nowrap"
 
   const downloadIcon = (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -153,11 +153,11 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
   )
 
   return (
-    <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
+    <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-ink`}>
       <div className="flex items-start justify-between gap-4 flex-wrap mb-5">
         <div className="flex items-baseline gap-2 min-w-0">
-          <h1 className="text-[24px] leading-[30px] font-bold text-[#0f141a] break-all">{obj.key}</h1>
-          <InfoLink topic="s3-object" className="text-sm font-bold text-[#006ce0] hover:underline" />
+          <h1 className="text-[24px] leading-[30px] font-bold text-ink break-all">{obj.key}</h1>
+          <InfoLink topic="s3-object" className="text-sm font-bold text-link hover:underline" />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button onClick={() => copy(s3Uri)} className={activeBtn}>
@@ -194,14 +194,14 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap border-b border-[#c6c6cd] mb-5">
+      <div className="flex flex-wrap border-b border-line mb-5">
         {TABS.map((tab, i) => (
           <div key={tab} className="flex items-center">
-            {i > 0 && <span className="w-px h-6 bg-[#c6c6cd]" />}
+            {i > 0 && <span className="w-px h-6 bg-line" />}
             <button
               onClick={() => setActiveTab(tab)}
               className={`relative px-5 py-3 text-[16px] leading-5 font-bold whitespace-nowrap transition-colors ${
-                activeTab === tab ? "text-[#006ce0]" : "text-[#424650] hover:text-[#006ce0]"
+                activeTab === tab ? "text-link" : "text-ink-body hover:text-link"
               }`}
             >
               {tab}
@@ -214,8 +214,8 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
       </div>
 
       {activeTab === "Properties" ? (
-        <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
-          <h2 className="text-[20px] leading-6 font-bold text-[#0f141a] mb-4">Object overview</h2>
+        <div className="bg-surface rounded-2xl border border-line px-5 py-4">
+          <h2 className="text-[20px] leading-6 font-bold text-ink mb-4">Object overview</h2>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <dl className="space-y-4 md:pr-6">
               <Field label="Owner">{owner}</Field>
@@ -225,7 +225,7 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
               <Field label="Type">{fileExt(obj.key)}</Field>
               <Field label="Key">{obj.key}</Field>
             </dl>
-            <dl className="space-y-4 mt-4 md:mt-0 md:pl-6 md:border-l border-[#c6c6cd]">
+            <dl className="space-y-4 mt-4 md:mt-0 md:pl-6 md:border-l border-line">
               <Field label="URI">
                 <CopyButton text={s3Uri} label="URI" />
                 {s3Uri}
@@ -241,7 +241,7 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
               <Field label="Object URL">
                 <CopyButton text={objectUrl} label="Object URL" />
                 {obj.url ? (
-                  <a href={obj.url} target="_blank" rel="noopener noreferrer" className="text-[#006ce0] hover:underline">
+                  <a href={obj.url} target="_blank" rel="noopener noreferrer" className="text-link hover:underline">
                     {objectUrl}
                   </a>
                 ) : (
@@ -252,13 +252,13 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
           </div>
         </div>
       ) : activeTab === "Permissions" ? (
-        <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+        <div className="bg-surface rounded-2xl border border-line px-5 py-4">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-[20px] leading-6 font-bold text-[#0f141a]">Access control list (ACL)</h2>
-              <p className="text-sm text-[#424650] mt-1">
+              <h2 className="text-[20px] leading-6 font-bold text-ink">Access control list (ACL)</h2>
+              <p className="text-sm text-ink-body mt-1">
                 Grant basic read/write permissions to AWS accounts.{" "}
-                <a className="text-[#006ce0] underline cursor-pointer">Learn more ↗</a>
+                <a className="text-link underline cursor-pointer">Learn more ↗</a>
               </p>
             </div>
             <button disabled className={disabledBtn}>
@@ -266,15 +266,15 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
             </button>
           </div>
 
-          <div className="flex gap-2 mt-5 px-4 py-3 rounded-xl border-2 border-[#006ce0] bg-[#f0fbff]">
+          <div className="flex gap-2 mt-5 px-4 py-3 rounded-xl border-2 border-link bg-surface-selected">
             <InfoIcon />
-            <div className="text-sm text-[#0f141a]">
-              <p className="font-bold text-[#0f141a]">
+            <div className="text-sm text-ink">
+              <p className="font-bold text-ink">
                 This bucket has the bucket owner enforced setting applied for Object Ownership
               </p>
               <p>
-                When <a className="text-[#006ce0] underline cursor-pointer">bucket owner enforced</a> is applied, use
-                bucket policies to control access. <a className="text-[#006ce0] underline cursor-pointer">Learn more ↗</a>
+                When <a className="text-link underline cursor-pointer">bucket owner enforced</a> is applied, use
+                bucket policies to control access. <a className="text-link underline cursor-pointer">Learn more ↗</a>
               </p>
             </div>
           </div>
@@ -282,34 +282,34 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
           <div className="mt-6 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#c6c6cd]">
-                  <th className="text-left py-2.5 font-bold text-[#424650]">Grantee</th>
-                  <th className="text-left px-4 py-2.5 font-bold text-[#424650] w-36">Object</th>
-                  <th className="text-left px-4 py-2.5 font-bold text-[#424650] w-40">Object ACL</th>
+                <tr className="border-b border-line">
+                  <th className="text-left py-2.5 font-bold text-ink-body">Grantee</th>
+                  <th className="text-left px-4 py-2.5 font-bold text-ink-body w-36">Object</th>
+                  <th className="text-left px-4 py-2.5 font-bold text-ink-body w-40">Object ACL</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-[#c6c6cd]">
+                <tr className="border-b border-line">
                   <td className="py-3">
-                    <p className="font-bold text-[#0f141a]">Object owner (your AWS account)</p>
-                    <p className="text-xs text-[#0f141a] break-all mt-0.5">
+                    <p className="font-bold text-ink">Object owner (your AWS account)</p>
+                    <p className="text-xs text-ink break-all mt-0.5">
                       Canonical ID: <CopyButton text={owner} label="Canonical ID" />
                       {owner}
                     </p>
                   </td>
-                  <td className="px-4 py-3 text-[#0f141a]">Read</td>
-                  <td className="px-4 py-3 text-[#0f141a]">Read, Write</td>
+                  <td className="px-4 py-3 text-ink">Read</td>
+                  <td className="px-4 py-3 text-ink">Read, Write</td>
                 </tr>
                 <tr>
                   <td className="py-3">
-                    <p className="font-bold text-[#0f141a]">Everyone (public access)</p>
-                    <p className="text-xs text-[#0f141a] break-all mt-0.5">
+                    <p className="font-bold text-ink">Everyone (public access)</p>
+                    <p className="text-xs text-ink break-all mt-0.5">
                       Group: <CopyButton text={ALL_USERS_GROUP} label="Group" />
                       {ALL_USERS_GROUP}
                     </p>
                   </td>
-                  <td className="px-4 py-3 text-[#0f141a]">-</td>
-                  <td className="px-4 py-3 text-[#0f141a]">-</td>
+                  <td className="px-4 py-3 text-ink">-</td>
+                  <td className="px-4 py-3 text-ink">-</td>
                 </tr>
               </tbody>
             </table>
@@ -317,31 +317,31 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
         </div>
       ) : (
         <div>
-          <div className="flex items-start justify-between gap-4 flex-wrap px-4 py-3 mb-4 rounded-xl border-2 border-[#855900] bg-[#fffef0]">
+          <div className="flex items-start justify-between gap-4 flex-wrap px-4 py-3 mb-4 rounded-xl border-2 border-warning bg-warning-surface">
             <div className="flex gap-2 min-w-0">
               <WarningIcon />
-              <div className="text-sm text-[#0f141a]">
-                <p className="font-bold text-[#0f141a]">
+              <div className="text-sm text-ink">
+                <p className="font-bold text-ink">
                   Bucket &quot;{bucketName}&quot; doesn&apos;t have Bucket Versioning enabled
                 </p>
                 <p>
                   We recommend that you enable Bucket Versioning to help protect against unintentionally overwriting or
-                  deleting objects. <a className="text-[#006ce0] underline cursor-pointer">Learn more ↗</a>
+                  deleting objects. <a className="text-link underline cursor-pointer">Learn more ↗</a>
                 </p>
               </div>
             </div>
             <button
               disabled
-              className="h-8 px-5 rounded-full border-2 border-[#424650] text-sm font-bold text-[#424650] cursor-not-allowed whitespace-nowrap"
+              className="h-8 px-5 rounded-full border-2 border-ink-body text-sm font-bold text-ink-body cursor-not-allowed whitespace-nowrap"
             >
               Enable Bucket Versioning
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+          <div className="bg-surface rounded-2xl border border-line px-5 py-4">
             <div className="flex items-center justify-between gap-4 flex-wrap">
-              <h2 className="text-[20px] leading-6 font-bold text-[#0f141a]">
-                Versions <span className="font-normal text-[#656871]">(0)</span>
+              <h2 className="text-[20px] leading-6 font-bold text-ink">
+                Versions <span className="font-normal text-ink-muted">(0)</span>
               </h2>
               <div className="flex items-center gap-2 flex-wrap">
                 <button disabled className={disabledBtn}>
@@ -363,20 +363,20 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
             </div>
 
             <div className="flex items-center justify-end gap-3 mt-3 text-sm">
-              <span className="text-gray-400">‹</span>
-              <span className="font-bold text-[#0f141a]">1</span>
-              <span className="text-[#424650]">›</span>
+              <span className="text-gray-400 dark:text-ink-muted">‹</span>
+              <span className="font-bold text-ink">1</span>
+              <span className="text-ink-body">›</span>
             </div>
 
             <div className="mt-2 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-[#c6c6cd]">
+                  <tr className="border-b border-line">
                     <th className="py-2.5 w-10 text-left">
-                      <input type="checkbox" disabled className="rounded border-[#c6c6cd]" />
+                      <input type="checkbox" disabled className="rounded border-line" />
                     </th>
                     {["Version ID", "Type", "Last modified", "Size", "Storage class"].map((col) => (
-                      <th key={col} className="text-left px-3 py-2.5 font-bold text-[#424650] border-l border-[#c6c6cd]">
+                      <th key={col} className="text-left px-3 py-2.5 font-bold text-ink-body border-l border-line">
                         {col}
                       </th>
                     ))}
@@ -384,7 +384,7 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
                 </thead>
                 <tbody>
                   <tr>
-                    <td colSpan={6} className="py-8 text-center text-[#424650]">
+                    <td colSpan={6} className="py-8 text-center text-ink-body">
                       <p className="font-bold">No versions</p>
                       <p className="mt-1">
                         This object has no versions to display because Bucket Versioning has not been enabled for this

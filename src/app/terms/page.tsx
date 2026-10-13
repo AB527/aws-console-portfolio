@@ -54,16 +54,16 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <div className="bg-white min-h-screen pb-12">
+    <div className="bg-surface min-h-screen pb-12">
       <div className="max-w-5xl mx-auto px-4 lg:px-6 pt-6">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Terms of Use" }]} />
 
         <div className="mt-4 mb-6">
-          <h1 className="text-3xl font-light text-gray-900 mb-2">Terms of Use</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-3xl font-light text-gray-900 dark:text-ink mb-2">Terms of Use</h1>
+          <p className="text-sm text-gray-500 dark:text-ink-muted">
             <strong>Last Updated:</strong> June 13, 2026
           </p>
-          <p className="text-sm text-gray-600 mt-3 max-w-3xl leading-relaxed">
+          <p className="text-sm text-gray-600 dark:text-ink-body mt-3 max-w-3xl leading-relaxed">
             Please read these Terms of Use carefully before using this portfolio site. These terms govern your access to and use of the site operated by Atharva Bedekar.
           </p>
         </div>
@@ -71,13 +71,13 @@ export default function TermsPage() {
         <div className="flex gap-10 items-start">
           {/* Sticky sidebar TOC */}
           <aside className="w-[220px] shrink-0 sticky top-[56px] hidden lg:block">
-            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</p>
+            <p className="text-[11px] font-bold text-gray-400 dark:text-ink-muted uppercase tracking-wider mb-3">Contents</p>
             <nav className="flex flex-col gap-1">
               {sections.map((s) => (
                 <a
                   key={s.id}
                   href={`#${s.id}`}
-                  className="text-[13px] text-[#0073bb] hover:underline leading-snug py-0.5"
+                  className="text-[13px] text-[#0073bb] dark:text-link hover:underline leading-snug py-0.5"
                 >
                   {s.heading}
                 </a>
@@ -87,11 +87,11 @@ export default function TermsPage() {
 
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-100 dark:divide-line-subtle">
               {sections.map((section) => (
                 <section key={section.id} id={section.id} className="py-6 scroll-mt-14">
-                  <h2 className="text-base font-semibold text-gray-900 mb-3">{section.heading}</h2>
-                  <p className="text-sm text-gray-700 leading-relaxed">{section.body}</p>
+                  <h2 className="text-base font-semibold text-gray-900 dark:text-ink mb-3">{section.heading}</h2>
+                  <p className="text-sm text-gray-700 dark:text-ink-body leading-relaxed">{section.body}</p>
                 </section>
               ))}
             </div>

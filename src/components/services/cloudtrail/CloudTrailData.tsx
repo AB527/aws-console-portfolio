@@ -17,7 +17,7 @@ function useTrails() {
 }
 
 function Count({ value }: { value: number | undefined }) {
-  return <span className="font-normal text-[#656871]">({value ?? "–"})</span>
+  return <span className="font-normal text-ink-muted">({value ?? "–"})</span>
 }
 
 export function TrailCount() {

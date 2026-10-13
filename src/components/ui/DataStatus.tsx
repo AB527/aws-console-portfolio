@@ -9,13 +9,13 @@ interface DataStatusProps {
 }
 
 // Spinner line shown where content will appear, or a retry prompt if the fetch failed
-export default function DataStatus({ label, error = false, onRetry, className = "py-8 text-[#424650]" }: DataStatusProps) {
+export default function DataStatus({ label, error = false, onRetry, className = "py-8 text-ink-body" }: DataStatusProps) {
   if (error) {
     return (
       <div role="alert" className={`flex items-center justify-center gap-3 flex-wrap text-center ${className}`}>
         <span className="font-bold">{site.data.loadError.replace("%s", label)}</span>
         {onRetry && (
-          <button onClick={onRetry} className="font-bold text-[#006ce0] hover:underline">
+          <button onClick={onRetry} className="font-bold text-link hover:underline">
             {site.data.retry}
           </button>
         )}

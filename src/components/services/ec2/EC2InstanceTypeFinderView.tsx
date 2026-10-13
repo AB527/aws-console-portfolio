@@ -13,7 +13,7 @@ const BOOL_OPTIONS = [
   { value: "false", label: "No" },
 ]
 
-const LINK = "text-[#006ce0] underline underline-offset-4"
+const LINK = "text-link underline underline-offset-4"
 const RESULT_COLS = ["Project type", "Description", "Tech stack", "Scale", "Users served", "Hours spent"]
 
 interface Criteria {
@@ -52,7 +52,7 @@ function SelectField({
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full h-8 pl-3 pr-9 appearance-none bg-white border border-[#8c8c94] rounded-lg outline-none focus:border-[#006ce0] focus:ring-1 focus:ring-[#006ce0]"
+          className="w-full h-8 pl-3 pr-9 appearance-none bg-surface border border-line-strong rounded-lg outline-none focus:border-link focus:ring-1 focus:ring-link"
         >
           {options.map((o) => (
             <option key={o.value} value={o.value}>
@@ -61,7 +61,7 @@ function SelectField({
           ))}
         </select>
         <svg
-          className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#006ce0]"
+          className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-link"
           width="10"
           height="10"
           viewBox="0 0 10 10"
@@ -83,7 +83,7 @@ function NumberField({ label, value, onChange }: { label: string; value: string;
         min={0}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-8 px-3 bg-white border border-[#8c8c94] rounded-lg outline-none focus:border-[#006ce0] focus:ring-1 focus:ring-[#006ce0]"
+        className="w-full h-8 px-3 bg-surface border border-line-strong rounded-lg outline-none focus:border-link focus:ring-1 focus:ring-link"
       />
     </label>
   )
@@ -136,10 +136,10 @@ export default function EC2InstanceTypeFinderView() {
     : []
 
   return (
-    <div className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]">
+    <div className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-ink">
       <h1 className="text-[24px] leading-[30px] font-bold">Project type finder</h1>
 
-      <section className="mt-5 px-5 py-5 bg-white rounded-2xl border border-[#c6c6cd]">
+      <section className="mt-5 px-5 py-5 bg-surface rounded-2xl border border-line">
         <h2 className="text-[20px] leading-6 font-bold">Project type requirements</h2>
         <p className="mt-4 mb-3 font-bold">
           Tell us about your project type requirements and we&apos;ll provide suggestions for you.
@@ -181,7 +181,7 @@ export default function EC2InstanceTypeFinderView() {
       </section>
 
       <div className="flex items-center justify-end gap-3 mt-5">
-        <Link href={typesHref} className="h-8 px-5 flex items-center text-sm font-bold text-[#006ce0] hover:text-[#002b66]">
+        <Link href={typesHref} className="h-8 px-5 flex items-center text-sm font-bold text-link hover:text-link-hover">
           Cancel
         </Link>
         <button
@@ -193,17 +193,17 @@ export default function EC2InstanceTypeFinderView() {
       </div>
 
       {applied && (
-        <section className="mt-5 px-5 py-5 bg-white rounded-2xl border border-[#c6c6cd]">
+        <section className="mt-5 px-5 py-5 bg-surface rounded-2xl border border-line">
           <h2 className="text-[20px] leading-6 font-bold">
-            Suggested project types <span className="font-normal text-[#656871]">({ec2Data ? suggestions.length : "–"})</span>
+            Suggested project types <span className="font-normal text-ink-muted">({ec2Data ? suggestions.length : "–"})</span>
           </h2>
           <div className="overflow-x-auto mt-3">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#c6c6cd]">
+                <tr className="border-b border-line">
                   {RESULT_COLS.map((col, i) => (
-                    <th key={col} className="text-left py-1.5 font-bold text-[#424650]">
-                      <span className={`block pr-4 whitespace-nowrap ${i > 0 ? "pl-4 border-l border-[#c6c6cd]" : ""}`}>
+                    <th key={col} className="text-left py-1.5 font-bold text-ink-body">
+                      <span className={`block pr-4 whitespace-nowrap ${i > 0 ? "pl-4 border-l border-line" : ""}`}>
                         {col}
                       </span>
                     </th>
@@ -212,7 +212,7 @@ export default function EC2InstanceTypeFinderView() {
               </thead>
               <tbody>
                 {suggestions.map((t) => (
-                  <tr key={t.id} className="border-b border-[#ebebf0] last:border-b-0">
+                  <tr key={t.id} className="border-b border-line-subtle last:border-b-0">
                     <td className="py-2.5 pr-4 whitespace-nowrap">
                       <Link href={`${typesHref}&type=${t.id}`} className={LINK}>
                         {t.id}
@@ -230,7 +230,7 @@ export default function EC2InstanceTypeFinderView() {
                 )}
                 {ec2Data && suggestions.length === 0 && (
                   <tr>
-                    <td colSpan={RESULT_COLS.length} className="px-4 py-10 text-center font-bold text-[#424650]">
+                    <td colSpan={RESULT_COLS.length} className="px-4 py-10 text-center font-bold text-ink-body">
                       {types.length === 0
                         ? `No projects in the selected region (${selectedRegion}).`
                         : "No project types match your requirements."}

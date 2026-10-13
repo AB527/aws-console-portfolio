@@ -87,9 +87,9 @@ export default function RouteTablesView({ initialId }: { initialId?: string }) {
           render: (rt) => {
             const subnet = vpc ? subnetForRouteTable(vpc, rt) : undefined
             return (
-              <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+              <div className="bg-surface rounded-2xl border border-line px-5 py-4">
                 <h3 className="text-[20px] leading-6 font-bold mb-3">
-                  Explicit subnet associations <span className="font-normal text-[#656871]">({subnet ? 1 : 0})</span>
+                  Explicit subnet associations <span className="font-normal text-ink-muted">({subnet ? 1 : 0})</span>
                 </h3>
                 <SimpleTable columns={["Name", "Subnet ID", "IPv4 CIDR"]} empty="No subnet associations">
                   {subnet

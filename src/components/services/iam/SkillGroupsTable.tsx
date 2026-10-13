@@ -41,7 +41,7 @@ export default function SkillGroupsTable() {
       header: page.columns.name,
       sortValue: (r) => r.group.label,
       render: (r) => (
-        <Link href={`/iam/groups/${r.group.id}`} className="inline-flex items-center gap-2 text-[#0073bb] hover:underline">
+        <Link href={`/iam/groups/${r.group.id}`} className="inline-flex items-center gap-2 text-[#0073bb] dark:text-link hover:underline">
           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: r.group.color }} />
           {r.group.label}
         </Link>

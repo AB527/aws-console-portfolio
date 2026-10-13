@@ -86,20 +86,20 @@ export default function ConsoleFooter() {
           className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && setPwaOpen(false)}
         >
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl">
+          <div className="bg-surface rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-[#232f3e] rounded-lg flex items-center justify-center text-white">
                 <MobileIcon size={20} />
               </div>
               <div>
-                <h2 className="text-base font-semibold text-gray-900">Console Mobile App</h2>
-                <p className="text-xs text-gray-500">Install on your device</p>
+                <h2 className="text-base font-semibold text-gray-900 dark:text-ink">Console Mobile App</h2>
+                <p className="text-xs text-gray-500 dark:text-ink-muted">Install on your device</p>
               </div>
             </div>
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-gray-600 dark:text-ink-body mb-4">
               This portfolio can be installed as an app on your device:
             </p>
-            <ol className="text-sm text-gray-600 list-decimal list-inside space-y-2 mb-5">
+            <ol className="text-sm text-gray-600 dark:text-ink-body list-decimal list-inside space-y-2 mb-5">
               <li>
                 <strong>Chrome / Edge</strong> — click the install icon (⊕) in the address bar
               </li>

@@ -14,14 +14,14 @@ export default function GitHubStatsWidget() {
         {github.stats.map((stat, i) => (
           <div
             key={stat.id}
-            className={i > 0 ? "border-t border-[#c6c6cd] pt-3 mt-3" : ""}
+            className={i > 0 ? "border-t border-line pt-3 mt-3" : ""}
           >
-            <p className="text-[#0f141a]">{stat.label}</p>
+            <p className="text-ink">{stat.label}</p>
             <div className="flex items-end justify-between mt-1">
-              <span className="text-[28px] text-[#0f141a] leading-8">
+              <span className="text-[28px] text-ink leading-8">
                 {stat.value}
               </span>
-              <span className="text-[#0f141a] pb-1">
+              <span className="text-ink pb-1">
                 {stat.caption}
               </span>
             </div>
@@ -30,12 +30,12 @@ export default function GitHubStatsWidget() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#c6c6cd] mt-4">
+      <div className="border-t border-line mt-4">
         <a
           href={github.profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-center text-[14px] text-[#006ce0] hover:underline py-3"
+          className="block text-center text-[14px] text-link hover:underline py-3"
         >
           Go to GitHub
         </a>

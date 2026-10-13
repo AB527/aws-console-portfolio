@@ -379,10 +379,10 @@ function TopbarInner() {
           className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && setPwaOpen(false)}
         >
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl text-gray-900">
+          <div className="bg-surface rounded-2xl p-6 max-w-md w-full shadow-2xl text-gray-900 dark:text-ink">
             <h2 className="text-base font-semibold mb-3">Install Console Mobile App</h2>
-            <p className="text-sm text-gray-600 mb-4">Install this portfolio as an app on your device:</p>
-            <ol className="text-sm text-gray-600 list-decimal list-inside space-y-2 mb-5">
+            <p className="text-sm text-gray-600 dark:text-ink-body mb-4">Install this portfolio as an app on your device:</p>
+            <ol className="text-sm text-gray-600 dark:text-ink-body list-decimal list-inside space-y-2 mb-5">
               <li><strong>Chrome / Edge</strong> — click the install icon (⊕) in the address bar</li>
               <li><strong>Safari (iOS/macOS)</strong> — tap Share → &ldquo;Add to Home Screen&rdquo;</li>
               <li><strong>Firefox</strong> — tap the menu → &ldquo;Install&rdquo;</li>

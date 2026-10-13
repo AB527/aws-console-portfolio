@@ -40,13 +40,13 @@ export default function UserDetail({ userId }: UserDetailProps) {
   }
 
   const user = iamUsers.users.find((u) => u.id === userId)
-  if (!user) return <p className="text-sm font-bold text-gray-500">{iamConsole.detail.notFound}</p>
+  if (!user) return <p className="text-sm font-bold text-gray-500 dark:text-ink-muted">{iamConsole.detail.notFound}</p>
 
   const userGroups = iamGroups.groups.filter((g) => user.groups.includes(g.id))
 
   return (
     <div>
-      <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 mb-4">{user.displayName}</h1>
+      <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 dark:text-ink mb-4">{user.displayName}</h1>
 
       <SummaryGrid
         items={[
@@ -83,7 +83,7 @@ export default function UserDetail({ userId }: UserDetailProps) {
       {activeTab === "permissions" ? (
         <TableCard title={copy.permissionsTab} count={user.policies.length}>
           <thead>
-            <tr className="border-b border-gray-300">
+            <tr className="border-b border-gray-300 dark:border-line">
               <th className={`${TH} pl-5`}>{copy.permissionColumns.name}</th>
               <th className={TH}>
                 <span className={TH_INNER}>{copy.permissionColumns.effect}</span>
@@ -114,7 +114,7 @@ export default function UserDetail({ userId }: UserDetailProps) {
       ) : (
         <TableCard title={copy.groupsTab} count={userGroups.length}>
           <thead>
-            <tr className="border-b border-gray-300">
+            <tr className="border-b border-gray-300 dark:border-line">
               <th className={`${TH} pl-5`}>{copy.groupColumns.name}</th>
               <th className={TH}>
                 <span className={TH_INNER}>{copy.groupColumns.skills}</span>

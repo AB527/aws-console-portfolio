@@ -11,15 +11,15 @@ import { serviceTitle } from "@/lib/serviceTitle"
 import iamConsole from "@data/iam-console.json"
 import { CARD, LINK } from "./DetailParts"
 
-const H2 = "text-[20px] leading-6 font-bold text-gray-900"
-const STATUS = "py-4 text-[#424650]"
+const H2 = "text-[20px] leading-6 font-bold text-gray-900 dark:text-ink"
+const STATUS = "py-4 text-ink-body"
 
 function RefreshButton({ onClick, spinning }: { onClick: () => void; spinning: boolean }) {
   return (
     <button
       onClick={onClick}
       aria-label={iamConsole.table.refreshLabel}
-      className="w-8 h-8 shrink-0 flex items-center justify-center rounded-full border-2 border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]"
+      className="w-8 h-8 shrink-0 flex items-center justify-center rounded-full border-2 border-link text-link hover:bg-surface-selected"
     >
       <svg className={spinning ? "animate-spin" : ""} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
         <path d="M21 12a9 9 0 1 1-2.64-6.36" />
@@ -95,7 +95,7 @@ export default function IAMHome() {
     <div>
       <div className="flex items-center justify-between gap-4 mb-4">
         <div className="flex items-baseline gap-2">
-          <h1 className="text-[24px] leading-[30px] font-bold text-gray-900">{copy.title.replace("%s", serviceTitle("iam"))}</h1>
+          <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 dark:text-ink">{copy.title.replace("%s", serviceTitle("iam"))}</h1>
           <InfoLink topic="iam-dashboard" />
         </div>
         <RefreshButton onClick={reload} spinning={spinning} />
@@ -123,8 +123,8 @@ export default function IAMHome() {
                   <li key={c.title} className="flex gap-2.5">
                     <Check ok={c.ok} />
                     <div>
-                      <p className="text-sm text-gray-900">{c.title}</p>
-                      <p className="mt-1 text-xs text-[#424650]">{c.text}</p>
+                      <p className="text-sm text-gray-900 dark:text-ink">{c.title}</p>
+                      <p className="mt-1 text-xs text-ink-body">{c.text}</p>
                     </div>
                   </li>
                 ))}
@@ -138,12 +138,12 @@ export default function IAMHome() {
               <h2 className={H2}>{copy.resources.title}</h2>
               <RefreshButton onClick={reload} spinning={spinning} />
             </div>
-            <p className="mt-1 text-sm text-[#424650]">{copy.resources.subtitle}</p>
+            <p className="mt-1 text-sm text-ink-body">{copy.resources.subtitle}</p>
             {error && status(copy.resources.label)}
             <dl className="grid grid-cols-2 md:grid-cols-5 gap-y-5 mt-4">
               {resources.map((r, i) => (
-                <div key={r.label} className={`px-4 ${i === 0 ? "md:pl-0" : "md:border-l md:border-[#c6c6cd]"} max-md:px-0`}>
-                  <dt className="text-sm text-[#424650]">{r.label}</dt>
+                <div key={r.label} className={`px-4 ${i === 0 ? "md:pl-0" : "md:border-l md:border-line"} max-md:px-0`}>
+                  <dt className="text-sm text-ink-body">{r.label}</dt>
                   <dd className="mt-2">
                     <Link href={r.href} className={`text-[28px] leading-9 ${LINK}`}>
                       {r.value}
@@ -160,20 +160,20 @@ export default function IAMHome() {
               <h2 className={H2}>{copy.whatsNew.title}</h2>
               <Link
                 href="/iam/users"
-                className="h-8 px-5 flex items-center rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
+                className="h-8 px-5 flex items-center rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
               >
                 {copy.whatsNew.viewAll}
               </Link>
             </div>
-            <p className="mt-1 text-sm text-[#424650]">{copy.whatsNew.subtitle}</p>
+            <p className="mt-1 text-sm text-ink-body">{copy.whatsNew.subtitle}</p>
             {!users.data && <DataStatus label={copy.whatsNew.label} error={users.error} onRetry={users.reload} className={STATUS} />}
-            <ul className="mt-3 divide-y divide-[#ebebf0]">
+            <ul className="mt-3 divide-y divide-line-subtle">
               {latest.map((u) => (
                 <li key={u.id} className="py-2.5 text-sm">
                   <Link href={`/iam/users/${u.id}`} className={LINK}>
                     {copy.whatsNew.item.replace("%s", u.description).replace("%s", u.displayName)}
                   </Link>{" "}
-                  <span className="text-[#424650] whitespace-nowrap">{formatMonthYear(u.periodFrom)}</span>
+                  <span className="text-ink-body whitespace-nowrap">{formatMonthYear(u.periodFrom)}</span>
                 </li>
               ))}
             </ul>
@@ -184,7 +184,7 @@ export default function IAMHome() {
           <section className={`${CARD} px-5 py-5`}>
             <h2 className={H2}>{copy.currentRole.title}</h2>
             {!users.data && <DataStatus label={copy.currentRole.label} error={users.error} onRetry={users.reload} className={STATUS} />}
-            {users.data && !current && <p className="mt-3 text-sm text-[#424650]">{copy.currentRole.none}</p>}
+            {users.data && !current && <p className="mt-3 text-sm text-ink-body">{copy.currentRole.none}</p>}
             {current && (
               <dl className="mt-3 space-y-3 text-sm">
                 {[
@@ -201,8 +201,8 @@ export default function IAMHome() {
                   { label: copy.currentRole.region, value: regionFull(current.region) },
                 ].map((row) => (
                   <div key={row.label}>
-                    <dt className="font-bold text-gray-900">{row.label}</dt>
-                    <dd className="mt-0.5 text-gray-900">{row.value}</dd>
+                    <dt className="font-bold text-gray-900 dark:text-ink">{row.label}</dt>
+                    <dd className="mt-0.5 text-gray-900 dark:text-ink">{row.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -214,7 +214,7 @@ export default function IAMHome() {
             <Link href="/cloudtrail/home" className={`inline-block mt-3 text-sm ${LINK}`}>
               {serviceTitle("cloudtrail")}
             </Link>
-            <p className="mt-2 text-sm text-gray-900">{copy.quickLinks.text}</p>
+            <p className="mt-2 text-sm text-gray-900 dark:text-ink">{copy.quickLinks.text}</p>
           </section>
 
           <section className={`${CARD} px-5 py-5`}>
@@ -222,7 +222,7 @@ export default function IAMHome() {
             <Link href={copy.tools.href} className={`inline-block mt-3 text-sm ${LINK}`}>
               {copy.tools.label}
             </Link>
-            <p className="mt-2 text-sm text-gray-900">{copy.tools.text}</p>
+            <p className="mt-2 text-sm text-gray-900 dark:text-ink">{copy.tools.text}</p>
           </section>
 
           <section className={`${CARD} px-5 py-5`}>

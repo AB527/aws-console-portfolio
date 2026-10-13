@@ -25,12 +25,12 @@ export default function SkillsTable() {
 
   const page = iamConsole.pages.skills
   const columns: Column<SkillRow>[] = [
-    { header: page.columns.name, sortValue: (r) => r.name, render: (r) => <span className="text-gray-900">{r.name}</span> },
+    { header: page.columns.name, sortValue: (r) => r.name, render: (r) => <span className="text-gray-900 dark:text-ink">{r.name}</span> },
     {
       header: page.columns.group,
       sortValue: (r) => r.groupLabel,
       render: (r) => (
-        <Link href={`/iam/groups/${r.groupId}`} className="inline-flex items-center gap-2 text-[#0073bb] hover:underline">
+        <Link href={`/iam/groups/${r.groupId}`} className="inline-flex items-center gap-2 text-[#0073bb] dark:text-link hover:underline">
           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: r.groupColor }} />
           {r.groupLabel}
         </Link>

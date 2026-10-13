@@ -18,7 +18,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`${openSans.className} bg-[#f9f9fa] min-h-[calc(100vh-56px)] flex flex-col text-[14px] leading-5 text-[#0f141a]`}
+      className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-56px)] flex flex-col text-[14px] leading-5 text-ink`}
     >
       <ServiceTopBar
         items={[
@@ -31,10 +31,10 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
         <ServiceSidebar serviceId="vpc">
           {/* Filter by Connect */}
           <div className="relative mx-5 mt-3 mb-3">
-            <span className="absolute -top-2.5 left-3 px-1 bg-white text-xs font-bold">Filter by Connect:</span>
-            <div className="flex items-center justify-between h-10 px-3 border border-[#8c8c94] rounded-lg">
+            <span className="absolute -top-2.5 left-3 px-1 bg-surface text-xs font-bold">Filter by Connect:</span>
+            <div className="flex items-center justify-between h-10 px-3 border border-line-strong rounded-lg">
               <span>{vpcData?.vpc.name ?? "–"}</span>
-              <svg className="text-[#006ce0]" width="12" height="12" viewBox="0 0 10 10" fill="currentColor">
+              <svg className="text-link" width="12" height="12" viewBox="0 0 10 10" fill="currentColor">
                 <path d="M1 3h8L5 8z" />
               </svg>
             </div>

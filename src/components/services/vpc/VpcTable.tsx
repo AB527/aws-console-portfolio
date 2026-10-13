@@ -1,10 +1,10 @@
 import InfoLink from "@/components/ui/InfoLink"
 
-const TH = "text-left py-1.5 font-bold text-[#424650]"
+const TH = "text-left py-1.5 font-bold text-ink-body"
 
 export function StateBadge({ state }: { state: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-[#00802f] whitespace-nowrap">
+    <span className="inline-flex items-center gap-1.5 text-success whitespace-nowrap">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <path d="m7 12 3.5 3.5L17 9" />
@@ -27,10 +27,10 @@ interface VpcTableProps {
 // Card + table frame shared by the Your Connects and Subnets pages; rows are passed as children
 export default function VpcTable({ title, infoTopic, count, description, columns, children }: VpcTableProps) {
   return (
-    <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+    <div className="bg-surface rounded-2xl border border-line px-5 py-4">
       <div className="flex items-baseline gap-2">
         <h1 className="text-[20px] leading-6 font-bold">
-          {title} <span className="font-normal text-[#656871]">({count})</span>
+          {title} <span className="font-normal text-ink-muted">({count})</span>
         </h1>
         <InfoLink topic={infoTopic} />
       </div>
@@ -38,10 +38,10 @@ export default function VpcTable({ title, infoTopic, count, description, columns
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-[#c6c6cd]">
+            <tr className="border-b border-line">
               {columns.map((col, i) => (
                 <th key={col} className={TH}>
-                  <span className={`block py-0.5 whitespace-nowrap ${i === 0 ? "pr-4" : "px-4 border-l border-[#c6c6cd]"}`}>
+                  <span className={`block py-0.5 whitespace-nowrap ${i === 0 ? "pr-4" : "px-4 border-l border-line"}`}>
                     {col}
                   </span>
                 </th>

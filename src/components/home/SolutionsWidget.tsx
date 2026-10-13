@@ -47,15 +47,15 @@ export default function SolutionsWidget() {
   return (
     <div className="flex flex-col h-full -mx-5 -mb-5">
       {/* Description */}
-      <p className="text-[14px] text-[#424650] leading-relaxed px-5 -mt-1 pb-3">
+      <p className="text-[14px] text-ink-body leading-relaxed px-5 -mt-1 pb-3">
         {solutions.description}
       </p>
 
       {/* Tabs with chevron navigation */}
-      <div className="flex items-stretch border-b border-[#c6c6cd] shrink-0">
+      <div className="flex items-stretch border-b border-line shrink-0">
         <button
           onClick={() => scrollTabs(-1)}
-          className="flex items-center px-2.5 text-[#656871] hover:text-[#0f141a] border-r border-[#c6c6cd] shrink-0"
+          className="flex items-center px-2.5 text-ink-muted hover:text-ink border-r border-line shrink-0"
           aria-label="Scroll tabs left"
         >
           <svg width="11" height="16" viewBox="0 0 8 12" fill="none">
@@ -73,11 +73,11 @@ export default function SolutionsWidget() {
               key={t.id}
               onClick={() => setActiveTab(t.id)}
               className={`px-5 py-2.5 text-[14px] font-bold whitespace-nowrap transition-colors border-b-2 -mb-px ${
-                idx > 0 ? "border-l border-l-[#c6c6cd]" : ""
+                idx > 0 ? "border-l border-l-line" : ""
               } ${
                 tab.id === t.id
-                  ? "border-b-[#006ce0] text-[#006ce0]"
-                  : "border-b-transparent text-[#424650] hover:text-[#0f141a]"
+                  ? "border-b-link text-link"
+                  : "border-b-transparent text-ink-body hover:text-ink"
               }`}
             >
               {t.name} ({t.items.length})
@@ -87,7 +87,7 @@ export default function SolutionsWidget() {
 
         <button
           onClick={() => scrollTabs(1)}
-          className="flex items-center px-2.5 text-[#656871] hover:text-[#0f141a] border-l border-[#c6c6cd] shrink-0"
+          className="flex items-center px-2.5 text-ink-muted hover:text-ink border-l border-line shrink-0"
           aria-label="Scroll tabs right"
         >
           <svg width="11" height="16" viewBox="0 0 8 12" fill="none">
@@ -99,28 +99,28 @@ export default function SolutionsWidget() {
       {/* Items */}
       <div className="flex-1 overflow-y-auto px-5">
         {(tab.items as SolutionItem[]).map((item, i) => (
-          <div key={i} className={`py-3 ${i > 0 ? "border-t border-[#c6c6cd]" : ""}`}>
+          <div key={i} className={`py-3 ${i > 0 ? "border-t border-line" : ""}`}>
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[14px] font-bold text-[#006ce0] hover:underline leading-snug"
+              className="text-[14px] font-bold text-link hover:underline leading-snug"
             >
               {item.title}
               <ExternalIcon />
             </a>
-            <p className="text-[12px] text-[#656871] mt-1">{item.time}</p>
+            <p className="text-[12px] text-ink-muted mt-1">{item.time}</p>
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#c6c6cd] shrink-0">
+      <div className="border-t border-line shrink-0">
         <a
           href={solutions.footer.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1 text-center text-[14px] text-[#006ce0] hover:underline py-3"
+          className="flex items-center justify-center gap-1 text-center text-[14px] text-link hover:underline py-3"
         >
           {solutions.footer.label}
           <ExternalIcon />

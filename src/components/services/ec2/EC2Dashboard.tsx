@@ -28,7 +28,7 @@ const COLS: { label: string; sortKey?: SortKey }[] = [
 ]
 
 const OUTLINE_BTN =
-  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
+  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
 
 function Caret() {
   return (
@@ -127,20 +127,20 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
 
   return (
     <div
-      className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
+      className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-ink"
       style={selected ? { paddingBottom: splitPanelPadding(panelHeight) } : undefined}
     >
       {/* Header */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <h1 className="text-[24px] leading-[30px] font-bold">
           {activeProject ? (filtered[0]?.name ?? "Project") : "Projects"}{" "}
-          <span className="font-normal text-[#656871]">
+          <span className="font-normal text-ink-muted">
             ({!ec2Data ? "–" : selectedRows.length ? `${selectedRows.length}/${filtered.length}` : filtered.length})
           </span>{" "}
-          <InfoLink topic="ec2-projects" className="text-xs font-bold text-[#006ce0] hover:underline align-middle" />
+          <InfoLink topic="ec2-projects" className="text-xs font-bold text-link hover:underline align-middle" />
         </h1>
         <div className="flex items-center gap-2 flex-wrap">
-          <p className="text-right text-[#424650] leading-[18px] mr-1">
+          <p className="text-right text-ink-body leading-[18px] mr-1">
             Last updated
             <br />
             less than a minute ago
@@ -148,7 +148,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
           <button
             onClick={handleRefresh}
             aria-label="Refresh"
-            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]"
+            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-link text-link hover:bg-surface-selected"
           >
             <svg
               className={spinning ? "animate-spin" : ""}
@@ -172,7 +172,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
             className={
               selected
                 ? OUTLINE_BTN
-                : "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#b4b4bb] text-sm font-bold text-[#8c8c94] cursor-not-allowed whitespace-nowrap"
+                : "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-ink-disabled text-sm font-bold text-line-strong cursor-not-allowed whitespace-nowrap"
             }
           >
             Connect
@@ -203,16 +203,16 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
       {/* Filter sets + search + pagination */}
       <div className="flex items-end gap-4 mt-4 mb-2">
         <div className="relative shrink-0">
-          <span className="absolute -top-2 left-3 px-1 bg-[#f9f9fa] text-[12px] leading-4 font-bold">Saved filter sets</span>
-          <button className="h-8 px-3 flex items-center gap-3 border border-[#8c8c94] rounded-lg bg-white italic text-[#656871] whitespace-nowrap">
+          <span className="absolute -top-2 left-3 px-1 bg-surface-subtle text-[12px] leading-4 font-bold">Saved filter sets</span>
+          <button className="h-8 px-3 flex items-center gap-3 border border-line-strong rounded-lg bg-surface italic text-ink-muted whitespace-nowrap">
             Choose filter set
-            <span className="text-[#006ce0]">
+            <span className="text-link">
               <Caret />
             </span>
           </button>
         </div>
-        <div className="flex-1 min-w-0 flex items-center gap-2 h-8 px-3 border border-[#8c8c94] rounded-lg bg-white">
-          <svg className="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#424650" strokeWidth="2.5">
+        <div className="flex-1 min-w-0 flex items-center gap-2 h-8 px-3 border border-line-strong rounded-lg bg-surface">
+          <svg className="shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-body)" strokeWidth="2.5">
             <circle cx="11" cy="11" r="7" />
             <path d="m21 21-5-5" />
           </svg>
@@ -222,18 +222,18 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
             aria-label="Filter project by attribute or tag"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 min-w-0 text-sm placeholder:italic placeholder-[#656871] outline-none bg-transparent"
+            className="flex-1 min-w-0 text-sm placeholder:italic placeholder-ink-muted outline-none bg-transparent"
           />
         </div>
-        <div className="flex items-center gap-4 text-[#424650]">
-          <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <div className="flex items-center gap-4 text-ink-body">
+          <svg className="text-ink-disabled" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="m15 18-6-6 6-6" />
           </svg>
-          <span className="font-bold text-[#0f141a]">1</span>
-          <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <span className="font-bold text-ink">1</span>
+          <svg className="text-ink-disabled" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="m9 18 6-6-6-6" />
           </svg>
-          <span className="w-px h-8 bg-[#c6c6cd]" />
+          <span className="w-px h-8 bg-line" />
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -245,7 +245,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-[#c6c6cd]">
+            <tr className="border-b border-line">
               <th className="w-12 px-4 py-1.5">
                 <span className="flex items-center h-5">
                   <input
@@ -254,16 +254,16 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                     ref={(el) => { if (el) el.indeterminate = selectedRows.length > 0 && !allSelected }}
                     onChange={() => setSelectedIds(selectedRows.length ? [] : filtered.map((i) => i.id))}
                     aria-label="Select all projects"
-                    className="block w-4 h-4 m-0 accent-[#006ce0]"
+                    className="block w-4 h-4 m-0 accent-link"
                   />
                 </span>
               </th>
               {COLS.map(({ label, sortKey }) => (
-                <th key={label} className="text-left py-1.5 font-bold text-[#424650]">
+                <th key={label} className="text-left py-1.5 font-bold text-ink-body">
                   {sortKey ? (
                     <button
                       onClick={() => toggleSort(sortKey)}
-                      className="w-full flex items-center justify-between gap-3 px-4 py-0.5 border-l border-[#c6c6cd] font-bold whitespace-nowrap"
+                      className="w-full flex items-center justify-between gap-3 px-4 py-0.5 border-l border-line font-bold whitespace-nowrap"
                     >
                       <span className="flex items-center gap-1.5">
                         {label}
@@ -276,7 +276,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                       <SortIcon dir={sort?.key === sortKey ? sort.dir : null} />
                     </button>
                   ) : (
-                    <span className="block px-4 py-0.5 border-l border-[#c6c6cd] whitespace-nowrap">{label}</span>
+                    <span className="block px-4 py-0.5 border-l border-line whitespace-nowrap">{label}</span>
                   )}
                 </th>
               ))}
@@ -291,8 +291,8 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                   onClick={() => toggleSelect(inst.id)}
                   className={`cursor-pointer ${
                     isSelected
-                      ? "bg-[#f0fbff] outline outline-2 -outline-offset-2 outline-[#006ce0]"
-                      : "border-b border-[#ebebf0] hover:bg-[#f0fbff]/60"
+                      ? "bg-surface-selected outline outline-2 -outline-offset-2 outline-link"
+                      : "border-b border-line-subtle hover:bg-surface-selected/60"
                   }`}
                 >
                   <td className="w-12 px-4 py-2.5">
@@ -303,16 +303,16 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                         onChange={() => toggleSelect(inst.id)}
                         onClick={(e) => e.stopPropagation()}
                         aria-label={`Select ${inst.name}`}
-                        className="block w-4 h-4 m-0 accent-[#006ce0]"
+                        className="block w-4 h-4 m-0 accent-link"
                       />
                     </span>
                   </td>
                   <td className="px-4 py-2.5 whitespace-nowrap">{inst.name}</td>
-                  <td className="px-4 py-2.5 whitespace-nowrap text-[#006ce0]">{inst.id}</td>
+                  <td className="px-4 py-2.5 whitespace-nowrap text-link">{inst.id}</td>
                   <td className="px-4 py-2.5 whitespace-nowrap">
                     <span className="flex items-center gap-3">
                       <StateValue status={inst.status} />
-                      <span className="flex items-center gap-2 text-[#006ce0]">
+                      <span className="flex items-center gap-2 text-link">
                         <ZoomIcon />
                         <ZoomIcon out />
                       </span>
@@ -320,7 +320,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                   </td>
                   <td className="px-4 py-2.5 whitespace-nowrap">{inst.instanceType}</td>
                   <td className="px-4 py-2.5 whitespace-nowrap">
-                    {inst.status === "running" ? <span className="text-[#00802f]">2/2 checks passed</span> : "–"}
+                    {inst.status === "running" ? <span className="text-success">2/2 checks passed</span> : "–"}
                   </td>
                   <td className="px-4 py-2.5 whitespace-nowrap">{zone}</td>
                   <td className="px-4 py-2.5">{inst.metrics.usersServed.toLocaleString("en-US")}</td>
@@ -331,7 +331,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
             {!ec2Data && <DataStatusRow colSpan={COLS.length + 1} label="projects" error={error} onRetry={reload} />}
             {ec2Data && filtered.length === 0 && (
               <tr>
-                <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-[#424650]">
+                <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-ink-body">
                   {instances.filter((i) => i.region === selectedRegion).length === 0
                     ? `No projects in the selected region (${selectedRegion}).`
                     : "No projects match your filters."}
@@ -363,7 +363,7 @@ function CopyButton({ value }: { value: string }) {
         setTimeout(() => setCopied(false), 1200)
       }}
       title={copied ? "Copied" : "Copy"}
-      className="text-[#0073bb] hover:text-[#005f99] shrink-0"
+      className="text-[#0073bb] dark:text-link hover:text-[#005f99] dark:hover:text-link-hover shrink-0"
     >
       {copied ? (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a7f37" strokeWidth="2.5">
@@ -390,7 +390,7 @@ function ExternalIcon() {
 function StateValue({ status }: { status: string }) {
   const running = status === "running"
   return (
-    <span className={`inline-flex items-center gap-1.5 ${running ? "text-[#00802f]" : "text-[#656871]"}`}>
+    <span className={`inline-flex items-center gap-1.5 ${running ? "text-success" : "text-ink-muted"}`}>
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
         <circle cx="12" cy="12" r="9.5" />
         {running ? <path d="m8 12.5 2.7 2.7L16.5 9.5" strokeLinecap="round" strokeLinejoin="round" /> : <path d="M8 12h8" strokeLinecap="round" />}
@@ -403,8 +403,8 @@ function StateValue({ status }: { status: string }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-[14px] font-bold text-gray-900">{label}</p>
-      <div className="mt-1 text-[14px] text-gray-700 break-words">{children}</div>
+      <p className="text-[14px] font-bold text-gray-900 dark:text-ink">{label}</p>
+      <div className="mt-1 text-[14px] text-gray-700 dark:text-ink-body break-words">{children}</div>
     </div>
   )
 }
@@ -433,7 +433,7 @@ function ProjectSummaryPanel({
       onResize={onResize}
       onClose={onClose}
       actions={
-        <a href={inst.link} target="_blank" rel="noopener noreferrer" title="Open project" className="p-1 rounded-full hover:bg-gray-100">
+        <a href={inst.link} target="_blank" rel="noopener noreferrer" title="Open project" className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-surface-subtle">
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
             <path d="M9 2h5v5M14 2 7 9M12 9.5V14H2V4h4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -442,14 +442,14 @@ function ProjectSummaryPanel({
     >
         <button
           onClick={() => setSummaryOpen((o) => !o)}
-          className="flex items-center gap-2 py-2 text-[18px] font-bold text-gray-900"
+          className="flex items-center gap-2 py-2 text-[18px] font-bold text-gray-900 dark:text-ink"
           aria-expanded={summaryOpen}
         >
           <svg width="11" height="11" viewBox="0 0 10 10" fill="currentColor" className={`transition-transform ${summaryOpen ? "" : "-rotate-90"}`}>
             <path d="M0 2h10L5 9z" />
           </svg>
           Project summary
-          <InfoLink topic="ec2-project-summary" inline className="text-xs font-bold text-[#0073bb] hover:underline" />
+          <InfoLink topic="ec2-project-summary" inline className="text-xs font-bold text-[#0073bb] dark:text-link hover:underline" />
         </button>
 
         {summaryOpen && (
@@ -462,18 +462,18 @@ function ProjectSummaryPanel({
                 <Field label="Project type">{inst.instanceType}</Field>
                 <Field label="Tech stack">{inst.techStack}</Field>
               </div>
-              <div className="space-y-5 md:px-6 md:border-l border-gray-200 mt-5 md:mt-0">
+              <div className="space-y-5 md:px-6 md:border-l border-gray-200 dark:border-line mt-5 md:mt-0">
                 <Field label="Project state"><StateValue status={inst.status} /></Field>
                 <Field label="Period">{formatPeriod(inst.periodFrom, inst.periodTo)}</Field>
                 <Field label="Users served">{inst.metrics.usersServed.toLocaleString()}</Field>
               </div>
-              <div className="space-y-5 md:pl-6 md:border-l border-gray-200 mt-5 md:mt-0">
+              <div className="space-y-5 md:pl-6 md:border-l border-gray-200 dark:border-line mt-5 md:mt-0">
                 <Field label="Project link">
                   <span className="inline-flex items-start gap-2">
                     <CopyButton value={inst.link} />
                     <span>
                       {inst.link.replace(/^https?:\/\//, "")} |{" "}
-                      <a href={inst.link} target="_blank" rel="noopener noreferrer" className="text-[#0073bb] hover:underline">
+                      <a href={inst.link} target="_blank" rel="noopener noreferrer" className="text-[#0073bb] dark:text-link hover:underline">
                         open address<ExternalIcon />
                       </a>
                     </span>
@@ -484,14 +484,14 @@ function ProjectSummaryPanel({
               </div>
             </div>
 
-            <div className="mt-6 pt-5 border-t border-gray-200 space-y-4">
+            <div className="mt-6 pt-5 border-t border-gray-200 dark:border-line space-y-4">
               <Field label="Description">
                 <p className="leading-relaxed">{inst.details}</p>
               </Field>
               <Field label="Tags">
                 <div className="flex flex-wrap gap-1.5">
                   {inst.tags.map((tag) => (
-                    <span key={tag} className="bg-[#eaf4fb] text-[#0073bb] text-xs px-2 py-0.5 rounded-full border border-[#b3d9f0]">{tag}</span>
+                    <span key={tag} className="bg-[#eaf4fb] dark:bg-surface-selected text-[#0073bb] dark:text-link text-xs px-2 py-0.5 rounded-full border border-[#b3d9f0] dark:border-line">{tag}</span>
                   ))}
                 </div>
               </Field>

@@ -4,13 +4,13 @@ import { Suspense, useEffect } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 
-const BUTTON_CLASS = "w-8 h-8 shrink-0 flex items-center justify-center rounded-full transition-colors text-[#424650]"
+const BUTTON_CLASS = "w-8 h-8 shrink-0 flex items-center justify-center rounded-full transition-colors text-ink-body"
 
 // The blue fill shows only while the sidebar is open. Service sidebars keep separate
 // open states for desktop (not collapsed) and phones (drawer open), hence two flags.
 function buttonClass(openOnDesktop: boolean, openOnMobile: boolean) {
-  return `${BUTTON_CLASS} ${openOnDesktop ? "lg:bg-[#006ce0] lg:text-white" : "lg:hover:text-[#0f141a]"} ${
-    openOnMobile ? "max-lg:bg-[#006ce0] max-lg:text-white" : "max-lg:hover:text-[#0f141a]"
+  return `${BUTTON_CLASS} ${openOnDesktop ? "lg:bg-[#006ce0] lg:text-white" : "lg:hover:text-ink"} ${
+    openOnMobile ? "max-lg:bg-[#006ce0] max-lg:text-white" : "max-lg:hover:text-ink"
   }`
 }
 

@@ -6,9 +6,9 @@ import type { Json, JsonObject } from "./json"
 import type { Field, Lookups, Option } from "./schema"
 
 export const INPUT =
-  "w-full min-w-0 px-2.5 py-1.5 text-sm text-gray-900 bg-white border border-[#8c8c94] rounded-lg outline-none focus:border-[#006ce0] focus:ring-1 focus:ring-[#006ce0] disabled:bg-[#f2f3f3] disabled:text-[#656871]"
-const SMALL_BTN = "px-2 py-0.5 text-xs font-bold text-[#006ce0] rounded hover:bg-[#f0fbff] disabled:text-gray-300 disabled:hover:bg-transparent"
-const DANGER_BTN = "px-2 py-0.5 text-xs font-bold text-[#d91515] rounded hover:bg-[#fff5f5]"
+  "w-full min-w-0 px-2.5 py-1.5 text-sm text-gray-900 dark:text-ink bg-surface border border-line-strong rounded-lg outline-none focus:border-link focus:ring-1 focus:ring-link disabled:bg-page disabled:text-ink-muted"
+const SMALL_BTN = "px-2 py-0.5 text-xs font-bold text-link rounded hover:bg-surface-selected disabled:text-gray-300 dark:disabled:text-ink-disabled disabled:hover:bg-transparent"
+const DANGER_BTN = "px-2 py-0.5 text-xs font-bold text-danger rounded hover:bg-[#fff5f5] dark:hover:bg-danger/10"
 
 function options(field: Field, lookups: Lookups): Option[] {
   const source = field.options
@@ -32,9 +32,9 @@ function Tags({ value, onChange, label }: { value: string[]; onChange: (v: Json)
       {value.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-2">
           {value.map((tag) => (
-            <span key={tag} className="inline-flex items-center gap-1 pl-2.5 pr-1 py-0.5 text-xs rounded-full bg-[#f0fbff] border border-[#b8e7ff] text-gray-900">
+            <span key={tag} className="inline-flex items-center gap-1 pl-2.5 pr-1 py-0.5 text-xs rounded-full bg-surface-selected border border-[#b8e7ff] dark:border-line text-gray-900 dark:text-ink">
               {tag}
-              <button type="button" onClick={() => onChange(value.filter((t) => t !== tag))} aria-label={`Remove ${tag}`} className="w-4 h-4 leading-none rounded-full hover:bg-[#b8e7ff]">
+              <button type="button" onClick={() => onChange(value.filter((t) => t !== tag))} aria-label={`Remove ${tag}`} className="w-4 h-4 leading-none rounded-full hover:bg-[#b8e7ff] dark:hover:bg-line">
                 ×
               </button>
             </span>
@@ -74,9 +74,9 @@ function Rows({ field, value, onChange, lookups, idPrefix }: { field: Field; val
       {value.map((row, i) => {
         const title = field.rowTitle ? text(getIn(row, [field.rowTitle])) : ""
         return (
-          <div key={i} className="border border-[#c6c6cd] rounded-xl bg-[#fafafa]">
-            <div className="flex items-center justify-between gap-2 px-3 py-1.5 border-b border-[#ebebf0]">
-              <span className="text-xs font-bold text-[#424650] truncate">{title || `${field.label} ${i + 1}`}</span>
+          <div key={i} className="border border-line rounded-xl bg-[#fafafa] dark:bg-surface-subtle">
+            <div className="flex items-center justify-between gap-2 px-3 py-1.5 border-b border-line-subtle">
+              <span className="text-xs font-bold text-ink-body truncate">{title || `${field.label} ${i + 1}`}</span>
               <span className="flex items-center shrink-0">
                 <button type="button" disabled={i === 0} onClick={() => move(i, -1)} className={SMALL_BTN} aria-label="Move up">
                   ↑
@@ -150,7 +150,7 @@ export default function FieldControl({ field, value, onChange, lookups, error, l
       )
       break
     case "boolean":
-      control = <input id={id} type="checkbox" checked={value === true} onChange={(e) => onChange(e.target.checked)} disabled={locked} className="w-4 h-4 accent-[#006ce0]" />
+      control = <input id={id} type="checkbox" checked={value === true} onChange={(e) => onChange(e.target.checked)} disabled={locked} className="w-4 h-4 accent-link" />
       break
     case "colour":
       control = (
@@ -187,12 +187,12 @@ export default function FieldControl({ field, value, onChange, lookups, error, l
       control = (
         <div className="flex flex-col gap-1.5">
           {options(field, lookups).map((o) => (
-            <label key={o.value} className="flex items-center gap-2 text-sm text-gray-900">
+            <label key={o.value} className="flex items-center gap-2 text-sm text-gray-900 dark:text-ink">
               <input
                 type="checkbox"
                 checked={chosen.includes(o.value)}
                 onChange={(e) => onChange(e.target.checked ? [...chosen, o.value] : chosen.filter((v) => v !== o.value))}
-                className="w-4 h-4 accent-[#006ce0]"
+                className="w-4 h-4 accent-link"
               />
               {o.label}
             </label>
@@ -217,7 +217,7 @@ export default function FieldControl({ field, value, onChange, lookups, error, l
             const file = e.target.files?.[0]
             if (file) onUpload?.(file)
           }}
-          className="block w-full text-sm text-gray-900 file:mr-3 file:h-8 file:px-4 file:rounded-full file:border-2 file:border-solid file:border-[#006ce0] file:bg-white file:text-sm file:font-bold file:text-[#006ce0] file:cursor-pointer"
+          className="block w-full text-sm text-gray-900 dark:text-ink file:mr-3 file:h-8 file:px-4 file:rounded-full file:border-2 file:border-solid file:border-link file:bg-surface file:text-sm file:font-bold file:text-link file:cursor-pointer"
         />
       )
       break
@@ -227,14 +227,14 @@ export default function FieldControl({ field, value, onChange, lookups, error, l
 
   return (
     <div>
-      <label htmlFor={id} className="block mb-1 text-sm font-bold text-gray-900">
+      <label htmlFor={id} className="block mb-1 text-sm font-bold text-gray-900 dark:text-ink">
         {field.label}
-        {!field.required && field.type !== "boolean" && field.type !== "file" && <span className="font-normal italic text-[#656871]"> - optional</span>}
+        {!field.required && field.type !== "boolean" && field.type !== "file" && <span className="font-normal italic text-ink-muted"> - optional</span>}
       </label>
       {control}
-      {field.hint && <p className="mt-1 text-xs text-[#656871]">{field.hint}</p>}
+      {field.hint && <p className="mt-1 text-xs text-ink-muted">{field.hint}</p>}
       {error && (
-        <p role="alert" className="mt-1 text-xs font-bold text-[#d91515]">
+        <p role="alert" className="mt-1 text-xs font-bold text-danger">
           {error}
         </p>
       )}

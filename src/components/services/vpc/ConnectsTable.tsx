@@ -22,7 +22,7 @@ export default function ConnectsTable() {
         <tr>
           <td className="pr-4 py-3">{data.vpc.name}</td>
           <td className="px-4 py-3 whitespace-nowrap">
-            <Link href={`/vpc/connects/${data.vpc.id}`} className="text-[#006ce0] underline underline-offset-4">
+            <Link href={`/vpc/connects/${data.vpc.id}`} className="text-link underline underline-offset-4">
               {data.vpc.id}
             </Link>
           </td>

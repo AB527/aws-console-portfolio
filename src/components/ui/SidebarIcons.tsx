@@ -8,7 +8,7 @@ export function SectionCaret({ open }: { open: boolean }) {
       viewBox="0 0 10 10"
       fill="currentColor"
       aria-hidden="true"
-      className={`shrink-0 text-gray-900 transition-transform duration-150 ${open ? "rotate-0" : "-rotate-90"}`}
+      className={`shrink-0 text-gray-900 dark:text-ink transition-transform duration-150 ${open ? "rotate-0" : "-rotate-90"}`}
     >
       <path d="M0 2h10L5 9z" />
     </svg>
@@ -35,4 +35,4 @@ export function mobileDrawerClass(open: boolean) {
 }
 
 export const SIDEBAR_CLOSE_BUTTON_CLASS =
-  "w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-gray-900 hover:bg-gray-100 transition-colors"
+  "w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-gray-900 dark:text-ink hover:bg-gray-100 dark:hover:bg-surface-subtle transition-colors"

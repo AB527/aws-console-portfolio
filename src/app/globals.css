@@ -8,6 +8,56 @@
   --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
+/* Colours for page content. Light values here, dark values below; the already-dark chrome
+   (top bar, footer, dropdown panels) does not use them. */
+@theme {
+  --color-page: #f2f3f3;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f9f9fa;
+  --color-surface-selected: #f0fbff;
+  --color-line: #c6c6cd;
+  --color-line-subtle: #ebebf0;
+  --color-line-strong: #8c8c94;
+  --color-ink: #0f141a;
+  --color-ink-body: #424650;
+  --color-ink-muted: #656871;
+  --color-ink-disabled: #b4b4bb;
+  --color-link: #006ce0;
+  --color-link-hover: #002b66;
+  --color-success: #00802f;
+  --color-warning: #855900;
+  --color-warning-surface: #fffef0;
+  --color-danger: #d91515;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-page: #0f141a;
+  --color-surface: #161d26;
+  --color-surface-subtle: #1b232d;
+  --color-surface-selected: #001129;
+  --color-line: #424650;
+  --color-line-subtle: #232b37;
+  --color-line-strong: #656871;
+  --color-ink: #ebebf0;
+  --color-ink-body: #c6c6cd;
+  --color-ink-muted: #a4a4ad;
+  --color-ink-disabled: #656871;
+  --color-link: #42b4ff;
+  --color-link-hover: #75cfff;
+  --color-success: #2bb534;
+  --color-warning: #fbd332;
+  --color-warning-surface: #2a2410;
+  --color-danger: #ff7a7a;
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Unlayered, so it also beats the plain `body { color }` that Next ships with its 404 page */
+:root[data-theme="dark"] body {
+  color: var(--color-ink);
+}
+
 body {
   font-family: var(--font-sans);
 }
