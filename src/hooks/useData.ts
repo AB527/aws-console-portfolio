@@ -6,7 +6,6 @@ import type announcements from "@data/announcements.json"
 import type blogPosts from "@data/blog-posts.json"
 import type ec2Projects from "@data/ec2-projects.json"
 import type explore from "@data/explore.json"
-import type gettingStarted from "@data/getting-started.json"
 import type github from "@data/github.json"
 import type iamGroups from "@data/iam-groups.json"
 import type iamUsers from "@data/iam-users.json"
@@ -23,7 +22,6 @@ export interface ContentData {
   "blog-posts": typeof blogPosts
   "ec2-projects": typeof ec2Projects
   explore: typeof explore
-  "getting-started": typeof gettingStarted
   github: typeof github
   "iam-groups": typeof iamGroups
   "iam-users": typeof iamUsers

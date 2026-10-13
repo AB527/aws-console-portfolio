@@ -6,7 +6,7 @@
       "label": "Getting started with this console",
       "description": "Learn how this portfolio works and what each section means.",
       "icon": "rocket",
-      "route": "/getting-started"
+      "link": "https://github.com/AB527/aws-console-portfolio"
     },
     {
       "id": "linkedin",

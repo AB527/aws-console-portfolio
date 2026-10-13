@@ -67,7 +67,7 @@ per service — add or edit the service's entry in `public/data/sidebars.json`.
 /                               → redirects to /console/home
 /console/home                   dashboard
 /console/services               all services
-/getting-started  /privacy  /terms
+/privacy  /terms
 /ec2/home                       ?view=instances | instance-types | instance-type-finder, ?project=, ?type=
 /s3/home                        buckets list
 /s3/buckets/[bucketId]          bucket detail
@@ -118,7 +118,7 @@ Everything in `public/data/` is also a public URL (`/data/<name>.json`). The fil
 They drive the top bar, sidebars, tab titles and the store defaults, so they are imported
 (`import site from "@data/site.json"`) and are there on first paint.
 
-**Content files** — the other 14. The browser fetches them at runtime:
+**Content files** — the other 13. The browser fetches them at runtime:
 ```tsx
 const { data, error, reload } = useData("vpc")   // src/hooks/useData.ts; data is null while loading
 ```
@@ -196,6 +196,35 @@ closes when the visitor navigates to another page.
 
 The All services page (`/console/services`) uses the same top bar as console home
 (`ConsoleHomeShell` with a `breadcrumb`) and lays out `all-services.json` as "Services by category".
+
+## Studio (development only)
+`/studio` is an admin for the data files, organised by service and use case (Projects, Documents,
+Skills, Connect, home widgets, console settings, text labels). `/studio/[section]` is a list with
+Add / Edit / Delete and a form, or a single settings form. The footer shows a "Studio" link in
+development.
+
+- Its route files are named `page.dev.tsx` / `layout.dev.tsx`. `next.config.mjs` adds the `dev.tsx`
+  page extension only under `next dev`, so the routes and their code are absent from a production
+  build. Never rename them to plain `page.tsx`.
+- Screens are **described, not hand-built**. A use case is one `Section` object in
+  `src/components/studio/sections/content.ts` (portfolio content) or `console.ts` (console
+  structure and text): the file, where its records live (`source`), the list `columns` and the
+  form `fields`. The types are in `schema.ts`. To cover a new data file or key, add a section or a
+  field there; do not write a page for it.
+- `engine.ts` holds the pure logic (read records, build and read back a form, add / update /
+  remove / move, validation, delete checks). A record must come back byte-identical when opened
+  and saved unchanged: use `omitEmpty` on a field whose key is absent from some records.
+- Ids are generated on create (`auto`) and locked afterwards (`lock`) because other data and
+  links point at them. `guard` on a section blocks deleting a record that is still used; the
+  cross-references are computed in `loadLookups()` in `src/lib/studio.ts`.
+- Saving goes through Server Actions in `src/app/studio/actions.ts`, which refuse outside
+  development. `saveDataFile` only overwrites an existing file and writes 2-space JSON.
+  `uploadDocument` stores a document at `public/s3/<id>/file.<ext>`; saving `s3.json` regenerates
+  the table in `public/s3/README.md`.
+- Studio labels are written in the studio code, not in `public/data/`, because that folder ships
+  to production.
+- The production build type-checks with `tsconfig.build.json`, which leaves out the dev server's
+  generated route types in `.next/dev`.
 
 ## Responsive rules
 Desktop is the reference design. **Anything at `lg` (1024px) and wider must stay visually

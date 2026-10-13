@@ -1,6 +1,7 @@
 "use client"
 
-const REPO_URL = "https://github.com/AB527/aws-console-portfolio"
+import { GITHUB_REPO_URL as REPO_URL } from "@/lib/constants"
+
 const ISSUES_URL = `${REPO_URL}/issues`
 const DISCUSSIONS_URL = `${REPO_URL}/discussions`
 const LINKEDIN_URL = "https://www.linkedin.com/in/atharva-bedekar"
@@ -60,7 +61,9 @@ export default function HelpDropdown() {
           Issues
         </a>
         <a
-          href="/getting-started"
+          href={REPO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-left text-[15px] text-gray-200 hover:text-white hover:underline"
         >
           Getting Started Resource Centre

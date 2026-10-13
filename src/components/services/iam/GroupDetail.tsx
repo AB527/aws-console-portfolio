@@ -1,26 +1,33 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import DataStatus from "@/components/ui/DataStatus"
 import StatusBadge from "@/components/ui/StatusBadge"
 import { useData } from "@/hooks/useData"
 import { formatPeriod } from "@/lib/formatDate"
+import iamConsole from "@data/iam-console.json"
+import { CARD, LINK, ROW, TD, TD_INNER, TH, TH_INNER, SummaryGrid, TableCard, Tabs } from "./DetailParts"
+
+const LEVEL_RANK: Record<string, number> = { Beginner: 1, Intermediate: 2, Advanced: 3 }
 
 interface GroupDetailProps {
   groupId: string
 }
 
 export default function GroupDetail({ groupId }: GroupDetailProps) {
+  const [activeTab, setActiveTab] = useState<"skills" | "roles">("skills")
   const groups = useData("iam-groups")
   const users = useData("iam-users")
   const iamGroups = groups.data
   const iamUsers = users.data
+  const copy = iamConsole.detail.group
 
   if (!iamGroups || !iamUsers) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
+      <div className={CARD}>
         <DataStatus
-          label="skill group"
+          label={copy.label}
           error={groups.error || users.error}
           onRetry={() => {
             groups.reload()
@@ -32,99 +39,114 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
   }
 
   const group = iamGroups.groups.find((g) => g.id === groupId)
-  if (!group) return <p className="text-sm text-gray-500">Group not found.</p>
+  if (!group) return <p className="text-sm font-bold text-gray-500">{iamConsole.detail.notFound}</p>
 
   const usersInGroup = iamUsers.users.filter((u) => u.groups.includes(groupId))
+  const topLevel = group.skills.reduce(
+    (best, s) => ((LEVEL_RANK[s.level] ?? 0) > (LEVEL_RANK[best] ?? 0) ? s.level : best),
+    ""
+  )
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-6">
-        <span
-          className="w-3 h-8 rounded-full shrink-0"
-          style={{ backgroundColor: group.color }}
-        />
-        <h1 className="text-xl font-semibold text-gray-900">{group.label}</h1>
-      </div>
+      <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 mb-4">{group.label}</h1>
 
-      {/* Skills */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
-        <div className="bg-gray-50 border-b border-gray-200 px-4 py-2.5">
-          <h2 className="text-sm font-semibold text-gray-700">
-            Skills ({group.skills.length})
-          </h2>
-        </div>
-        <table className="w-full text-sm">
+      <SummaryGrid
+        items={[
+          {
+            label: copy.name,
+            value: (
+              <span className="inline-flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: group.color }} />
+                {group.label}
+              </span>
+            ),
+          },
+          { label: copy.skills, value: group.skills.length },
+          { label: copy.roles, value: usersInGroup.length },
+          { label: copy.topLevel, value: topLevel ? <StatusBadge status={topLevel} /> : "–" },
+        ]}
+      />
+
+      <Tabs
+        tabs={[
+          { id: "skills", label: `${copy.skillsTab} (${group.skills.length})` },
+          { id: "roles", label: `${copy.rolesTab} (${usersInGroup.length})` },
+        ]}
+        active={activeTab}
+        onChange={setActiveTab}
+      />
+
+      {activeTab === "skills" ? (
+        <TableCard title={copy.skillsTab} count={group.skills.length}>
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left px-4 py-2 text-xs text-gray-500 font-semibold uppercase tracking-wide">
-                Skill
-              </th>
-              <th className="text-left px-4 py-2 text-xs text-gray-500 font-semibold uppercase tracking-wide">
-                Level
+            <tr className="border-b border-gray-300">
+              <th className={`${TH} pl-5`}>{copy.skillColumns.name}</th>
+              <th className={TH}>
+                <span className={TH_INNER}>{copy.skillColumns.level}</span>
               </th>
             </tr>
           </thead>
           <tbody>
             {group.skills.map((skill) => (
-              <tr key={skill.name} className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-4 py-2.5 text-gray-800">{skill.name}</td>
-                <td className="px-4 py-2.5">
-                  <StatusBadge status={skill.level} />
+              <tr key={skill.name} className={ROW}>
+                <td className={`${TD} pl-5`}>{skill.name}</td>
+                <td className={TD}>
+                  <div className={TD_INNER}>
+                    <StatusBadge status={skill.level} />
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
-
-      {/* Users in group */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="bg-gray-50 border-b border-gray-200 px-4 py-2.5">
-          <h2 className="text-sm font-semibold text-gray-700">
-            Experience / Roles in this group ({usersInGroup.length})
-          </h2>
-        </div>
-        <table className="w-full text-sm">
+        </TableCard>
+      ) : (
+        <TableCard title={copy.rolesTab} count={usersInGroup.length}>
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left px-4 py-2 text-xs text-gray-500 font-semibold uppercase tracking-wide">
-                Name
+            <tr className="border-b border-gray-300">
+              <th className={`${TH} pl-5`}>{copy.roleColumns.role}</th>
+              <th className={TH}>
+                <span className={TH_INNER}>{copy.roleColumns.organization}</span>
               </th>
-              <th className="text-left px-4 py-2 text-xs text-gray-500 font-semibold uppercase tracking-wide">
-                Status
+              <th className={TH}>
+                <span className={TH_INNER}>{copy.roleColumns.status}</span>
               </th>
-              <th className="text-left px-4 py-2 text-xs text-gray-500 font-semibold uppercase tracking-wide hidden md:table-cell">
-                Period
+              <th className={TH}>
+                <span className={TH_INNER}>{copy.roleColumns.period}</span>
               </th>
             </tr>
           </thead>
           <tbody>
             {usersInGroup.map((user) => (
-              <tr key={user.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
-                <td className="px-4 py-2.5">
-                  <Link href={`/iam/users/${user.id}`} className="text-[#0073bb] hover:underline font-medium">
-                    {user.displayName}
+              <tr key={user.id} className={ROW}>
+                <td className={`${TD} pl-5`}>
+                  <Link href={`/iam/users/${user.id}`} className={LINK}>
+                    {user.description}
                   </Link>
-                  <p className="text-xs text-gray-500">{user.description}</p>
                 </td>
-                <td className="px-4 py-2.5">
-                  <StatusBadge status={user.status} />
+                <td className={TD}>
+                  <div className={TD_INNER}>{user.displayName}</div>
                 </td>
-                <td className="px-4 py-2.5 text-xs text-gray-500 hidden md:table-cell">
-                  {formatPeriod(user.periodFrom, user.periodTo)}
+                <td className={TD}>
+                  <div className={TD_INNER}>
+                    <StatusBadge status={user.status} />
+                  </div>
+                </td>
+                <td className={`${TD} whitespace-nowrap`}>
+                  <div className={TD_INNER}>{formatPeriod(user.periodFrom, user.periodTo)}</div>
                 </td>
               </tr>
             ))}
             {usersInGroup.length === 0 && (
               <tr>
-                <td colSpan={3} className="px-4 py-6 text-center text-gray-400 text-sm">
-                  No roles in this group.
+                <td colSpan={4} className="px-4 py-6 text-center text-sm font-bold text-gray-500">
+                  {copy.emptyRoles}
                 </td>
               </tr>
             )}
           </tbody>
-        </table>
-      </div>
+        </TableCard>
+      )}
     </div>
   )
 }

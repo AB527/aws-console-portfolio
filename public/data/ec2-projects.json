@@ -1,13 +1,34 @@
 {
   "serviceId": "ec2",
   "projectTypes": [
-    { "id": "cloud.xlarge", "description": "Enterprise & Government Scale" },
-    { "id": "compute.large", "description": "Production SaaS" },
-    { "id": "compute.medium", "description": "Production Platform" },
-    { "id": "iot.medium", "description": "IoT & Research" },
-    { "id": "dev.small", "description": "Developer Tools" },
-    { "id": "ai.large", "description": "AI Platform" },
-    { "id": "web.medium", "description": "Event & Community Web" }
+    {
+      "id": "cloud.xlarge",
+      "description": "Enterprise & Government Scale"
+    },
+    {
+      "id": "compute.large",
+      "description": "Production SaaS"
+    },
+    {
+      "id": "compute.medium",
+      "description": "Production Platform"
+    },
+    {
+      "id": "iot.medium",
+      "description": "IoT & Research"
+    },
+    {
+      "id": "dev.small",
+      "description": "Developer Tools"
+    },
+    {
+      "id": "ai.large",
+      "description": "AI Platform"
+    },
+    {
+      "id": "web.medium",
+      "description": "Event & Community Web"
+    }
   ],
   "instanceTypeDetails": [
     {
@@ -78,10 +99,20 @@
       "region": "ap-south-17",
       "periodFrom": "2025-03-01",
       "periodTo": "2025-07-31",
-      "tags": ["Node.js", "AWS EC2", "CloudFront", "PostgreSQL", "NIC"],
-      "link": "https://atharvabedekar.dev",
+      "tags": [
+        "Node.js",
+        "AWS EC2",
+        "CloudFront",
+        "PostgreSQL",
+        "NIC"
+      ],
+      "link": "https://tffm.cg.gov.in/",
       "details": "Full-stack platform for Chhattisgarh Tribal Ministry. Node.js on EC2, RDS PostgreSQL, CloudFront CDN, NIC coordination. Inaugurated by PM of India. Post-pentest security hardening applied.",
-      "metrics": { "hoursSpent": 800, "usersServed": 50000, "scale": "National" }
+      "metrics": {
+        "hoursSpent": 800,
+        "usersServed": 50000,
+        "scale": "National"
+      }
     },
     {
       "id": "hackoverse-edu",
@@ -93,10 +124,20 @@
       "region": "ap-south-1",
       "periodFrom": "2025-08-01",
       "periodTo": "2025-12-31",
-      "tags": ["Flutter", "AWS", "Node.js", "PostgreSQL", "Cashfree"],
+      "tags": [
+        "Flutter",
+        "AWS",
+        "Node.js",
+        "PostgreSQL",
+        "Cashfree"
+      ],
       "link": "https://github.com/AB527",
       "details": "Flutter frontend with AWS ECS Fargate backend, RDS PostgreSQL, ElastiCache for session management, and Cashfree payment gateway integration.",
-      "metrics": { "hoursSpent": 400, "usersServed": 5000, "scale": "Regional" }
+      "metrics": {
+        "hoursSpent": 400,
+        "usersServed": 5000,
+        "scale": "Regional"
+      }
     },
     {
       "id": "cg-crime-platform",
@@ -108,10 +149,19 @@
       "region": "ap-south-17",
       "periodFrom": "2024-11-01",
       "periodTo": "2025-02-28",
-      "tags": ["Node.js", "AWS EC2", "RDS PostgreSQL", "CloudFront"],
+      "tags": [
+        "Node.js",
+        "AWS EC2",
+        "RDS PostgreSQL",
+        "CloudFront"
+      ],
       "link": "https://atharvabedekar.dev",
       "details": "Node.js backend on EC2 with RDS PostgreSQL and CloudFront for Chhattisgarh Police crime data monitoring.",
-      "metrics": { "hoursSpent": 200, "usersServed": 500, "scale": "Statewide" }
+      "metrics": {
+        "hoursSpent": 200,
+        "usersServed": 500,
+        "scale": "Statewide"
+      }
     },
     {
       "id": "iiitnr-attendance",
@@ -123,10 +173,19 @@
       "region": "ap-south-17",
       "periodFrom": "2024-01-01",
       "periodTo": "2024-08-31",
-      "tags": ["Flutter", "Firebase", "IoT", "Patent"],
+      "tags": [
+        "Flutter",
+        "Firebase",
+        "IoT",
+        "Patent"
+      ],
       "link": "https://github.com/AB527",
       "details": "Flutter + Firebase attendance app using IoT hardware for automatic marking. Granted Indian Patent IN 589608 in May 2026.",
-      "metrics": { "hoursSpent": 300, "usersServed": 1500, "scale": "Institutional" }
+      "metrics": {
+        "hoursSpent": 300,
+        "usersServed": 1500,
+        "scale": "Institutional"
+      }
     },
     {
       "id": "aws-easy-deploy",
@@ -138,10 +197,20 @@
       "region": "ap-south-1",
       "periodFrom": "2025-06-01",
       "periodTo": "",
-      "tags": ["Go", "AWS CLI", "EC2", "S3", "Open Source"],
+      "tags": [
+        "Go",
+        "AWS CLI",
+        "EC2",
+        "S3",
+        "Open Source"
+      ],
       "link": "https://github.com/AB527",
       "details": "CLI tool in Go to simplify and automate common AWS deployment tasks for EC2 instances and S3 buckets.",
-      "metrics": { "hoursSpent": 100, "usersServed": 200, "scale": "Open Source" }
+      "metrics": {
+        "hoursSpent": 100,
+        "usersServed": 200,
+        "scale": "Open Source"
+      }
     },
     {
       "id": "opencai",
@@ -153,10 +222,20 @@
       "region": "ap-south-1",
       "periodFrom": "2026-01-01",
       "periodTo": "",
-      "tags": ["AIOps", "FinOps", "AI Agent", "Multi-tenant", "Sandboxed Containers"],
+      "tags": [
+        "AIOps",
+        "FinOps",
+        "AI Agent",
+        "Multi-tenant",
+        "Sandboxed Containers"
+      ],
       "link": "https://github.com/AB527",
       "details": "OpenCAI (Open Cloud AI) is a white-labelled AIOps/FinOps platform where Administrators manage client organisations, their cloud workspaces and operator accounts. Operators chat with an AI agent that runs cloud-operations and cost-analysis commands for a chosen workspace, in sandboxed containers and only after the operator confirms them.",
-      "metrics": { "hoursSpent": 0, "usersServed": 0, "scale": "Multi-tenant" }
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 0,
+        "scale": "Multi-tenant"
+      }
     },
     {
       "id": "aarambh",
@@ -168,10 +247,21 @@
       "region": "ap-south-17",
       "periodFrom": "2024-10-18",
       "periodTo": "",
-      "tags": ["Next.js", "Node.js", "Express", "PostgreSQL", "Prisma", "AWS Amplify"],
+      "tags": [
+        "Next.js",
+        "Node.js",
+        "Express",
+        "PostgreSQL",
+        "Prisma",
+        "AWS Amplify"
+      ],
       "link": "https://github.com/AB527/AARAMBH",
       "details": "Website for Aarambh, the annual sports event at IIIT Naya Raipur, with live scores, event schedules, team standings and a photo gallery. Next.js frontend with a Node.js/Express API and PostgreSQL via Prisma; deployment config for AWS Amplify.",
-      "metrics": { "hoursSpent": 0, "usersServed": 0, "scale": "Institutional" }
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 0,
+        "scale": "Institutional"
+      }
     }
   ]
 }

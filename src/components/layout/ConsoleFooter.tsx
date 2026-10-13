@@ -49,6 +49,12 @@ export default function ConsoleFooter() {
             <MobileIcon />
             Console Mobile App
           </button>
+          {/* Data studio: the route only exists in development */}
+          {process.env.NODE_ENV === "development" && (
+            <button onClick={() => router.push("/studio")} className="hover:text-white transition-colors">
+              Studio
+            </button>
+          )}
         </div>
         <div className="hidden md:flex items-center gap-3">
           <span>© 2026 Atharva Bedekar</span>
