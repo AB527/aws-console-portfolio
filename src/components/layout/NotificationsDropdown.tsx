@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import notificationsData from "@/data/notifications.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 type Tab = "recent" | "user-configured" | "ab-managed"
 
@@ -59,7 +60,8 @@ function ClipboardIcon() {
 export default function NotificationsDropdown() {
   const [activeTab, setActiveTab] = useState<Tab>("recent")
 
-  const allItems = notificationsData.items
+  const { data: notificationsData, error, reload } = useData("notifications")
+  const allItems = notificationsData?.items ?? []
   const recentItems = allItems.filter((n) => isWithinLastMonth(n.date))
   const abManagedItems = allItems.filter((n) => n.type === "ab-managed")
 
@@ -107,7 +109,9 @@ export default function NotificationsDropdown() {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
-        {displayItems.length === 0 ? (
+        {!notificationsData ? (
+          <DataStatus label="notifications" error={error} onRetry={reload} className="py-8 text-sm text-gray-400" />
+        ) : displayItems.length === 0 ? (
           <div className="px-4 py-8 text-center text-gray-400 text-sm">
             No notifications to display.
           </div>

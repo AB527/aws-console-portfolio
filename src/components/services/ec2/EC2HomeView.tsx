@@ -1,8 +1,9 @@
 "use client"
 
 import { useConsoleStore } from "@/store/useConsoleStore"
-import ec2Data from "@/data/ec2-projects.json"
-import regionsData from "@/data/regions.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import regionsData from "@data/regions.json"
 
 const CARD = "bg-white rounded-2xl border border-[#c6c6cd]"
 const H2 = "text-[20px] leading-6 font-bold"
@@ -31,7 +32,11 @@ function RefreshIcon() {
 export default function EC2HomeView() {
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
 
-  const regionInstances = ec2Data.instances.filter((i) => i.region === selectedRegion)
+  const { data: ec2Data, error, reload } = useData("ec2-projects")
+  // Figures worked out from the projects show a dash until they have loaded
+  const figure = <T,>(value: T) => (ec2Data ? value : "–")
+
+  const regionInstances = (ec2Data?.instances ?? []).filter((i) => i.region === selectedRegion)
   const running = regionInstances.filter((i) => i.status === "running").length
   const stopped = regionInstances.filter((i) => i.status === "stopped").length
   const totalUsers = regionInstances.reduce((s, i) => s + i.metrics.usersServed, 0)
@@ -40,11 +45,11 @@ export default function EC2HomeView() {
   const instancesHref = `/ec2/home?view=instances&region=${selectedRegion}`
 
   const RESOURCES = [
-    { label: "Projects (running)", value: running, href: instancesHref },
+    { label: "Projects (running)", value: figure(running), href: instancesHref },
     { label: "GitHub", value: 1, href: "https://github.com/AB527", external: true },
-    { label: "Users served", value: totalUsers >= 1000 ? `${Math.round(totalUsers / 1000)}k+` : totalUsers, href: instancesHref },
-    { label: "Projects (stopped)", value: stopped, href: instancesHref },
-    { label: "Project types", value: typesInRegion, href: `/ec2/home?view=instance-types&region=${selectedRegion}` },
+    { label: "Users served", value: figure(totalUsers >= 1000 ? `${Math.round(totalUsers / 1000)}k+` : totalUsers), href: instancesHref },
+    { label: "Projects (stopped)", value: figure(stopped), href: instancesHref },
+    { label: "Project types", value: figure(typesInRegion), href: `/ec2/home?view=instance-types&region=${selectedRegion}` },
     { label: "Regions active", value: 2, href: "/" },
     { label: "Tech companies", value: 3, href: "/iam/users" },
     { label: "Open source repos", value: 1, href: "https://github.com/AB527", external: true },
@@ -163,7 +168,7 @@ export default function EC2HomeView() {
                     <circle cx="12" cy="12" r="10" />
                     <path d="m7 12 3.5 3.5L17 9" />
                   </svg>
-                  {running} OK
+                  {figure(running)} OK
                 </span>
                 <span className="flex items-center gap-1.5">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -251,11 +256,11 @@ export default function EC2HomeView() {
           <div className="mt-5 p-4 -mx-1 bg-[#f9f9fa] space-y-5">
             <div>
               <p className="font-bold">Total hours</p>
-              <p className="text-[20px] leading-6 font-bold mt-1">{totalHours.toLocaleString("en-US")}</p>
+              <p className="text-[20px] leading-6 font-bold mt-1">{figure(totalHours.toLocaleString("en-US"))}</p>
             </div>
             <div>
               <p className="font-bold">Projects</p>
-              <p className="text-[20px] leading-6 font-bold mt-1">{regionInstances.length}</p>
+              <p className="text-[20px] leading-6 font-bold mt-1">{figure(regionInstances.length)}</p>
             </div>
           </div>
           <p className="font-bold mt-5 mb-1">Hours by project</p>
@@ -268,7 +273,12 @@ export default function EC2HomeView() {
                 <span className="whitespace-nowrap">{inst.metrics.hoursSpent.toLocaleString("en-US")}</span>
               </li>
             ))}
-            {regionInstances.length === 0 && <li className="py-2.5 text-[#424650]">No projects in this region</li>}
+            {!ec2Data && (
+              <li>
+                <DataStatus label="projects" error={error} onRetry={reload} className="py-4 text-[#424650]" />
+              </li>
+            )}
+            {ec2Data && regionInstances.length === 0 && <li className="py-2.5 text-[#424650]">No projects in this region</li>}
           </ul>
         </div>
         <div className="px-5 py-4 border-t border-[#c6c6cd] text-center">

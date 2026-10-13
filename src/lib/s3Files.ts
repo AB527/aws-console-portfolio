@@ -1,9 +1,17 @@
 import fs from "fs"
 import path from "path"
-import { fileExt } from "@/lib/fileExt"
 
-// Objects live at public/s3/<id>/file.<ext>. Returns the public URL, or "" if the file hasn't been added yet.
-export function objectFileUrl(obj: { id: string; key: string }): string {
-  const relative = path.posix.join("s3", obj.id, `file.${fileExt(obj.key)}`)
-  return fs.existsSync(path.join(process.cwd(), "public", relative)) ? `/${relative}` : ""
+// Public URLs of the document files that have been added under public/s3/<id>/.
+// Objects whose URL is not in this list keep their Open / Download buttons disabled.
+export function objectFileUrls(): string[] {
+  const root = path.join(process.cwd(), "public", "s3")
+  return fs
+    .readdirSync(root, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .flatMap((dir) =>
+      fs
+        .readdirSync(path.join(root, dir.name))
+        .filter((file) => file.startsWith("file."))
+        .map((file) => `/s3/${dir.name}/${file}`)
+    )
 }

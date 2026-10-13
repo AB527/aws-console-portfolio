@@ -27,7 +27,7 @@ heed deprecation notices.
 - `useSearchParams()` must sit inside a `<Suspense>` boundary
 - Use `next/navigation` only — never `next/router`
 - Server Components by default; add `"use client"` only for hooks, interactivity or browser APIs
-- Import JSON data directly in Server Components — no API routes for static data
+- No API routes for static data — see "Data loading" for how JSON reaches a page
 - Viewport/theme colour go in `export const viewport` (root layout), not in `metadata`
 
 ## Services
@@ -42,9 +42,25 @@ Never print a route id as a label — call `serviceTitle(id)` from `src/lib/serv
 | `vpc`        | Connect     | Links, social, contact                    | `vpc.json`                            |
 | `cloudtrail` | Experience  | Work history timeline                     | derived from `iam-users.json` in `src/lib/cloudtrail.ts` |
 
-Service definitions (id, title, iconId, colour, regions) live in `src/data/services.json`.
+Service definitions (id, title, iconId, colour, regions) live in `public/data/services.json`.
 Icons are `public/icons/<iconId>.png`; the browser-tab favicon switches to the current service's
 icon (see `ConsoleLayout.tsx`).
+
+## Sidebars
+There is one sidebar component, `src/components/layout/ServiceSidebar.tsx`. Do not write a sidebar
+per service — add or edit the service's entry in `public/data/sidebars.json`.
+
+- `<ServiceSidebar serviceId="ec2" />` renders the title, the close button and the links for that
+  id. A service with no entry gets the `default` one (`%s` in an href becomes the service id).
+- An entry has an optional `title` (defaults to `serviceTitle(id)`), top-level `items` and
+  collapsible `sections`. An item is `{ label, href }`, plus `activeViews` when it covers several
+  `?view=` values or `match` when it covers a whole path prefix.
+- The close button only closes the sidebar; it never navigates. From `lg` up the sidebar collapses
+  to a thin rail with an expand button, below `lg` the drawer slides away.
+- Service-specific extras go in as children (see the Connect filter in `VpcShell.tsx`).
+- Console home uses the same panel (`SidebarPanel`, entry `console`) with its own open state,
+  closed by default; its hamburger is blue only while the panel is open.
+- `sidebarNav(id)` / `sidebarLinks(id)` give the same data to breadcrumbs.
 
 ## Routes
 ```
@@ -70,21 +86,21 @@ src/
 ├── app/                 routes (see above); layout.tsx wraps everything in ConsoleLayout
 ├── components/
 │   ├── layout/          Topbar, SearchBar, ServicesMenu, dropdowns, ConsoleFooter, the Q and
-│   │                    shell panels, MobileMoreMenu, MobileNavToggle, ServiceTopBar, breadcrumbs
+│   │                    shell panels, MobileMoreMenu, MobileNavToggle, ServiceTopBar, ServiceSidebar, breadcrumbs
 │   ├── home/            DashboardGrid, AddWidgetsPanel, WidgetInfoPanel and the widgets
 │   ├── services/        ec2/, s3/, iam/, vpc/, cloudtrail/, GenericServicePage
-│   └── ui/              Badge, StatusBadge, PolicyTag, ServiceIcon, FavoriteStar, SidebarIcons
-├── data/                all content, as JSON
+│   └── ui/              Badge, StatusBadge, PolicyTag, ServiceIcon, FavoriteStar, SidebarIcons, DataStatus
 ├── store/useConsoleStore.ts
-├── hooks/useRegion.ts
+├── hooks/               useRegion, useData
 └── lib/                 formatDate, serviceTitle, constants, awsFont, fileExt, s3Files, vpc, cloudtrail
 public/
+├── data/                all content, as JSON (import alias `@data/*`)
 ├── icons/               service icons (png) and misc svg
 └── s3/<object id>/      the actual document files — see public/s3/README.md
 ```
 
 ## Data rules
-- Content belongs in `src/data/*.json`, not in components. Page and browser-tab titles come from
+- Content belongs in `public/data/*.json`, not in components. Page and browser-tab titles come from
   `site.json`; sidebar/table copy for a service comes from its `*-console.json` / data file.
 - Dates are `"YYYY-MM-DD"` strings. Periods are `periodFrom` / `periodTo`; an empty `periodTo`
   means "Present".
@@ -92,6 +108,34 @@ public/
   `src/lib/formatDate.ts`.
 - Counts in labels (e.g. `"${tab.name} (${tab.items.length})"`) are computed, never stored.
 - A document's Open / Download buttons enable only when its file exists under `public/s3/<id>/`.
+  The server lists those files with `objectFileUrls()` and passes the list to the client component.
+
+## Data loading
+Everything in `public/data/` is also a public URL (`/data/<name>.json`). The files fall in two groups.
+
+**Frame files** — `site`, `services`, `services-menu`, `regions`, `dashboard-layout`, `iam-console`,
+`sidebars`.
+They drive the top bar, sidebars, tab titles and the store defaults, so they are imported
+(`import site from "@data/site.json"`) and are there on first paint.
+
+**Content files** — the other 14. The browser fetches them at runtime:
+```tsx
+const { data, error, reload } = useData("vpc")   // src/hooks/useData.ts; data is null while loading
+```
+- Never `import` a content file into a component. A type-only import is fine, and
+  `ContentData["vpc"]` from `useData.ts` gives the same type.
+- Nothing is cached: `useData` fetches with `cache: "no-store"` every time a component mounts.
+  Components that mount together share the one request that is in flight.
+- While `data` is null, keep headings and table headers on screen and render `<DataStatus>` (or
+  `<DataStatusRow>` inside a `<tbody>`) where the rows will go. Computed counts show `–`.
+  Pass `error` and `reload` so a failed fetch shows a Retry button.
+- The shared tables (`ResourceTable`, `ResourceSplitView`, `TrailsTable`, `EventsTable`) take a
+  `status` prop for this.
+- Helpers in `src/lib/vpc.ts` and `src/lib/cloudtrail.ts` are functions that take the fetched data.
+- Loading and error copy lives under `data` in `site.json`.
+- Server pages may import a content file only for `generateMetadata`, `generateStaticParams` and
+  `notFound()`. The page body still fetches it in the browser.
+- A new content file needs an entry in `ContentData` in `useData.ts`.
 
 ## State (Zustand)
 `src/store/useConsoleStore.ts`, persisted to localStorage key `"aws-console-state"`.
@@ -116,7 +160,7 @@ The store's `merge` drops widgets that no longer exist and appends new defaults,
 `dashboard-layout.json` is safe for returning visitors.
 
 ## Regions
-- Two regions, defined in `src/data/regions.json`: `ap-south-1` (Mumbai) and `ap-south-17` (Raipur).
+- Two regions, defined in `public/data/regions.json`: `ap-south-1` (Mumbai) and `ap-south-17` (Raipur).
   UI copy calls them "AB Region".
 - The region lives in the store **and** in the `?region=` query param; `useRegion()` keeps them in
   sync — use it wherever region is read or set.
@@ -139,8 +183,8 @@ unchanged** — add mobile behaviour with `max-lg:` / `max-md:` variants instead
 desktop classes.
 
 - `lg` switches the service sidebars and the dashboard; `md` switches the top bar.
-- Service sidebars become a slide-in drawer below `lg`: apply `mobileDrawerClass(mobileNavOpen)`
-  from `ui/SidebarIcons.tsx` to the `<aside>` and render `<MobileNavToggle />` in the service top bar.
+- Sidebars become a slide-in drawer below `lg`. `ServiceSidebar` handles this itself; render
+  `<MobileNavToggle />` in the service top bar (`ServiceTopBar` already does).
 - Top bar below `md`: search collapses to an icon that expands on focus; Help, Settings, Region and
   Account move into the full-screen "More" panel (`MobileMoreMenu`).
 - Tables keep their columns and scroll sideways inside an `overflow-x-auto` wrapper. No page-level

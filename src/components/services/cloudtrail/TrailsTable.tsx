@@ -25,7 +25,14 @@ function TrailStatus({ logging }: { logging: boolean }) {
   )
 }
 
-export default function TrailsTable({ trails, detailed = false }: { trails: Trail[]; detailed?: boolean }) {
+interface TrailsTableProps {
+  trails: Trail[]
+  detailed?: boolean
+  // Shown in place of the rows while the trails are loading
+  status?: React.ReactNode
+}
+
+export default function TrailsTable({ trails, detailed = false, status }: TrailsTableProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
@@ -77,7 +84,12 @@ export default function TrailsTable({ trails, detailed = false }: { trails: Trai
               </td>
             </tr>
           ))}
-          {trails.length === 0 && (
+          {status && (
+            <tr>
+              <td colSpan={detailed ? 5 : 2}>{status}</td>
+            </tr>
+          )}
+          {!status && trails.length === 0 && (
             <tr>
               <td colSpan={detailed ? 5 : 2} className="py-8 text-center text-[#424650]">
                 <p className="font-bold">No trails</p>

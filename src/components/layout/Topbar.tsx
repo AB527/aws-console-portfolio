@@ -10,14 +10,9 @@ import HelpDropdown from "./HelpDropdown"
 import SearchBar from "./SearchBar"
 import MobileMoreMenu from "./MobileMoreMenu"
 import ServicesMenu from "./ServicesMenu"
-import servicesMenu from "@/data/services-menu.json"
-import regionsData from "@/data/regions.json"
-import notificationsData from "@/data/notifications.json"
-
-const RECENT_NOTIFICATION_COUNT = notificationsData.items.filter((n) => {
-  const diffMs = new Date("2026-06-13").getTime() - new Date(n.date).getTime()
-  return diffMs <= 30 * 24 * 60 * 60 * 1000
-}).length
+import servicesMenu from "@data/services-menu.json"
+import regionsData from "@data/regions.json"
+import { useData } from "@/hooks/useData"
 
 function TerminalIcon() {
   return (
@@ -133,6 +128,11 @@ function TopbarInner() {
   const setAmazonQOpen = useConsoleStore((s) => s.setAmazonQOpen)
   const notificationsRead = useConsoleStore((s) => s.notificationsRead)
   const markNotificationsRead = useConsoleStore((s) => s.markNotificationsRead)
+  const notifications = useData("notifications").data
+  const recentNotificationCount = (notifications?.items ?? []).filter((n) => {
+    const diffMs = new Date("2026-06-13").getTime() - new Date(n.date).getTime()
+    return diffMs <= 30 * 24 * 60 * 60 * 1000
+  }).length
 
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [regionOpen, setRegionOpen] = useState(false)
@@ -259,9 +259,9 @@ function TopbarInner() {
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M13.73 21a2 2 0 0 1-3.46 0" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            {!notificationsRead && RECENT_NOTIFICATION_COUNT > 0 && (
+            {!notificationsRead && recentNotificationCount > 0 && (
               <span className="absolute top-[7px] right-[6px] min-w-[14px] h-[14px] px-[3px] rounded-full bg-[#d13212] text-white text-[9px] font-bold flex items-center justify-center leading-none">
-                {RECENT_NOTIFICATION_COUNT}
+                {recentNotificationCount}
               </span>
             )}
           </button>

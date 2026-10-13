@@ -1,13 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
-import CloudTrailBanner from "@/components/services/cloudtrail/CloudTrailBanner"
-import EventsTable from "@/components/services/cloudtrail/EventsTable"
-import TrailsTable from "@/components/services/cloudtrail/TrailsTable"
-import { currentTrail, events, trails } from "@/lib/cloudtrail"
-import { formatMonthYear } from "@/lib/formatDate"
+import { CurrentTrailBanner, EventsList, TrailsList } from "@/components/services/cloudtrail/CloudTrailData"
 import { GITHUB_REPO_URL } from "@/lib/constants"
-import site from "@/data/site.json"
+import site from "@data/site.json"
 
 export const metadata: Metadata = { title: site.pageTitles.cloudtrail }
 
@@ -20,15 +16,7 @@ export default function CloudTrailPage() {
     <>
       <ServiceVisitor serviceId="cloudtrail" />
 
-      {currentTrail && (
-        <CloudTrailBanner>
-          Currently logging: {currentTrail.role} at {currentTrail.organization} since{" "}
-          {formatMonthYear(currentTrail.periodFrom)}.{" "}
-          <Link href={`/iam/users/${currentTrail.id}`} className="underline underline-offset-4">
-            Learn more ↗
-          </Link>
-        </CloudTrailBanner>
-      )}
+      <CurrentTrailBanner />
 
       <div className="flex items-baseline gap-2 mb-5">
         <h1 className="text-[24px] leading-[30px] font-bold">Dashboard</h1>
@@ -45,7 +33,7 @@ export default function CloudTrailPage() {
             Create trail
           </a>
         </div>
-        <TrailsTable trails={trails} />
+        <TrailsList />
       </div>
 
       <div className={CARD}>
@@ -61,7 +49,7 @@ export default function CloudTrailPage() {
             View full Event history
           </Link>
         </div>
-        <EventsTable events={events.slice(0, 5)} />
+        <EventsList limit={5} />
       </div>
     </>
   )

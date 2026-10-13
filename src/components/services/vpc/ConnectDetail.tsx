@@ -3,11 +3,13 @@
 import { useState } from "react"
 import Link from "next/link"
 import { StateBadge } from "@/components/services/vpc/VpcTable"
-import { routeTableForSubnet, type RouteTable, type Subnet } from "@/lib/vpc"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import type { RouteTable, Subnet } from "@/lib/vpc"
 
 type Connect = { id: string; name: string; state: string; cidr: string }
 
-interface ConnectDetailProps {
+interface ConnectViewProps {
   connect: Connect
   subnets: Subnet[]
   routeTables: RouteTable[]
@@ -46,7 +48,25 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   )
 }
 
-export default function ConnectDetail({ connect, subnets, routeTables, ownerId }: ConnectDetailProps) {
+export default function ConnectDetail({ connectId }: { connectId: string }) {
+  const { data: vpc, error, reload } = useData("vpc")
+
+  if (!vpc) {
+    return (
+      <div>
+        <h1 className="text-[24px] leading-[30px] font-bold break-all mb-4">{connectId}</h1>
+        <div className={`${CARD} px-5 py-4`}>
+          <h2 className="text-[20px] leading-6 font-bold">Details</h2>
+          <DataStatus label="Connect" error={error} onRetry={reload} />
+        </div>
+      </div>
+    )
+  }
+
+  return <ConnectView connect={vpc.vpc} subnets={vpc.subnets} routeTables={vpc.routeTables} ownerId={vpc.ownerId} />
+}
+
+function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProps) {
   const [activeTab, setActiveTab] = useState(TABS[0])
   const [showDetails, setShowDetails] = useState(false)
 
@@ -184,7 +204,7 @@ export default function ConnectDetail({ connect, subnets, routeTables, ownerId }
               <p className="mt-2 mb-5">Route each subnet to its endpoints</p>
               <div className="space-y-3">
                 {subnets.map((subnet) => {
-                  const routeTable = routeTableForSubnet(subnet.id)
+                  const routeTable = routeTables.find((rt) => rt.subnetId === subnet.id)
                   if (!routeTable) return <div key={subnet.id} className="h-[60px]" />
                   return (
                     <div key={routeTable.id}>

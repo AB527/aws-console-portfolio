@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { GITHUB_REPO_URL } from "@/lib/constants"
-import iamConsole from "@/data/iam-console.json"
+import iamConsole from "@data/iam-console.json"
 
 export interface Column<T> {
   header: string
@@ -16,6 +16,8 @@ interface ResourceTableProps<T> {
   description: string
   columns: Column<T>[]
   rows: T[]
+  // Shown in place of the rows while they are loading
+  status?: React.ReactNode
   rowKey: (row: T) => string
   searchText: (row: T) => string
   searchPlaceholder: string
@@ -38,6 +40,7 @@ export default function ResourceTable<T>({
   description,
   columns,
   rows,
+  status,
   rowKey,
   searchText,
   searchPlaceholder,
@@ -98,7 +101,7 @@ export default function ResourceTable<T>({
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div className="flex items-baseline gap-2">
             <h1 className="text-[22px] font-bold text-gray-900">
-              {title} <span className="font-normal text-gray-500">({rows.length})</span>
+              {title} <span className="font-normal text-gray-500">({status ? "–" : rows.length})</span>
             </h1>
             <a className="text-xs font-bold text-[#0073bb] hover:underline cursor-pointer">{labels.infoLabel}</a>
           </div>
@@ -225,7 +228,12 @@ export default function ResourceTable<T>({
                 </tr>
               )
             })}
-            {visible.length === 0 && (
+            {status && (
+              <tr>
+                <td colSpan={columns.length + 1}>{status}</td>
+              </tr>
+            )}
+            {!status && visible.length === 0 && (
               <tr>
                 <td colSpan={columns.length + 1} className="px-4 py-6 text-center text-sm font-bold text-gray-500">
                   {emptyText}

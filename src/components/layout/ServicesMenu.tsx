@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import FavoriteStar from "@/components/ui/FavoriteStar"
-import services from "@/data/services.json"
-import menu from "@/data/services-menu.json"
+import services from "@data/services.json"
+import menu from "@data/services-menu.json"
 import { openSans } from "@/lib/awsFont"
 
 type Service = (typeof services)[number]

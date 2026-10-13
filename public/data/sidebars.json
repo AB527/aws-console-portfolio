@@ -1,0 +1,80 @@
+{
+  "labels": {
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
+  },
+  "navs": {
+    "console": {
+      "title": "Console home",
+      "items": [{ "label": "All services", "href": "/console/services" }]
+    },
+    "ec2": {
+      "items": [{ "label": "Dashboard", "href": "/ec2/home" }],
+      "sections": [
+        {
+          "id": "projects",
+          "label": "Projects",
+          "items": [
+            { "label": "Projects", "href": "/ec2/home?view=instances" },
+            {
+              "label": "Project types",
+              "href": "/ec2/home?view=instance-types",
+              "activeViews": ["instance-types", "instance-type-finder"]
+            }
+          ]
+        }
+      ]
+    },
+    "s3": {
+      "sections": [
+        {
+          "id": "buckets",
+          "label": "Buckets",
+          "items": [{ "label": "General purpose buckets", "href": "/s3/home", "match": "/s3/" }]
+        }
+      ]
+    },
+    "iam": {
+      "items": [{ "label": "Dashboard", "href": "/iam/home" }],
+      "sections": [
+        {
+          "id": "skill-management",
+          "label": "Skill Management",
+          "items": [
+            { "label": "Skill groups", "href": "/iam/groups" },
+            { "label": "Skills", "href": "/iam/skills" }
+          ]
+        },
+        {
+          "id": "experience-management",
+          "label": "Experience Management",
+          "items": [{ "label": "Role history", "href": "/iam/users" }]
+        }
+      ]
+    },
+    "vpc": {
+      "items": [{ "label": "Dashboard", "href": "/vpc/home" }],
+      "sections": [
+        {
+          "id": "connect",
+          "label": "Connect",
+          "items": [
+            { "label": "Your Connects", "href": "/vpc/connects" },
+            { "label": "Subnets", "href": "/vpc/subnets" },
+            { "label": "Route tables", "href": "/vpc/route-tables" }
+          ]
+        }
+      ]
+    },
+    "cloudtrail": {
+      "items": [
+        { "label": "Dashboard", "href": "/cloudtrail/home" },
+        { "label": "Event history", "href": "/cloudtrail/events" },
+        { "label": "Trails", "href": "/cloudtrail/trails" }
+      ]
+    },
+    "default": {
+      "items": [{ "label": "Overview", "href": "/%s/home" }]
+    }
+  }
+}

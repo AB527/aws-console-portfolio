@@ -2,7 +2,7 @@
 
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import dashboardLayout from "@/data/dashboard-layout.json"
+import dashboardLayout from "@data/dashboard-layout.json"
 
 export interface WidgetLayout {
   id: string

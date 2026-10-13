@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import FavoriteStar from "@/components/ui/FavoriteStar"
-import services from "@/data/services.json"
+import services from "@data/services.json"
 import { openSans } from "@/lib/awsFont"
 
 function ResultIcon({ iconId, color, title }: { iconId: string; color: string; title: string }) {

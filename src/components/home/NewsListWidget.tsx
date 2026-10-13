@@ -1,14 +1,13 @@
+"use client"
+
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 import { formatDateBadge } from "@/lib/formatDate"
 
-type NewsItem = {
-  date: string
-  title: string
-  link: string
-}
-
 interface NewsListWidgetProps {
-  items: NewsItem[]
-  footer: { label: string; url: string }
+  source: "announcements" | "blog-posts"
+  // What the loader calls the list, e.g. "announcements"
+  label: string
 }
 
 function ExternalIcon() {
@@ -31,7 +30,11 @@ function ExternalIcon() {
   )
 }
 
-export default function NewsListWidget({ items, footer }: NewsListWidgetProps) {
+export default function NewsListWidget({ source, label }: NewsListWidgetProps) {
+  const { data, error, reload } = useData(source)
+  if (!data) return <DataStatus label={label} error={error} onRetry={reload} />
+  const { items, footer } = data
+
   return (
     <div className="flex flex-col h-full -mx-5 -mb-5">
       {/* Items */}

@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import GroupDetail from "@/components/services/iam/GroupDetail"
-import iamGroups from "@/data/iam-groups.json"
-import site from "@/data/site.json"
+import iamGroups from "@data/iam-groups.json"
+import site from "@data/site.json"
 
 interface Props {
   params: Promise<{ groupId: string }>

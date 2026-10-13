@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import IAMHome from "@/components/services/iam/IAMHome"
 import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
-import site from "@/data/site.json"
+import site from "@data/site.json"
 import { serviceTitle } from "@/lib/serviceTitle"
 
 export const metadata: Metadata = { title: site.pageTitles.iam }

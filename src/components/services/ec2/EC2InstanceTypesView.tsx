@@ -4,7 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import ec2Data from "@/data/ec2-projects.json"
+import { DataStatusRow } from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 import EC2SplitPanel, { splitPanelPadding } from "./EC2SplitPanel"
 
 type SortKey = "id" | "openSource" | "productionGrade" | "techStack" | "usersServed" | "hoursSpent" | "scale"
@@ -74,10 +75,12 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "id", dir: "asc" })
   const [spinning, setSpinning] = useState(false)
 
-  const regionInstances = ec2Data.instances.filter((i) => i.region === selectedRegion)
+  const { data: ec2Data, error, reload } = useData("ec2-projects")
+
+  const regionInstances = (ec2Data?.instances ?? []).filter((i) => i.region === selectedRegion)
   const typesInRegion = new Set(regionInstances.map((i) => i.instanceType))
 
-  const enriched = ec2Data.instanceTypeDetails
+  const enriched = (ec2Data?.instanceTypeDetails ?? [])
     .filter((t) => typesInRegion.has(t.id))
     .map((t) => {
       const projects = regionInstances.filter((i) => i.instanceType === t.id)
@@ -135,7 +138,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
         <h1 className="text-[24px] leading-[30px] font-bold">
           Project types{" "}
           <span className="font-normal text-[#656871]">
-            ({selectedRows.length ? `${selectedRows.length}/${enriched.length}` : enriched.length})
+            ({!ec2Data ? "–" : selectedRows.length ? `${selectedRows.length}/${enriched.length}` : enriched.length})
           </span>
         </h1>
         <div className="flex items-center gap-2 flex-wrap">
@@ -268,7 +271,8 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                 </tr>
               )
             })}
-            {filtered.length === 0 && (
+            {!ec2Data && <DataStatusRow colSpan={COLS.length + 1} label="project types" error={error} onRetry={reload} />}
+            {ec2Data && filtered.length === 0 && (
               <tr>
                 <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-[#424650]">
                   {regionInstances.length === 0

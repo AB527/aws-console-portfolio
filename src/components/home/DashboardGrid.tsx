@@ -22,17 +22,11 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { useConsoleStore, WidgetLayout } from "@/store/useConsoleStore"
-import dashboardLayout from "@/data/dashboard-layout.json"
-import solutions from "@/data/solutions.json"
-import explore from "@/data/explore.json"
+import dashboardLayout from "@data/dashboard-layout.json"
+import { useData } from "@/hooks/useData"
 import WidgetInfoPanel from "./WidgetInfoPanel"
 import { splitPanelPadding } from "@/components/services/ec2/EC2SplitPanel"
 import AddWidgetsPanel, { AddWidgetCard, ADD_PREFIX } from "./AddWidgetsPanel"
-
-const WIDGET_COUNTS: Record<string, number> = {
-  solutions: solutions.tabs.reduce((sum, t) => sum + t.items.length, 0),
-  achievements: explore.items.length,
-}
 
 interface WidgetConfig {
   id: string
@@ -209,6 +203,14 @@ export default function DashboardGrid({ widgets, header }: DashboardGridProps) {
 
   const addWidget = useConsoleStore((s) => s.addWidget)
 
+  // Header counts appear once the widget's data has arrived
+  const solutions = useData("solutions").data
+  const explore = useData("explore").data
+  const widgetCounts: Record<string, number | undefined> = {
+    solutions: solutions?.tabs.reduce((sum, t) => sum + t.items.length, 0),
+    achievements: explore?.items.length,
+  }
+
   const [infoWidgetId, setInfoWidgetId] = useState<string | null>(null)
   const [draggedAddId, setDraggedAddId] = useState<string | null>(null)
   const [sheetHeight, setSheetHeight] = useState<number | null>(null)
@@ -293,7 +295,7 @@ export default function DashboardGrid({ widgets, header }: DashboardGridProps) {
                 key={w.id}
                 layout={w}
                 title={WIDGET_TITLES[w.id] ?? w.id}
-                count={WIDGET_COUNTS[w.id]}
+                count={widgetCounts[w.id]}
                 onRemove={() => removeWidget(w.id)}
                 onResize={() => handleResize(w.id)}
                 onInfo={() => { setAddWidgetsOpen(false); setInfoWidgetId(w.id) }}

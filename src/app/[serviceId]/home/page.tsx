@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import services from "@/data/services.json"
+import services from "@data/services.json"
 import GenericServicePage from "@/components/services/GenericServicePage"
 import ServiceVisitor from "./ServiceVisitor"
 

@@ -5,22 +5,12 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import { GITHUB_REPO_URL } from "@/lib/constants"
-import regionsData from "@/data/regions.json"
-import { endpointCount, routeTables, subnets } from "@/lib/vpc"
+import regionsData from "@data/regions.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import { endpointCount } from "@/lib/vpc"
 
 const regions = regionsData.groups.flatMap((g) => g.regions)
-const endpoints = routeTables.flatMap((rt) => rt.routes)
-
-const RESOURCES: { label: string; count: number; href?: string }[] = [
-  { label: "Connects", count: 1, href: "/vpc/connects" },
-  { label: "Endpoints", count: endpointCount, href: "/vpc/route-tables" },
-  { label: "Subnets", count: subnets.length, href: "/vpc/subnets" },
-  { label: "NAT Gateways", count: 0 },
-  { label: "Route Tables", count: routeTables.length, href: "/vpc/route-tables" },
-  { label: "Connect Peering Connections", count: 0 },
-  { label: "Internet Gateways", count: 0 },
-  { label: "Network ACLs", count: 0 },
-]
 
 const CARD = "bg-white rounded-2xl border border-[#c6c6cd]"
 const LINK = "text-[#006ce0] underline underline-offset-4"
@@ -30,6 +20,20 @@ export default function VpcDashboard() {
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const [spinning, setSpinning] = useState(false)
   const city = regions.find((r) => r.id === selectedRegion)?.city ?? selectedRegion
+  const { data: vpc, error, reload } = useData("vpc")
+
+  // Counts that come from the data show a dash until it has loaded
+  const RESOURCES: { label: string; count: number | string; href?: string }[] = [
+    { label: "Connects", count: 1, href: "/vpc/connects" },
+    { label: "Endpoints", count: vpc ? endpointCount(vpc) : "–", href: "/vpc/route-tables" },
+    { label: "Subnets", count: vpc?.subnets.length ?? "–", href: "/vpc/subnets" },
+    { label: "NAT Gateways", count: 0 },
+    { label: "Route Tables", count: vpc?.routeTables.length ?? "–", href: "/vpc/route-tables" },
+    { label: "Connect Peering Connections", count: 0 },
+    { label: "Internet Gateways", count: 0 },
+    { label: "Network ACLs", count: 0 },
+  ]
+  const endpoints = vpc?.routeTables.flatMap((rt) => rt.routes) ?? []
 
   const handleRefresh = () => {
     setSpinning(true)
@@ -125,6 +129,7 @@ export default function VpcDashboard() {
         </div>
         <div className={`${CARD} px-5 py-5`}>
           <h2 className="text-[20px] leading-6 font-bold">Additional Information ↗</h2>
+          {!vpc && <DataStatus label="links" error={error} onRetry={reload} className="py-4 text-[#424650]" />}
           <ul className="mt-2 divide-y divide-[#ebebf0]">
             {endpoints.map((e) => (
               <li key={e.url} className="py-2.5">

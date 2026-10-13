@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import UserDetail from "@/components/services/iam/UserDetail"
-import iamUsers from "@/data/iam-users.json"
-import site from "@/data/site.json"
+import iamUsers from "@data/iam-users.json"
+import site from "@data/site.json"
 
 interface Props {
   params: Promise<{ userId: string }>

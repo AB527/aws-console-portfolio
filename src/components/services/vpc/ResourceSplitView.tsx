@@ -153,6 +153,8 @@ interface ResourceSplitViewProps<T extends { id: string }> {
   createLabel: string
   searchPlaceholder: string
   items: T[]
+  // Shown in place of the rows while the items are loading
+  status?: React.ReactNode
   initialId?: string
   searchText: (item: T) => string
   columns: { label: string; cell: (item: T, select: () => void) => React.ReactNode }[]
@@ -165,6 +167,7 @@ export default function ResourceSplitView<T extends { id: string }>({
   createLabel,
   searchPlaceholder,
   items,
+  status,
   initialId,
   searchText,
   columns,
@@ -196,7 +199,7 @@ export default function ResourceSplitView<T extends { id: string }>({
           <h1 className="text-[24px] leading-[30px] font-bold">
             {title}{" "}
             <span className="font-normal text-[#656871]">
-              ({selected ? `1/${items.length}` : items.length})
+              ({status ? "–" : selected ? `1/${items.length}` : items.length})
             </span>
           </h1>
           <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
@@ -296,7 +299,12 @@ export default function ResourceSplitView<T extends { id: string }>({
                 </tr>
               )
             })}
-            {rows.length === 0 && (
+            {status && (
+              <tr>
+                <td colSpan={columns.length + 1}>{status}</td>
+              </tr>
+            )}
+            {!status && rows.length === 0 && (
               <tr>
                 <td colSpan={columns.length + 1} className="py-8 text-center font-bold text-[#424650]">
                   No matches for &ldquo;{query}&rdquo;

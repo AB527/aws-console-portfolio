@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react"
 import StatusBadge from "@/components/ui/StatusBadge"
-import exploreData from "@/data/explore.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 const PAGE_SIZE = 4
 const COLS = "grid grid-cols-[1.7fr_1.2fr_0.9fr]"
@@ -27,8 +28,11 @@ function SortIcon() {
   )
 }
 
+const NO_ITEMS: Achievement[] = []
+
 export default function AchievementsWidget() {
-  const items = exploreData.items as Achievement[]
+  const { data: exploreData, error, reload } = useData("explore")
+  const items: Achievement[] = exploreData?.items ?? NO_ITEMS
   const [query, setQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [page, setPage] = useState(1)
@@ -139,7 +143,9 @@ export default function AchievementsWidget() {
           </div>
         </div>
 
-        {pageItems.length === 0 ? (
+        {!exploreData ? (
+          <DataStatus label="achievements" error={error} onRetry={reload} />
+        ) : pageItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-8 gap-1">
             <span className="text-[14px] font-bold text-[#424650]">No achievements</span>
             <span className="text-[14px] text-[#656871]">Try a different search or filter.</span>
@@ -171,14 +177,16 @@ export default function AchievementsWidget() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-[#c6c6cd] shrink-0">
-        <a
-          href={exploreData.footer.href}
-          className="block text-center text-[14px] text-[#006ce0] hover:underline py-3"
-        >
-          {exploreData.footer.label}
-        </a>
-      </div>
+      {exploreData && (
+        <div className="border-t border-[#c6c6cd] shrink-0">
+          <a
+            href={exploreData.footer.href}
+            className="block text-center text-[14px] text-[#006ce0] hover:underline py-3"
+          >
+            {exploreData.footer.label}
+          </a>
+        </div>
+      )}
     </div>
   )
 }

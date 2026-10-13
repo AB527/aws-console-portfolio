@@ -27,5 +27,10 @@
     "s3": "%s | Documents",
     "iam": "%s | Skills",
     "vpc": "%s | Connect"
+  },
+  "data": {
+    "loading": "Loading %s",
+    "loadError": "Couldn't load %s.",
+    "retry": "Retry"
   }
 }

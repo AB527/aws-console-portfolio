@@ -3,15 +3,16 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { formatPeriod } from "@/lib/formatDate"
-import ec2Data from "@/data/ec2-projects.json"
-import regionsData from "@/data/regions.json"
+import regionsData from "@data/regions.json"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import { DataStatusRow } from "@/components/ui/DataStatus"
+import { useData, type ContentData } from "@/hooks/useData"
 import EC2HomeView from "./EC2HomeView"
 import EC2InstanceTypesView from "./EC2InstanceTypesView"
 import EC2InstanceTypeFinderView from "./EC2InstanceTypeFinderView"
 import EC2SplitPanel, { splitPanelPadding } from "./EC2SplitPanel"
 
-type Instance = typeof ec2Data.instances[number]
+type Instance = ContentData["ec2-projects"]["instances"][number]
 
 type SortKey = "name" | "status" | "instanceType"
 const COLS: { label: string; sortKey?: SortKey }[] = [
@@ -85,12 +86,14 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
   const [panelHeight, setPanelHeight] = useState<number | null>(null)
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" } | null>(null)
   const [spinning, setSpinning] = useState(false)
+  const { data: ec2Data, error, reload } = useData("ec2-projects")
+  const instances = ec2Data?.instances ?? []
 
   const zone =
     regionsData.groups.flatMap((g) => g.regions).find((r) => r.id === selectedRegion)?.zones?.[0]?.name ?? selectedRegion
 
   const q = search.trim().toLowerCase()
-  const filtered = ec2Data.instances
+  const filtered = instances
     .filter((inst) => {
       const matchRegion = inst.region === selectedRegion
       const matchSearch =
@@ -105,7 +108,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
   const selected = selectedRows.length === 1 ? selectedRows[0] : null
   const allSelected = filtered.length > 0 && selectedRows.length === filtered.length
   // Keep showing the last project while the panel slides away
-  const panelInst = selected ?? ec2Data.instances.find((i) => i.id === panelId) ?? null
+  const panelInst = selected ?? instances.find((i) => i.id === panelId) ?? null
 
   const toggleSelect = (id: string) => {
     setSelectedIds((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]))
@@ -131,7 +134,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
         <h1 className="text-[24px] leading-[30px] font-bold">
           {activeProject ? (filtered[0]?.name ?? "Project") : "Projects"}{" "}
           <span className="font-normal text-[#656871]">
-            ({selectedRows.length ? `${selectedRows.length}/${filtered.length}` : filtered.length})
+            ({!ec2Data ? "–" : selectedRows.length ? `${selectedRows.length}/${filtered.length}` : filtered.length})
           </span>{" "}
           <span className="text-xs font-bold text-[#006ce0] align-middle">Info</span>
         </h1>
@@ -324,10 +327,11 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                 </tr>
               )
             })}
-            {filtered.length === 0 && (
+            {!ec2Data && <DataStatusRow colSpan={COLS.length + 1} label="projects" error={error} onRetry={reload} />}
+            {ec2Data && filtered.length === 0 && (
               <tr>
                 <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-[#424650]">
-                  {ec2Data.instances.filter((i) => i.region === selectedRegion).length === 0
+                  {instances.filter((i) => i.region === selectedRegion).length === 0
                     ? `No projects in the selected region (${selectedRegion}).`
                     : "No projects match your filters."}
                 </td>

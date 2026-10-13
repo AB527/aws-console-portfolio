@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import ServiceIcon from "@/components/ui/ServiceIcon"
-import services from "@/data/services.json"
+import services from "@data/services.json"
 
 export default function RecentlyVisitedWidget() {
   const recentlyVisited = useConsoleStore((s) => s.recentlyVisited)
@@ -37,12 +37,12 @@ export default function RecentlyVisitedWidget() {
           <Link
             key={service.id}
             href={`/${service.id}/home`}
-            className={`flex items-center gap-3 py-2.5 group ${
+            className={`flex items-center gap-3 py-2.5 group/item ${
               inLastRow ? "" : "border-b border-[#c6c6cd]"
             }`}
           >
             <ServiceIcon iconId={service.iconId} color={service.color} size="sm" />
-            <span className="text-[#006ce0] group-hover:underline truncate">
+            <span className="text-[#006ce0] group-hover/item:underline truncate">
               {service.title}
             </span>
           </Link>

@@ -3,7 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import ec2Data from "@/data/ec2-projects.json"
+import { DataStatusRow } from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 const ANY = "any"
 const BOOL_OPTIONS = [
@@ -98,8 +99,10 @@ export default function EC2InstanceTypeFinderView() {
   const typesHref = `/ec2/home?view=instance-types&region=${selectedRegion}`
   const set = (key: keyof Criteria) => (value: string) => setCriteria((c) => ({ ...c, [key]: value }))
 
-  const regionInstances = ec2Data.instances.filter((i) => i.region === selectedRegion)
-  const types = ec2Data.instanceTypeDetails
+  const { data: ec2Data, error, reload } = useData("ec2-projects")
+
+  const regionInstances = (ec2Data?.instances ?? []).filter((i) => i.region === selectedRegion)
+  const types = (ec2Data?.instanceTypeDetails ?? [])
     .map((t) => {
       const projects = regionInstances.filter((i) => i.instanceType === t.id)
       return {
@@ -192,7 +195,7 @@ export default function EC2InstanceTypeFinderView() {
       {applied && (
         <section className="mt-5 px-5 py-5 bg-white rounded-2xl border border-[#c6c6cd]">
           <h2 className="text-[20px] leading-6 font-bold">
-            Suggested project types <span className="font-normal text-[#656871]">({suggestions.length})</span>
+            Suggested project types <span className="font-normal text-[#656871]">({ec2Data ? suggestions.length : "–"})</span>
           </h2>
           <div className="overflow-x-auto mt-3">
             <table className="w-full text-sm">
@@ -222,7 +225,10 @@ export default function EC2InstanceTypeFinderView() {
                     <td className="px-4 py-2.5">{t.hoursSpent.toLocaleString("en-US")}</td>
                   </tr>
                 ))}
-                {suggestions.length === 0 && (
+                {!ec2Data && (
+                  <DataStatusRow colSpan={RESULT_COLS.length} label="project types" error={error} onRetry={reload} />
+                )}
+                {ec2Data && suggestions.length === 0 && (
                   <tr>
                     <td colSpan={RESULT_COLS.length} className="px-4 py-10 text-center font-bold text-[#424650]">
                       {types.length === 0

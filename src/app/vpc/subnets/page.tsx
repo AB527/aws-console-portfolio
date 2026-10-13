@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import SubnetsView from "@/components/services/vpc/SubnetsView"
-import site from "@/data/site.json"
+import site from "@data/site.json"
 
 export const metadata: Metadata = { title: site.pageTitles.vpcSubnets }
 

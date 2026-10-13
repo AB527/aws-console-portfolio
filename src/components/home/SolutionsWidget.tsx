@@ -1,7 +1,8 @@
 "use client"
 
 import { useRef, useState } from "react"
-import solutions from "@/data/solutions.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 type SolutionItem = {
   title: string
@@ -32,9 +33,12 @@ function ExternalIcon() {
 }
 
 export default function SolutionsWidget() {
-  const [activeTab, setActiveTab] = useState(solutions.tabs[0].id)
-  const tab = solutions.tabs.find((t) => t.id === activeTab) ?? solutions.tabs[0]
+  const { data: solutions, error, reload } = useData("solutions")
+  const [activeTab, setActiveTab] = useState<string | null>(null)
   const tabsRef = useRef<HTMLDivElement>(null)
+
+  if (!solutions) return <DataStatus label="solutions" error={error} onRetry={reload} />
+  const tab = solutions.tabs.find((t) => t.id === activeTab) ?? solutions.tabs[0]
 
   function scrollTabs(dir: number) {
     tabsRef.current?.scrollBy({ left: dir * 140, behavior: "smooth" })
@@ -71,7 +75,7 @@ export default function SolutionsWidget() {
               className={`px-5 py-2.5 text-[14px] font-bold whitespace-nowrap transition-colors border-b-2 -mb-px ${
                 idx > 0 ? "border-l border-l-[#c6c6cd]" : ""
               } ${
-                activeTab === t.id
+                tab.id === t.id
                   ? "border-b-[#006ce0] text-[#006ce0]"
                   : "border-b-transparent text-[#424650] hover:text-[#0f141a]"
               }`}
