@@ -5,6 +5,7 @@ import { serviceTitle } from "@/lib/serviceTitle"
 import { openSans } from "@/lib/awsFont"
 import ServiceSidebar, { sidebarLinks } from "@/components/layout/ServiceSidebar"
 import ServiceTopBar from "@/components/layout/ServiceTopBar"
+import HelpPanel from "@/components/layout/HelpPanel"
 
 const NAV = sidebarLinks("cloudtrail")
 
@@ -21,6 +22,7 @@ export default function CloudTrailShell({ children }: { children: React.ReactNod
       <div className="flex flex-1">
         <ServiceSidebar serviceId="cloudtrail" />
         <main className="flex-1 min-w-0 px-4 lg:px-6 py-5">{children}</main>
+        <HelpPanel />
       </div>
     </div>
   )

@@ -86,7 +86,7 @@ src/
 ├── app/                 routes (see above); layout.tsx wraps everything in ConsoleLayout
 ├── components/
 │   ├── layout/          Topbar, SearchBar, ServicesMenu, dropdowns, ConsoleFooter, the Q and
-│   │                    shell panels, MobileMoreMenu, MobileNavToggle, ServiceTopBar, ServiceSidebar, breadcrumbs
+│   │                    shell panels, MobileMoreMenu, MobileNavToggle, ServiceTopBar, ServiceSidebar, HelpPanel, breadcrumbs
 │   ├── home/            DashboardGrid, AddWidgetsPanel, WidgetInfoPanel and the widgets
 │   ├── services/        ec2/, s3/, iam/, vpc/, cloudtrail/, GenericServicePage
 │   └── ui/              Badge, StatusBadge, PolicyTag, ServiceIcon, FavoriteStar, SidebarIcons, DataStatus
@@ -114,7 +114,7 @@ public/
 Everything in `public/data/` is also a public URL (`/data/<name>.json`). The files fall in two groups.
 
 **Frame files** — `site`, `services`, `services-menu`, `regions`, `dashboard-layout`, `iam-console`,
-`sidebars`.
+`sidebars`, `help`.
 They drive the top bar, sidebars, tab titles and the store defaults, so they are imported
 (`import site from "@data/site.json"`) and are there on first paint.
 
@@ -154,7 +154,7 @@ Persisted (listed in `partialize`):
 | activeBucket      | Documents drill-down state                           |
 
 Session-only UI flags (do **not** add these to `partialize`): `cloudShellOpen`, `amazonQOpen`,
-`mobileNavOpen`, `addWidgetsOpen`, `sidebarCollapsed`.
+`mobileNavOpen`, `addWidgetsOpen`, `sidebarCollapsed`, `helpTopic`.
 
 The store's `merge` drops widgets that no longer exist and appends new defaults, so changing
 `dashboard-layout.json` is safe for returning visitors.
@@ -176,6 +176,26 @@ The store's `merge` drops widgets that no longer exist and appends new defaults,
   Both are desktop-only.
 - "+ Add widgets" opens a side panel of widgets not on the dashboard — drag one onto the grid or
   click to append. "Reset to default layout" restores the JSON defaults.
+
+## Help panel
+`src/components/layout/HelpPanel.tsx` is the right-hand help panel. Console home and every service
+layout render it beside the page content. It shows the topic in the store's `helpTopic`, and
+closes when the visitor navigates to another page.
+
+- Every "Info" beside a heading is `<InfoLink topic="…" />` (`ui/InfoLink.tsx`). Never write a
+  bare "Info" link. Shared tables (`ResourceTable`, `ResourceSplitView`, `VpcTable`) take an
+  `infoTopic` prop. Dashboard widgets use their widget id as the topic.
+- Topics, the Yes / No feedback links and the Learn more links are all in `public/data/help.json`.
+  A new Info link needs a topic there, with a `title`. Text may use `**bold**` and
+  `[label](href)`. No em dashes in help copy.
+- Top bars carry the info icon (`layout/HelpToggle.tsx`), filled blue while the panel is open.
+  `ServiceTopBar` adds it on every service page and picks the topic from `pages` in `help.json`
+  (keyed by path, or `path?view=`; an unlisted page uses its closest listed parent). A new page
+  needs an entry there.
+- The panel and Add widgets share the right-hand slot, so the store closes one when the other opens.
+
+The All services page (`/console/services`) uses the same top bar as console home
+(`ConsoleHomeShell` with a `breadcrumb`) and lays out `all-services.json` as "Services by category".
 
 ## Responsive rules
 Desktop is the reference design. **Anything at `lg` (1024px) and wider must stay visually

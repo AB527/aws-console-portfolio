@@ -59,6 +59,7 @@ export default function SkillGroupsTable() {
   return (
     <ResourceTable
       title={page.title}
+      infoTopic="iam-groups"
       description={page.description}
       columns={columns}
       rows={rows}

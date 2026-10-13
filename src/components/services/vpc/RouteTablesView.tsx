@@ -38,6 +38,7 @@ export default function RouteTablesView({ initialId }: { initialId?: string }) {
       // Remount when the data arrives so the first row gets selected
       key={vpc ? "ready" : "loading"}
       title="Route tables"
+      infoTopic="vpc-route-tables"
       createLabel="Create route table"
       searchPlaceholder="Find route tables by attribute or tag"
       items={vpc?.routeTables ?? []}

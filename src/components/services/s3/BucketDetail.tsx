@@ -9,6 +9,7 @@ import { GITHUB_REPO_URL } from "@/lib/constants"
 import { openSans } from "@/lib/awsFont"
 import { DataStatusRow } from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
+import InfoLink from "@/components/ui/InfoLink"
 
 type S3Object = {
   id: string
@@ -157,7 +158,7 @@ export default function BucketDetail({ bucketId, files }: { bucketId: string; fi
     <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
       <div className="flex items-baseline gap-2 mb-3">
         <h1 className="text-[24px] leading-[30px] font-bold break-all">{bucket.name}</h1>
-        <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+        <InfoLink topic="s3-bucket" />
       </div>
 
       {/* Tabs */}

@@ -7,6 +7,7 @@ import { openSans } from "@/lib/awsFont"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
 import regionsData from "@data/regions.json"
+import InfoLink from "@/components/ui/InfoLink"
 
 const regions = regionsData.groups.flatMap((g) => g.regions)
 
@@ -156,7 +157,7 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
       <div className="flex items-start justify-between gap-4 flex-wrap mb-5">
         <div className="flex items-baseline gap-2 min-w-0">
           <h1 className="text-[24px] leading-[30px] font-bold text-[#0f141a] break-all">{obj.key}</h1>
-          <a className="text-sm font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+          <InfoLink topic="s3-object" className="text-sm font-bold text-[#006ce0] hover:underline" />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button onClick={() => copy(s3Uri)} className={activeBtn}>

@@ -60,6 +60,7 @@ export default function RoleHistoryTable() {
   return (
     <ResourceTable
       title={page.title}
+      infoTopic="iam-roles"
       description={page.description}
       columns={columns}
       rows={iamUsers?.users ?? []}

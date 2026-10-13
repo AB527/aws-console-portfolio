@@ -6,6 +6,7 @@ import { StateBadge } from "@/components/services/vpc/VpcTable"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
 import type { RouteTable, Subnet } from "@/lib/vpc"
+import InfoLink from "@/components/ui/InfoLink"
 
 type Connect = { id: string; name: string; state: string; cidr: string }
 
@@ -86,7 +87,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
       <div className={`${CARD} px-5 py-4 mb-5`}>
         <div className="flex items-baseline gap-2 mb-4">
           <h2 className="text-[20px] leading-6 font-bold">Details</h2>
-          <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+          <InfoLink topic="vpc-connect" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-y-4 xl:divide-x divide-[#c6c6cd]">
           <dl className="space-y-4 xl:pr-5">
@@ -151,7 +152,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
           <div className="flex items-center justify-between gap-4 flex-wrap px-5 py-4">
             <div className="flex items-baseline gap-2">
               <h2 className="text-[20px] leading-6 font-bold">Resource map</h2>
-              <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+              <InfoLink topic="vpc-resource-map" />
             </div>
             <label className="flex items-center gap-2 cursor-pointer">
               <button

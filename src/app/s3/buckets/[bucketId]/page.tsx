@@ -5,6 +5,7 @@ import site from "@data/site.json"
 import BucketDetail from "@/components/services/s3/BucketDetail"
 import ServiceSidebar from "@/components/layout/ServiceSidebar"
 import { objectFileUrls } from "@/lib/s3Files"
+import HelpPanel from "@/components/layout/HelpPanel"
 
 interface Props {
   params: Promise<{ bucketId: string }>
@@ -32,6 +33,7 @@ export default async function BucketPage({ params }: Props) {
         <div className="flex-1 min-w-0">
           <BucketDetail bucketId={bucket.id} files={objectFileUrls()} />
         </div>
+        <HelpPanel />
       </div>
     </div>
   )

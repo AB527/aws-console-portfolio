@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { GITHUB_REPO_URL } from "@/lib/constants"
 import type { Route } from "@/lib/vpc"
+import InfoLink from "@/components/ui/InfoLink"
 
 const CARD = "bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4"
 export const LINK = "text-[#006ce0] underline underline-offset-4"
@@ -150,6 +151,8 @@ export function SimpleTable({ columns, empty, children }: { columns: string[]; e
 
 interface ResourceSplitViewProps<T extends { id: string }> {
   title: string
+  // Help topic opened by the Info link
+  infoTopic: string
   createLabel: string
   searchPlaceholder: string
   items: T[]
@@ -164,6 +167,7 @@ interface ResourceSplitViewProps<T extends { id: string }> {
 // List on top, detail panel for the selected row below — the layout of the AWS Subnets and Route tables pages
 export default function ResourceSplitView<T extends { id: string }>({
   title,
+  infoTopic,
   createLabel,
   searchPlaceholder,
   items,
@@ -202,7 +206,7 @@ export default function ResourceSplitView<T extends { id: string }>({
               ({status ? "–" : selected ? `1/${items.length}` : items.length})
             </span>
           </h1>
-          <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+          <InfoLink topic={infoTopic} />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button

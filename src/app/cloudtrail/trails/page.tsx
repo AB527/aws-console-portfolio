@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { TrailCount, TrailsList } from "@/components/services/cloudtrail/CloudTrailData"
 import site from "@data/site.json"
+import InfoLink from "@/components/ui/InfoLink"
 
 export const metadata: Metadata = { title: site.pageTitles.cloudtrailTrails }
 
@@ -11,7 +12,7 @@ export default function CloudTrailTrailsPage() {
         <h1 className="text-[20px] leading-6 font-bold">
           Trails <TrailCount />
         </h1>
-        <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+        <InfoLink topic="cloudtrail-trails" />
       </div>
       <p className="mt-1 mb-3">Each trail is one role in the work history.</p>
       <TrailsList detailed />

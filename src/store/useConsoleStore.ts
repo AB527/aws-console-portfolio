@@ -26,6 +26,9 @@ interface ConsoleStore {
   favorites: string[]
   addWidgetsOpen: boolean
   sidebarCollapsed: boolean
+  // Topic shown in the help panel: "console-home" or a widget id
+  helpTopic: string | null
+  setHelpTopic: (topic: string | null) => void
   setSidebarCollapsed: (collapsed: boolean) => void
   toggleFavorite: (id: string) => void
   addWidget: (id: string, beforeId?: string) => void
@@ -81,6 +84,10 @@ export const useConsoleStore = create<ConsoleStore>()(
       favorites: [],
       addWidgetsOpen: false,
       sidebarCollapsed: false,
+      helpTopic: null,
+
+      // The help panel and Add widgets share the right-hand slot, so opening one closes the other
+      setHelpTopic: (topic) => set(topic ? { helpTopic: topic, addWidgetsOpen: false } : { helpTopic: null }),
 
       setSidebarCollapsed: (collapsed) => set({ sidebarCollapsed: collapsed }),
 
@@ -110,7 +117,7 @@ export const useConsoleStore = create<ConsoleStore>()(
           }
         }),
 
-      setAddWidgetsOpen: (open) => set({ addWidgetsOpen: open }),
+      setAddWidgetsOpen: (open) => set(open ? { addWidgetsOpen: true, helpTopic: null } : { addWidgetsOpen: false }),
 
       setAmazonQOpen: (open) => set({ amazonQOpen: open }),
 

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { PageHelpToggle } from "./HelpToggle"
 import MobileNavToggle from "./MobileNavToggle"
 import type { BreadcrumbItem } from "./Breadcrumb"
 
@@ -32,6 +33,7 @@ export default function ServiceTopBar({ items, children }: { items?: BreadcrumbI
       <MobileNavToggle />
       {items && <TopBarCrumbs items={items} />}
       {children}
+      <PageHelpToggle className="ml-auto" />
     </div>
   )
 }

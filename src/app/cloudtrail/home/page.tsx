@@ -4,6 +4,7 @@ import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
 import { CurrentTrailBanner, EventsList, TrailsList } from "@/components/services/cloudtrail/CloudTrailData"
 import { GITHUB_REPO_URL } from "@/lib/constants"
 import site from "@data/site.json"
+import InfoLink from "@/components/ui/InfoLink"
 
 export const metadata: Metadata = { title: site.pageTitles.cloudtrail }
 
@@ -20,14 +21,14 @@ export default function CloudTrailPage() {
 
       <div className="flex items-baseline gap-2 mb-5">
         <h1 className="text-[24px] leading-[30px] font-bold">Dashboard</h1>
-        <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+        <InfoLink topic="cloudtrail-dashboard" />
       </div>
 
       <div className={`${CARD} mb-6`}>
         <div className="flex items-start justify-between gap-4 flex-wrap mb-3">
           <div className="flex items-baseline gap-2">
             <h2 className="text-[20px] leading-6 font-bold">Trails</h2>
-            <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+            <InfoLink topic="cloudtrail-trails" />
           </div>
           <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className={OUTLINE_BTN}>
             Create trail
@@ -41,7 +42,7 @@ export default function CloudTrailPage() {
           <div>
             <div className="flex items-baseline gap-2">
               <h2 className="text-[20px] leading-6 font-bold">Event history</h2>
-              <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+              <InfoLink topic="cloudtrail-events" />
             </div>
             <p className="mt-1">The most recent role changes.</p>
           </div>
