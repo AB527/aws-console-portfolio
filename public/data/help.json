@@ -51,7 +51,7 @@
           "text": "**Rearrange widgets** by choosing the **drag indicator** (six vertical dots) on the title bar and dragging it to a new location."
         },
         {
-          "text": "**Resize widgets** by choosing the **resize icon** at the bottom-right corner."
+          "text": "**Resize widgets** by dragging the **resize icon** at the bottom-right corner. The blue cells show the sizes a widget can snap to."
         },
         {
           "text": "For more information, see [Working with widgets](https://github.com/AB527/aws-console-portfolio)."

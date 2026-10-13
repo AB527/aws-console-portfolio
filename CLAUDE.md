@@ -99,7 +99,7 @@ src/
 public/
 ├── data/                all content, as JSON (import alias `@data/*`)
 ├── icons/               service icons (png) and misc svg
-└── s3/<object id>/      the actual document files — see public/s3/README.md
+└── s3/<object id>/      the actual document files, one folder per object id in s3.json
 ```
 
 ## Data rules
@@ -227,10 +227,16 @@ panels, `Sidebar`, `CloudShellPanel`) does not use them and looks the same in bo
 ## Dashboard
 - Widgets and their limits are declared in `dashboard-layout.json` (default/min/max col and row
   span, `defaultVisible`, `removable`).
-- Desktop: 4-column grid. Each widget sets `--col` / `--row` CSS variables that are applied as grid
-  spans only from `lg` up. Below `lg` the grid is a single column.
-- Reorder with @dnd-kit (drag handle on the widget header); resize with the bottom-right handle.
-  Both are desktop-only.
+- Desktop: 4-column grid of equal cells; every row is `rowHeight` px (`dashboard-layout.json`), so
+  a widget is always a whole number of cells and longer content scrolls inside it. Each widget sets
+  `--col` / `--row` CSS variables that are applied as grid spans only from `lg` up. Below `lg` the
+  grid is a single column and rows follow their content.
+- Reorder with @dnd-kit (drag handle on the widget header); resize by dragging the bottom-right
+  handle (or arrow keys on it), which snaps to cells through `resizeWidget()` in the store. Both
+  are desktop-only. While either is happening `GridCells` draws the cells in blue behind the grid;
+  during a resize the card follows the pointer and its slot shows the cells it will snap to.
+- Changing `rowHeight` changes what a saved `rowSpan` means: bump the store's persist `version`
+  and rescale in `migrate` (v1 halved the rows and doubled the spans).
 - "+ Add widgets" opens a side panel of widgets not on the dashboard — drag one onto the grid or
   click to append. "Reset to default layout" restores the JSON defaults.
 
@@ -276,8 +282,8 @@ development.
   cross-references are computed in `loadLookups()` in `src/lib/studio.ts`.
 - Saving goes through Server Actions in `src/app/studio/actions.ts`, which refuse outside
   development. `saveDataFile` only overwrites an existing file and writes 2-space JSON.
-  `uploadDocument` stores a document at `public/s3/<id>/file.<ext>`; saving `s3.json` regenerates
-  the table in `public/s3/README.md`.
+  `uploadDocument` stores a document at `public/s3/<id>/file.<ext>`. Keep nothing else in `public/s3/`:
+  everything there is a public URL.
 - Studio labels are written in the studio code, not in `public/data/`, because that folder ships
   to production.
 - The production build type-checks with `tsconfig.build.json`, which leaves out the dev server's

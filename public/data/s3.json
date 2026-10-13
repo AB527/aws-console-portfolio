@@ -9,13 +9,31 @@
       "createdDate": "2026-05-01",
       "objects": [
         {
-          "id": "4b380fba-0dc5-40f5-8653-7d556690f26b",
-          "key": "infobahn-offer-letter.pdf",
-          "size": "245 KB",
-          "lastModified": "2026-05-01",
-          "type": "application/pdf",
+          "id": "6560bf61-3f16-4a68-838f-c59466e56822",
+          "key": "infobahn-internship-completion-letter.png",
+          "size": "160 KB",
+          "lastModified": "2026-08-07",
+          "type": "image/png",
           "storageClass": "Standard",
-          "etag": "faad595bdaa193984ff934b2dcef794d"
+          "etag": "c4447d6b9f69179ce829de7e7aa5fad6"
+        },
+        {
+          "id": "67fbb449-43b1-430a-871e-cde7827aa1d4",
+          "key": "transbnk-internship-completion-letter.png",
+          "size": "216 KB",
+          "lastModified": "2025-07-07",
+          "type": "image/png",
+          "storageClass": "Standard",
+          "etag": "0e7faf3656a85c306321d151cb39e412"
+        },
+        {
+          "id": "356a5801-3e1d-4a6b-9a27-de98d9b7e86a",
+          "key": "tffm-letter-of-recommendation.png",
+          "size": "158 KB",
+          "lastModified": "2026-10-14",
+          "type": "image/png",
+          "storageClass": "Standard",
+          "etag": "3acbac878a3342b6615eb91fd5b1e8e7"
         }
       ]
     },
@@ -77,15 +95,6 @@
           "type": "application/pdf",
           "storageClass": "Standard",
           "etag": "6f5ba16cb3482b140d19c3000c2f91be"
-        },
-        {
-          "id": "c2de347c-a07c-41d6-94a5-96e940c2c596",
-          "key": "resume-fullstack-2025.pdf",
-          "size": "165 KB",
-          "lastModified": "2025-12-01",
-          "type": "application/pdf",
-          "storageClass": "Standard",
-          "etag": "2dbd9b4991e313f522b9f604ccb0a1f2"
         }
       ]
     },

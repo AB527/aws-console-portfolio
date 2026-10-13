@@ -68,7 +68,7 @@
       "description": "Developer Tools & OSS",
       "openSource": true,
       "productionGrade": false,
-      "techStack": "Go · AWS CLI",
+      "techStack": "Go · Elastic Beanstalk",
       "scale": "Open Source"
     },
     {
@@ -91,26 +91,56 @@
   "instances": [
     {
       "id": "tffm-platform",
-      "name": "TFFM — Tribal Folklore Festival",
-      "description": "Government platform inaugurated by the Prime Minister of India",
+      "name": "TFFM Website",
+      "description": "Government museum website inaugurated by the Prime Minister of India",
       "status": "running",
       "instanceType": "cloud.xlarge",
       "techStack": "EC2 + RDS + CloudFront + NIC",
       "region": "ap-south-17",
-      "periodFrom": "2025-03-01",
-      "periodTo": "2025-07-31",
+      "zone": "ap-south-17a",
+      "periodFrom": "2025-07-01",
+      "periodTo": "2026-01-31",
       "tags": [
         "Node.js",
+        "React",
         "AWS EC2",
         "CloudFront",
         "PostgreSQL",
+        "GitHub Actions",
         "NIC"
       ],
       "link": "https://tffm.cg.gov.in/",
-      "details": "Full-stack platform for Chhattisgarh Tribal Ministry. Node.js on EC2, RDS PostgreSQL, CloudFront CDN, NIC coordination. Inaugurated by PM of India. Post-pentest security hardening applied.",
+      "details": "Public website for the Chhattisgarh Tribal Ministry's museum platform, inaugurated by the Prime Minister of India with 2,000+ organic visits on day one. React frontend and Node.js backend for ticketing APIs, content management and Firebase-based admin workflows, kept up with Nginx process management and automated health monitoring. Releases run through GitHub Actions with self-hosted runners and Ansible. Passed the government-mandated security audit after post-pentest hardening, coordinating with NIC on-ground.",
       "metrics": {
         "hoursSpent": 800,
-        "usersServed": 50000,
+        "usersServed": 20000,
+        "scale": "National"
+      }
+    },
+    {
+      "id": "tffm-ticketing",
+      "name": "TFFM Ticketing Software",
+      "description": "Flutter Windows ticketing kiosk for the museum, built from scratch",
+      "status": "running",
+      "instanceType": "cloud.xlarge",
+      "techStack": "Flutter + Hive + Node.js",
+      "region": "ap-south-17",
+      "zone": "ap-south-17a",
+      "periodFrom": "2025-07-01",
+      "periodTo": "2026-01-31",
+      "tags": [
+        "Flutter",
+        "Windows",
+        "Hive",
+        "Thermal Printing",
+        "GitHub Actions",
+        "Ansible"
+      ],
+      "link": "https://tffm.cg.gov.in/",
+      "details": "Flutter-based Windows ticketing kiosk for the museum, built from scratch with thermal printing, offline Hive storage and real-time sync with the website's ticketing APIs. Processes 100+ tickets a day in production, with kiosk releases automated through the same GitHub Actions and Ansible pipeline as the website.",
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 10000,
         "scale": "National"
       }
     },
@@ -122,6 +152,7 @@
       "instanceType": "compute.large",
       "techStack": "ECS Fargate + RDS + ElastiCache",
       "region": "ap-south-1",
+      "zone": "ap-south-1a",
       "periodFrom": "2025-08-01",
       "periodTo": "2025-12-31",
       "tags": [
@@ -145,32 +176,36 @@
       "description": "Crime monitoring platform for Chhattisgarh Police",
       "status": "running",
       "instanceType": "compute.medium",
-      "techStack": "EC2 + RDS + CloudFront",
+      "techStack": "EC2 + RDS + ALB + Terraform",
       "region": "ap-south-17",
-      "periodFrom": "2024-11-01",
-      "periodTo": "2025-02-28",
+      "zone": "ap-south-17a",
+      "periodFrom": "2025-10-01",
+      "periodTo": "2026-05-31",
       "tags": [
-        "Node.js",
+        "Flutter",
         "AWS EC2",
         "RDS PostgreSQL",
-        "CloudFront"
+        "Terraform",
+        "Ansible",
+        "Grafana"
       ],
       "link": "https://atharvabedekar.dev",
-      "details": "Node.js backend on EC2 with RDS PostgreSQL and CloudFront for Chhattisgarh Police crime data monitoring.",
+      "details": "Full production stack for a crime-reporting platform used by 250+ police officers across 10 stations and 5+ sub-divisions in Chhattisgarh. Provisioned end to end with Terraform and Ansible, with the backend and database isolated in private subnets behind a public ALB with TLS. Held 99%+ uptime across 15 production releases in 6 months, with observability through Prometheus, Grafana and Loki, and cut compute costs 38% by moving to 1-year Reserved pricing.",
       "metrics": {
         "hoursSpent": 200,
-        "usersServed": 500,
+        "usersServed": 250,
         "scale": "Statewide"
       }
     },
     {
       "id": "iiitnr-attendance",
       "name": "IIIT NR Attendance App",
-      "description": "IoT-based attendance system — Indian Patent IN 589608",
+      "description": "IoT-based attendance system, Indian Patent IN 589608",
       "status": "running",
       "instanceType": "iot.medium",
       "techStack": "Flutter + Firebase + IoT Hardware",
       "region": "ap-south-17",
+      "zone": "ap-south-17b",
       "periodFrom": "2024-01-01",
       "periodTo": "2024-08-31",
       "tags": [
@@ -180,32 +215,32 @@
         "Patent"
       ],
       "link": "https://github.com/AB527",
-      "details": "Flutter + Firebase attendance app using IoT hardware for automatic marking. Granted Indian Patent IN 589608 in May 2026.",
+      "details": "Flutter + Firebase attendance app using IoT hardware that marks attendance for a whole class in under 5 seconds, at any scale. Proximity-based verification with MAC address randomization and dual-band Wi-Fi signal strength checks makes presence hard to spoof, and it works fully offline during verification. Granted Indian Patent IN 589608 on 18 May 2026.",
       "metrics": {
         "hoursSpent": 300,
-        "usersServed": 1500,
+        "usersServed": 100,
         "scale": "Institutional"
       }
     },
     {
       "id": "aws-easy-deploy",
       "name": "AWS Easy Deploy",
-      "description": "Open-source Go CLI for fast EC2 and S3 deployments",
+      "description": "Open-source Go CLI giving an App Runner-like experience on Elastic Beanstalk",
       "status": "running",
       "instanceType": "dev.small",
       "techStack": "Go CLI / Open Source",
       "region": "ap-south-1",
-      "periodFrom": "2025-06-01",
-      "periodTo": "",
+      "zone": "ap-south-1a",
+      "periodFrom": "2026-02-01",
+      "periodTo": "2026-02-28",
       "tags": [
         "Go",
         "AWS CLI",
-        "EC2",
-        "S3",
+        "Elastic Beanstalk",
         "Open Source"
       ],
       "link": "https://github.com/AB527",
-      "details": "CLI tool in Go to simplify and automate common AWS deployment tasks for EC2 instances and S3 buckets.",
+      "details": "Open-source Go CLI that delivers an App Runner-like experience on Elastic Beanstalk for hackathons and small startups. A single init command generates all required AWS deployment resources and a reusable team config file in under 2 minutes, with environment reload automation, avoiding the 40 to 60% runtime cost overhead of AWS App Runner.",
       "metrics": {
         "hoursSpent": 100,
         "usersServed": 200,
@@ -214,12 +249,13 @@
     },
     {
       "id": "opencai",
-      "name": "OpenCAI — Open Cloud AI",
+      "name": "OpenCAI: Open Cloud AI",
       "description": "White-labelled AIOps/FinOps platform with an AI agent for cloud operations",
       "status": "running",
       "instanceType": "ai.large",
       "techStack": "AI Agent + Sandboxed Containers",
       "region": "ap-south-1",
+      "zone": "ap-south-1a",
       "periodFrom": "2026-01-01",
       "periodTo": "",
       "tags": [
@@ -239,12 +275,13 @@
     },
     {
       "id": "aarambh",
-      "name": "Aarambh — IIIT NR Sports Fest",
+      "name": "Aarambh: IIIT NR Sports Fest",
       "description": "Official website for IIIT Naya Raipur's annual sports event",
       "status": "running",
       "instanceType": "web.medium",
       "techStack": "Next.js + Node.js + PostgreSQL",
       "region": "ap-south-17",
+      "zone": "ap-south-17b",
       "periodFrom": "2024-10-18",
       "periodTo": "",
       "tags": [
@@ -259,8 +296,88 @@
       "details": "Website for Aarambh, the annual sports event at IIIT Naya Raipur, with live scores, event schedules, team standings and a photo gallery. Next.js frontend with a Node.js/Express API and PostgreSQL via Prisma; deployment config for AWS Amplify.",
       "metrics": {
         "hoursSpent": 0,
-        "usersServed": 0,
+        "usersServed": 300,
         "scale": "Institutional"
+      }
+    },
+    {
+      "id": "iiitnr-admission-portal",
+      "name": "IIIT-NR Admission Portal",
+      "description": "Official admission portal of IIIT Naya Raipur, built end to end",
+      "status": "running",
+      "instanceType": "web.medium",
+      "techStack": "Next.js + PostgreSQL + Prisma",
+      "region": "ap-south-17",
+      "zone": "ap-south-17b",
+      "periodFrom": "2025-07-01",
+      "periodTo": "",
+      "tags": [
+        "Next.js",
+        "PostgreSQL",
+        "Prisma",
+        "Ansible",
+        "GitHub Actions",
+        "Nginx"
+      ],
+      "link": "https://admission.iiitnr.ac.in",
+      "details": "The institute's official admission portal, designed and built end to end with Next.js, PostgreSQL and Prisma, serving prospective students during live admission cycles. Deployed on an on-premise server with Ansible and self-hosted GitHub Actions CI/CD, including database provisioning and infrastructure setup. Includes a mini document management system with secure upload, storage and access controls, and a RAG-based admissions chatbot hardened against prompt injection with input sanitization, strict input delimiting and output filtering.",
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 1000,
+        "scale": "Institutional"
+      }
+    },
+    {
+      "id": "iiitnr-app",
+      "name": "IIIT-NR App",
+      "description": "Ground-up rebuild of the official campus app with a hardened architecture",
+      "status": "running",
+      "instanceType": "compute.large",
+      "techStack": "Flutter + Node.js + PostgreSQL",
+      "region": "ap-south-17",
+      "zone": "ap-south-17b",
+      "periodFrom": "2025-01-01",
+      "periodTo": "",
+      "tags": [
+        "Flutter",
+        "Riverpod",
+        "GoRouter",
+        "Node.js",
+        "Prisma",
+        "PostgreSQL",
+        "Codemagic"
+      ],
+      "link": "https://github.com/AB527",
+      "details": "Found critical security vulnerabilities in the official campus app (1,000+ installs, 750+ active users) through reverse engineering, which led to an institute-commissioned rebuild. The new Flutter app has Google Sign-In and OTP authentication and role-based dashboards for students, wardens, guards and the chairman using Riverpod and GoRouter, backed by a Node.js, Prisma and PostgreSQL API. Codemagic CI/CD covers Android and iOS, self-hosted GitHub Actions runners deploy the web build, and Ansible provisions the production server. Currently in beta ahead of the institute relaunch.",
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 1000,
+        "scale": "Institutional"
+      }
+    },
+    {
+      "id": "vibecheck",
+      "name": "VibeCheck",
+      "description": "YouTube comment sentiment tool, runner-up at E-Summit Hackathon 2025",
+      "status": "stopped",
+      "instanceType": "dev.small",
+      "techStack": "Node.js + YouTube API + Gemini",
+      "region": "ap-south-17",
+      "zone": "ap-south-17c",
+      "periodFrom": "2025-02-01",
+      "periodTo": "2025-02-28",
+      "tags": [
+        "Node.js",
+        "LLM",
+        "YouTube API",
+        "Hackathon"
+      ],
+      "link": "https://github.com/AB527",
+      "details": "Tool that cuts through a YouTube comments section to give clear, summarized sentiment insights. Built with the YouTube API and a Gemini model, it classifies comments, generates summaries and offers content improvement tips for creators, with a chatbot for a deeper breakdown of audience sentiment. Runner-up at E-Summit Hackathon 2025.",
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 0,
+        "scale": "Open Source"
       }
     }
   ]

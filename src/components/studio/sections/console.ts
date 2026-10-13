@@ -108,6 +108,8 @@ export const settings: SectionGroup = {
       file: "dashboard-layout",
       kind: "list",
       source: { kind: "array", path: ["widgets"] },
+      settingsTitle: "Grid",
+      settings: [{ key: "rowHeight", label: "Row height (px)", type: "number", required: true }],
       titleKey: "title",
       columns: [
         { label: "Title", key: "title" },

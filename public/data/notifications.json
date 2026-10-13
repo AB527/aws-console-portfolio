@@ -1,22 +1,58 @@
 {
   "items": [
     {
-      "id": "notif-pm2",
+      "id": "notif-aws-jacket",
       "type": "ab-managed",
       "source": "linkedin",
       "title": "Posted on LinkedIn",
-      "message": "PM2 works with Node, it’ll work with npm. Right? ❌ Wrong. — A common PM2 deployment pitfall explained.",
-      "date": "2026-06-06",
-      "link": "https://www.linkedin.com/posts/atharva-bedekar_nodejs-pm2-devops-share-7466492069910564866-2zue/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADNDaJQBb0gMGVvLY8bJDVm32RY4_Wqu9NE"
+      "message": "The AWS community jacket has finally arrived. Thank you Amazon Web Services for this one.",
+      "date": "2026-09-17",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7506351946681741313/"
     },
     {
-      "id": "notif-ec2",
+      "id": "notif-aws-sbg",
       "type": "ab-managed",
       "source": "linkedin",
       "title": "Posted on LinkedIn",
-      "message": "Quick hack to survive memory crashes without upgrading your EC2 instance — enable swap on t3.micro for CI builds.",
-      "date": "2026-05-30",
-      "link": "https://www.linkedin.com/posts/atharva-bedekar_aws-ec2-devops-share-7462058131410333696-JvXO/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADNDaJQBb0gMGVvLY8bJDVm32RY4_Wqu9NE"
+      "message": "AWS SBG comes to IIIT Naya Raipur: selected as the AWS Student Builder Group Leader for the institute.",
+      "date": "2026-09-14",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7505271158481747968/"
+    },
+    {
+      "id": "notif-mtu",
+      "type": "ab-managed",
+      "source": "linkedin",
+      "title": "Posted on LinkedIn",
+      "message": "50 bytes of MTU chaos cost me 2 hours: debugging a network issue in a Kubernetes setup.",
+      "date": "2026-09-03",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7501134449389203456/"
+    },
+    {
+      "id": "notif-admission-portal",
+      "type": "ab-managed",
+      "source": "linkedin",
+      "title": "Posted on LinkedIn",
+      "message": "Crafting the front door of IIIT Naya Raipur: the story behind the institute's admission portal.",
+      "date": "2026-08-20",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7496060961515257856/"
+    },
+    {
+      "id": "notif-independence-day",
+      "type": "ab-managed",
+      "source": "linkedin",
+      "title": "Posted on LinkedIn",
+      "message": "Independence Day feels a little different this year: one year since the Mumbai Metro app disclosure and the CERT-In Hall of Fame.",
+      "date": "2026-08-15",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7494249141280186368/"
+    },
+    {
+      "id": "notif-infobahn-wrap",
+      "type": "ab-managed",
+      "source": "linkedin",
+      "title": "Posted on LinkedIn",
+      "message": "And that's a wrap: my internship at Infobahn Technical Solutions has come to an end.",
+      "date": "2026-08-10",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7492520137946898432/"
     }
   ]
 }

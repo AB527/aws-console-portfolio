@@ -5,19 +5,19 @@
     {
       "id": "repositories",
       "label": "Public repositories",
-      "value": "24",
+      "value": "32",
       "caption": "All time"
     },
     {
       "id": "contributions",
       "label": "Contributions",
-      "value": "0",
+      "value": "56",
       "caption": "Past 7 days"
     },
     {
       "id": "followers",
       "label": "Followers",
-      "value": "38",
+      "value": "16",
       "caption": "Community"
     }
   ]

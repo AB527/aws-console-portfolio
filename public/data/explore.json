@@ -10,6 +10,24 @@
   },
   "items": [
     {
+      "title": "AWS Certified Solutions Architect Associate",
+      "reward": "Amazon Web Services",
+      "status": "completed",
+      "link": ""
+    },
+    {
+      "title": "AWS Certified Cloud Practitioner",
+      "reward": "Amazon Web Services",
+      "status": "completed",
+      "link": ""
+    },
+    {
+      "title": "AWS Certified AI Practitioner",
+      "reward": "Amazon Web Services",
+      "status": "completed",
+      "link": ""
+    },
+    {
       "title": "CERT-In Hall of Fame",
       "reward": "Govt of India",
       "status": "completed",
@@ -30,6 +48,12 @@
     {
       "title": "E-Summit Hackathon, 1st Runner Up",
       "reward": "IIIT Naya Raipur",
+      "status": "completed",
+      "link": ""
+    },
+    {
+      "title": "Advent of Cyber 2025",
+      "reward": "TryHackMe",
       "status": "completed",
       "link": ""
     }
