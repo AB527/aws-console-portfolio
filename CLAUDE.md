@@ -196,7 +196,7 @@ panels, `Sidebar`, `CloudShellPanel`) does not use them and looks the same in bo
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `page` | `#f2f3f3` | `#0f141a` | page background |
+| `page` | `#ffffff` | `#0f141a` | page background (every page, light mode is plain white) |
 | `surface` | `#ffffff` | `#161d26` | cards, tables, modals, panels |
 | `surface-subtle` | `#f9f9fa` | `#1b232d` | table headers, chips, neutral hover |
 | `surface-selected` | `#f0fbff` | `#001129` | hover and selected rows |
@@ -313,7 +313,7 @@ uses Inter.
 Top bar / dark panels   #0f1620, #161d26, #1b232d
 Footer                  #232f3e
 Settings panel          #1a2332
-Page background         #f2f3f3
+Page background         #ffffff (the `page` token)
 Links                   #0073bb (light) / #006ce0 (console) / #75b8ff, #42b4ff (on dark)
 CTA orange              #ff9900
 Cards                   white, rounded, border-gray-200, shadow-sm

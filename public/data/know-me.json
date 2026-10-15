@@ -16,11 +16,11 @@
       "link": "https://linkedin.com/in/atharva-bedekar"
     },
     {
-      "id": "github",
-      "label": "Explore GitHub",
-      "description": "Open source tools, Go CLIs, and production systems.",
-      "icon": "github",
-      "link": "https://github.com/AB527"
+      "id": "aws-builder-centre",
+      "label": "AWS Builder Centre",
+      "description": "Learn, build, and connect with builders in the AWS community.",
+      "icon": "builder-centre",
+      "link": "https://builder.aws.com"
     }
   ]
 }

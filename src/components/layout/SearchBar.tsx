@@ -1,11 +1,29 @@
 "use client"
 
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState, useRef, useEffect, useCallback, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import FavoriteStar from "@/components/ui/FavoriteStar"
 import services from "@data/services.json"
 import { openSans } from "@/lib/font"
+
+function AbQIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M14.22 3.41L8.87 0.32C8.63 0.18 8.32 0.11 8 0.11C7.68 0.11 7.37 0.18 7.13 0.32L1.78 3.41C1.3 3.68 0.91 4.36 0.91 4.91V11.09C0.91 11.64 1.3 12.31 1.78 12.59L7.14 15.68C7.38 15.82 7.69 15.89 8.01 15.89C8.33 15.89 8.64 15.82 8.88 15.68L14.24 12.59C14.72 12.31 15.11 11.64 15.11 11.09V4.91C15.11 4.36 14.72 3.68 14.24 3.41H14.22ZM8 13.88L2.91 10.94V5.06L8 2.12L13.09 5.06V9.78L10 8V7.26C10 7 9.86 6.77 9.64 6.64L8.36 5.9C8.25 5.84 8.12 5.8 8 5.8C7.88 5.8 7.75 5.83 7.64 5.9L6.36 6.64C6.14 6.77 6 7.01 6 7.26V8.74C6 9 6.14 9.23 6.36 9.36L7.64 10.1C7.75 10.16 7.88 10.2 8 10.2C8.12 10.2 8.25 10.17 8.36 10.1L9 9.73L12.09 11.51L8 13.87V13.88Z" />
+    </svg>
+  )
+}
+
+// Macs label the key Option, everything else Alt; the server renders Alt
+const noSubscribe = () => () => {}
+function useShortcutKey() {
+  return useSyncExternalStore(
+    noSubscribe,
+    () => (/Mac|iPhone|iPad/.test(navigator.userAgent) ? "Option" : "Alt"),
+    () => "Alt"
+  )
+}
 
 function ResultIcon({ iconId, color, title }: { iconId: string; color: string; title: string }) {
   const [failed, setFailed] = useState(false)
@@ -33,6 +51,7 @@ export default function SearchBar() {
   const [query, setQuery] = useState("")
   const [open, setOpen] = useState(false)
   const [focused, setFocused] = useState(false)
+  const shortcutKey = useShortcutKey()
   const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -86,13 +105,13 @@ export default function SearchBar() {
       {/* On phones this is a bare search icon until tapped, then it expands across the topbar */}
       <div
         onClick={() => inputRef.current?.focus()}
-        className={`flex items-center bg-[#1b2433] border rounded-lg h-[32px] px-3 gap-2 transition-colors max-lg:[.group:not(:focus-within)_&]:justify-center max-lg:[.group:not(:focus-within)_&]:gap-0 max-lg:[.group:not(:focus-within)_&]:px-0 max-lg:[.group:not(:focus-within)_&]:bg-transparent max-lg:[.group:not(:focus-within)_&]:border-transparent ${
-          open ? "border-[#9bb4c8]" : "border-[#3a4757] hover:border-[#6a7a8c]"
+        className={`flex items-center bg-transparent max-lg:group-focus-within:bg-[#0f1620] border rounded-lg h-[32px] px-3 gap-2 transition-colors max-lg:[.group:not(:focus-within)_&]:justify-center max-lg:[.group:not(:focus-within)_&]:gap-0 max-lg:[.group:not(:focus-within)_&]:px-0 max-lg:[.group:not(:focus-within)_&]:bg-transparent max-lg:[.group:not(:focus-within)_&]:border-transparent ${
+          open ? "border-[#9bb4c8]" : "border-[#b4b4bb] hover:border-[#dedee3]"
         }`}
       >
-        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0 max-lg:[.group:not(:focus-within)_&]:w-[19px] max-lg:[.group:not(:focus-within)_&]:h-[19px] max-lg:[.group:not(:focus-within)_&]:text-gray-200">
-          <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.75"/>
-          <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
+        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" className="text-[#a4a4ad] shrink-0 max-lg:[.group:not(:focus-within)_&]:w-[19px] max-lg:[.group:not(:focus-within)_&]:h-[19px] max-lg:[.group:not(:focus-within)_&]:text-gray-200">
+          <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="2.6"/>
+          <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round"/>
         </svg>
         <input
           ref={inputRef}
@@ -106,17 +125,21 @@ export default function SearchBar() {
             if (e.key === "Escape") { setOpen(false); setQuery("") }
             if (e.key === "Enter" && results.length > 0) navigate(results[0].id)
           }}
-          className="bg-transparent text-[13px] text-white flex-1 w-0 min-w-0 focus:outline-none placeholder-gray-400 placeholder:italic max-lg:[.group:not(:focus-within)_&]:w-0 max-lg:[.group:not(:focus-within)_&]:flex-none"
+          className="bg-transparent text-[13px] text-white flex-1 w-0 min-w-0 focus:outline-none placeholder:text-[#a4a4ad] placeholder:italic max-lg:[.group:not(:focus-within)_&]:w-0 max-lg:[.group:not(:focus-within)_&]:flex-none"
         />
         <span className="text-[12px] text-gray-400 shrink-0 hidden lg:flex max-lg:group-focus-within:flex items-center gap-2">
-          {focused ? (
-            <span className="font-semibold text-gray-200">Ask AB Q</span>
-          ) : (
-            <>
-              <span className="hidden sm:inline">[Option+S]</span>
-              <span className="font-semibold text-gray-200">AB Q</span>
-            </>
-          )}
+          <span className="hidden sm:inline">[{shortcutKey}+S]</span>
+          {/* "Ask AB Q" slides open beside the icon on hover and while typing, pushing the hint left */}
+          <span className="flex items-center font-bold text-gray-200" title="AB Q">
+            <AbQIcon />
+            <span
+              className={`grid transition-[grid-template-columns] duration-200 ease-out ${
+                focused ? "grid-cols-[1fr]" : "grid-cols-[0fr] group-hover:grid-cols-[1fr]"
+              }`}
+            >
+              <span className="overflow-hidden whitespace-nowrap pl-1.5">Ask AB Q</span>
+            </span>
+          </span>
         </span>
       </div>
 
