@@ -3,6 +3,8 @@
 A personal portfolio for **Atharva Bedekar**, built to look and behave like a cloud management console.
 Each "service" in the console is a section of the portfolio.
 
+**Live:** [console.atharvabedekar.dev](https://console.atharvabedekar.dev)
+
 > [!NOTE]
 > This is an unofficial, personal, non-commercial project. It is **not affiliated with, endorsed by or
 > sponsored by Amazon Web Services**. The interface is modelled on the AWS Management Console purely as a

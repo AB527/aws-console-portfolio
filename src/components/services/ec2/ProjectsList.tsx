@@ -144,14 +144,16 @@ function InstanceDrawer({ inst }: { inst: Instance }) {
             </span>
           ))}
         </div>
-        <a
-          href={inst.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-block text-xs text-white bg-[#ff9900] hover:bg-[#e68900] px-3 py-1.5 rounded-full font-medium transition-colors"
-        >
-          Open Project →
-        </a>
+        {inst.link && (
+          <a
+            href={inst.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block text-xs text-white bg-[#ff9900] hover:bg-[#e68900] px-3 py-1.5 rounded-full font-medium transition-colors"
+          >
+            Open Project →
+          </a>
+        )}
       </div>
     </div>
   )

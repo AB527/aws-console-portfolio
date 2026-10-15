@@ -53,7 +53,7 @@
       "name": "website-rtb",
       "subnetId": "subnet-0aad1cd14915584ea",
       "routes": [
-        { "destination": "portfolio", "target": "atharvabedekar.dev", "url": "https://atharvabedekar.dev" }
+        { "destination": "portfolio", "target": "console.atharvabedekar.dev", "url": "https://console.atharvabedekar.dev" }
       ]
     }
   ]
