@@ -57,7 +57,7 @@ export default function VpcDashboard() {
             href="/ec2/home"
             className="h-8 px-5 flex items-center rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
           >
-            Launch EC2 Instances
+            Launch Projects
           </Link>
         </div>
         <p className="mt-2 text-xs text-ink-body">Note: Your Instances will launch in the Asia Pacific region.</p>

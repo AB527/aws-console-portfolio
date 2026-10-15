@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { LICENSE_URL } from "@/lib/constants"
+import ConsoleDialog, { DIALOG_PRIMARY, DIALOG_SECONDARY } from "./ConsoleDialog"
 
 interface CookiePreferencesDialogProps {
   onClose: () => void
@@ -37,6 +39,14 @@ const CATEGORIES = [
   },
 ]
 
+function ExternalIcon() {
+  return (
+    <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true" className="inline ml-1 -mt-0.5">
+      <path d="M10 2h4v4M14 2 7 9M12 9.5V14H2V4h4.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export default function CookiePreferencesDialog({ onClose }: CookiePreferencesDialogProps) {
   const [allowed, setAllowed] = useState<Record<string, boolean>>({
     essential: true,
@@ -51,62 +61,50 @@ export default function CookiePreferencesDialog({ onClose }: CookiePreferencesDi
   }
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
-      <div className="bg-surface rounded-2xl max-w-lg w-full shadow-2xl max-h-[85vh] flex flex-col">
-        <div className="p-6 border-b border-gray-200 dark:border-line shrink-0">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-ink">Customize cookie preferences</h2>
-          <p className="text-sm text-gray-600 dark:text-ink-body mt-2 leading-relaxed">
-            We use cookies and similar tools (collectively, &ldquo;cookies&rdquo;) for the following purposes.
-          </p>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-6 space-y-5">
-          {CATEGORIES.map((cat) => (
-            <div key={cat.id} className="border-b border-gray-100 dark:border-line-subtle pb-5 last:border-0 last:pb-0">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-ink mb-1">{cat.title}</h3>
-                  <p className="text-xs text-gray-600 dark:text-ink-body leading-relaxed">{cat.description}</p>
-                </div>
-                <label className="flex items-center gap-2 shrink-0 mt-0.5 cursor-pointer">
-                  <span className="text-xs text-gray-500 dark:text-ink-muted">Allowed</span>
-                  <input
-                    type="checkbox"
-                    checked={allowed[cat.id]}
-                    onChange={() => toggle(cat.id)}
-                    disabled={cat.required}
-                    className="w-4 h-4 accent-[#0073bb] dark:accent-link cursor-pointer disabled:cursor-default"
-                  />
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="px-6 py-3 bg-gray-50 dark:bg-surface-subtle border-t border-gray-200 dark:border-line shrink-0">
-          <p className="text-[11px] text-gray-500 dark:text-ink-muted leading-relaxed">
-            Blocking some types of cookies may impact your experience of our sites. You may review and change your choices at any time by selecting Cookie Preferences in the footer of this site.
-          </p>
-        </div>
-
-        <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-line shrink-0">
-          <button
-            onClick={onClose}
-            className="px-4 py-1.5 text-sm text-gray-700 dark:text-ink-body border border-gray-300 dark:border-line rounded-full hover:bg-gray-50 dark:hover:bg-surface-subtle transition-colors"
-          >
+    <ConsoleDialog
+      id="cookie-preferences-title"
+      title="Customize cookie preferences"
+      onClose={onClose}
+      footer={
+        <>
+          <button onClick={onClose} className={DIALOG_SECONDARY}>
             Cancel
           </button>
-          <button
-            onClick={onClose}
-            className="px-4 py-1.5 text-sm text-white bg-[#ff9900] rounded-full hover:bg-[#e88a00] transition-colors font-medium"
-          >
+          <button onClick={onClose} className={DIALOG_PRIMARY}>
             Save preferences
           </button>
+        </>
+      }
+    >
+      {CATEGORIES.map((cat) => (
+        <div key={cat.id} className="flex items-center gap-10 px-2.5 py-4 border-b border-[#43474f] max-md:flex-col max-md:items-start max-md:gap-3">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-[18px] leading-6 mb-2">{cat.title}</h3>
+            <p className="text-[14px] leading-5">{cat.description}</p>
+          </div>
+          <label className={`flex items-center gap-2 shrink-0 w-[90px] text-[14px] ${cat.required ? "cursor-default" : "cursor-pointer"}`}>
+            <input
+              type="checkbox"
+              checked={allowed[cat.id]}
+              onChange={() => toggle(cat.id)}
+              disabled={cat.required}
+              className="w-3.5 h-3.5 accent-[#539fe5] cursor-pointer disabled:cursor-default"
+            />
+            Allowed
+          </label>
         </div>
-      </div>
-    </div>
+      ))}
+
+      <p className="px-2.5 pt-5 text-[12px] leading-[21px]">
+        Blocking some types of cookies may impact your experience of our sites. You may review and change your choices
+        at any time by selecting Cookie preferences in the footer of this site. How this site and its code may be used
+        is set out in the{" "}
+        <a href={LICENSE_URL} target="_blank" rel="noopener noreferrer" className="font-bold text-[#44b9d6] underline hover:text-[#7fd1e6]">
+          License
+          <ExternalIcon />
+        </a>
+        .
+      </p>
+    </ConsoleDialog>
   )
 }

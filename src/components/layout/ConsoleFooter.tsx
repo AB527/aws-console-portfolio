@@ -1,10 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import site from "@data/site.json"
 import CookiePreferencesDialog from "./CookiePreferencesDialog"
+import MobileAppDialog from "./MobileAppDialog"
+import { LICENSE_URL } from "@/lib/constants"
 
 function TerminalIcon({ size = 13 }: { size?: number }) {
   return (
@@ -29,7 +30,6 @@ export default function ConsoleFooter() {
   const setCloudShellOpen = useConsoleStore((s) => s.setCloudShellOpen)
   const [cookieOpen, setCookieOpen] = useState(false)
   const [pwaOpen, setPwaOpen] = useState(false)
-  const router = useRouter()
 
   return (
     <>
@@ -50,27 +50,15 @@ export default function ConsoleFooter() {
             <MobileIcon />
             Console Mobile App
           </button>
-          {/* Data studio: the route only exists in development */}
-          {process.env.NODE_ENV === "development" && (
-            <button onClick={() => router.push("/studio")} className="hover:text-white transition-colors">
-              Studio
-            </button>
-          )}
         </div>
         <div className="hidden md:flex items-center gap-3">
           <span>© 2026 {site.account.name}</span>
-          <button
-            onClick={() => router.push("/privacy")}
-            className="hover:text-white transition-colors"
-          >
+          <a href={LICENSE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
             Privacy
-          </button>
-          <button
-            onClick={() => router.push("/terms")}
-            className="hover:text-white transition-colors"
-          >
+          </a>
+          <a href={LICENSE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
             Terms
-          </button>
+          </a>
           <button
             onClick={() => setCookieOpen(true)}
             className="hover:text-white transition-colors"
@@ -82,46 +70,7 @@ export default function ConsoleFooter() {
 
       {cookieOpen && <CookiePreferencesDialog onClose={() => setCookieOpen(false)} />}
 
-      {pwaOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
-          onClick={(e) => e.target === e.currentTarget && setPwaOpen(false)}
-        >
-          <div className="bg-surface rounded-2xl p-6 max-w-md w-full shadow-2xl">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-[#232f3e] rounded-lg flex items-center justify-center text-white">
-                <MobileIcon size={20} />
-              </div>
-              <div>
-                <h2 className="text-base font-semibold text-gray-900 dark:text-ink">Console Mobile App</h2>
-                <p className="text-xs text-gray-500 dark:text-ink-muted">Install on your device</p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-600 dark:text-ink-body mb-4">
-              This portfolio can be installed as an app on your device:
-            </p>
-            <ol className="text-sm text-gray-600 dark:text-ink-body list-decimal list-inside space-y-2 mb-5">
-              <li>
-                <strong>Chrome / Edge</strong> — click the install icon (⊕) in the address bar
-              </li>
-              <li>
-                <strong>Safari (iOS/macOS)</strong> — tap Share → &ldquo;Add to Home Screen&rdquo;
-              </li>
-              <li>
-                <strong>Firefox</strong> — tap the menu → &ldquo;Install&rdquo;
-              </li>
-            </ol>
-            <div className="flex justify-end">
-              <button
-                onClick={() => setPwaOpen(false)}
-                className="px-4 py-1.5 bg-[#0073bb] text-white text-sm rounded-full hover:bg-[#005f99] transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {pwaOpen && <MobileAppDialog onClose={() => setPwaOpen(false)} />}
     </>
   )
 }

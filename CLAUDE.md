@@ -70,7 +70,6 @@ per service — add or edit the service's entry in `public/data/sidebars.json`.
 /settings/home                  Unified settings, User settings tab
 /settings/account               Unified settings, Account settings tab
 /settings/[section]/edit        edit page for one settings card
-/privacy  /terms
 /ec2/home                       ?view=instances | instance-types | instance-type-finder, ?project=, ?type=
 /s3/home                        buckets list
 /s3/buckets/[bucketId]          bucket detail
@@ -265,8 +264,8 @@ The All services page (`/console/services`) uses the same top bar as console hom
 ## Studio (development only)
 `/studio` is an admin for the data files, organised by service and use case (Projects, Documents,
 Skills, Connect, home widgets, console settings, text labels). `/studio/[section]` is a list with
-Add / Edit / Delete and a form, or a single settings form. The footer shows a "Studio" link in
-development.
+Add / Edit / Delete and a form, or a single settings form. Nothing in the console links to it; open
+`/studio` by typing the URL.
 
 - Its route files are named `page.dev.tsx` / `layout.dev.tsx`. `next.config.mjs` adds the `dev.tsx`
   page extension only under `next dev`, so the routes and their code are absent from a production
