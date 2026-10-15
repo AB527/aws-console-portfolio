@@ -118,7 +118,7 @@ export default function AddWidgetsPanel({ availableIds, onAdd, onClose, sheetHei
       </EC2SplitPanel>
     </div>
 
-    <aside className="hidden lg:block w-[350px] shrink-0 bg-surface border-l border-line overflow-y-auto sticky top-[56px] h-[calc(100vh-88px)]">
+    <aside className="hidden lg:block w-[350px] shrink-0 bg-surface border-l border-line overflow-y-auto sticky top-[53px] h-[calc(100vh-85px)]">
       <div className="flex items-center justify-between px-7 pt-5 pb-4">
         <h2 className="text-[18px] leading-[22px] font-bold text-ink">{menu.addWidgets.title}</h2>
         <button

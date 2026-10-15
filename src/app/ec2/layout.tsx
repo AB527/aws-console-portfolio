@@ -7,7 +7,7 @@ import HelpPanel from "@/components/layout/HelpPanel"
 
 export default function EC2Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-56px)] flex flex-col`}>
+    <div className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-53px)] flex flex-col`}>
       {/* Top bar */}
       <ServiceTopBar>
         <Suspense fallback={null}>

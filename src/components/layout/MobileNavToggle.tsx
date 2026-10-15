@@ -74,7 +74,7 @@ function MobileNavToggleInner() {
         <div
           onClick={() => setMobileNavOpen(false)}
           aria-hidden="true"
-          className="fixed inset-0 top-[56px] bg-black/40 z-40 lg:hidden"
+          className="fixed inset-0 top-[53px] bg-black/40 z-40 lg:hidden"
         />
       )}
     </>

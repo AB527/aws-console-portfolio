@@ -65,7 +65,7 @@ export default function PrivacyPage() {
 
         <div className="flex gap-10 items-start">
           {/* Sticky sidebar TOC */}
-          <aside className="w-[220px] shrink-0 sticky top-[56px] hidden lg:block">
+          <aside className="w-[220px] shrink-0 sticky top-[53px] hidden lg:block">
             <p className="text-[11px] font-bold text-gray-400 dark:text-ink-muted uppercase tracking-wider mb-3">Contents</p>
             <nav className="flex flex-col gap-1">
               {sections.map((s) => (

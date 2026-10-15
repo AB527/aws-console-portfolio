@@ -66,7 +66,7 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
   return (
     <div className="min-h-screen bg-page">
       <Topbar />
-      <div className={`mt-[56px] flex min-h-[calc(100vh-56px)] ${abQOpen ? "md:pl-[420px]" : ""}`}>
+      <div className={`mt-[53px] flex min-h-[calc(100vh-53px)] ${abQOpen ? "md:pl-[420px]" : ""}`}>
         <main className="flex-1 min-w-0 overflow-x-clip pb-[32px]">
           {children}
         </main>

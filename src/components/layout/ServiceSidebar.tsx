@@ -91,7 +91,7 @@ function PanelInner({ id, onClose, className = "", children }: SidebarPanelProps
   )
 
   return (
-    <aside className={`${openSans.className} ${ASIDE_CLASS} sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto ${className}`}>
+    <aside className={`${openSans.className} ${ASIDE_CLASS} sticky top-[53px] h-[calc(100vh-53px)] overflow-y-auto ${className}`}>
       <div className="flex items-center justify-between pl-7 pr-4 pt-5 pb-3">
         <span className="text-[20px] leading-6 font-bold">{nav.title}</span>
         <button onClick={onClose} aria-label={sidebars.labels.collapse} className={SIDEBAR_CLOSE_BUTTON_CLASS}>

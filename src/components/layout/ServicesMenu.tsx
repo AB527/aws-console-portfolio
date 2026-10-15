@@ -46,7 +46,7 @@ export default function ServicesMenu({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      className={`${openSans.className} absolute -left-1.5 top-full w-[620px] max-w-[calc(100vw-120px)] max-md:fixed max-md:inset-x-0 max-md:top-[56px] max-md:w-auto max-md:max-w-none h-[calc(100vh-56px)] bg-[#161d26] border border-[#424650] border-t-0 shadow-2xl z-50 flex overflow-hidden cursor-default select-text`}
+      className={`${openSans.className} absolute -left-1.5 top-full w-[620px] max-w-[calc(100vw-120px)] max-md:fixed max-md:inset-x-0 max-md:top-[53px] max-md:w-auto max-md:max-w-none h-[calc(100vh-53px)] bg-[#161d26] border border-[#424650] border-t-0 shadow-2xl z-50 flex overflow-hidden cursor-default select-text`}
     >
       {/* Left section list */}
       <div className="w-[176px] max-md:w-[140px] shrink-0 pt-5 pb-4 pl-4 md:pl-7 pr-3 border-r border-[#424650] overflow-y-auto">

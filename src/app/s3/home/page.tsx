@@ -11,7 +11,7 @@ export default async function S3Page() {
   return (
     <>
       <ServiceVisitor serviceId="s3" />
-      <div className="flex bg-page min-h-[calc(100vh-56px)]">
+      <div className="flex bg-page min-h-[calc(100vh-53px)]">
         {/* S3 sub-sidebar */}
         <ServiceSidebar serviceId="s3" />
 

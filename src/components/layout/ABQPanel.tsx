@@ -67,7 +67,7 @@ export default function ABQPanel() {
   return (
     <aside
       aria-label="AB Q"
-      className={`${openSans.className} fixed left-0 top-[56px] bottom-[32px] w-full md:w-[420px] z-30 bg-surface md:border-r-[12px] md:border-[#0f1620] flex flex-col text-[14px] leading-5 text-ink`}
+      className={`${openSans.className} fixed left-0 top-[53px] bottom-[32px] w-full md:w-[420px] z-30 bg-surface md:border-r-[12px] md:border-[#0f1620] flex flex-col text-[14px] leading-5 text-ink`}
     >
       {/* Divider grip between the panel and the page */}
       <span aria-hidden="true" className="hidden md:block absolute top-1/2 -right-[8px] -translate-y-1/2 w-[3px] h-5 rounded-full bg-line" />

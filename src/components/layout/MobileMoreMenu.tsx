@@ -21,7 +21,7 @@ export default function MobileMoreMenu({ regionLabel, sections }: MobileMoreMenu
   const [openSection, setOpenSection] = useState<SectionId | null>(null)
 
   return (
-    <div className="md:hidden fixed inset-x-0 top-[56px] bottom-0 z-50 bg-[#1b232d] text-white flex flex-col overflow-y-auto select-text">
+    <div className="md:hidden fixed inset-x-0 top-[53px] bottom-0 z-50 bg-[#1b232d] text-white flex flex-col overflow-y-auto select-text">
       {/* Account */}
       <div className="px-4 pt-3 pb-4 border-b border-[#424650]">
         <span className="block rounded-sm bg-[#7d8998] px-1 text-[13px] font-bold text-[#1b242e] truncate">

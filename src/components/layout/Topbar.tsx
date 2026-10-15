@@ -194,13 +194,13 @@ function TopbarInner() {
   const regionLabel = globalService ? regionsData.globalLabel : (activeRegion?.full ?? selectedRegion)
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-[56px] bg-[#0f1620] border-t-[5px] border-[#7d8998] flex items-center z-40 text-white text-[13px] select-none">
+    <header className="fixed top-0 left-0 right-0 h-[53px] bg-[#0f1620] border-t-[5px] border-[#7d8998] flex items-center z-40 text-white text-[13px] select-none">
       {/* Logo */}
       <a href="/console/home" className="flex items-center justify-center h-full px-3 hover:bg-[#37475a] transition-colors shrink-0">
         <img src="/icons/navbar.png" alt="AB" className="h-[22px] w-auto" />
       </a>
 
-      <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />
+      <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5 shrink-0 hidden md:block" />
 
       {/* AB Q */}
       <button
@@ -212,7 +212,7 @@ function TopbarInner() {
         <img src="/icons/ab-q.png" alt="" className="h-[24px] w-[24px]" />
       </button>
 
-      <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />
+      <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5 shrink-0 hidden md:block" />
 
       {/* Grid icon */}
       <div ref={servicesRef} className="relative h-full shrink-0">
@@ -238,13 +238,13 @@ function TopbarInner() {
       </div>
 
       {/* Search */}
-      <div className="flex-1 flex max-md:justify-end px-1.5 md:px-3 min-w-0">
+      <div className="flex-1 flex max-lg:justify-end px-1.5 lg:px-3 min-w-0">
         <SearchBar />
       </div>
 
       {/* Right side */}
       <div className="flex items-center h-full shrink-0">
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 md:hidden" />
+        <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5 lg:hidden" />
 
         {/* CloudShell */}
         <button
@@ -255,7 +255,7 @@ function TopbarInner() {
           <TerminalIcon />
         </button>
 
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5" />
+        <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5" />
 
         {/* Notifications bell */}
         <div ref={notifRef} className="relative h-full">
@@ -283,7 +283,7 @@ function TopbarInner() {
           {notifOpen && <NotificationsDropdown />}
         </div>
 
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5" />
+        <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5" />
 
         {/* More menu (phones) */}
         <button
@@ -313,7 +313,7 @@ function TopbarInner() {
           {helpOpen && <HelpDropdown />}
         </div>
 
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 hidden md:block" />
+        <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5 hidden md:block" />
 
         {/* Settings */}
         <div ref={settingsRef} className="relative h-full hidden md:block">
@@ -330,7 +330,7 @@ function TopbarInner() {
           {settingsOpen && <SettingsDropdown onNavigate={() => setSettingsOpen(false)} />}
         </div>
 
-        <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 hidden md:block" />
+        <div className="w-[0.5px] h-8 bg-[#414d5c] mx-1.5 hidden md:block" />
 
         {/* Region dropdown */}
         <div ref={regionRef} className="relative h-full hidden md:block">
@@ -338,8 +338,8 @@ function TopbarInner() {
             onClick={() => setRegionOpen((o) => !o)}
             className={`flex items-center gap-1 h-full px-2 md:px-3 text-[13px] text-gray-200 hover:text-white transition-colors ${regionOpen ? "bg-[#37475a]" : "hover:bg-[#37475a]"}`}
           >
-            <span className="hidden md:inline">{regionLabel}</span>
-            <span className="md:hidden">{globalService ? regionsData.globalLabel : (activeRegion?.city ?? selectedRegion)}</span>
+            <span className="hidden lg:inline">{regionLabel}</span>
+            <span className="lg:hidden">{globalService ? regionsData.globalLabel : (activeRegion?.city ?? selectedRegion)}</span>
             <ChevronDown />
           </button>
           {regionOpen && (
@@ -420,7 +420,7 @@ function TopbarInner() {
 
 export default function Topbar() {
   return (
-    <Suspense fallback={<header className="fixed top-0 left-0 right-0 h-[56px] bg-[#0f1620] border-t-[5px] border-[#7d8998] z-40" />}>
+    <Suspense fallback={<header className="fixed top-0 left-0 right-0 h-[53px] bg-[#0f1620] border-t-[5px] border-[#7d8998] z-40" />}>
       <TopbarInner />
     </Suspense>
   )

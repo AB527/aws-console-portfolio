@@ -12,7 +12,7 @@ function ResultIcon({ iconId, color, title }: { iconId: string; color: string; t
   if (failed) {
     return (
       <span
-        className="w-12 h-12 rounded-sm shrink-0 flex items-center justify-center text-white text-[18px] font-bold"
+        className="w-10 h-10 rounded-sm shrink-0 flex items-center justify-center text-white text-[16px] font-bold"
         style={{ background: color }}
       >
         {title.charAt(0)}
@@ -23,7 +23,7 @@ function ResultIcon({ iconId, color, title }: { iconId: string; color: string; t
     <img
       src={`/icons/${iconId}.png`}
       alt=""
-      className="w-12 h-12 rounded-sm shrink-0"
+      className="w-10 h-10 rounded-sm shrink-0"
       onError={() => setFailed(true)}
     />
   )
@@ -81,16 +81,16 @@ export default function SearchBar() {
   return (
     <div
       ref={ref}
-      className="group relative flex-1 max-w-[520px] max-md:flex-none max-md:w-[38px] max-md:focus-within:fixed max-md:focus-within:left-2 max-md:focus-within:right-2 max-md:focus-within:top-[15px] max-md:focus-within:z-50 max-md:focus-within:w-auto max-md:focus-within:max-w-none"
+      className="group relative flex-1 min-w-0 max-w-[520px] max-lg:flex-none max-lg:w-[38px] max-lg:focus-within:fixed max-lg:focus-within:left-2 max-lg:focus-within:right-2 max-lg:focus-within:top-[13px] max-lg:focus-within:z-50 max-lg:focus-within:w-auto max-lg:focus-within:max-w-none"
     >
       {/* On phones this is a bare search icon until tapped, then it expands across the topbar */}
       <div
         onClick={() => inputRef.current?.focus()}
-        className={`flex items-center bg-[#1b2433] border rounded-lg h-[32px] px-3 gap-2 transition-colors max-md:[.group:not(:focus-within)_&]:justify-center max-md:[.group:not(:focus-within)_&]:gap-0 max-md:[.group:not(:focus-within)_&]:px-0 max-md:[.group:not(:focus-within)_&]:bg-transparent max-md:[.group:not(:focus-within)_&]:border-transparent ${
+        className={`flex items-center bg-[#1b2433] border rounded-lg h-[32px] px-3 gap-2 transition-colors max-lg:[.group:not(:focus-within)_&]:justify-center max-lg:[.group:not(:focus-within)_&]:gap-0 max-lg:[.group:not(:focus-within)_&]:px-0 max-lg:[.group:not(:focus-within)_&]:bg-transparent max-lg:[.group:not(:focus-within)_&]:border-transparent ${
           open ? "border-[#9bb4c8]" : "border-[#3a4757] hover:border-[#6a7a8c]"
         }`}
       >
-        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0 max-md:[.group:not(:focus-within)_&]:w-[19px] max-md:[.group:not(:focus-within)_&]:h-[19px] max-md:[.group:not(:focus-within)_&]:text-gray-200">
+        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0 max-lg:[.group:not(:focus-within)_&]:w-[19px] max-lg:[.group:not(:focus-within)_&]:h-[19px] max-lg:[.group:not(:focus-within)_&]:text-gray-200">
           <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.75"/>
           <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
         </svg>
@@ -106,9 +106,9 @@ export default function SearchBar() {
             if (e.key === "Escape") { setOpen(false); setQuery("") }
             if (e.key === "Enter" && results.length > 0) navigate(results[0].id)
           }}
-          className="bg-transparent text-[13px] text-white flex-1 min-w-0 focus:outline-none placeholder-gray-400 placeholder:italic max-md:[.group:not(:focus-within)_&]:w-0 max-md:[.group:not(:focus-within)_&]:flex-none"
+          className="bg-transparent text-[13px] text-white flex-1 w-0 min-w-0 focus:outline-none placeholder-gray-400 placeholder:italic max-lg:[.group:not(:focus-within)_&]:w-0 max-lg:[.group:not(:focus-within)_&]:flex-none"
         />
-        <span className="text-[12px] text-gray-400 shrink-0 hidden sm:flex items-center gap-2">
+        <span className="text-[12px] text-gray-400 shrink-0 hidden lg:flex max-lg:group-focus-within:flex items-center gap-2">
           {focused ? (
             <span className="font-semibold text-gray-200">Ask AB Q</span>
           ) : (
@@ -122,28 +122,28 @@ export default function SearchBar() {
 
       {open && query.trim().length > 0 && (
         <div
-          className={`${openSans.className} absolute top-[calc(100%+10px)] left-0 w-[74vw] max-md:fixed max-md:left-2 max-md:right-2 max-md:top-[56px] max-md:w-auto max-w-[1410px] max-h-[calc(100vh-120px)] bg-[#161d26] rounded-b-xl shadow-2xl z-[9999] flex overflow-hidden`}
+          className={`${openSans.className} absolute top-[calc(100%+10px)] left-0 w-[74vw] max-lg:fixed max-lg:left-2 max-lg:right-2 max-lg:top-[53px] max-lg:w-auto max-w-[1410px] max-h-[calc(100vh-120px)] bg-[#161d26] rounded-b-xl shadow-2xl z-[9999] flex overflow-hidden`}
         >
           {/* Left category sidebar */}
           <div className="w-[250px] shrink-0 py-6 pl-5 pr-4 hidden md:flex flex-col">
-            <button className="text-left pl-4 py-1 text-[16px] leading-6 text-[#75b8ff] font-bold border-l-2 border-[#75b8ff]">
+            <button className="text-left pl-4 py-1 text-[15px] leading-6 text-[#75b8ff] font-bold border-l-2 border-[#75b8ff]">
               Services
             </button>
             <div className="mt-auto pt-6">
-              <p className="text-[20px] leading-7 font-bold text-white mb-4">Were these results helpful?</p>
+              <p className="text-[18px] leading-7 font-bold text-white mb-3">Were these results helpful?</p>
               <div className="flex gap-2">
                 <button
                   onMouseDown={(e) => e.preventDefault()}
-                  className="flex items-center gap-2 h-8 px-5 rounded-full border-2 border-[#75b8ff] text-[14px] font-bold text-[#75b8ff] hover:bg-[#1b2b3d] transition-colors"
+                  className="flex items-center gap-2 h-8 px-4 rounded-full border-2 border-[#75b8ff] text-[13px] font-bold text-[#75b8ff] hover:bg-[#1b2b3d] transition-colors"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M2 10h4v12H2zM22 11a2 2 0 0 0-2-2h-6l1-5a2 2 0 0 0-2-2l-5 7v11h11a2 2 0 0 0 2-1.7l1-6.3z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M2 10h4v12H2zM22 11a2 2 0 0 0-2-2h-6l1-5a2 2 0 0 0-2-2l-5 7v11h11a2 2 0 0 0 2-1.7l1-6.3z"/></svg>
                   Yes
                 </button>
                 <button
                   onMouseDown={(e) => e.preventDefault()}
-                  className="flex items-center gap-2 h-8 px-5 rounded-full border-2 border-[#75b8ff] text-[14px] font-bold text-[#75b8ff] hover:bg-[#1b2b3d] transition-colors"
+                  className="flex items-center gap-2 h-8 px-4 rounded-full border-2 border-[#75b8ff] text-[13px] font-bold text-[#75b8ff] hover:bg-[#1b2b3d] transition-colors"
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M22 14h-4V2h4zM2 13a2 2 0 0 1 2 2h6l-1 5a2 2 0 0 0 2 2l5-7V4H5a2 2 0 0 0-2 1.7l-1 6.3z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"><path d="M22 14h-4V2h4zM2 13a2 2 0 0 1 2 2h6l-1 5a2 2 0 0 0 2 2l5-7V4H5a2 2 0 0 0-2 1.7l-1 6.3z"/></svg>
                   No
                 </button>
               </div>
@@ -155,14 +155,14 @@ export default function SearchBar() {
             {results.length > 0 ? (
               <>
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-[20px] leading-6 font-bold text-white">Services</h3>
-                  <button className="text-[16px] font-bold text-[#75b8ff] hover:underline">Show more</button>
+                  <h3 className="text-[18px] leading-6 font-bold text-white">Services</h3>
+                  <button className="text-[15px] font-bold text-[#75b8ff] hover:underline">Show more</button>
                 </div>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2">
                   {results.map((service) => (
                     <div
                       key={service.id}
-                      className="group flex items-start gap-3 px-5 py-5 rounded-2xl border border-[#424650] hover:bg-[#1b2b3d] transition-colors"
+                      className="group flex items-start gap-3 px-4 py-3 rounded-xl border border-[#424650] hover:border-[#75b8ff] transition-colors"
                     >
                       <ResultIcon iconId={service.iconId} color={service.color} title={service.title} />
                       <button
@@ -170,10 +170,10 @@ export default function SearchBar() {
                         onClick={() => navigate(service.id)}
                         className="flex-1 min-w-0 text-left"
                       >
-                        <p className="text-[18px] leading-6 font-bold text-[#75b8ff] hover:underline truncate">
+                        <p className="text-[16px] leading-6 font-bold text-[#75b8ff] hover:underline truncate">
                           {service.title}
                         </p>
-                        <p className="text-[16px] leading-6 text-[#dedee3] truncate">{service.description}</p>
+                        <p className="text-[14px] leading-5 text-[#dedee3] truncate">{service.description}</p>
                       </button>
                       <FavoriteStar serviceId={service.id} className="mt-0.5" />
                     </div>
@@ -181,7 +181,7 @@ export default function SearchBar() {
                 </div>
               </>
             ) : (
-              <p className="text-[16px] text-[#dedee3] px-1 py-4">No results for &ldquo;{query}&rdquo;</p>
+              <p className="text-[15px] text-[#dedee3] px-1 py-4">No results for &ldquo;{query}&rdquo;</p>
             )}
           </div>
         </div>
