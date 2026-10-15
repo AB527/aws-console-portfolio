@@ -1,7 +1,7 @@
 import type { BreadcrumbItem } from "@/components/layout/Breadcrumb"
 import ConsoleHomeShell from "@/components/home/ConsoleHomeShell"
 import InfoLink from "@/components/ui/InfoLink"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import settings from "@data/settings.json"
 
 interface SettingsShellProps {

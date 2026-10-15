@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 
 const MAX_CHARS = 10000
 
@@ -47,8 +47,8 @@ function QOutlineLogo() {
   )
 }
 
-export default function AmazonQPanel() {
-  const setAmazonQOpen = useConsoleStore((s) => s.setAmazonQOpen)
+export default function ABQPanel() {
+  const setAbQOpen = useConsoleStore((s) => s.setAbQOpen)
   const [input, setInput] = useState("")
   const [history, setHistory] = useState<Array<{ prompt: string; reply: string }>>([])
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -60,20 +60,20 @@ export default function AmazonQPanel() {
   function ask(prompt: string) {
     const text = prompt.trim()
     if (!text) return
-    setHistory((h) => [...h, { prompt: text, reply: "Amazon Q is not available yet. (Coming soon)" }])
+    setHistory((h) => [...h, { prompt: text, reply: "AB Q is not available yet. (Coming soon)" }])
     setInput("")
   }
 
   return (
     <aside
-      aria-label="Amazon Q"
+      aria-label="AB Q"
       className={`${openSans.className} fixed left-0 top-[56px] bottom-[32px] w-full md:w-[420px] z-30 bg-surface md:border-r-[12px] md:border-[#0f1620] flex flex-col text-[14px] leading-5 text-ink`}
     >
       {/* Divider grip between the panel and the page */}
       <span aria-hidden="true" className="hidden md:block absolute top-1/2 -right-[8px] -translate-y-1/2 w-[3px] h-5 rounded-full bg-line" />
       {/* Header */}
       <div className="flex items-center gap-1 pl-5 pr-3 h-[52px] shrink-0">
-        <h2 className="text-[16px] font-bold mr-auto">Amazon Q</h2>
+        <h2 className="text-[16px] font-bold mr-auto">AB Q</h2>
         <button title="New chat" aria-label="New chat" onClick={() => setHistory([])} className={ICON_BUTTON_CLASS}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
             <path d="M12 5v14M5 12h14" />
@@ -95,7 +95,7 @@ export default function AmazonQPanel() {
             <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
           </HeaderIcon>
         </span>
-        <button title="Close" aria-label="Close Amazon Q" onClick={() => setAmazonQOpen(false)} className={ICON_BUTTON_CLASS}>
+        <button title="Close" aria-label="Close AB Q" onClick={() => setAbQOpen(false)} className={ICON_BUTTON_CLASS}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M15 18l-6-6 6-6" />
           </svg>
@@ -171,7 +171,7 @@ export default function AmazonQPanel() {
 
       {/* Footer */}
       <div className="shrink-0 border-t border-[#dedee3] dark:border-line px-5 py-3 text-ink-body">
-        Help us improve Amazon Q by <span className="text-link hover:underline cursor-pointer">providing feedback</span>.
+        Help us improve AB Q by <span className="text-link hover:underline cursor-pointer">providing feedback</span>.
       </div>
     </aside>
   )

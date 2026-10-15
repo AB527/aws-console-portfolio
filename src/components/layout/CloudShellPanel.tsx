@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 
 export default function CloudShellPanel() {
   const setCloudShellOpen = useConsoleStore((s) => s.setCloudShellOpen)

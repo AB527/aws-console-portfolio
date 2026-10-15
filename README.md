@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AB Console
 
-## Getting Started
+A personal portfolio for **Atharva Bedekar**, built to look and behave like a cloud management console.
+Each "service" in the console is a section of the portfolio.
 
-First, run the development server:
+> [!NOTE]
+> This is an unofficial, personal, non-commercial project. It is **not affiliated with, endorsed by or
+> sponsored by Amazon Web Services**. The interface is modelled on the AWS Management Console purely as a
+> design reference. "AWS", the AWS service names and service icons are trademarks of Amazon.com, Inc. or
+> its affiliates. No real AWS accounts, resources or data are used: everything is static portfolio content.
+
+## Service equivalents
+
+| Console service | Portfolio section | Content                              | Data                                   |
+|-----------------|-------------------|--------------------------------------|----------------------------------------|
+| Console home    | Dashboard         | Widgets you can drag, resize, add    | `dashboard-layout.json`                |
+| EC2             | Projects          | Projects and project types           | `ec2-projects.json`                    |
+| S3              | Documents         | Resumes, letters, certifications     | `s3.json` + files in `public/s3/`      |
+| IAM             | Skills            | Skill groups, skills, role history   | `iam-groups.json`, `iam-users.json`    |
+| VPC             | Connect           | Links, social, contact               | `vpc.json`                             |
+| CloudTrail      | Experience        | Work history timeline                | derived from `iam-users.json`          |
+
+Regions, the services menu, search, favourites, dark mode and unified settings all work like their
+console counterparts.
+
+**Stack:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Zustand, @dnd-kit.
+
+## Run locally
+
+Requires Node.js 20.9 or newer.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/AB527/aws-console-portfolio.git
+cd aws-console-portfolio
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production build:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+All content is JSON in `public/data/`. Document files live in `public/s3/<object id>/`.
 
-To learn more about Next.js, take a look at the following resources:
+- **Studio (easiest):** with `npm run dev` running, open [`/studio`](http://localhost:3000/studio)
+  (or the "Studio" link in the footer). It lets you add, edit and delete projects, documents, skills,
+  links, widgets and console text through forms, and uploads document files. Studio exists only in
+  development and is left out of production builds.
+- **By hand:** edit the JSON files directly. Dates are `"YYYY-MM-DD"`; an empty `periodTo` means
+  "Present". Counts are computed, so never store them.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Forking this for your own portfolio? Replace everything in `public/data/` and `public/s3/` with your
+own content before deploying (see [LICENSE](LICENSE)).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
+See [CONTRIBUTING.md](CONTRIBUTING.md). The full set of project conventions is in [CLAUDE.md](CLAUDE.md).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Code is released under the [MIT License](LICENSE). Personal content (`public/data/`, `public/s3/`)
+is not covered and remains all rights reserved.

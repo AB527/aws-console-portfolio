@@ -11,7 +11,7 @@ import AchievementsWidget from "@/components/home/AchievementsWidget"
 import SolutionsWidget from "@/components/home/SolutionsWidget"
 import NewsListWidget from "@/components/home/NewsListWidget"
 import site from "@data/site.json"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 
 export const metadata: Metadata = { title: site.pageTitles.consoleHome }
 

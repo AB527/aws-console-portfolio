@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import FavoriteStar from "@/components/ui/FavoriteStar"
 import services from "@data/services.json"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 
 function ResultIcon({ iconId, color, title }: { iconId: string; color: string; title: string }) {
   const [failed, setFailed] = useState(false)
@@ -114,7 +114,7 @@ export default function SearchBar() {
           ) : (
             <>
               <span className="hidden sm:inline">[Option+S]</span>
-              <span className="font-semibold text-gray-200">Q</span>
+              <span className="font-semibold text-gray-200">AB Q</span>
             </>
           )}
         </span>

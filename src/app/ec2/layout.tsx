@@ -2,7 +2,7 @@ import { Suspense } from "react"
 import EC2Breadcrumb from "@/components/services/ec2/EC2Breadcrumb"
 import ServiceSidebar from "@/components/layout/ServiceSidebar"
 import ServiceTopBar from "@/components/layout/ServiceTopBar"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import HelpPanel from "@/components/layout/HelpPanel"
 
 export default function EC2Layout({ children }: { children: React.ReactNode }) {

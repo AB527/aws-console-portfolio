@@ -239,7 +239,6 @@ export default function EC2HomeView() {
         </div>
       </div>
 
-      {/* Effort summary, in place of the AWS cost card */}
       <section className={`${CARD} w-full xl:w-[320px] shrink-0`}>
         <div className="px-5 pt-5 pb-5">
           <h2 className={H2}>Projects effort</h2>

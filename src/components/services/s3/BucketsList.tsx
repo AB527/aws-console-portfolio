@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { formatDate } from "@/lib/formatDate"
 import { GITHUB_REPO_URL } from "@/lib/constants"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import { DataStatusRow } from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
 import InfoLink from "@/components/ui/InfoLink"
@@ -73,7 +73,7 @@ export default function BucketsList() {
 
   const handleCopyArn = () => {
     if (!selected) return
-    navigator.clipboard?.writeText(`arn:aws:s3:::${selected}`)
+    navigator.clipboard?.writeText(`arn:ab:s3:::${selected}`)
   }
 
   const pillBtn = "h-8 px-5 flex items-center gap-2 rounded-full border-2 text-sm font-bold whitespace-nowrap"

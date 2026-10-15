@@ -95,7 +95,7 @@ src/
 │   └── ui/              Badge, StatusBadge, PolicyTag, ServiceIcon, FavoriteStar, SidebarIcons, DataStatus
 ├── store/useConsoleStore.ts
 ├── hooks/               useRegion, useData
-└── lib/                 formatDate, serviceTitle, constants, awsFont, fileExt, s3Files, vpc, cloudtrail
+└── lib/                 formatDate, serviceTitle, constants, font, fileExt, s3Files, vpc, cloudtrail
 public/
 ├── data/                all content, as JSON (import alias `@data/*`)
 ├── icons/               service icons (png) and misc svg
@@ -141,7 +141,7 @@ const { data, error, reload } = useData("vpc")   // src/hooks/useData.ts; data i
 - A new content file needs an entry in `ContentData` in `useData.ts`.
 
 ## State (Zustand)
-`src/store/useConsoleStore.ts`, persisted to localStorage key `"aws-console-state"`.
+`src/store/useConsoleStore.ts`, persisted to localStorage key `"ab-console-state"` (state under the old `"aws-console-state"` key is moved over by the theme script).
 
 Persisted (listed in `partialize`):
 
@@ -159,7 +159,7 @@ Persisted (listed in `partialize`):
 | rememberRecentlyVisited | off: `visitService` records nothing            |
 | hiddenRegions, hiddenServices | ids hidden on the Account settings tab     |
 
-Session-only UI flags (do **not** add these to `partialize`): `cloudShellOpen`, `amazonQOpen`,
+Session-only UI flags (do **not** add these to `partialize`): `cloudShellOpen`, `abQOpen`,
 `mobileNavOpen`, `addWidgetsOpen`, `sidebarCollapsed`, `helpTopic`.
 
 The store's `merge` drops widgets that no longer exist and appends new defaults, so changing
@@ -304,7 +304,7 @@ desktop classes.
 - Page gutters are `px-4 lg:px-6`.
 
 ## Styling
-Tailwind only. Console chrome uses Open Sans via `openSans` from `src/lib/awsFont.ts`; the rest
+Tailwind only. Console chrome uses Open Sans via `openSans` from `src/lib/font.ts`; the rest
 uses Inter.
 
 ```

@@ -1,7 +1,7 @@
 {
   "titleDefault": "Console Home | Atharva Bedekar",
   "titleTemplate": "%s | Atharva Bedekar",
-  "description": "Personal portfolio built as an AWS Management Console",
+  "description": "Personal portfolio built as the AB Management Console",
   "appTitle": "AB Console",
   "pageTitles": {
     "consoleHome": "Console Home",
