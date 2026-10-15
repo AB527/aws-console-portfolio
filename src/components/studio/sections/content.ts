@@ -293,7 +293,6 @@ export const connect: SectionGroup = {
       file: "vpc",
       kind: "settings",
       fields: [
-        { key: "ownerId", label: "Owner id", type: "text", required: true },
         { key: "region", label: "Region", type: "select", required: true, options: "regions" },
         { key: "vpc.id", label: "Connect id", type: "text", required: true, hint: "Used in the Connect's link." },
         { key: "vpc.name", label: "Name", type: "text", required: true },

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import site from "@data/site.json"
 
 interface AccountDropdownProps {
   onClose: () => void
@@ -29,7 +30,7 @@ export default function AccountDropdown({ onClose, onInstallApp }: AccountDropdo
     <div className="absolute right-0 top-full mt-0 w-[280px] max-md:static max-md:w-full max-md:rounded-none max-md:shadow-none max-md:border-0 max-md:bg-transparent bg-[#1a2332] text-white rounded-b-xl overflow-hidden shadow-2xl z-50 text-sm border border-[#2d3f52]">
       {/* Top link */}
       <div className="px-4 py-2.5 border-b border-[#2d3f52]">
-        <button className="text-[#4db8ff] text-sm hover:underline">Atharva Bedekar</button>
+        <button className="text-[#4db8ff] text-sm hover:underline">{site.account.name}</button>
       </div>
 
       {/* Account details */}
@@ -38,14 +39,14 @@ export default function AccountDropdown({ onClose, onInstallApp }: AccountDropdo
           <p className="text-[11px] font-bold text-white mb-1">Account ID</p>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => copy("9820173314", "id")}
+              onClick={() => copy(site.account.id, "id")}
               className="text-[#4db8ff] hover:text-blue-300 shrink-0"
               title={copied === "id" ? "Copied!" : "Copy"}
             >
               <CopyIcon />
             </button>
             <span className="text-[13px] text-gray-200">
-              {copied === "id" ? "Copied!" : "9820173314"}
+              {copied === "id" ? "Copied!" : site.account.id}
             </span>
           </div>
         </div>
@@ -54,14 +55,14 @@ export default function AccountDropdown({ onClose, onInstallApp }: AccountDropdo
           <p className="text-[11px] font-bold text-white mb-1">Account name</p>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => copy("Atharva Bedekar", "name")}
+              onClick={() => copy(site.account.name, "name")}
               className="text-[#4db8ff] hover:text-blue-300 shrink-0"
               title={copied === "name" ? "Copied!" : "Copy"}
             >
               <CopyIcon />
             </button>
             <span className="text-[13px] text-gray-200">
-              {copied === "name" ? "Copied!" : "Atharva Bedekar"}
+              {copied === "name" ? "Copied!" : site.account.name}
             </span>
           </div>
         </div>

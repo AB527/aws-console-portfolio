@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, Suspense } from "react"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import site from "@data/site.json"
 import SettingsDropdown from "./SettingsDropdown"
 import AccountDropdown from "./AccountDropdown"
 import NotificationsDropdown from "./NotificationsDropdown"
@@ -34,6 +35,14 @@ function ChevronDown() {
   )
 }
 
+function CaretDown() {
+  return (
+    <svg width="9" height="6" viewBox="0 0 10 6" fill="currentColor" className="shrink-0" aria-hidden="true">
+      <path d="M0 0h10L5 6z" />
+    </svg>
+  )
+}
+
 type RegionId = "ap-south-1" | "ap-south-17"
 
 function RegionDropdown({
@@ -53,27 +62,26 @@ function RegionDropdown({
   return (
     <div className="absolute right-0 top-full mt-0 w-[300px] max-md:static max-md:w-full max-md:rounded-none max-md:shadow-none max-md:border-0 max-md:bg-transparent bg-[#1a2332] border border-[#2d3f52] rounded-b-xl overflow-hidden shadow-2xl z-50 flex flex-col">
       {/* Tab switcher */}
-      <div className="flex items-center gap-0 px-3 pt-3 pb-2">
-        <button
-          onClick={() => setTab("regions")}
-          className={`px-4 py-1 text-[13px] font-medium rounded-l-full border transition-colors ${
-            tab === "regions"
-              ? "bg-[#4db8ff] text-[#0d1b2a] border-[#4db8ff]"
-              : "bg-transparent text-gray-300 border-[#4d6070] hover:border-gray-400"
-          }`}
-        >
-          Regions
-        </button>
-        <button
-          onClick={() => setTab("local-zones")}
-          className={`px-4 py-1 text-[13px] font-medium rounded-r-full border-t border-b border-r transition-colors ${
-            tab === "local-zones"
-              ? "bg-[#4db8ff] text-[#0d1b2a] border-[#4db8ff]"
-              : "bg-transparent text-gray-300 border-[#4d6070] hover:border-gray-400"
-          }`}
-        >
-          Local Zones
-        </button>
+      <div className="px-3 pt-3 pb-2">
+        <div className="inline-flex items-center gap-1 p-[3px] rounded-full border border-[#656871]">
+          <button
+            onClick={() => setTab("regions")}
+            className={`px-4 py-1 rounded-full text-[14px] font-bold transition-colors ${
+              tab === "regions" ? "bg-[#75b8ff] text-[#0f141a]" : "text-[#dedee3] hover:text-white"
+            }`}
+          >
+            Regions
+          </button>
+          <span className="w-px h-4 bg-[#656871]" aria-hidden="true" />
+          <button
+            onClick={() => setTab("local-zones")}
+            className={`px-4 py-1 rounded-full text-[14px] font-bold transition-colors ${
+              tab === "local-zones" ? "bg-[#75b8ff] text-[#0f141a]" : "text-[#dedee3] hover:text-white"
+            }`}
+          >
+            Local Zones
+          </button>
+        </div>
       </div>
 
       {tab === "regions" ? (
@@ -98,7 +106,7 @@ function RegionDropdown({
                         key={region.id}
                         disabled={!!globalService}
                         onClick={() => onSelect(region.id as RegionId)}
-                        className={`w-full flex items-center justify-between px-4 py-2 text-[13px] hover:bg-[#243447] disabled:hover:bg-transparent disabled:opacity-50 transition-colors border-t border-[#243447] ${
+                        className={`w-full flex items-center justify-between px-4 py-2 text-[13px] hover:bg-[#243447] disabled:hover:bg-transparent disabled:opacity-50 transition-colors relative before:absolute before:top-0 before:inset-x-4 before:h-[0.5px] before:bg-[#414d5c] ${
                           isActive ? "text-[#4db8ff]" : "text-gray-300"
                         }`}
                       >
@@ -340,7 +348,7 @@ function TopbarInner() {
           >
             <span className="hidden lg:inline">{regionLabel}</span>
             <span className="lg:hidden">{globalService ? regionsData.globalLabel : (activeRegion?.city ?? selectedRegion)}</span>
-            <ChevronDown />
+            <CaretDown />
           </button>
           {regionOpen && (
             <RegionDropdown
@@ -358,10 +366,10 @@ function TopbarInner() {
             className="group flex flex-col items-end h-full"
           >
             <span className={`flex items-center gap-2 rounded-b-md px-2 md:px-5 py-0.5 text-[11px] font-semibold text-[#1b242e] transition-colors ${accountOpen ? "bg-[#8b96a3]" : "bg-[#7d8998] group-hover:bg-[#8b96a3]"}`}>
-              <span className="max-md:max-w-[72px] truncate">Atharva Bedekar (9820173314)</span>
+              <span className="max-md:max-w-[72px] truncate">{site.account.name} ({site.account.id})</span>
               <ChevronDown />
             </span>
-            <span className="hidden md:block text-[11px] text-white leading-none pt-1.5 pr-5">Atharva Bedekar</span>
+            <span className="hidden md:block text-[11px] text-white leading-none pt-1.5 pr-5">{site.account.name}</span>
           </button>
           {accountOpen && (
             <AccountDropdown

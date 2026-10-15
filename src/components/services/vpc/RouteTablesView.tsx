@@ -9,6 +9,7 @@ import ResourceSplitView, {
 } from "@/components/services/vpc/ResourceSplitView"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
+import site from "@data/site.json"
 import { routesFor, subnetForRouteTable, type RouteTable, type VpcData } from "@/lib/vpc"
 
 function SubnetLink({ vpc, routeTable }: { vpc: VpcData; routeTable: RouteTable }) {
@@ -72,7 +73,7 @@ export default function RouteTablesView({ initialId }: { initialId?: string }) {
                   { label: "Explicit subnet associations", value: <SubnetLink vpc={vpc} routeTable={rt} /> },
                   { label: "Edge associations", value: "–" },
                   { label: "Connect", value: <ConnectLink vpc={vpc} /> },
-                  { label: "Owner ID", value: vpc.ownerId, copy: vpc.ownerId },
+                  { label: "Owner ID", value: site.account.id, copy: site.account.id },
                 ]}
               />
             ),

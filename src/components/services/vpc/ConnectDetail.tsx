@@ -5,6 +5,7 @@ import Link from "next/link"
 import { StateBadge } from "@/components/services/vpc/VpcTable"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
+import site from "@data/site.json"
 import type { RouteTable, Subnet } from "@/lib/vpc"
 import InfoLink from "@/components/ui/InfoLink"
 
@@ -14,7 +15,6 @@ interface ConnectViewProps {
   connect: Connect
   subnets: Subnet[]
   routeTables: RouteTable[]
-  ownerId: string
 }
 
 const TABS = ["Resource map", "CIDRs"]
@@ -64,10 +64,10 @@ export default function ConnectDetail({ connectId }: { connectId: string }) {
     )
   }
 
-  return <ConnectView connect={vpc.vpc} subnets={vpc.subnets} routeTables={vpc.routeTables} ownerId={vpc.ownerId} />
+  return <ConnectView connect={vpc.vpc} subnets={vpc.subnets} routeTables={vpc.routeTables} />
 }
 
-function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProps) {
+function ConnectView({ connect, subnets, routeTables }: ConnectViewProps) {
   const [activeTab, setActiveTab] = useState(TABS[0])
   const [showDetails, setShowDetails] = useState(false)
 
@@ -122,8 +122,8 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
             <Field label="DNS hostnames">Enabled</Field>
             <Field label="IPv6 pool">–</Field>
             <Field label="Owner ID">
-              <CopyButton text={ownerId} label="Owner ID" />
-              {ownerId}
+              <CopyButton text={site.account.id} label="Owner ID" />
+              {site.account.id}
             </Field>
           </dl>
         </div>

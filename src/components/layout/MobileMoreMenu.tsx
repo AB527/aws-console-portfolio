@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import site from "@data/site.json"
 
 type SectionId = "account" | "regions" | "settings" | "help"
 
@@ -25,9 +26,9 @@ export default function MobileMoreMenu({ regionLabel, sections }: MobileMoreMenu
       {/* Account */}
       <div className="px-4 pt-3 pb-4 border-b border-[#424650]">
         <span className="block rounded-sm bg-[#7d8998] px-1 text-[13px] font-bold text-[#1b242e] truncate">
-          Atharva Bedekar (9820173314)
+          {site.account.name} ({site.account.id})
         </span>
-        <span className="block px-1 pt-1 text-[13px] font-bold">Atharva Bedekar</span>
+        <span className="block px-1 pt-1 text-[13px] font-bold">{site.account.name}</span>
       </div>
 
       {ROWS.map((row) => {

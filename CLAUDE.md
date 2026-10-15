@@ -105,6 +105,8 @@ public/
 ## Data rules
 - Content belongs in `public/data/*.json`, not in components. Page and browser-tab titles come from
   `site.json`; sidebar/table copy for a service comes from its `*-console.json` / data file.
+- The account name and 12-digit account ID live once, in `account` in `site.json` (top bar, account
+  menu, footer, and the Connect pages' Owner ID / ARNs). Never type them into a component.
 - Dates are `"YYYY-MM-DD"` strings. Periods are `periodFrom` / `periodTo`; an empty `periodTo`
   means "Present".
 - Always render dates through `formatDate()` / `formatPeriod()` / `formatMonthYear()` in

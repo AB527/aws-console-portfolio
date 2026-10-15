@@ -3,6 +3,10 @@
   "titleTemplate": "%s | Atharva Bedekar",
   "description": "Personal portfolio built as the AB Management Console",
   "appTitle": "AB Console",
+  "account": {
+    "name": "Atharva Bedekar",
+    "id": "021212173314"
+  },
   "pageTitles": {
     "consoleHome": "Console Home",
     "allServices": "All services",
