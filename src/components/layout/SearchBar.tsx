@@ -93,6 +93,8 @@ export default function SearchBar() {
       router.push(`/${serviceId}/home`)
       setQuery("")
       setOpen(false)
+      // Leave the search bar once a result is opened, so it collapses back to the icon on phones
+      inputRef.current?.blur()
     },
     [router, visitService]
   )
