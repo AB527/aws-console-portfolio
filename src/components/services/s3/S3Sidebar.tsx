@@ -44,7 +44,7 @@ export default function S3Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-[220px] shrink-0 bg-[#232f3e] sticky top-[48px] h-[calc(100vh-48px)] overflow-y-auto flex flex-col">
+    <aside className="w-[220px] shrink-0 bg-[#232f3e] sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
       {/* Service header */}
       <div className="px-4 py-3 border-b border-[#3d4f61]">
         <p className="text-[11px] text-gray-400 uppercase tracking-wide font-semibold">S3</p>

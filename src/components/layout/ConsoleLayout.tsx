@@ -24,7 +24,7 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
   return (
     <div className="min-h-screen bg-[#f2f3f3]">
       <Topbar />
-      <div className="mt-[48px] flex min-h-[calc(100vh-48px)]">
+      <div className="mt-[56px] flex min-h-[calc(100vh-56px)]">
         {isHome && (
           <div className="w-[40px] shrink-0 bg-[#232f3e] flex flex-col items-center pt-2">
             <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#37475a] rounded transition-colors">

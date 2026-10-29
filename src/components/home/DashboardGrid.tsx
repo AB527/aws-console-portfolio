@@ -211,7 +211,7 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
       </DndContext>
 
       {infoWidgetId && (
-        <div className="w-[300px] shrink-0 sticky top-[48px] max-h-[calc(100vh-56px)] overflow-y-auto">
+        <div className="w-[300px] shrink-0 sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto">
           <WidgetInfoPanel
             widgetId={infoWidgetId}
             title={WIDGET_TITLES[infoWidgetId] ?? infoWidgetId}

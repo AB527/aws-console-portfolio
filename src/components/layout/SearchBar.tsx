@@ -30,6 +30,7 @@ function ResultIcon({ iconId, color, title }: { iconId: string; color: string; t
 export default function SearchBar() {
   const [query, setQuery] = useState("")
   const [open, setOpen] = useState(false)
+  const [focused, setFocused] = useState(false)
   const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -53,7 +54,8 @@ export default function SearchBar() {
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {
-      if ((e.altKey || e.metaKey) && e.key === "s") {
+      const isSKey = e.code === "KeyS" || e.key === "s" || e.key === "S" || e.key === "ß"
+      if ((e.altKey || e.metaKey) && isSKey) {
         e.preventDefault()
         inputRef.current?.focus()
         setOpen(true)
@@ -90,20 +92,23 @@ export default function SearchBar() {
           placeholder="Search"
           value={query}
           onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
-          onFocus={() => setOpen(true)}
+          onFocus={() => { setOpen(true); setFocused(true) }}
+          onBlur={() => setFocused(false)}
           onKeyDown={(e) => {
             if (e.key === "Escape") { setOpen(false); setQuery("") }
             if (e.key === "Enter" && results.length > 0) navigate(results[0].id)
           }}
           className="bg-transparent text-[13px] text-white flex-1 focus:outline-none placeholder-gray-400 placeholder:italic"
         />
-        <span className="text-[12px] text-gray-400 shrink-0 flex items-center gap-1.5">
-          <span>[Option+S]</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="1.6" />
-            <circle cx="10.5" cy="10.5" r="3" stroke="currentColor" strokeWidth="1.6" />
-            <path d="M13 13l3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
+        <span className="text-[12px] text-gray-400 shrink-0 flex items-center gap-2">
+          {focused ? (
+            <span className="font-semibold text-gray-200">Ask AB Q</span>
+          ) : (
+            <>
+              <span>[Option+S]</span>
+              <span className="font-semibold text-gray-200">Q</span>
+            </>
+          )}
         </span>
       </div>
 

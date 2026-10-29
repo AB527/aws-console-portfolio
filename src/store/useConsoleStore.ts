@@ -20,6 +20,7 @@ interface ConsoleStore {
   visualMode: "browser-default" | "light"
   hiddenWidgets: string[]
   cloudShellOpen: boolean
+  notificationsRead: boolean
   setRegion: (r: "ap-south-1" | "ap-south-17") => void
   visitService: (id: string) => void
   setWidgetLayout: (layout: WidgetLayout[]) => void
@@ -28,6 +29,7 @@ interface ConsoleStore {
   removeWidget: (id: string) => void
   resetLayout: () => void
   setCloudShellOpen: (open: boolean) => void
+  markNotificationsRead: () => void
 }
 
 function getDefaultLayout(): WidgetLayout[] {
@@ -50,6 +52,7 @@ export const useConsoleStore = create<ConsoleStore>()(
       visualMode: "browser-default",
       hiddenWidgets: [],
       cloudShellOpen: false,
+      notificationsRead: false,
 
       setRegion: (r) => set({ selectedRegion: r }),
 
@@ -77,6 +80,8 @@ export const useConsoleStore = create<ConsoleStore>()(
         set({ widgetLayout: getDefaultLayout(), hiddenWidgets: [] }),
 
       setCloudShellOpen: (open) => set({ cloudShellOpen: open }),
+
+      markNotificationsRead: () => set({ notificationsRead: true }),
     }),
     {
       name: "aws-console-state",
@@ -87,6 +92,7 @@ export const useConsoleStore = create<ConsoleStore>()(
         activeBucket: state.activeBucket,
         visualMode: state.visualMode,
         hiddenWidgets: state.hiddenWidgets,
+        notificationsRead: state.notificationsRead,
       }),
     }
   )
