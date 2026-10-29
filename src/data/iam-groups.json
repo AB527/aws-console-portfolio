@@ -1,0 +1,63 @@
+{
+  "groups": [
+    {
+      "id": "cloud",
+      "label": "Cloud & Infrastructure",
+      "color": "#ED7100",
+      "skills": [
+        { "name": "AWS (EC2, S3, RDS, Lambda, EventBridge)", "level": "Intermediate" },
+        { "name": "Ansible AAP 2.6", "level": "Intermediate" },
+        { "name": "Terraform", "level": "Beginner" },
+        { "name": "OpenShift / SNO", "level": "Beginner" },
+        { "name": "Docker", "level": "Intermediate" },
+        { "name": "Linux / Bash", "level": "Intermediate" }
+      ]
+    },
+    {
+      "id": "appdev",
+      "label": "App Development",
+      "color": "#0073bb",
+      "skills": [
+        { "name": "Flutter", "level": "Advanced" },
+        { "name": "Node.js", "level": "Intermediate" },
+        { "name": "PostgreSQL / Prisma", "level": "Intermediate" },
+        { "name": "Firebase", "level": "Intermediate" },
+        { "name": "REST APIs", "level": "Intermediate" }
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "Backend & Databases",
+      "color": "#3F8624",
+      "skills": [
+        { "name": "PostgreSQL", "level": "Intermediate" },
+        { "name": "Prisma ORM", "level": "Intermediate" },
+        { "name": "Node.js / Express", "level": "Intermediate" },
+        { "name": "Go", "level": "Beginner" },
+        { "name": "Redis / ElastiCache", "level": "Beginner" }
+      ]
+    },
+    {
+      "id": "cybersec",
+      "label": "Cybersecurity",
+      "color": "#DD344C",
+      "skills": [
+        { "name": "Web App Pentesting", "level": "Intermediate" },
+        { "name": "Responsible Disclosure", "level": "Advanced" },
+        { "name": "CTF", "level": "Intermediate" },
+        { "name": "Security Hardening", "level": "Intermediate" }
+      ]
+    },
+    {
+      "id": "devops",
+      "label": "DevOps & Tooling",
+      "color": "#545B64",
+      "skills": [
+        { "name": "CI/CD Pipelines", "level": "Beginner" },
+        { "name": "Git", "level": "Advanced" },
+        { "name": "Nginx / Apache", "level": "Beginner" },
+        { "name": "AWS Landing Zone", "level": "Beginner" }
+      ]
+    }
+  ]
+}

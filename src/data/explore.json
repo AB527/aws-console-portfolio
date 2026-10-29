@@ -1,0 +1,35 @@
+{
+  "heading": "Explore My Work",
+  "items": [
+    {
+      "title": "CERT-In Hall of Fame",
+      "reward": "Govt of India",
+      "status": "completed",
+      "link": ""
+    },
+    {
+      "title": "Indian Patent IN 589608",
+      "reward": "Granted",
+      "status": "completed",
+      "link": ""
+    },
+    {
+      "title": "AWS SAA-C03",
+      "reward": "In Progress",
+      "status": "in-progress",
+      "link": ""
+    },
+    {
+      "title": "SNO Cluster on Bare Metal",
+      "reward": "Infobahn",
+      "status": "completed",
+      "link": ""
+    },
+    {
+      "title": "PM-inaugurated TFFM Platform",
+      "reward": "NIC / Chhattisgarh Govt",
+      "status": "completed",
+      "link": ""
+    }
+  ]
+}

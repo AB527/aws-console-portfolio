@@ -1,0 +1,75 @@
+{
+  "columns": 4,
+  "widgets": [
+    {
+      "id": "recently-visited",
+      "defaultColSpan": 2,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 4,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    },
+    {
+      "id": "pinned",
+      "defaultColSpan": 2,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 2,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    },
+    {
+      "id": "know-me",
+      "defaultColSpan": 1,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 2,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    },
+    {
+      "id": "system-status",
+      "defaultColSpan": 1,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 2,
+      "minRowSpan": 1,
+      "maxRowSpan": 1,
+      "removable": true
+    },
+    {
+      "id": "achievements",
+      "defaultColSpan": 2,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 4,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    },
+    {
+      "id": "solutions",
+      "defaultColSpan": 2,
+      "defaultRowSpan": 2,
+      "minColSpan": 2,
+      "maxColSpan": 4,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    },
+    {
+      "id": "explore",
+      "defaultColSpan": 2,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 2,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    }
+  ]
+}

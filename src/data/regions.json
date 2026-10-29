@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "id": "asia-pacific",
+      "name": "Asia Pacific",
+      "regions": [
+        {
+          "id": "ap-south-1",
+          "city": "Mumbai",
+          "full": "Asia Pacific (Mumbai)",
+          "zones": [
+            { "name": "ap-south-1a", "zoneId": "aps1-az1", "note": "Mumbai Metro" }
+          ]
+        },
+        {
+          "id": "ap-south-17",
+          "city": "Raipur",
+          "full": "Asia Pacific (Raipur)",
+          "zones": [
+            { "name": "ap-south-17a", "zoneId": "aps17-az1", "note": "Tribal — Chhattisgarh" },
+            { "name": "ap-south-17b", "zoneId": "aps17-az2", "note": "IIIT NR Campus" }
+          ]
+        }
+      ]
+    }
+  ]
+}

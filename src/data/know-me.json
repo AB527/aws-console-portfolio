@@ -1,0 +1,26 @@
+{
+  "heading": "Know Me",
+  "items": [
+    {
+      "id": "getting-started",
+      "label": "Getting started with this console",
+      "description": "Learn how this portfolio works and what each section means.",
+      "icon": "rocket",
+      "route": "/getting-started"
+    },
+    {
+      "id": "linkedin",
+      "label": "Follow on LinkedIn",
+      "description": "Cloud, DevOps, and cybersecurity posts and project updates.",
+      "icon": "linkedin",
+      "link": "https://linkedin.com/in/atharva-bedekar"
+    },
+    {
+      "id": "github",
+      "label": "Explore GitHub",
+      "description": "Open source tools, Go CLIs, and production systems.",
+      "icon": "github",
+      "link": "https://github.com/AB527"
+    }
+  ]
+}

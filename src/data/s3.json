@@ -1,0 +1,85 @@
+{
+  "serviceId": "s3",
+  "buckets": [
+    {
+      "id": "internship-letters",
+      "name": "internship-letters",
+      "region": "ap-south-1",
+      "createdDate": "2026-05-01",
+      "objects": [
+        {
+          "key": "infobahn-offer-letter.pdf",
+          "size": "245 KB",
+          "lastModified": "2026-05-01",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "certifications",
+      "name": "certifications",
+      "region": "ap-south-1",
+      "createdDate": "2025-01-01",
+      "objects": [
+        {
+          "key": "cert-in-hall-of-fame.pdf",
+          "size": "120 KB",
+          "lastModified": "2025-06-01",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "url": ""
+        },
+        {
+          "key": "patent-IN589608.pdf",
+          "size": "95 KB",
+          "lastModified": "2026-05-01",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "resumes",
+      "name": "resumes",
+      "region": "ap-south-17",
+      "createdDate": "2024-08-01",
+      "objects": [
+        {
+          "key": "resume-cloud-2026.pdf",
+          "size": "180 KB",
+          "lastModified": "2026-06-01",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "url": ""
+        },
+        {
+          "key": "resume-fullstack-2025.pdf",
+          "size": "165 KB",
+          "lastModified": "2025-12-01",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "patent-docs",
+      "name": "patent-docs",
+      "region": "ap-south-17",
+      "createdDate": "2026-05-01",
+      "objects": [
+        {
+          "key": "patent-grant-IN589608.pdf",
+          "size": "210 KB",
+          "lastModified": "2026-05-01",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "url": ""
+        }
+      ]
+    }
+  ]
+}

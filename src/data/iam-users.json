@@ -1,0 +1,104 @@
+{
+  "users": [
+    {
+      "id": "infobahn-intern",
+      "username": "infobahn-intern",
+      "displayName": "Infobahn Technical Solutions",
+      "description": "Cloud & DevOps Intern",
+      "periodFrom": "2026-05-01",
+      "periodTo": "",
+      "region": "ap-south-1",
+      "groups": ["cloud", "devops"],
+      "status": "Active",
+      "avatar": "IT",
+      "policies": [
+        { "name": "ansible:playbook", "effect": "Allow" },
+        { "name": "ansible:inventory", "effect": "Allow" },
+        { "name": "ansible:execution-node", "effect": "Allow" },
+        { "name": "openshift:sno-deploy", "effect": "Allow" },
+        { "name": "aws:ec2:configure", "effect": "Allow" },
+        { "name": "aws:rds:stop-idle", "effect": "Allow" },
+        { "name": "aws:eventbridge:pipeline", "effect": "Allow" },
+        { "name": "postgres:migrate", "effect": "Allow" },
+        { "name": "hpe:ilo4:virtual-media", "effect": "Allow" }
+      ]
+    },
+    {
+      "id": "transbnk-intern",
+      "username": "transbnk-intern",
+      "displayName": "TransBnk",
+      "description": "Backend Intern",
+      "periodFrom": "2026-01-01",
+      "periodTo": "2026-04-30",
+      "region": "ap-south-17",
+      "groups": ["backend", "appdev"],
+      "status": "Inactive",
+      "avatar": "TB",
+      "policies": [
+        { "name": "nodejs:cli", "effect": "Allow" },
+        { "name": "gemini:api", "effect": "Allow" },
+        { "name": "springboot:schema-analysis", "effect": "Allow" },
+        { "name": "postgres:query", "effect": "Allow" }
+      ]
+    },
+    {
+      "id": "hackoverse-edu",
+      "username": "hackoverse-edu",
+      "displayName": "Hackoverse Edu",
+      "description": "Full Stack Developer",
+      "periodFrom": "2025-08-01",
+      "periodTo": "2025-12-31",
+      "region": "ap-south-17",
+      "groups": ["appdev", "backend", "devops"],
+      "status": "Inactive",
+      "avatar": "HE",
+      "policies": [
+        { "name": "flutter:riverpod", "effect": "Allow" },
+        { "name": "flutter:gorouter", "effect": "Allow" },
+        { "name": "aws:ecs-fargate:deploy", "effect": "Allow" },
+        { "name": "aws:rds:connect", "effect": "Allow" },
+        { "name": "aws:elasticache:connect", "effect": "Allow" },
+        { "name": "cashfree:payments", "effect": "Allow" }
+      ]
+    },
+    {
+      "id": "cg-tribal",
+      "username": "cg-tribal",
+      "displayName": "Govt of Chhattisgarh — TFFM",
+      "description": "Full Stack Developer",
+      "periodFrom": "2025-03-01",
+      "periodTo": "2025-07-31",
+      "region": "ap-south-17",
+      "groups": ["appdev", "backend", "devops", "cybersec"],
+      "status": "Inactive",
+      "avatar": "CG",
+      "policies": [
+        { "name": "nodejs:express", "effect": "Allow" },
+        { "name": "aws:ec2:deploy", "effect": "Allow" },
+        { "name": "aws:cloudfront:cdn", "effect": "Allow" },
+        { "name": "postgres:rds", "effect": "Allow" },
+        { "name": "security:pentest-hardening", "effect": "Allow" },
+        { "name": "nic:coordination", "effect": "Allow" }
+      ]
+    },
+    {
+      "id": "ciphercell",
+      "username": "ciphercell",
+      "displayName": "CipherCell — IIIT Naya Raipur",
+      "description": "Vice Head, InfoSec & Blockchain",
+      "periodFrom": "2024-08-01",
+      "periodTo": "",
+      "region": "ap-south-17",
+      "groups": ["cybersec", "devops"],
+      "status": "Active",
+      "avatar": "CC",
+      "policies": [
+        { "name": "ctf:challenge-design", "effect": "Allow" },
+        { "name": "blockchain:stellar", "effect": "Allow" },
+        { "name": "blockchain:midnight", "effect": "Allow" },
+        { "name": "web:pentest", "effect": "Allow" },
+        { "name": "cert-in:disclosure", "effect": "Allow" }
+      ]
+    }
+  ]
+}

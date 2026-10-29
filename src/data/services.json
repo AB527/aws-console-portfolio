@@ -1,0 +1,56 @@
+[
+  {
+    "id": "ec2",
+    "title": "Projects",
+    "description": "Production systems and shipped code",
+    "iconId": "ec2",
+    "global": false,
+    "regions": ["ap-south-1", "ap-south-17"],
+    "color": "#ED7100"
+  },
+  {
+    "id": "s3",
+    "title": "Documents",
+    "description": "Resumes, letters, certifications",
+    "iconId": "s3",
+    "global": true,
+    "regions": [],
+    "color": "#3F8624"
+  },
+  {
+    "id": "iam",
+    "title": "Skills",
+    "description": "Technical skill groups and experience roles",
+    "iconId": "iam",
+    "global": true,
+    "regions": [],
+    "color": "#DD344C"
+  },
+  {
+    "id": "cloudwatch",
+    "title": "Activity",
+    "description": "GitHub, blog posts, LinkedIn activity",
+    "iconId": "cloudwatch",
+    "global": false,
+    "regions": ["ap-south-1"],
+    "color": "#E7157B"
+  },
+  {
+    "id": "vpc",
+    "title": "Connect",
+    "description": "Links, social, contact",
+    "iconId": "vpc",
+    "global": true,
+    "regions": [],
+    "color": "#8C4FFF"
+  },
+  {
+    "id": "cloudtrail",
+    "title": "Experience",
+    "description": "Work history timeline",
+    "iconId": "cloudtrail",
+    "global": false,
+    "regions": ["ap-south-1"],
+    "color": "#E7157B"
+  }
+]
