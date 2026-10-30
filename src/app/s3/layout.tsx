@@ -1,12 +1,7 @@
-import S3Sidebar from "@/components/services/s3/S3Sidebar"
-
 export default function S3Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-[calc(100vh-56px)]">
-      <S3Sidebar />
-      <main className="flex-1 min-w-0">
-        {children}
-      </main>
+    <div className="min-h-[calc(100vh-56px)]">
+      <main className="min-w-0">{children}</main>
     </div>
   )
 }

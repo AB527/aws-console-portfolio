@@ -2,112 +2,74 @@
   "columns": [
     [
       {
-        "name": "Compute",
+        "name": "Projects",
         "color": "#ED7100",
         "services": [
-          { "name": "EC2", "link": "/ec2/home" },
-          { "name": "Lightsail" },
-          { "name": "Lambda" },
-          { "name": "Batch" },
-          { "name": "Elastic Beanstalk" },
-          { "name": "Serverless Application Repository" },
-          { "name": "AWS Outposts" },
-          { "name": "EC2 Image Builder" },
-          { "name": "AWS App Runner" },
-          { "name": "Parallel Computing Service" },
-          { "name": "AWS Global View" }
+          { "name": "Projects", "link": "/ec2/home" },
+          { "name": "Enterprise & Government Scale" },
+          { "name": "Production SaaS" },
+          { "name": "Production Platform" },
+          { "name": "IoT & Research" },
+          { "name": "Developer Tools" }
         ]
       },
       {
-        "name": "Containers",
-        "color": "#ED7100",
-        "services": [
-          { "name": "Elastic Container Service" },
-          { "name": "Elastic Kubernetes Service" },
-          { "name": "Red Hat OpenShift Service on AWS" },
-          { "name": "Elastic Container Registry" }
-        ]
-      },
-      {
-        "name": "Storage",
+        "name": "Documents",
         "color": "#3F8624",
         "services": [
-          { "name": "S3", "link": "/s3/home" },
-          { "name": "EFS" },
-          { "name": "FSx" },
-          { "name": "S3 Glacier" },
-          { "name": "Storage Gateway" },
-          { "name": "AWS Backup" },
-          { "name": "AWS Elastic Disaster Recovery" }
+          { "name": "Documents", "link": "/s3/home" },
+          { "name": "Internship Letters", "link": "/s3/home/internship-letters" },
+          { "name": "Certifications", "link": "/s3/home/certifications" },
+          { "name": "Resumes", "link": "/s3/home/resumes" },
+          { "name": "Patent Docs", "link": "/s3/home/patent-docs" }
         ]
       }
     ],
     [
       {
-        "name": "Quantum Technologies",
-        "color": "#C925D1",
+        "name": "Skills",
+        "color": "#DD344C",
         "services": [
-          { "name": "Amazon Braket" }
+          { "name": "Skills", "link": "/iam/home" },
+          { "name": "Cloud", "link": "/iam/groups/cloud" },
+          { "name": "App Development", "link": "/iam/groups/appdev" },
+          { "name": "Backend", "link": "/iam/groups/backend" },
+          { "name": "Cybersecurity", "link": "/iam/groups/cybersec" },
+          { "name": "DevOps", "link": "/iam/groups/devops" }
         ]
       },
       {
-        "name": "Management & Governance",
+        "name": "Activity",
         "color": "#E7157B",
         "services": [
-          { "name": "AWS Organizations" },
-          { "name": "CloudWatch", "link": "/cloudwatch/home" },
-          { "name": "AWS Auto Scaling" },
-          { "name": "CloudFormation" },
-          { "name": "AWS Config" },
-          { "name": "Service Catalog" },
-          { "name": "Systems Manager" },
-          { "name": "Trusted Advisor" },
-          { "name": "Control Tower" },
-          { "name": "AWS Well-Architected Tool" },
-          { "name": "Amazon Q Developer in chat applications", "note": "(previously AWS Chatbot)" },
-          { "name": "Launch Wizard" },
-          { "name": "AWS Compute Optimizer" },
-          { "name": "Resource Groups & Tag Editor" },
-          { "name": "Amazon Grafana" },
-          { "name": "Amazon Prometheus" },
-          { "name": "Incident Manager" },
-          { "name": "AWS for SAP" },
-          { "name": "AWS Telco Network Builder" },
-          { "name": "Health Dashboard" },
-          { "name": "AWS Proton" }
+          { "name": "Activity", "link": "/cloudwatch/home" },
+          { "name": "GitHub" },
+          { "name": "Blog posts" },
+          { "name": "LinkedIn" }
         ]
       }
     ],
     [
       {
-        "name": "Security, Identity, & Compliance",
-        "color": "#DD344C",
+        "name": "Connect",
+        "color": "#8C4FFF",
         "services": [
-          { "name": "Resource Access Manager" },
-          { "name": "Cognito" },
-          { "name": "Secrets Manager" },
-          { "name": "GuardDuty" },
-          { "name": "Amazon Inspector" },
-          { "name": "Amazon Macie" },
-          { "name": "IAM Identity Center" },
-          { "name": "Certificate Manager" },
-          { "name": "Key Management Service" },
-          { "name": "CloudHSM" },
-          { "name": "Directory Service" },
-          { "name": "AWS Firewall Manager" },
-          { "name": "Detective" },
-          { "name": "AWS Signer" },
-          { "name": "Security Lake" },
-          { "name": "AWS Security Agent" },
-          { "name": "Amazon Verified Permissions" },
-          { "name": "AWS Audit Manager" },
-          { "name": "Security Hub CSPM" },
-          { "name": "IAM", "link": "/iam/home" },
-          { "name": "WAF & Shield" },
-          { "name": "Security Hub" },
-          { "name": "AWS Private Certificate Authority" },
-          { "name": "AWS Payment Cryptography" },
-          { "name": "AWS Security Incident Response" }
+          { "name": "Connect", "link": "/vpc/home" },
+          { "name": "Links" },
+          { "name": "Social" },
+          { "name": "Contact" }
+        ]
+      },
+      {
+        "name": "Experience",
+        "color": "#E7157B",
+        "services": [
+          { "name": "Experience", "link": "/cloudtrail/home" },
+          { "name": "Infobahn", "link": "/iam/users/infobahn-intern" },
+          { "name": "TransBnk", "link": "/iam/users/transbnk-intern" },
+          { "name": "Hackoverse Edu", "link": "/iam/users/hackoverse-edu" },
+          { "name": "CG Tribal", "link": "/iam/users/cg-tribal" },
+          { "name": "CipherCell", "link": "/iam/users/ciphercell" }
         ]
       }
     ]
