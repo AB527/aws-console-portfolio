@@ -1,4 +1,9 @@
 {
+  "description": "Hands-on solutions and write-ups across DevOps, security, and cloud, drawn from real projects.",
+  "footer": {
+    "label": "Go to Solutions Library",
+    "url": "https://medium.com/@atharvabedekar527"
+  },
   "tabs": [
     {
       "id": "devops",
@@ -8,14 +13,14 @@
           "title": "PM2 works with Node, it'll work with npm. Right? ❌ Wrong.",
           "description": "A common PM2 pitfall — running pm2 start npm causes signal handling failures, port conflicts, and restart loops. Fix: npm run build && pm2 start dist/index.js",
           "source": "linkedin",
-          "time": "1 week ago",
+          "time": "Time to complete: 2 mins",
           "link": "https://www.linkedin.com/posts/atharva-bedekar_nodejs-pm2-devops-share-7466492069910564866-2zue/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADNDaJQBb0gMGVvLY8bJDVm32RY4_Wqu9NE"
         },
         {
           "title": "Quick hack to survive memory crashes without upgrading your instance",
           "description": "Enabled swap on a t3.micro GitHub Actions runner to handle Flutter + Node CI build memory spikes. Saved $7.50/month by not upgrading to t3.small.",
           "source": "linkedin",
-          "time": "2 weeks ago",
+          "time": "Time to complete: 3 mins",
           "link": "https://www.linkedin.com/posts/atharva-bedekar_aws-ec2-devops-share-7462058131410333696-JvXO/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADNDaJQBb0gMGVvLY8bJDVm32RY4_Wqu9NE"
         }
       ]
@@ -28,7 +33,7 @@
           "title": "A Beginner's Guide: How to Report Vulnerabilities on Government Digital Services using CERT-In's RVDCP",
           "description": "Discovered a bug on a .gov.in site? Here's how to report it the right way using CERT-In's official Responsible Vulnerability Disclosure & Coordination Programme.",
           "source": "medium",
-          "time": "3 min read",
+          "time": "Time to complete: 3 mins",
           "link": "https://medium.com/@atharvabedekar527/a-beginners-guide-how-to-report-vulnerabilities-on-government-digital-services-using-cert-in-s-f16c79f827c5"
         }
       ]

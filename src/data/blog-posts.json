@@ -1,0 +1,23 @@
+{
+  "footer": {
+    "label": "View all blog posts",
+    "url": "https://medium.com/@atharvabedekar527"
+  },
+  "items": [
+    {
+      "date": "2026-06-15",
+      "title": "A beginner's guide: reporting vulnerabilities on government digital services using CERT-In's RVDCP",
+      "link": "https://medium.com/@atharvabedekar527/a-beginners-guide-how-to-report-vulnerabilities-on-government-digital-services-using-cert-in-s-f16c79f827c5"
+    },
+    {
+      "date": "2026-05-28",
+      "title": "PM2 works with Node, it'll work with npm. Right? Wrong.",
+      "link": "https://www.linkedin.com/posts/atharva-bedekar_nodejs-pm2-devops-share-7466492069910564866-2zue/"
+    },
+    {
+      "date": "2026-05-14",
+      "title": "Quick hack to survive memory crashes without upgrading your instance",
+      "link": "https://www.linkedin.com/posts/atharva-bedekar_aws-ec2-devops-share-7462058131410333696-JvXO/"
+    }
+  ]
+}

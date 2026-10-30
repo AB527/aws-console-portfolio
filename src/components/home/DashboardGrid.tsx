@@ -18,7 +18,14 @@ import {
 import { CSS } from "@dnd-kit/utilities"
 import { useConsoleStore, WidgetLayout } from "@/store/useConsoleStore"
 import dashboardLayout from "@/data/dashboard-layout.json"
+import solutions from "@/data/solutions.json"
+import explore from "@/data/explore.json"
 import WidgetInfoPanel from "./WidgetInfoPanel"
+
+const WIDGET_COUNTS: Record<string, number> = {
+  solutions: solutions.tabs.reduce((sum, t) => sum + t.items.length, 0),
+  achievements: explore.items.length,
+}
 
 interface WidgetConfig {
   id: string
@@ -35,22 +42,24 @@ const WIDGET_TITLES: Record<string, string> = {
   "recently-visited": "Recently visited",
   "pinned": "Pinned",
   "know-me": "Know Me",
-  "system-status": "System status",
+  "system-status": "GitHub",
   "achievements": "Achievements",
   "solutions": "Solutions",
-  "explore": "Explore",
+  "announcements": "Latest announcements",
+  "blog-posts": "Recent blog posts",
 }
 
 interface SortableWidgetProps {
   layout: WidgetLayout
   title: string
+  count?: number
   children: React.ReactNode
   onRemove: () => void
   onResize: () => void
   onInfo: () => void
 }
 
-function SortableWidget({ layout, title, children, onRemove, onResize, onInfo }: SortableWidgetProps) {
+function SortableWidget({ layout, title, count, children, onRemove, onResize, onInfo }: SortableWidgetProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: layout.id })
   const [menuOpen, setMenuOpen] = useState(false)
@@ -78,7 +87,7 @@ function SortableWidget({ layout, title, children, onRemove, onResize, onInfo }:
     <div ref={setNodeRef} style={style} className="relative group min-h-[160px]">
       <div className="bg-white border border-gray-200 h-full flex flex-col overflow-hidden rounded-[24px]" style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
         {/* Widget header */}
-        <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-gray-100 shrink-0">
+        <div className="flex items-center gap-1.5 px-3 py-2.5 shrink-0">
           {/* Drag handle */}
           <button
             {...listeners}
@@ -89,7 +98,10 @@ function SortableWidget({ layout, title, children, onRemove, onResize, onInfo }:
             ⠿
           </button>
 
-          <span className="text-[17px] font-bold text-gray-900 leading-tight">{title}</span>
+          <span className="text-[20px] font-bold text-gray-900 leading-tight">
+            {title}
+            {count !== undefined && <span className="font-normal text-gray-400"> ({count})</span>}
+          </span>
 
           {/* Info button — no border */}
           <button
@@ -199,6 +211,7 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
                 key={w.id}
                 layout={w}
                 title={WIDGET_TITLES[w.id] ?? w.id}
+                count={WIDGET_COUNTS[w.id]}
                 onRemove={() => removeWidget(w.id)}
                 onResize={() => handleResize(w.id)}
                 onInfo={() => setInfoWidgetId(w.id)}

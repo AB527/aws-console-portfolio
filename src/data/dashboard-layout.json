@@ -42,16 +42,6 @@
       "removable": true
     },
     {
-      "id": "achievements",
-      "defaultColSpan": 2,
-      "defaultRowSpan": 1,
-      "minColSpan": 1,
-      "maxColSpan": 4,
-      "minRowSpan": 1,
-      "maxRowSpan": 2,
-      "removable": true
-    },
-    {
       "id": "solutions",
       "defaultColSpan": 2,
       "defaultRowSpan": 2,
@@ -62,8 +52,28 @@
       "removable": true
     },
     {
-      "id": "explore",
+      "id": "achievements",
       "defaultColSpan": 2,
+      "defaultRowSpan": 2,
+      "minColSpan": 2,
+      "maxColSpan": 4,
+      "minRowSpan": 2,
+      "maxRowSpan": 3,
+      "removable": true
+    },
+    {
+      "id": "announcements",
+      "defaultColSpan": 1,
+      "defaultRowSpan": 1,
+      "minColSpan": 1,
+      "maxColSpan": 2,
+      "minRowSpan": 1,
+      "maxRowSpan": 2,
+      "removable": true
+    },
+    {
+      "id": "blog-posts",
+      "defaultColSpan": 1,
       "defaultRowSpan": 1,
       "minColSpan": 1,
       "maxColSpan": 2,

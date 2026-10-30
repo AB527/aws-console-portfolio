@@ -1,5 +1,13 @@
 {
-  "heading": "Explore My Work",
+  "subtitle": "Certifications, patents, and recognitions earned along the way.",
+  "action": {
+    "label": "View in IAM",
+    "href": "/iam/home"
+  },
+  "footer": {
+    "label": "Go to all achievements",
+    "href": "/iam/home"
+  },
   "items": [
     {
       "title": "CERT-In Hall of Fame",
@@ -9,25 +17,19 @@
     },
     {
       "title": "Indian Patent IN 589608",
-      "reward": "Granted",
+      "reward": "Indian Patent Office",
       "status": "completed",
       "link": ""
     },
     {
-      "title": "AWS SAA-C03",
-      "reward": "In Progress",
-      "status": "in-progress",
-      "link": ""
-    },
-    {
-      "title": "SNO Cluster on Bare Metal",
-      "reward": "Infobahn",
+      "title": "CTFZone, Winner",
+      "reward": "IIIT Bhubaneswar",
       "status": "completed",
       "link": ""
     },
     {
-      "title": "PM-inaugurated TFFM Platform",
-      "reward": "NIC / Chhattisgarh Govt",
+      "title": "E-Summit Hackathon, 1st Runner Up",
+      "reward": "IIIT Naya Raipur",
       "status": "completed",
       "link": ""
     }

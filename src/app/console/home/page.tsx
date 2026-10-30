@@ -3,18 +3,21 @@ import ConsoleHomeHeader from "@/components/home/ConsoleHomeHeader"
 import DashboardGrid from "@/components/home/DashboardGrid"
 import RecentlyVisitedWidget from "@/components/home/RecentlyVisitedWidget"
 import KnowMeWidget from "@/components/home/KnowMeWidget"
-import SystemStatusWidget from "@/components/home/SystemStatusWidget"
+import GitHubStatsWidget from "@/components/home/GitHubStatsWidget"
 import AchievementsWidget from "@/components/home/AchievementsWidget"
 import SolutionsWidget from "@/components/home/SolutionsWidget"
-import ExploreWidget from "@/components/home/ExploreWidget"
+import NewsListWidget from "@/components/home/NewsListWidget"
+import announcements from "@/data/announcements.json"
+import blogPosts from "@/data/blog-posts.json"
 
 const widgets: Record<string, React.ReactNode> = {
   "recently-visited": <RecentlyVisitedWidget />,
   "know-me": <KnowMeWidget />,
-  "system-status": <SystemStatusWidget />,
+  "system-status": <GitHubStatsWidget />,
   "achievements": <AchievementsWidget />,
   "solutions": <SolutionsWidget />,
-  "explore": <ExploreWidget />,
+  "announcements": <NewsListWidget items={announcements.items} footer={announcements.footer} />,
+  "blog-posts": <NewsListWidget items={blogPosts.items} footer={blogPosts.footer} />,
 }
 
 export default function ConsolePage() {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import solutions from "@/data/solutions.json"
 
 type SolutionItem = {
@@ -11,68 +11,116 @@ type SolutionItem = {
   link: string
 }
 
-function LinkedInBadge() {
+function ExternalIcon() {
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-[#0a66c2] bg-[#e8f0f9] rounded px-1.5 py-0.5 shrink-0">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="#0a66c2">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-      Posted on LinkedIn
-    </span>
-  )
-}
-
-function MediumBadge() {
-  return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-gray-700 bg-gray-100 rounded px-1.5 py-0.5 shrink-0">
-      <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
-      </svg>
-      Medium
-    </span>
+    <svg
+      width="11"
+      height="11"
+      viewBox="0 0 12 12"
+      fill="none"
+      className="inline-block ml-1 -mb-px shrink-0"
+    >
+      <path
+        d="M4.5 2H10v5.5M10 2L5 7M2 4v6h6"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
 
 export default function SolutionsWidget() {
   const [activeTab, setActiveTab] = useState(solutions.tabs[0].id)
   const tab = solutions.tabs.find((t) => t.id === activeTab) ?? solutions.tabs[0]
+  const tabsRef = useRef<HTMLDivElement>(null)
+
+  function scrollTabs(dir: number) {
+    tabsRef.current?.scrollBy({ left: dir * 140, behavior: "smooth" })
+  }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex border-b border-gray-200 mb-3 overflow-x-auto">
-        {solutions.tabs.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setActiveTab(t.id)}
-            className={`px-3 py-2 text-[13px] font-semibold whitespace-nowrap transition-colors border-b-2 -mb-px ${
-              activeTab === t.id
-                ? "border-[#0073bb] text-[#0073bb]"
-                : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {t.name} ({t.items.length})
-          </button>
-        ))}
+    <div className="flex flex-col h-full -m-3">
+      {/* Description */}
+      <p className="text-[13px] text-gray-600 leading-relaxed px-4 -mt-1 pb-3">
+        {solutions.description}
+      </p>
+
+      {/* Tabs with chevron navigation */}
+      <div className="flex items-stretch border-b border-gray-200 shrink-0">
+        <button
+          onClick={() => scrollTabs(-1)}
+          className="flex items-center px-2.5 text-gray-500 hover:text-gray-800 border-r border-gray-200 shrink-0"
+          aria-label="Scroll tabs left"
+        >
+          <svg width="11" height="16" viewBox="0 0 8 12" fill="none">
+            <path d="M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        <div
+          ref={tabsRef}
+          className="flex flex-1 overflow-x-auto"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {solutions.tabs.map((t, idx) => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={`px-4 py-2.5 text-[14px] font-semibold whitespace-nowrap transition-colors border-b-2 -mb-px ${
+                idx > 0 ? "border-l border-l-gray-200" : ""
+              } ${
+                activeTab === t.id
+                  ? "border-b-[#0073bb] text-[#0073bb]"
+                  : "border-b-transparent text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              {t.name} ({t.items.length})
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={() => scrollTabs(1)}
+          className="flex items-center px-2.5 text-gray-500 hover:text-gray-800 border-l border-gray-200 shrink-0"
+          aria-label="Scroll tabs right"
+        >
+          <svg width="11" height="16" viewBox="0 0 8 12" fill="none">
+            <path d="M2 1l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
 
-      <div className="flex flex-col gap-4 overflow-y-auto">
+      {/* Items */}
+      <div className="flex-1 overflow-y-auto px-4">
         {(tab.items as SolutionItem[]).map((item, i) => (
-          <div key={i} className="flex flex-col gap-1.5">
-            <div className="flex items-start gap-2 flex-wrap">
-              {item.source === "linkedin" ? <LinkedInBadge /> : <MediumBadge />}
-            </div>
+          <div key={i} className={`py-3 ${i > 0 ? "border-t border-gray-200" : ""}`}>
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[14px] font-semibold text-[#0073bb] hover:underline leading-snug"
+              className="text-[13px] font-bold text-[#0073bb] hover:underline leading-snug"
             >
               {item.title}
+              <ExternalIcon />
             </a>
-            <p className="text-[12px] font-medium text-gray-500 leading-relaxed">{item.description}</p>
-            <span className="text-[12px] font-medium text-gray-400">{item.time}</span>
+            <p className="text-[12px] text-gray-500 mt-1">{item.time}</p>
           </div>
         ))}
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-gray-200 shrink-0">
+        <a
+          href={solutions.footer.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1 text-center text-[13px] font-medium text-[#0073bb] hover:underline py-3"
+        >
+          {solutions.footer.label}
+          <ExternalIcon />
+        </a>
       </div>
     </div>
   )
