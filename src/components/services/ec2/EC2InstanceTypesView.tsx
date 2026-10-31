@@ -5,7 +5,7 @@ import { useConsoleStore } from "@/store/useConsoleStore"
 import ec2Data from "@/data/ec2-projects.json"
 
 const COLS = [
-  "Instance type",
+  "Project type",
   "Open Source",
   "Production Grade",
   "Tech Stack",
@@ -67,7 +67,7 @@ export default function EC2InstanceTypesView() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
         <h1 className="text-[18px] font-light text-gray-900">
-          Instance types{" "}
+          Project types{" "}
           <span className="text-[15px] text-gray-500">({filtered.length})</span>
         </h1>
         <div className="flex items-center gap-2">
@@ -79,7 +79,7 @@ export default function EC2InstanceTypesView() {
             Last updated just now
           </div>
           <button className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded-full px-3 py-1.5 text-[13px] hover:bg-[#eaf4fb] transition-colors">
-            Instance type finder
+            Project type finder
           </button>
           <button className="flex items-center gap-1.5 bg-[#ff9900] hover:bg-[#e88a00] text-white rounded-full px-3 py-1.5 text-[13px] transition-colors font-medium">
             Actions
@@ -99,7 +99,7 @@ export default function EC2InstanceTypesView() {
           </svg>
           <input
             type="text"
-            placeholder="Find instance type by attribute"
+            placeholder="Find project type by attribute"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="text-[13px] flex-1 focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
@@ -160,7 +160,7 @@ export default function EC2InstanceTypesView() {
                 <td colSpan={8} className="px-4 py-12 text-center text-gray-400 text-sm">
                   {ec2Data.instances.filter((i) => i.region === selectedRegion).length === 0
                     ? `No projects in the selected region (${selectedRegion}).`
-                    : "No instance types match your search."}
+                    : "No project types match your search."}
                 </td>
               </tr>
             )}

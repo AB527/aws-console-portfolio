@@ -27,15 +27,6 @@
     "color": "#DD344C"
   },
   {
-    "id": "cloudwatch",
-    "title": "Activity",
-    "description": "GitHub, blog posts, LinkedIn activity",
-    "iconId": "cloudwatch",
-    "global": false,
-    "regions": ["ap-south-1"],
-    "color": "#E7157B"
-  },
-  {
     "id": "vpc",
     "title": "Connect",
     "description": "Links, social, contact",
@@ -49,8 +40,8 @@
     "title": "Experience",
     "description": "Work history timeline",
     "iconId": "cloudtrail",
-    "global": false,
-    "regions": ["ap-south-1"],
+    "global": true,
+    "regions": [],
     "color": "#E7157B"
   }
 ]

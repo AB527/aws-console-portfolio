@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { serviceTitle } from "@/lib/serviceTitle"
+import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
 
 function NavLink({
   href,
@@ -46,12 +47,10 @@ export default function EC2Sidebar() {
   return (
     <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
       {/* Service header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+      <div className="flex items-center justify-between px-4 py-3">
         <span className="text-[16px] font-bold text-gray-900">{serviceTitle("ec2")}</span>
-        <Link href={`/${regionParam}`} className="text-gray-400 hover:text-gray-600 p-1" title="Back to console">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <Link href={`/${regionParam}`} className={SIDEBAR_CLOSE_BUTTON_CLASS} title="Back to console" aria-label="Back to console">
+          <SidebarChevron direction="left" />
         </Link>
       </div>
 
@@ -62,34 +61,27 @@ export default function EC2Sidebar() {
         {/* Spacer */}
         <div className="my-2" />
 
-        {/* Instances section */}
+        {/* Projects section */}
         <button
           onClick={() => setInstancesOpen((o) => !o)}
-          className="w-full flex items-center gap-1.5 px-4 py-1.5 text-[13px] font-bold text-gray-900 hover:bg-gray-50 transition-colors"
+          className="w-full flex items-center gap-2 px-4 py-1.5 text-[13px] font-bold text-gray-900 hover:bg-gray-50 transition-colors"
+          aria-expanded={instancesOpen}
         >
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 10 6"
-            fill="currentColor"
-            className={`transition-transform duration-150 ${instancesOpen ? "rotate-0" : "-rotate-90"}`}
-          >
-            <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          </svg>
-          Instances
+          <SectionCaret open={instancesOpen} />
+          Projects
         </button>
 
         {instancesOpen && (
           <>
             <NavLink
               href={`/ec2/home?view=instances${region ? `&region=${region}` : ""}`}
-              label="Instances"
+              label="Projects"
               active={isInstances}
               indent
             />
             <NavLink
               href={`/ec2/home?view=instance-types${region ? `&region=${region}` : ""}`}
-              label="Instance Types"
+              label="Project types"
               active={isInstanceTypes}
               indent
             />

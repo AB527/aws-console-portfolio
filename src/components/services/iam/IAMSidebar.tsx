@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import iamConsole from "@/data/iam-console.json"
 import { serviceTitle } from "@/lib/serviceTitle"
+import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
 
 function NavLink({
   href,
@@ -43,10 +44,8 @@ export default function IAMSidebar() {
       {/* Service header */}
       <div className="flex items-start justify-between gap-2 px-4 pt-5 pb-3">
         <span className="text-[20px] leading-tight font-bold text-gray-900">{serviceTitle("iam")}</span>
-        <Link href="/console/home" className="text-gray-500 hover:text-gray-800 p-1 mt-0.5" title={nav.backLabel}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <Link href="/console/home" className={SIDEBAR_CLOSE_BUTTON_CLASS} title={nav.backLabel} aria-label={nav.backLabel}>
+          <SidebarChevron direction="left" />
         </Link>
       </div>
 
@@ -60,15 +59,7 @@ export default function IAMSidebar() {
               className="w-full flex items-center gap-2 px-4 py-1.5 text-[14px] font-bold text-gray-900 hover:bg-gray-50 transition-colors"
               aria-expanded={open[section.id]}
             >
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 10 10"
-                fill="currentColor"
-                className={`transition-transform duration-150 ${open[section.id] ? "rotate-0" : "-rotate-90"}`}
-              >
-                <path d="M0 2h10L5 9z" />
-              </svg>
+              <SectionCaret open={!!open[section.id]} />
               {section.label}
             </button>
             {open[section.id] &&

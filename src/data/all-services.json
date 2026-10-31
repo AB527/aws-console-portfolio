@@ -37,16 +37,6 @@
           { "name": "Cybersecurity", "link": "/iam/groups/cybersec" },
           { "name": "DevOps", "link": "/iam/groups/devops" }
         ]
-      },
-      {
-        "name": "Activity",
-        "color": "#E7157B",
-        "services": [
-          { "name": "Activity", "link": "/cloudwatch/home" },
-          { "name": "GitHub" },
-          { "name": "Blog posts" },
-          { "name": "LinkedIn" }
-        ]
       }
     ],
     [
@@ -55,9 +45,9 @@
         "color": "#8C4FFF",
         "services": [
           { "name": "Connect", "link": "/vpc/home" },
-          { "name": "Links" },
-          { "name": "Social" },
-          { "name": "Contact" }
+          { "name": "Your Connects", "link": "/vpc/connects" },
+          { "name": "Subnets", "link": "/vpc/subnets" },
+          { "name": "Route tables", "link": "/vpc/route-tables" }
         ]
       },
       {

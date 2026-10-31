@@ -6,11 +6,16 @@ import services from "@/data/services.json"
 import site from "@/data/site.json"
 import BucketDetail from "@/components/services/s3/BucketDetail"
 import S3SubSidebar from "@/components/services/s3/S3SubSidebar"
+import { objectFileUrl } from "@/lib/s3Files"
 
 const s3Service = services.find((s) => s.id === "s3")
 
 interface Props {
   params: Promise<{ bucketId: string }>
+}
+
+export function generateStaticParams() {
+  return s3Data.buckets.map((b) => ({ bucketId: b.id }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -45,7 +50,9 @@ export default async function BucketPage({ params }: Props) {
       <div className="flex flex-1">
         <S3SubSidebar title={s3Service?.title} />
         <div className="flex-1 min-w-0">
-          <BucketDetail bucket={bucket} />
+          <BucketDetail
+            bucket={{ ...bucket, objects: bucket.objects.map((o) => ({ ...o, url: objectFileUrl(o) })) }}
+          />
         </div>
       </div>
     </div>
