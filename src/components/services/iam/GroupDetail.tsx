@@ -4,6 +4,8 @@ import Breadcrumb from "@/components/layout/Breadcrumb"
 import { formatPeriod } from "@/lib/formatDate"
 import iamGroups from "@/data/iam-groups.json"
 import iamUsers from "@/data/iam-users.json"
+import { serviceTitle } from "@/lib/serviceTitle"
+import iamConsole from "@/data/iam-console.json"
 
 interface GroupDetailProps {
   groupId: string
@@ -19,22 +21,22 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
     <div>
       <Breadcrumb
         items={[
-          { label: "IAM", href: "/iam/home" },
-          { label: "Skill Groups", href: "/iam/groups" },
+          { label: serviceTitle("iam"), href: "/iam/home" },
+          { label: iamConsole.pages.groups.breadcrumb, href: "/iam/groups" },
           { label: group.label },
         ]}
       />
 
       <div className="flex items-center gap-3 mb-6">
         <span
-          className="w-3 h-8 rounded-sm shrink-0"
+          className="w-3 h-8 rounded-full shrink-0"
           style={{ backgroundColor: group.color }}
         />
         <h1 className="text-xl font-semibold text-gray-900">{group.label}</h1>
       </div>
 
       {/* Skills */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden mb-6">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-6">
         <div className="bg-gray-50 border-b border-gray-200 px-4 py-2.5">
           <h2 className="text-sm font-semibold text-gray-700">
             Skills ({group.skills.length})
@@ -65,7 +67,7 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
       </div>
 
       {/* Users in group */}
-      <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="bg-gray-50 border-b border-gray-200 px-4 py-2.5">
           <h2 className="text-sm font-semibold text-gray-700">
             Experience / Roles in this group ({usersInGroup.length})

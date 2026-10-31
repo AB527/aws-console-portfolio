@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "dashboard": { "label": "Dashboard", "href": "/iam/home" },
+    "backLabel": "Back to console",
+    "sections": [
+      {
+        "id": "skill-management",
+        "label": "Skill Management",
+        "items": [
+          { "label": "Skill groups", "href": "/iam/groups" },
+          { "label": "Skills", "href": "/iam/skills" }
+        ]
+      },
+      {
+        "id": "experience-management",
+        "label": "Experience Management",
+        "items": [
+          { "label": "Role history", "href": "/iam/users" }
+        ]
+      }
+    ]
+  },
+  "table": {
+    "refreshLabel": "Refresh",
+    "deleteLabel": "Delete",
+    "infoLabel": "Info",
+    "selectAllLabel": "Select all"
+  },
+  "pages": {
+    "groups": {
+      "breadcrumb": "Skill groups",
+      "title": "Skill groups",
+      "description": "A skill group is a collection of related skills. Roles in my experience history draw on one or more skill groups.",
+      "searchPlaceholder": "Search",
+      "createLabel": "Create group",
+      "emptyText": "No resources to display",
+      "columns": {
+        "name": "Group name",
+        "skills": "Skills",
+        "roles": "Roles",
+        "topLevel": "Top level"
+      }
+    },
+    "skills": {
+      "breadcrumb": "Skills",
+      "title": "Skills",
+      "description": "Every individual skill, the group it belongs to, and my proficiency level.",
+      "searchPlaceholder": "Search",
+      "createLabel": "Add skill",
+      "emptyText": "No resources to display",
+      "columns": {
+        "name": "Skill",
+        "group": "Skill group",
+        "level": "Level"
+      }
+    },
+    "roles": {
+      "breadcrumb": "Role history",
+      "title": "Role history",
+      "description": "Roles I have held, the organization, and the skill groups each role used.",
+      "searchPlaceholder": "Search",
+      "createLabel": "Add role",
+      "emptyText": "No resources to display",
+      "columns": {
+        "role": "Role",
+        "organization": "Organization",
+        "groups": "Skill groups",
+        "status": "Status",
+        "period": "Period"
+      }
+    }
+  }
+}

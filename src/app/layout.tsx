@@ -2,18 +2,18 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import ConsoleLayout from "@/components/layout/ConsoleLayout"
+import site from "@/data/site.json"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
-  title: "Atharva Bedekar — AWS Console Portfolio",
-  description: "Personal portfolio built as an AWS Management Console",
-  icons: [{ url: "/icon.png", type: "image/png" }],
+  title: { default: site.titleDefault, template: site.titleTemplate },
+  description: site.description,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "AB Console",
+    title: site.appTitle,
   },
 }
 

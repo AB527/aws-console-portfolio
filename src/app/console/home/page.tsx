@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Suspense } from "react"
 import ConsoleHomeHeader from "@/components/home/ConsoleHomeHeader"
 import DashboardGrid from "@/components/home/DashboardGrid"
@@ -9,6 +10,9 @@ import SolutionsWidget from "@/components/home/SolutionsWidget"
 import NewsListWidget from "@/components/home/NewsListWidget"
 import announcements from "@/data/announcements.json"
 import blogPosts from "@/data/blog-posts.json"
+import site from "@/data/site.json"
+
+export const metadata: Metadata = { title: site.pageTitles.consoleHome }
 
 const widgets: Record<string, React.ReactNode> = {
   "recently-visited": <RecentlyVisitedWidget />,

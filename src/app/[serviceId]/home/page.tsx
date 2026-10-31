@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import services from "@/data/services.json"
 import GenericServicePage from "@/components/services/GenericServicePage"
@@ -6,6 +7,12 @@ import ServiceVisitor from "./ServiceVisitor"
 interface Props {
   params: Promise<{ serviceId: string }>
   searchParams: Promise<{ region?: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { serviceId } = await params
+  const service = services.find((s) => s.id === serviceId)
+  return service ? { title: service.title } : {}
 }
 
 export default async function ServicePage({ params, searchParams }: Props) {

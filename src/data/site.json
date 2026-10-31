@@ -1,0 +1,23 @@
+{
+  "titleDefault": "Console Home | Atharva Bedekar",
+  "titleTemplate": "%s | Atharva Bedekar",
+  "description": "Personal portfolio built as an AWS Management Console",
+  "appTitle": "AB Console",
+  "pageTitles": {
+    "consoleHome": "Console Home",
+    "allServices": "All services",
+    "gettingStarted": "Getting started",
+    "s3": "Documents",
+    "iam": "Skills",
+    "iamGroups": "Skill groups | Skills",
+    "iamSkills": "All skills | Skills",
+    "iamUsers": "Role history | Skills",
+    "ec2": "Projects",
+    "privacy": "Privacy Notice",
+    "terms": "Terms of Use"
+  },
+  "detailTitles": {
+    "s3": "%s | Documents",
+    "iam": "%s | Skills"
+  }
+}

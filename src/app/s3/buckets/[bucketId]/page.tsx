@@ -1,7 +1,9 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import s3Data from "@/data/s3.json"
 import services from "@/data/services.json"
+import site from "@/data/site.json"
 import BucketDetail from "@/components/services/s3/BucketDetail"
 import S3SubSidebar from "@/components/services/s3/S3SubSidebar"
 
@@ -9,6 +11,12 @@ const s3Service = services.find((s) => s.id === "s3")
 
 interface Props {
   params: Promise<{ bucketId: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { bucketId } = await params
+  const bucket = s3Data.buckets.find((b) => b.id === bucketId)
+  return bucket ? { title: site.detailTitles.s3.replace("%s", bucket.name) } : {}
 }
 
 export default async function BucketPage({ params }: Props) {

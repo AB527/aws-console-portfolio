@@ -26,7 +26,7 @@ export default function AccountDropdown({ onClose, onInstallApp }: AccountDropdo
   }
 
   return (
-    <div className="absolute right-0 top-full mt-0 w-[280px] bg-[#1a2332] text-white shadow-2xl z-50 text-sm border border-[#2d3f52]">
+    <div className="absolute right-0 top-full mt-0 w-[280px] bg-[#1a2332] text-white rounded-b-xl overflow-hidden shadow-2xl z-50 text-sm border border-[#2d3f52]">
       {/* Top link */}
       <div className="px-4 py-2.5 border-b border-[#2d3f52]">
         <button className="text-[#4db8ff] text-sm hover:underline">Atharva Bedekar</button>

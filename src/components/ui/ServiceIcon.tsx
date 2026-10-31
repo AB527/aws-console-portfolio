@@ -1,3 +1,5 @@
+"use client"
+
 interface ServiceIconProps {
   iconId: string
   color: string
@@ -14,7 +16,7 @@ const SIZE_MAP = {
 export default function ServiceIcon({ iconId, color, size = "md", className = "" }: ServiceIconProps) {
   const { box, text } = SIZE_MAP[size]
   return (
-    <span className={`inline-flex items-center justify-center rounded shrink-0 overflow-hidden ${box} ${className}`}>
+    <span className={`inline-flex items-center justify-center rounded-md shrink-0 overflow-hidden ${box} ${className}`}>
       <img
         src={`/icons/${iconId}.png`}
         alt={iconId}

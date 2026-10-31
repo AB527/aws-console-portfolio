@@ -80,7 +80,7 @@ export default function ConsoleFooter() {
           className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && setPwaOpen(false)}
         >
-          <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-[#232f3e] rounded-lg flex items-center justify-center text-white">
                 <MobileIcon size={20} />
@@ -107,7 +107,7 @@ export default function ConsoleFooter() {
             <div className="flex justify-end">
               <button
                 onClick={() => setPwaOpen(false)}
-                className="px-4 py-1.5 bg-[#0073bb] text-white text-sm rounded hover:bg-[#005f99] transition-colors"
+                className="px-4 py-1.5 bg-[#0073bb] text-white text-sm rounded-full hover:bg-[#005f99] transition-colors"
               >
                 Close
               </button>

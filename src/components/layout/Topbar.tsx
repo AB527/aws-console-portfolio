@@ -46,7 +46,7 @@ function RegionDropdown({
   const [tab, setTab] = useState<"regions" | "local-zones">("regions")
 
   return (
-    <div className="absolute right-0 top-full mt-0 w-[300px] bg-[#1a2332] border border-[#2d3f52] shadow-2xl z-50 flex flex-col">
+    <div className="absolute right-0 top-full mt-0 w-[300px] bg-[#1a2332] border border-[#2d3f52] rounded-b-xl overflow-hidden shadow-2xl z-50 flex flex-col">
       {/* Tab switcher */}
       <div className="flex items-center gap-0 px-3 pt-3 pb-2">
         <button
@@ -329,7 +329,7 @@ function TopbarInner() {
           className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && setPwaOpen(false)}
         >
-          <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl text-gray-900">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl text-gray-900">
             <h2 className="text-base font-semibold mb-3">Install Console Mobile App</h2>
             <p className="text-sm text-gray-600 mb-4">Install this portfolio as an app on your device:</p>
             <ol className="text-sm text-gray-600 list-decimal list-inside space-y-2 mb-5">
@@ -340,7 +340,7 @@ function TopbarInner() {
             <div className="flex justify-end">
               <button
                 onClick={() => setPwaOpen(false)}
-                className="px-4 py-1.5 bg-[#0073bb] text-white text-sm rounded hover:bg-[#005f99] transition-colors"
+                className="px-4 py-1.5 bg-[#0073bb] text-white text-sm rounded-full hover:bg-[#005f99] transition-colors"
               >
                 Close
               </button>

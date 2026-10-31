@@ -39,7 +39,7 @@ export default function EC2HomeView() {
     <div className="p-5 space-y-5 max-w-5xl">
 
       {/* Resources */}
-      <section className="bg-white border border-gray-200 rounded shadow-sm">
+      <section className="bg-white border border-gray-200 rounded-2xl shadow-sm">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
           <h2 className="text-[14px] font-semibold text-gray-900">Resources</h2>
           <div className="flex items-center gap-2 text-gray-400">
@@ -83,7 +83,7 @@ export default function EC2HomeView() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
         {/* Launch project */}
-        <section className="bg-white border border-gray-200 rounded shadow-sm p-4">
+        <section className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
           <h2 className="text-[14px] font-semibold text-gray-900 mb-1">Launch project</h2>
           <p className="text-[12px] text-gray-600 mb-4 leading-relaxed">
             To get started, launch a project — a deployed system or shipped piece of code.
@@ -91,10 +91,10 @@ export default function EC2HomeView() {
           <div className="flex items-center gap-2 mb-3">
             <button
               onClick={launchProject}
-              className="flex items-center gap-0 bg-[#ff9900] hover:bg-[#e88a00] text-white text-[13px] font-medium rounded transition-colors"
+              className="flex items-center gap-0 bg-[#ff9900] hover:bg-[#e88a00] text-white text-[13px] font-medium rounded-full overflow-hidden transition-colors"
             >
               <span className="px-3 py-1.5">Launch project</span>
-              <span className="border-l border-[#e88a00] px-2 py-1.5 hover:bg-[#d47f00] rounded-r">
+              <span className="border-l border-[#e88a00] px-2 py-1.5 hover:bg-[#d47f00] rounded-r-full">
                 <svg width="9" height="6" viewBox="0 0 10 6" fill="currentColor">
                   <path d="M1 1l4 4 4-4" strokeLinecap="round" />
                 </svg>
@@ -104,7 +104,7 @@ export default function EC2HomeView() {
               href="https://www.linkedin.com/in/atharva-bedekar/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-[13px] text-[#0073bb] hover:underline border border-gray-300 rounded px-3 py-1.5 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-1 text-[13px] text-[#0073bb] hover:underline border border-gray-300 rounded-full px-3 py-1.5 hover:bg-gray-50 transition-colors"
             >
               View profile
               <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75">
@@ -119,7 +119,7 @@ export default function EC2HomeView() {
         </section>
 
         {/* Service health */}
-        <section className="bg-white border border-gray-200 rounded shadow-sm p-4">
+        <section className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-[14px] font-semibold text-gray-900">Service health</h2>
             <button className="text-gray-400 hover:text-gray-600" title="Refresh">
@@ -130,7 +130,7 @@ export default function EC2HomeView() {
             </button>
           </div>
 
-          <button className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded px-2.5 py-1 text-[12px] hover:bg-[#eaf4fb] transition-colors mb-3">
+          <button className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded-full px-2.5 py-1 text-[12px] hover:bg-[#eaf4fb] transition-colors mb-3">
             AB Health Dashboard
             <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75">
               <path d="M3 13 L13 3 M6 3 H13 V10" strokeLinecap="round" strokeLinejoin="round" />
@@ -179,14 +179,14 @@ export default function EC2HomeView() {
       </div>
 
       {/* Instance alarms */}
-      <section className="bg-white border border-gray-200 rounded shadow-sm p-4">
+      <section className="bg-white border border-gray-200 rounded-2xl shadow-sm p-4">
         <h2 className="text-[14px] font-semibold text-gray-900 mb-3">Instance alarms</h2>
         <div className="flex items-center gap-4">
           <a
             href="https://www.linkedin.com/in/atharva-bedekar/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded px-2.5 py-1 text-[12px] hover:bg-[#eaf4fb] transition-colors"
+            className="flex items-center gap-1.5 border border-[#0073bb] text-[#0073bb] rounded-full px-2.5 py-1 text-[12px] hover:bg-[#eaf4fb] transition-colors"
           >
             View in LinkedIn
             <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75">

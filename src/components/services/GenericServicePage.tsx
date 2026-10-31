@@ -44,7 +44,7 @@ export default function GenericServicePage({ service, region }: GenericServicePa
         </div>
       </div>
 
-      <div className="bg-white rounded-sm border border-gray-200 shadow-sm p-6 text-center text-gray-400 text-sm">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 text-center text-gray-400 text-sm">
         Content coming soon for {service.title}
       </div>
     </div>

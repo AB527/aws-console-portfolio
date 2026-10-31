@@ -1,11 +1,15 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import Breadcrumb from "@/components/layout/Breadcrumb"
 import allServices from "@/data/all-services.json"
+import site from "@/data/site.json"
+
+export const metadata: Metadata = { title: site.pageTitles.allServices }
 
 function CategoryIcon({ color }: { color: string }) {
   return (
     <span
-      className="inline-flex items-center justify-center w-5 h-5 rounded-[3px] shrink-0"
+      className="inline-flex items-center justify-center w-5 h-5 rounded-md shrink-0"
       style={{ backgroundColor: color }}
     >
       <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -63,7 +67,7 @@ export default function AllServicesPage() {
 
       <h1 className="text-[28px] font-light text-gray-900 mb-4">All services</h1>
 
-      <div className="bg-white border border-gray-200 rounded-sm p-6">
+      <div className="bg-white border border-gray-200 rounded-2xl p-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-8">
           {columns.map((column, ci) => (
             <div key={ci} className="flex flex-col gap-7">

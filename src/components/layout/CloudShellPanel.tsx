@@ -83,7 +83,7 @@ export default function CloudShellPanel() {
 
         <div className="flex-1" />
 
-        <button className="flex items-center gap-1 px-2.5 py-0.5 border border-[#4db8ff] text-[#4db8ff] rounded text-[12px] hover:bg-[#0d2137] transition-colors">
+        <button className="flex items-center gap-1 px-2.5 py-0.5 border border-[#4db8ff] text-[#4db8ff] rounded-full text-[12px] hover:bg-[#0d2137] transition-colors">
           Actions
           <svg width="8" height="5" viewBox="0 0 10 6" fill="currentColor">
             <path d="M1 1l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />

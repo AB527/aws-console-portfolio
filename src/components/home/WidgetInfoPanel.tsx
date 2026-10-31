@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import Link from "next/link"
+import { serviceTitle } from "@/lib/serviceTitle"
 
 interface WidgetInfo {
   description: string
@@ -30,21 +31,21 @@ const WIDGET_INFO: Record<string, WidgetInfo> = {
       "Track Atharva's open-source activity on GitHub at a glance — public repositories, recent contributions, and followers.",
     links: [
       { label: "Visit GitHub profile", href: "https://github.com/AB527" },
-      { label: "EC2 — Projects", href: "/ec2/home" },
+      { label: serviceTitle("ec2"), href: "/ec2/home" },
     ],
   },
   "achievements": {
     description:
       "Explore certifications, milestones, and recognitions that mark key moments in Atharva's engineering journey.",
     links: [
-      { label: "IAM — Skills & experience", href: "/iam/home" },
+      { label: "Skills & experience", href: "/iam/home" },
     ],
   },
   "solutions": {
     description:
       "Browse solutions and projects built across cloud infrastructure, full-stack development, and AI/ML domains.",
     links: [
-      { label: "EC2 — Projects", href: "/ec2/home" },
+      { label: serviceTitle("ec2"), href: "/ec2/home" },
       { label: "Getting started", href: "/getting-started" },
     ],
   },
@@ -53,15 +54,15 @@ const WIDGET_INFO: Record<string, WidgetInfo> = {
       "Stay up to date with Atharva's latest milestones, recognitions, and project launches.",
     links: [
       { label: "View all projects", href: "/ec2/home" },
-      { label: "IAM — Skills & experience", href: "/iam/home" },
+      { label: "Skills & experience", href: "/iam/home" },
     ],
   },
   "blog-posts": {
     description:
       "Read Atharva's recent write-ups and articles on DevOps, security, and cloud engineering.",
     links: [
-      { label: "EC2 — Projects", href: "/ec2/home" },
-      { label: "S3 — Documents", href: "/s3/home" },
+      { label: serviceTitle("ec2"), href: "/ec2/home" },
+      { label: serviceTitle("s3"), href: "/s3/home" },
     ],
   },
 }

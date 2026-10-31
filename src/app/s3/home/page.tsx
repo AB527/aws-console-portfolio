@@ -1,7 +1,11 @@
+import type { Metadata } from "next"
 import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
 import BucketsList from "@/components/services/s3/BucketsList"
 import S3SubSidebar from "@/components/services/s3/S3SubSidebar"
 import services from "@/data/services.json"
+import site from "@/data/site.json"
+
+export const metadata: Metadata = { title: site.pageTitles.s3 }
 
 const s3Service = services.find((s) => s.id === "s3")
 
@@ -28,7 +32,7 @@ export default async function S3Page() {
           <div className="flex items-center gap-6 border-b border-gray-200 mb-5">
             <div className="flex items-center gap-2 pb-2 -mb-px border-b-[3px] border-[#0073bb]">
               <span className="text-sm font-semibold text-[#0073bb]">General purpose buckets</span>
-              <span className="text-[11px] font-medium text-white bg-[#545b64] rounded px-1.5 py-0.5">
+              <span className="text-[11px] font-medium text-white bg-[#545b64] rounded-full px-1.5 py-0.5">
                 All AWS Regions
               </span>
             </div>

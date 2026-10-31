@@ -22,7 +22,7 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
     <div className="min-h-screen bg-[#f2f3f3]">
       <Topbar />
       <div className="mt-[56px] flex min-h-[calc(100vh-56px)]">
-        <main className="flex-1 min-w-0 overflow-x-hidden pb-[32px]">
+        <main className="flex-1 min-w-0 overflow-x-clip pb-[32px]">
           {children}
         </main>
       </div>

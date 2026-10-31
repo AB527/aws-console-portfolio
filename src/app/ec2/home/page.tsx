@@ -1,6 +1,10 @@
+import type { Metadata } from "next"
 import { Suspense } from "react"
 import EC2Dashboard from "@/components/services/ec2/EC2Dashboard"
 import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
+import site from "@/data/site.json"
+
+export const metadata: Metadata = { title: site.pageTitles.ec2 }
 
 interface Props {
   searchParams: Promise<{ region?: string; view?: string; project?: string }>

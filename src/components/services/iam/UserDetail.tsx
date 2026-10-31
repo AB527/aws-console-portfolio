@@ -7,6 +7,8 @@ import PolicyTag from "@/components/ui/PolicyTag"
 import { formatPeriod } from "@/lib/formatDate"
 import iamUsers from "@/data/iam-users.json"
 import iamGroups from "@/data/iam-groups.json"
+import { serviceTitle } from "@/lib/serviceTitle"
+import iamConsole from "@/data/iam-console.json"
 
 interface UserDetailProps {
   userId: string
@@ -34,14 +36,14 @@ export default function UserDetail({ userId }: UserDetailProps) {
     <div>
       <Breadcrumb
         items={[
-          { label: "IAM", href: "/iam/home" },
-          { label: "Users", href: "/iam/users" },
+          { label: serviceTitle("iam"), href: "/iam/home" },
+          { label: iamConsole.pages.roles.breadcrumb, href: "/iam/users" },
           { label: user.username },
         ]}
       />
 
       <div className="flex items-center gap-4 mb-6">
-        <span className="w-12 h-12 rounded flex items-center justify-center text-white font-bold text-sm bg-[#0073bb] shrink-0">
+        <span className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm bg-[#0073bb] shrink-0">
           {user.avatar}
         </span>
         <div>
@@ -71,7 +73,7 @@ export default function UserDetail({ userId }: UserDetailProps) {
       </div>
 
       {activeTab === "summary" ? (
-        <div className="bg-white rounded-sm border border-gray-200 shadow-sm">
+        <div className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
           <dl className="divide-y divide-gray-100">
             {[
               { label: "Username", value: user.username },
@@ -91,7 +93,7 @@ export default function UserDetail({ userId }: UserDetailProps) {
                 {user.groups.map((gId) => (
                   <span
                     key={gId}
-                    className="text-xs px-2 py-0.5 rounded text-white"
+                    className="text-xs px-2 py-0.5 rounded-full text-white"
                     style={{ backgroundColor: groupColorMap[gId] ?? "#6b7280" }}
                   >
                     {groupLabelMap[gId] ?? gId}
@@ -102,7 +104,7 @@ export default function UserDetail({ userId }: UserDetailProps) {
           </dl>
         </div>
       ) : (
-        <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">

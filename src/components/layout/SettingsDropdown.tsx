@@ -16,7 +16,7 @@ export default function SettingsDropdown() {
   const setVisualMode = useConsoleStore((s) => s.setVisualMode)
 
   return (
-    <div className="absolute right-0 top-full w-[340px] bg-[#1a2332] text-white rounded-b-md shadow-2xl z-50 overflow-hidden">
+    <div className="absolute right-0 top-full w-[340px] bg-[#1a2332] text-white rounded-b-xl shadow-2xl z-50 overflow-hidden">
       {/* Header */}
       <div className="px-5 pt-5 pb-4 border-b border-[#2d3f52]">
         <h2 className="text-[17px] font-bold text-white leading-tight">Current user settings</h2>

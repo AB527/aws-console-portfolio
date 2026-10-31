@@ -10,7 +10,7 @@ function ResultIcon({ iconId, color, title }: { iconId: string; color: string; t
   if (failed) {
     return (
       <span
-        className="w-8 h-8 rounded shrink-0 flex items-center justify-center text-white text-[14px] font-bold"
+        className="w-8 h-8 rounded-md shrink-0 flex items-center justify-center text-white text-[14px] font-bold"
         style={{ background: color }}
       >
         {title.charAt(0)}
@@ -21,7 +21,7 @@ function ResultIcon({ iconId, color, title }: { iconId: string; color: string; t
     <img
       src={`/icons/${iconId}.png`}
       alt=""
-      className="w-8 h-8 rounded shrink-0"
+      className="w-8 h-8 rounded-md shrink-0"
       onError={() => setFailed(true)}
     />
   )
@@ -78,7 +78,7 @@ export default function SearchBar() {
   return (
     <div ref={ref} className="relative flex-1 max-w-[520px]">
       <div
-        className={`flex items-center bg-[#1b2433] border rounded-md h-[32px] px-3 gap-2 transition-colors ${
+        className={`flex items-center bg-[#1b2433] border rounded-lg h-[32px] px-3 gap-2 transition-colors ${
           open ? "border-[#9bb4c8]" : "border-[#3a4757] hover:border-[#6a7a8c]"
         }`}
       >
@@ -113,7 +113,7 @@ export default function SearchBar() {
       </div>
 
       {open && query.trim().length > 0 && (
-        <div className="absolute top-full left-0 mt-1 w-[960px] max-w-[94vw] bg-[#0d1b2a] rounded-md shadow-2xl z-[9999] flex overflow-hidden">
+        <div className="absolute top-full left-0 mt-1 w-[960px] max-w-[94vw] bg-[#0d1b2a] rounded-xl shadow-2xl z-[9999] flex overflow-hidden">
           {/* Left category sidebar */}
           <div className="w-[148px] shrink-0 py-4 px-3 flex flex-col">
             <button className="text-left pl-2.5 py-1 text-[13px] text-[#539fe5] font-semibold border-l-2 border-[#539fe5]">
@@ -152,7 +152,7 @@ export default function SearchBar() {
                   {results.map((service) => (
                     <div
                       key={service.id}
-                      className="group flex items-center gap-3 px-4 py-3 rounded-lg border border-[#22323f] hover:bg-[#16293c] transition-colors"
+                      className="group flex items-center gap-3 px-4 py-3 rounded-xl border border-[#22323f] hover:bg-[#16293c] transition-colors"
                     >
                       <ResultIcon iconId={service.iconId} color={service.color} title={service.title} />
                       <button

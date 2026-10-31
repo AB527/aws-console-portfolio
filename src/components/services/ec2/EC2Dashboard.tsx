@@ -47,13 +47,13 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
           <p className="text-[12px] text-gray-500 mt-0.5">Production systems and shipped code</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="border border-gray-200 rounded px-3 py-1.5 text-[13px] text-gray-700 hover:bg-gray-50 flex items-center gap-1">
+          <button className="border border-gray-200 rounded-full px-3 py-1.5 text-[13px] text-gray-700 hover:bg-gray-50 flex items-center gap-1">
             Actions
             <svg width="9" height="6" viewBox="0 0 10 6" fill="currentColor" className="opacity-60">
               <path d="M1 1l4 4 4-4" strokeLinecap="round" />
             </svg>
           </button>
-          <button className="bg-[#ff9900] hover:bg-[#e88a00] text-white rounded px-3 py-1.5 text-[13px] font-medium transition-colors"
+          <button className="bg-[#ff9900] hover:bg-[#e88a00] text-white rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors"
             onClick={() => { window.location.href = "mailto:atharvabedekar527@gmail.com?subject=Project%20Proposal&body=Hi%20Atharva%2C%20want%20to%20start%20a%20project." }}>
             Launch project
           </button>
@@ -62,7 +62,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
 
       {/* Toolbar */}
       <div className="flex items-center gap-3 mb-3">
-        <div className="flex items-center gap-2 bg-white border border-gray-300 rounded px-3 h-8 w-72 shadow-sm">
+        <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-lg px-3 h-8 w-72 shadow-sm">
           <svg width="12" height="12" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0">
             <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.75" />
             <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
@@ -78,7 +78,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
@@ -106,7 +106,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                   </td>
                   <td className="px-3 py-2.5"><StatusBadge status={inst.status} /></td>
                   <td className="px-3 py-2.5">
-                    <code className="text-[11px] font-mono bg-gray-50 border border-gray-200 rounded px-1.5 py-0.5 text-gray-700">{inst.instanceType}</code>
+                    <code className="text-[11px] font-mono bg-gray-50 border border-gray-200 rounded-md px-1.5 py-0.5 text-gray-700">{inst.instanceType}</code>
                   </td>
                   <td className="px-3 py-2.5 text-[13px] text-gray-700">{inst.metrics.usersServed.toLocaleString()}</td>
                   <td className="px-3 py-2.5 text-[12px] text-gray-500">{formatPeriod(inst.periodFrom, inst.periodTo)}</td>
@@ -164,14 +164,14 @@ function InstanceDrawer({ inst }: { inst: Instance }) {
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Tags</p>
         <div className="flex flex-wrap gap-1.5 mb-4">
           {inst.tags.map((tag) => (
-            <span key={tag} className="bg-[#eaf4fb] text-[#0073bb] text-xs px-2 py-0.5 rounded border border-[#b3d9f0]">{tag}</span>
+            <span key={tag} className="bg-[#eaf4fb] text-[#0073bb] text-xs px-2 py-0.5 rounded-full border border-[#b3d9f0]">{tag}</span>
           ))}
         </div>
         <a
           href={inst.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-white bg-[#ff9900] hover:bg-[#e68900] px-3.5 py-2 rounded font-medium transition-colors shadow-sm"
+          className="inline-flex items-center gap-1.5 text-xs text-white bg-[#ff9900] hover:bg-[#e68900] px-3.5 py-2 rounded-full font-medium transition-colors shadow-sm"
         >
           Open Project
           <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
