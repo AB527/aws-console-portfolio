@@ -6,23 +6,21 @@ export default function ConsoleHomeHeader() {
   const resetLayout = useConsoleStore((s) => s.resetLayout)
 
   return (
-    <div className="flex items-center justify-between px-6 pt-4 pb-2">
-      <div className="flex items-center gap-2">
-        <h1 className="text-[22px] font-light text-gray-900 tracking-tight">Console home</h1>
-        <span className="text-[13px] text-[#0073bb] hover:underline cursor-pointer font-medium leading-none">
-          Info
-        </span>
+    <div className="flex items-center justify-between gap-4 flex-wrap px-6 pt-4 pb-4">
+      <div className="flex items-baseline gap-2">
+        <h1 className="text-[24px] leading-[30px] font-bold text-[#0f141a]">Console home</h1>
+        <span className="text-[12px] font-bold text-[#006ce0] hover:underline cursor-pointer">Info</span>
       </div>
       <div className="flex items-center gap-2">
         <button
           onClick={resetLayout}
-          className="text-[13px] text-[#0073bb] border-2 border-[#0073bb] rounded-full px-4 py-1.5 hover:bg-[#eaf4fb] transition-colors font-bold"
+          className="h-8 px-5 rounded-full border-2 border-[#006ce0] text-[14px] font-bold text-[#006ce0] hover:bg-[#f0fbff] transition-colors whitespace-nowrap"
         >
           Reset to default layout
         </button>
-        <button className="text-[13px] text-black bg-[#ff9900] hover:bg-[#e68900] rounded-full px-4 py-1.5 transition-colors font-bold flex items-center gap-1.5 shadow-sm">
-          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <button className="h-8 px-5 flex items-center gap-2 rounded-full bg-[#ff9900] hover:bg-[#fa6f00] text-[14px] font-bold text-[#0f141a] transition-colors whitespace-nowrap">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="2" />
           </svg>
           Add widgets
         </button>

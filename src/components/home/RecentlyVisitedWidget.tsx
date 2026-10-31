@@ -14,11 +14,11 @@ export default function RecentlyVisitedWidget() {
   if (visitedServices.length === 0) {
     return (
       <div className="flex flex-col h-full">
-        <p className="text-[13px] font-medium text-gray-500 py-4 text-center flex-1">
+        <p className="text-[#656871] py-4 text-center flex-1">
           No recently visited services.
         </p>
-        <div className="border-t border-gray-100 pt-2 text-center">
-          <Link href="/console/services" className="text-[13px] font-semibold text-[#0073bb] hover:underline">
+        <div className="border-t border-[#c6c6cd] pt-3 text-center">
+          <Link href="/console/services" className="text-[#006ce0] hover:underline">
             View all services
           </Link>
         </div>
@@ -28,7 +28,7 @@ export default function RecentlyVisitedWidget() {
 
   return (
     <div className="flex flex-col h-full gap-2">
-      <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 content-start">
+      <div className="grid grid-cols-2 gap-x-10 content-start">
         {visitedServices.map((service, i) => {
           const lastRowStart =
             visitedServices.length - (visitedServices.length % 2 === 0 ? 2 : 1)
@@ -37,20 +37,20 @@ export default function RecentlyVisitedWidget() {
           <Link
             key={service.id}
             href={`/${service.id}/home`}
-            className={`flex items-center gap-2 px-1 py-1 hover:bg-gray-50 transition-colors group ${
-              inLastRow ? "" : "border-b border-gray-100"
+            className={`flex items-center gap-3 py-2.5 group ${
+              inLastRow ? "" : "border-b border-[#c6c6cd]"
             }`}
           >
             <ServiceIcon iconId={service.iconId} color={service.color} size="sm" />
-            <span className="text-[13px] text-gray-700 group-hover:text-[#0073bb] group-hover:underline truncate leading-tight">
+            <span className="text-[#006ce0] group-hover:underline truncate">
               {service.title}
             </span>
           </Link>
           )
         })}
       </div>
-      <div className="mt-auto border-t border-gray-100 pt-2 text-center">
-        <Link href="/getting-started" className="text-[13px] font-semibold text-[#0073bb] hover:underline">
+      <div className="mt-auto border-t border-[#c6c6cd] pt-3 text-center">
+        <Link href="/getting-started" className="text-[#006ce0] hover:underline">
           View all services
         </Link>
       </div>

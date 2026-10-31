@@ -41,17 +41,17 @@ export default function SolutionsWidget() {
   }
 
   return (
-    <div className="flex flex-col h-full -m-3">
+    <div className="flex flex-col h-full -mx-5 -mb-5">
       {/* Description */}
-      <p className="text-[13px] text-gray-600 leading-relaxed px-4 -mt-1 pb-3">
+      <p className="text-[14px] text-[#424650] leading-relaxed px-5 -mt-1 pb-3">
         {solutions.description}
       </p>
 
       {/* Tabs with chevron navigation */}
-      <div className="flex items-stretch border-b border-gray-200 shrink-0">
+      <div className="flex items-stretch border-b border-[#c6c6cd] shrink-0">
         <button
           onClick={() => scrollTabs(-1)}
-          className="flex items-center px-2.5 text-gray-500 hover:text-gray-800 border-r border-gray-200 shrink-0"
+          className="flex items-center px-2.5 text-[#656871] hover:text-[#0f141a] border-r border-[#c6c6cd] shrink-0"
           aria-label="Scroll tabs left"
         >
           <svg width="11" height="16" viewBox="0 0 8 12" fill="none">
@@ -68,12 +68,12 @@ export default function SolutionsWidget() {
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`px-4 py-2.5 text-[14px] font-semibold whitespace-nowrap transition-colors border-b-2 -mb-px ${
-                idx > 0 ? "border-l border-l-gray-200" : ""
+              className={`px-5 py-2.5 text-[14px] font-bold whitespace-nowrap transition-colors border-b-2 -mb-px ${
+                idx > 0 ? "border-l border-l-[#c6c6cd]" : ""
               } ${
                 activeTab === t.id
-                  ? "border-b-[#0073bb] text-[#0073bb]"
-                  : "border-b-transparent text-gray-700 hover:text-gray-900"
+                  ? "border-b-[#006ce0] text-[#006ce0]"
+                  : "border-b-transparent text-[#424650] hover:text-[#0f141a]"
               }`}
             >
               {t.name} ({t.items.length})
@@ -83,7 +83,7 @@ export default function SolutionsWidget() {
 
         <button
           onClick={() => scrollTabs(1)}
-          className="flex items-center px-2.5 text-gray-500 hover:text-gray-800 border-l border-gray-200 shrink-0"
+          className="flex items-center px-2.5 text-[#656871] hover:text-[#0f141a] border-l border-[#c6c6cd] shrink-0"
           aria-label="Scroll tabs right"
         >
           <svg width="11" height="16" viewBox="0 0 8 12" fill="none">
@@ -93,30 +93,30 @@ export default function SolutionsWidget() {
       </div>
 
       {/* Items */}
-      <div className="flex-1 overflow-y-auto px-4">
+      <div className="flex-1 overflow-y-auto px-5">
         {(tab.items as SolutionItem[]).map((item, i) => (
-          <div key={i} className={`py-3 ${i > 0 ? "border-t border-gray-200" : ""}`}>
+          <div key={i} className={`py-3 ${i > 0 ? "border-t border-[#c6c6cd]" : ""}`}>
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] font-bold text-[#0073bb] hover:underline leading-snug"
+              className="text-[14px] font-bold text-[#006ce0] hover:underline leading-snug"
             >
               {item.title}
               <ExternalIcon />
             </a>
-            <p className="text-[12px] text-gray-500 mt-1">{item.time}</p>
+            <p className="text-[12px] text-[#656871] mt-1">{item.time}</p>
           </div>
         ))}
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-200 shrink-0">
+      <div className="border-t border-[#c6c6cd] shrink-0">
         <a
           href={solutions.footer.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1 text-center text-[13px] font-medium text-[#0073bb] hover:underline py-3"
+          className="flex items-center justify-center gap-1 text-center text-[14px] text-[#006ce0] hover:underline py-3"
         >
           {solutions.footer.label}
           <ExternalIcon />
