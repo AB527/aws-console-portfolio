@@ -309,7 +309,7 @@ export default function ResourceSplitView<T extends { id: string }>({
 
       {/* Detail panel */}
       {selected && (
-        <div className="mt-8 -mx-6 px-6 pt-5 border-t border-[#c6c6cd]">
+        <div className="mt-8 -mx-4 px-4 lg:-mx-6 lg:px-6 pt-5 border-t border-[#c6c6cd]">
           <h2 className="text-[18px] leading-6 font-bold break-all">{selected.id}</h2>
           <div className="flex flex-wrap border-b border-[#c6c6cd] mt-4 mb-5">
             {tabs.map((t, i) => (

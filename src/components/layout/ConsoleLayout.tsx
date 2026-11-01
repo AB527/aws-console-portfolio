@@ -1,31 +1,62 @@
 "use client"
 
 import { useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import services from "@/data/services.json"
 import Topbar from "./Topbar"
 import ConsoleFooter from "./ConsoleFooter"
 import CloudShellPanel from "./CloudShellPanel"
+import AmazonQPanel from "./AmazonQPanel"
 
 interface ConsoleLayoutProps {
   children: React.ReactNode
 }
 
 export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
+  const pathname = usePathname()
   const visualMode = useConsoleStore((s) => s.visualMode)
   const cloudShellOpen = useConsoleStore((s) => s.cloudShellOpen)
+  const amazonQOpen = useConsoleStore((s) => s.amazonQOpen)
 
   useEffect(() => {
     document.documentElement.dataset.theme = visualMode === "light" ? "light" : ""
   }, [visualMode])
 
+  // Show the current service's icon as the tab favicon, falling back to the site icon elsewhere
+  useEffect(() => {
+    const service = services.find((s) => s.id === pathname.split("/")[1])
+    const apply = () => {
+      document.querySelectorAll<HTMLLinkElement>('link[rel="icon"], link[rel="shortcut icon"]').forEach((link) => {
+        if (link.dataset.defaultHref === undefined) {
+          link.dataset.defaultHref = link.getAttribute("href") ?? ""
+          link.dataset.defaultType = link.getAttribute("type") ?? ""
+        }
+        const href = service ? `/icons/${service.iconId}.png` : link.dataset.defaultHref
+        const type = service ? "image/png" : (link.dataset.defaultType ?? "")
+        if (link.getAttribute("href") !== href) link.setAttribute("href", href)
+        if ((link.getAttribute("type") ?? "") !== type) {
+          if (type) link.setAttribute("type", type)
+          else link.removeAttribute("type")
+        }
+      })
+    }
+    apply()
+    // Next streams its own icon links into <head> after first paint, so re-apply when they arrive
+    const observer = new MutationObserver(apply)
+    observer.observe(document.head, { childList: true })
+    return () => observer.disconnect()
+  }, [pathname])
+
   return (
     <div className="min-h-screen bg-[#f2f3f3]">
       <Topbar />
-      <div className="mt-[56px] flex min-h-[calc(100vh-56px)]">
+      <div className={`mt-[56px] flex min-h-[calc(100vh-56px)] ${amazonQOpen ? "md:pl-[420px]" : ""}`}>
         <main className="flex-1 min-w-0 overflow-x-clip pb-[32px]">
           {children}
         </main>
       </div>
+      {amazonQOpen && <AmazonQPanel />}
       {cloudShellOpen && <CloudShellPanel />}
       <ConsoleFooter />
     </div>

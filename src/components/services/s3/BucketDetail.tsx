@@ -151,7 +151,7 @@ export default function BucketDetail({ bucket }: { bucket: Bucket }) {
   const activeBtn = `${pillBtn} border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]`
 
   return (
-    <div className={`${openSans.className} px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
+    <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
       <div className="flex items-baseline gap-2 mb-3">
         <h1 className="text-[24px] leading-[30px] font-bold break-all">{bucket.name}</h1>
         <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
@@ -192,7 +192,7 @@ export default function BucketDetail({ bucket }: { bucket: Bucket }) {
           </button>
           <button onClick={handleCopyS3Uri} disabled={!oneSelected} className={oneSelected ? activeBtn : disabledBtn}>
             <CopyIcon />
-            Copy S3 URI
+            Copy URI
           </button>
           <button onClick={handleCopyUrl} disabled={!hasFile} className={hasFile ? activeBtn : disabledBtn}>
             <CopyIcon />
@@ -236,8 +236,8 @@ export default function BucketDetail({ bucket }: { bucket: Bucket }) {
         </div>
 
         <p className="mt-2">
-          Objects are the fundamental entities stored in Amazon S3. You can use{" "}
-          <a className="text-[#006ce0] underline underline-offset-4 cursor-pointer">Amazon S3 inventory ↗</a> to get a
+          Objects are the fundamental entities stored in Documents. You can use{" "}
+          <a className="text-[#006ce0] underline underline-offset-4 cursor-pointer">Documents inventory ↗</a> to get a
           list of all objects in your bucket. For others to access your objects, you&apos;ll need to explicitly grant
           them permissions. <a className="text-[#006ce0] underline underline-offset-4 cursor-pointer">Learn more ↗</a>
         </p>

@@ -108,7 +108,7 @@ export default function ObjectDetail({ bucketName, region, regionLabel, owner, o
   )
 
   return (
-    <div className={`${openSans.className} px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
+    <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
       <div className="flex items-start justify-between gap-4 flex-wrap mb-5">
         <div className="flex items-baseline gap-2 min-w-0">
           <h1 className="text-[24px] leading-[30px] font-bold text-[#0f141a] break-all">{obj.key}</h1>
@@ -117,7 +117,7 @@ export default function ObjectDetail({ bucketName, region, regionLabel, owner, o
         <div className="flex items-center gap-2 flex-wrap">
           <button onClick={() => copy(s3Uri)} className={activeBtn}>
             <CopyIcon />
-            Copy S3 URI
+            Copy URI
           </button>
           {obj.url ? (
             <a href={obj.url} download={obj.key} className={activeBtn}>
@@ -174,15 +174,15 @@ export default function ObjectDetail({ bucketName, region, regionLabel, owner, o
           <div className="grid grid-cols-1 md:grid-cols-2">
             <dl className="space-y-4 md:pr-6">
               <Field label="Owner">{owner}</Field>
-              <Field label="AWS Region">{regionLabel}</Field>
+              <Field label="AB Region">{regionLabel}</Field>
               <Field label="Last modified">{formatDate(obj.lastModified)}</Field>
               <Field label="Size">{obj.size}</Field>
               <Field label="Type">{fileExt(obj.key)}</Field>
               <Field label="Key">{obj.key}</Field>
             </dl>
             <dl className="space-y-4 mt-4 md:mt-0 md:pl-6 md:border-l border-[#c6c6cd]">
-              <Field label="S3 URI">
-                <CopyButton text={s3Uri} label="S3 URI" />
+              <Field label="URI">
+                <CopyButton text={s3Uri} label="URI" />
                 {s3Uri}
               </Field>
               <Field label="Amazon Resource Name (ARN)">

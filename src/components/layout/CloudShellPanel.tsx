@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import { openSans } from "@/lib/awsFont"
 
 export default function CloudShellPanel() {
   const setCloudShellOpen = useConsoleStore((s) => s.setCloudShellOpen)
@@ -50,95 +51,97 @@ export default function CloudShellPanel() {
 
   return (
     <div
-      className="fixed left-0 right-0 bottom-[32px] bg-[#0d1117] text-gray-200 z-40 flex flex-col border-t border-[#30363d]"
+      className={`${openSans.className} fixed left-0 right-0 bottom-[32px] max-h-[70vh] bg-[#161d26] text-[#dedee3] z-40 flex flex-col`}
       style={{ height }}
     >
-      {/* Drag handle */}
-      <div
-        className="flex items-center justify-center h-[14px] cursor-ns-resize shrink-0 hover:bg-[#161b22] transition-colors"
-        onMouseDown={onDragStart}
-        title="Drag to resize"
-      >
-        <div className="flex flex-col gap-[3px]">
-          <div className="w-7 h-[2px] bg-[#484f58] rounded-full" />
-          <div className="w-7 h-[2px] bg-[#484f58] rounded-full" />
+      {/* Grip bar: drag to resize, close on the right */}
+      <div className="relative flex items-center justify-center h-[30px] shrink-0 bg-[#1b232d]">
+        <div
+          className="flex items-center justify-center w-16 h-full cursor-ns-resize"
+          onMouseDown={onDragStart}
+          title="Drag to resize"
+        >
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M1 1.5h14M1 6.5h14" />
+          </svg>
         </div>
+        <button
+          onClick={() => setCloudShellOpen(false)}
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-1 text-[#dedee3] hover:text-white transition-colors"
+          title="Close"
+          aria-label="Close CloudShell"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       {/* Header */}
-      <div className="flex items-center gap-2 px-3 h-[38px] shrink-0 bg-[#161b22] border-b border-[#30363d]">
-        <div className="flex items-center gap-1.5 text-gray-300">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-            <rect x="2" y="4" width="20" height="16" rx="2" />
-            <path d="M6 9l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M13 15h5" strokeLinecap="round" />
-          </svg>
-          <span className="text-[13px] font-semibold">CloudShell</span>
-        </div>
-
-        <div className="flex items-center ml-3 border-b-2 border-[#ff9900]">
-          <button className="px-3 py-0.5 text-[12px] text-white">{selectedRegion}</button>
-        </div>
-        <button className="text-gray-500 hover:text-white text-lg leading-none px-1">+</button>
+      <div className="flex items-center gap-3 px-5 pt-1 pb-2 shrink-0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="text-white shrink-0" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <path d="M8 9l3 3-3 3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13 15h3" strokeLinecap="round" />
+        </svg>
+        <span className="text-[18px] leading-6 font-bold text-white">CloudShell</span>
 
         <div className="flex-1" />
 
-        <button className="flex items-center gap-1 px-2.5 py-0.5 border border-[#4db8ff] text-[#4db8ff] rounded-full text-[12px] hover:bg-[#0d2137] transition-colors">
+        <button className="flex items-center gap-2.5 h-8 px-5 border-2 border-[#42b4ff] text-[#42b4ff] rounded-full text-[14px] font-bold hover:bg-[#1b2b3d] transition-colors">
           Actions
-          <svg width="8" height="5" viewBox="0 0 10 6" fill="currentColor">
-            <path d="M1 1l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="currentColor" aria-hidden="true">
+            <path d="M0 0h10L5 7z" />
           </svg>
         </button>
 
-        <button className="p-1 text-gray-500 hover:text-white transition-colors" title="Open in new tab">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+        <button className="p-2 text-[#dedee3] hover:text-white transition-colors" title="Open in new tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-            <polyline points="15 3 21 3 21 9" />
-            <line x1="10" y1="14" x2="21" y2="3" />
+            <path d="M15 3h6v6M10 14 21 3" />
           </svg>
         </button>
 
-        <button className="p-1 text-gray-500 hover:text-white transition-colors" title="Settings">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+        <button className="p-2 text-[#dedee3] hover:text-white transition-colors" title="Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
           </svg>
         </button>
+      </div>
 
-        <button
-          onClick={() => setCloudShellOpen(false)}
-          className="p-1 text-gray-500 hover:text-white transition-colors"
-          title="Close"
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
-          </svg>
+      {/* Region tabs */}
+      <div className="flex items-end mx-5 shrink-0 border-b border-[#424650]">
+        <button className="relative px-4 pt-2 pb-3 text-[14px] font-bold text-[#42b4ff]">
+          {selectedRegion}
+          <span className="absolute left-0 right-0 -bottom-px h-[3px] rounded-t bg-[#42b4ff]" />
+        </button>
+        <span className="self-center w-px h-6 bg-[#424650]" />
+        <button className="px-4 pb-2 text-[#42b4ff] text-[22px] leading-none hover:text-white transition-colors" title="New tab" aria-label="New tab">
+          +
         </button>
       </div>
 
       {/* Terminal */}
       <div
-        className="flex-1 overflow-y-auto p-3 font-mono text-[13px] cursor-text leading-relaxed"
+        className="flex-1 overflow-y-auto px-6 py-3 font-mono text-[13px] cursor-text leading-relaxed"
         onClick={() => inputRef.current?.focus()}
       >
         {history.map((item, i) => (
           <div key={i} className="mb-1">
-            <div className="text-gray-300">
-              <span className="text-green-400">~</span>{" "}
-              <span className="text-gray-500">$</span> {item.cmd}
-            </div>
+            <div>~ $ {item.cmd}</div>
             <div className="text-yellow-400/80">{item.output}</div>
           </div>
         ))}
-        <div className="flex items-center gap-1.5">
-          <span className="text-green-400">~</span>
-          <span className="text-gray-500">$</span>
+        <div className="flex items-center gap-2">
+          <span>~ $</span>
           <input
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKey}
-            className="flex-1 bg-transparent outline-none text-gray-200 caret-white"
+            aria-label="Terminal input"
+            className="flex-1 bg-transparent outline-none text-[#dedee3] caret-white"
             spellCheck={false}
             autoComplete="off"
           />

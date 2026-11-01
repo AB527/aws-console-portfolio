@@ -5,7 +5,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import iamConsole from "@/data/iam-console.json"
 import { serviceTitle } from "@/lib/serviceTitle"
-import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
+import { useConsoleStore } from "@/store/useConsoleStore"
+import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS, mobileDrawerClass } from "@/components/ui/SidebarIcons"
 
 function NavLink({
   href,
@@ -33,6 +34,7 @@ function NavLink({
 export default function IAMSidebar() {
   const pathname = usePathname()
   const { nav } = iamConsole
+  const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const [open, setOpen] = useState<Record<string, boolean>>(
     Object.fromEntries(nav.sections.map((s) => [s.id, true]))
   )
@@ -40,7 +42,7 @@ export default function IAMSidebar() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
 
   return (
-    <aside className="w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col">
+    <aside className={`w-[240px] shrink-0 bg-white border-r border-gray-200 sticky top-[56px] h-[calc(100vh-56px)] overflow-y-auto flex flex-col ${mobileDrawerClass(mobileNavOpen)}`}>
       {/* Service header */}
       <div className="flex items-start justify-between gap-2 px-4 pt-5 pb-3">
         <span className="text-[20px] leading-tight font-bold text-gray-900">{serviceTitle("iam")}</span>

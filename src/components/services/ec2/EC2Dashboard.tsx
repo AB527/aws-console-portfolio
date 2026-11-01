@@ -80,7 +80,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
   const router = useRouter()
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const [search, setSearch] = useState("")
-  const [selectedId, setSelectedId] = useState<string | null>(activeProject)
+  const [selectedIds, setSelectedIds] = useState<string[]>(activeProject ? [activeProject] : [])
   const [panelId, setPanelId] = useState<string | null>(activeProject)
   const [panelHeight, setPanelHeight] = useState<number | null>(null)
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" } | null>(null)
@@ -100,12 +100,15 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
     })
     .sort((a, b) => (sort ? a[sort.key].localeCompare(b[sort.key]) * (sort.dir === "asc" ? 1 : -1) : 0))
 
-  const selected = filtered.find((i) => i.id === selectedId) ?? null
+  const selectedRows = filtered.filter((i) => selectedIds.includes(i.id))
+  // The detail panel and Connect only apply when exactly one project is selected
+  const selected = selectedRows.length === 1 ? selectedRows[0] : null
+  const allSelected = filtered.length > 0 && selectedRows.length === filtered.length
   // Keep showing the last project while the panel slides away
   const panelInst = selected ?? ec2Data.instances.find((i) => i.id === panelId) ?? null
 
   const toggleSelect = (id: string) => {
-    setSelectedId((cur) => (cur === id ? null : id))
+    setSelectedIds((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]))
     setPanelId(id)
   }
 
@@ -120,7 +123,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
 
   return (
     <div
-      className="px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
+      className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
       style={selected ? { paddingBottom: splitPanelPadding(panelHeight) } : undefined}
     >
       {/* Header */}
@@ -128,7 +131,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
         <h1 className="text-[24px] leading-[30px] font-bold">
           {activeProject ? (filtered[0]?.name ?? "Project") : "Projects"}{" "}
           <span className="font-normal text-[#656871]">
-            ({selected ? `1/${filtered.length}` : filtered.length})
+            ({selectedRows.length ? `${selectedRows.length}/${filtered.length}` : filtered.length})
           </span>{" "}
           <span className="text-xs font-bold text-[#006ce0] align-middle">Info</span>
         </h1>
@@ -243,10 +246,10 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                 <span className="flex items-center h-5">
                   <input
                     type="checkbox"
-                    checked={!!selected}
-                    onChange={() => setSelectedId(null)}
-                    disabled={!selected}
-                    aria-label="Clear selection"
+                    checked={allSelected}
+                    ref={(el) => { if (el) el.indeterminate = selectedRows.length > 0 && !allSelected }}
+                    onChange={() => setSelectedIds(selectedRows.length ? [] : filtered.map((i) => i.id))}
+                    aria-label="Select all projects"
                     className="block w-4 h-4 m-0 accent-[#006ce0]"
                   />
                 </span>
@@ -277,7 +280,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
           </thead>
           <tbody>
             {filtered.map((inst) => {
-              const isSelected = inst.id === selectedId
+              const isSelected = selectedIds.includes(inst.id)
               return (
                 <tr
                   key={inst.id}
@@ -339,7 +342,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
         open={!!selected}
         height={panelHeight}
         onResize={setPanelHeight}
-        onClose={() => setSelectedId(null)}
+        onClose={() => setSelectedIds([])}
       />
     </div>
   )

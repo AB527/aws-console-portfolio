@@ -77,13 +77,18 @@ export default function SearchBar() {
   )
 
   return (
-    <div ref={ref} className="relative flex-1 max-w-[520px]">
+    <div
+      ref={ref}
+      className="group relative flex-1 max-w-[520px] max-md:flex-none max-md:w-[38px] max-md:focus-within:fixed max-md:focus-within:left-2 max-md:focus-within:right-2 max-md:focus-within:top-[15px] max-md:focus-within:z-50 max-md:focus-within:w-auto max-md:focus-within:max-w-none"
+    >
+      {/* On phones this is a bare search icon until tapped, then it expands across the topbar */}
       <div
-        className={`flex items-center bg-[#1b2433] border rounded-lg h-[32px] px-3 gap-2 transition-colors ${
+        onClick={() => inputRef.current?.focus()}
+        className={`flex items-center bg-[#1b2433] border rounded-lg h-[32px] px-3 gap-2 transition-colors max-md:[.group:not(:focus-within)_&]:justify-center max-md:[.group:not(:focus-within)_&]:gap-0 max-md:[.group:not(:focus-within)_&]:px-0 max-md:[.group:not(:focus-within)_&]:bg-transparent max-md:[.group:not(:focus-within)_&]:border-transparent ${
           open ? "border-[#9bb4c8]" : "border-[#3a4757] hover:border-[#6a7a8c]"
         }`}
       >
-        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0">
+        <svg width="13" height="13" viewBox="0 0 20 20" fill="none" className="text-gray-400 shrink-0 max-md:[.group:not(:focus-within)_&]:w-[19px] max-md:[.group:not(:focus-within)_&]:h-[19px] max-md:[.group:not(:focus-within)_&]:text-gray-200">
           <circle cx="8.5" cy="8.5" r="5.75" stroke="currentColor" strokeWidth="1.75"/>
           <path d="M13 13l4.5 4.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
         </svg>
@@ -99,14 +104,14 @@ export default function SearchBar() {
             if (e.key === "Escape") { setOpen(false); setQuery("") }
             if (e.key === "Enter" && results.length > 0) navigate(results[0].id)
           }}
-          className="bg-transparent text-[13px] text-white flex-1 focus:outline-none placeholder-gray-400 placeholder:italic"
+          className="bg-transparent text-[13px] text-white flex-1 min-w-0 focus:outline-none placeholder-gray-400 placeholder:italic max-md:[.group:not(:focus-within)_&]:w-0 max-md:[.group:not(:focus-within)_&]:flex-none"
         />
-        <span className="text-[12px] text-gray-400 shrink-0 flex items-center gap-2">
+        <span className="text-[12px] text-gray-400 shrink-0 hidden sm:flex items-center gap-2">
           {focused ? (
             <span className="font-semibold text-gray-200">Ask AB Q</span>
           ) : (
             <>
-              <span>[Option+S]</span>
+              <span className="hidden sm:inline">[Option+S]</span>
               <span className="font-semibold text-gray-200">Q</span>
             </>
           )}
@@ -115,7 +120,7 @@ export default function SearchBar() {
 
       {open && query.trim().length > 0 && (
         <div
-          className={`${openSans.className} absolute top-[calc(100%+10px)] left-0 w-[74vw] max-w-[1410px] max-h-[calc(100vh-120px)] bg-[#161d26] rounded-b-xl shadow-2xl z-[9999] flex overflow-hidden`}
+          className={`${openSans.className} absolute top-[calc(100%+10px)] left-0 w-[74vw] max-md:fixed max-md:left-2 max-md:right-2 max-md:top-[56px] max-md:w-auto max-w-[1410px] max-h-[calc(100vh-120px)] bg-[#161d26] rounded-b-xl shadow-2xl z-[9999] flex overflow-hidden`}
         >
           {/* Left category sidebar */}
           <div className="w-[250px] shrink-0 py-6 pl-5 pr-4 hidden md:flex flex-col">

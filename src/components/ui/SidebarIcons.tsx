@@ -27,5 +27,12 @@ export function SidebarChevron({ direction }: { direction: "left" | "right" }) {
   )
 }
 
+// Below lg a service sidebar becomes a slide-in drawer, toggled by MobileNavToggle
+export function mobileDrawerClass(open: boolean) {
+  return `max-lg:fixed max-lg:top-[56px] max-lg:bottom-[32px] max-lg:left-0 max-lg:z-50 max-lg:h-auto max-lg:w-[280px] max-lg:max-w-[85vw] max-lg:overflow-y-auto max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-200 ${
+    open ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"
+  }`
+}
+
 export const SIDEBAR_CLOSE_BUTTON_CLASS =
   "w-8 h-8 shrink-0 flex items-center justify-center rounded-full text-gray-900 hover:bg-gray-100 transition-colors"

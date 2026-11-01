@@ -16,7 +16,7 @@ function ExternalLinkIcon() {
 
 export default function HelpDropdown() {
   return (
-    <div className="absolute right-0 top-full w-[300px] bg-[#1a2332] text-white rounded-b-xl shadow-2xl z-50 overflow-hidden">
+    <div className="absolute right-0 top-full w-[300px] max-md:static max-md:w-full max-md:rounded-none max-md:shadow-none max-md:border-0 max-md:bg-transparent bg-[#1a2332] text-white rounded-b-xl shadow-2xl z-50 overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-2 px-6 pt-6 pb-4 border-b border-[#2d3f52]">
         <h3 className="text-[18px] font-semibold text-white">Support</h3>

@@ -5,7 +5,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { serviceTitle } from "@/lib/serviceTitle"
 import { openSans } from "@/lib/awsFont"
-import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS } from "@/components/ui/SidebarIcons"
+import { SectionCaret, SidebarChevron, SIDEBAR_CLOSE_BUTTON_CLASS, mobileDrawerClass } from "@/components/ui/SidebarIcons"
+import { useConsoleStore } from "@/store/useConsoleStore"
+import MobileNavToggle from "@/components/layout/MobileNavToggle"
 import vpcData from "@/data/vpc.json"
 
 const NAV = [
@@ -18,6 +20,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
   const [sectionOpen, setSectionOpen] = useState(true)
+  const mobileNavOpen = useConsoleStore((s) => s.mobileNavOpen)
   const current = NAV.find((n) => pathname.startsWith(n.href))
 
   return (
@@ -26,11 +29,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
     >
       {/* Top bar */}
       <div className="flex items-center gap-3 px-4 py-2.5 bg-white border-b border-[#c6c6cd] text-[16px]">
-        <span className="w-8 h-8 flex items-center justify-center rounded-full bg-[#006ce0] text-white">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          </svg>
-        </span>
+        <MobileNavToggle />
         {current && (
           <>
             <Link href="/vpc/home" className="text-[#006ce0] underline underline-offset-4">
@@ -52,7 +51,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
             </button>
           </aside>
         ) : (
-          <aside className="w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] hidden lg:block">
+          <aside className={`w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] ${mobileDrawerClass(mobileNavOpen)}`}>
             <div className="flex items-center justify-between pl-7 pr-4 pt-5 pb-3">
               <Link
                 href="/vpc/home"
@@ -100,7 +99,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
             </nav>
           </aside>
         )}
-        <main className="flex-1 min-w-0 px-6 py-5">{children}</main>
+        <main className="flex-1 min-w-0 px-4 lg:px-6 py-5">{children}</main>
       </div>
     </div>
   )

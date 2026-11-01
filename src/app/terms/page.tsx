@@ -55,7 +55,7 @@ const sections = [
 export default function TermsPage() {
   return (
     <div className="bg-white min-h-screen pb-12">
-      <div className="max-w-5xl mx-auto px-6 pt-6">
+      <div className="max-w-5xl mx-auto px-4 lg:px-6 pt-6">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Terms of Use" }]} />
 
         <div className="mt-4 mb-6">
@@ -70,7 +70,7 @@ export default function TermsPage() {
 
         <div className="flex gap-10 items-start">
           {/* Sticky sidebar TOC */}
-          <aside className="w-[220px] shrink-0 sticky top-[56px]">
+          <aside className="w-[220px] shrink-0 sticky top-[56px] hidden lg:block">
             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">Contents</p>
             <nav className="flex flex-col gap-1">
               {sections.map((s) => (

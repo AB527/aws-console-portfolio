@@ -22,7 +22,7 @@ const TABS = ["General purpose buckets", "Directory buckets"]
 type SortKey = "name" | "region" | "createdDate"
 const COLUMNS: { key: SortKey; label: string }[] = [
   { key: "name", label: "Name" },
-  { key: "region", label: "AWS Region" },
+  { key: "region", label: "AB Region" },
   { key: "createdDate", label: "Creation date" },
 ]
 
@@ -94,7 +94,7 @@ export default function BucketsList() {
               {tab}
               {i === 0 && (
                 <span className="text-[12px] leading-4 font-normal text-white bg-[#424650] rounded px-2 py-0.5">
-                  All AWS Regions
+                  All AB Regions
                 </span>
               )}
               {activeTab === tab && <span className="absolute left-0 right-0 bottom-0 h-1 rounded-t bg-[#006ce0]" />}
@@ -114,7 +114,7 @@ export default function BucketsList() {
                 </h2>
                 <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
               </div>
-              <p className="mt-1">Buckets are containers for data stored in S3.</p>
+              <p className="mt-1">Buckets are containers for data stored in Documents.</p>
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">

@@ -37,7 +37,7 @@ export default async function BucketPage({ params }: Props) {
           <path d="M3 12h18M3 6h18M3 18h18" />
         </svg>
         <Link href="/s3/home" className="text-[#0073bb] hover:underline">
-          Amazon S3
+          Documents
         </Link>
         <span className="text-gray-400">›</span>
         <Link href="/s3/home" className="text-[#0073bb] hover:underline">
