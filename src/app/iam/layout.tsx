@@ -1,11 +1,13 @@
 import IAMSidebar from "@/components/services/iam/IAMSidebar"
-import MobileServiceBar from "@/components/layout/MobileServiceBar"
-import { serviceTitle } from "@/lib/serviceTitle"
+import ServiceTopBar from "@/components/layout/ServiceTopBar"
+import ServiceBreadcrumb from "@/components/layout/ServiceBreadcrumb"
 
 export default function IAMLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <MobileServiceBar title={serviceTitle("iam")} />
+      <ServiceTopBar>
+        <ServiceBreadcrumb />
+      </ServiceTopBar>
       <div className="flex min-h-[calc(100vh-56px)]">
         <IAMSidebar />
         <main className="flex-1 min-w-0">

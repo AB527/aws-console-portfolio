@@ -1,0 +1,27 @@
+{
+  "sections": [
+    {
+      "id": "recent",
+      "label": "Recently visited",
+      "empty": "No recently visited services. Open a service and it will show up here."
+    },
+    {
+      "id": "favourites",
+      "label": "Favourites",
+      "empty": "No favourites yet. Choose the star next to a service to add it here."
+    },
+    {
+      "id": "all",
+      "label": "All services",
+      "empty": "No services available."
+    }
+  ],
+  "addToFavourites": "Add to favourites",
+  "removeFromFavourites": "Remove from favourites",
+  "close": "Close",
+  "addWidgets": {
+    "title": "Add widgets",
+    "add": "Add",
+    "empty": "All widgets are already on your dashboard."
+  }
+}

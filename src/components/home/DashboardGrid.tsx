@@ -3,11 +3,16 @@
 import { useState, useRef, useEffect } from "react"
 import {
   DndContext,
+  DragOverlay,
   closestCenter,
+  pointerWithin,
   PointerSensor,
+  useDroppable,
   useSensor,
   useSensors,
+  CollisionDetection,
   DragEndEvent,
+  DragStartEvent,
 } from "@dnd-kit/core"
 import {
   SortableContext,
@@ -21,6 +26,8 @@ import dashboardLayout from "@/data/dashboard-layout.json"
 import solutions from "@/data/solutions.json"
 import explore from "@/data/explore.json"
 import WidgetInfoPanel from "./WidgetInfoPanel"
+import { splitPanelPadding } from "@/components/services/ec2/EC2SplitPanel"
+import AddWidgetsPanel, { AddWidgetCard, ADD_PREFIX } from "./AddWidgetsPanel"
 
 const WIDGET_COUNTS: Record<string, number> = {
   solutions: solutions.tabs.reduce((sum, t) => sum + t.items.length, 0),
@@ -38,15 +45,9 @@ for (const w of dashboardLayout.widgets) {
   WIDGET_CONFIGS[w.id] = { id: w.id, minColSpan: w.minColSpan, maxColSpan: w.maxColSpan }
 }
 
-const WIDGET_TITLES: Record<string, string> = {
-  "recently-visited": "Recently visited",
-  "pinned": "Pinned",
-  "know-me": "Know Me",
-  "system-status": "GitHub",
-  "achievements": "Achievements",
-  "solutions": "Solutions",
-  "announcements": "Latest announcements",
-  "blog-posts": "Recent blog posts",
+const WIDGET_TITLES: Record<string, string> = {}
+for (const w of dashboardLayout.widgets) {
+  WIDGET_TITLES[w.id] = w.title
 }
 
 interface SortableWidgetProps {
@@ -167,16 +168,56 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
   )
 }
 
-interface DashboardGridProps {
-  widgets: Record<string, React.ReactNode>
+const GRID_ID = "dashboard-grid"
+
+// Panel cards land wherever the pointer is released; widgets already in the grid
+// reorder against each other only, never against the grid container itself.
+const collisionDetection: CollisionDetection = (args) =>
+  String(args.active.id).startsWith(ADD_PREFIX)
+    ? pointerWithin(args)
+    : closestCenter({
+        ...args,
+        droppableContainers: args.droppableContainers.filter((c) => c.id !== GRID_ID),
+      })
+
+function GridDropZone({ highlight, children }: { highlight: boolean; children: React.ReactNode }) {
+  const { setNodeRef, isOver } = useDroppable({ id: GRID_ID })
+  return (
+    <div
+      ref={setNodeRef}
+      className={`flex-1 min-w-0 min-h-[170px] grid grid-cols-1 lg:grid-cols-4 gap-5 pb-10 rounded-2xl transition-shadow ${
+        highlight && isOver ? "shadow-[0_0_0_2px_#006ce0]" : ""
+      }`}
+      style={{ gridAutoRows: "minmax(170px, auto)" }}
+    >
+      {children}
+    </div>
+  )
 }
 
-export default function DashboardGrid({ widgets }: DashboardGridProps) {
+interface DashboardGridProps {
+  widgets: Record<string, React.ReactNode>
+  header: React.ReactNode
+}
+
+export default function DashboardGrid({ widgets, header }: DashboardGridProps) {
   const widgetLayout = useConsoleStore((s) => s.widgetLayout)
   const setWidgetLayout = useConsoleStore((s) => s.setWidgetLayout)
   const removeWidget = useConsoleStore((s) => s.removeWidget)
+  const addWidgetsOpen = useConsoleStore((s) => s.addWidgetsOpen)
+  const setAddWidgetsOpen = useConsoleStore((s) => s.setAddWidgetsOpen)
+
+  const addWidget = useConsoleStore((s) => s.addWidget)
 
   const [infoWidgetId, setInfoWidgetId] = useState<string | null>(null)
+  const [draggedAddId, setDraggedAddId] = useState<string | null>(null)
+  const [sheetHeight, setSheetHeight] = useState<number | null>(null)
+
+  // The side slot holds one panel at a time; Add widgets takes precedence
+  const showInfo = infoWidgetId !== null && !addWidgetsOpen
+  const hiddenIds = widgetLayout
+    .filter((w) => !w.visible && widgets[w.id] !== undefined)
+    .map((w) => w.id)
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))
 
@@ -184,8 +225,23 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
     .filter((w) => w.visible && widgets[w.id] !== undefined)
     .sort((a, b) => a.order - b.order)
 
+  function handleDragStart(event: DragStartEvent) {
+    const id = String(event.active.id)
+    if (id.startsWith(ADD_PREFIX)) setDraggedAddId(id.slice(ADD_PREFIX.length))
+  }
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
+
+    // A card dragged out of the Add widgets panel: drop it where the pointer is
+    if (String(active.id).startsWith(ADD_PREFIX)) {
+      setDraggedAddId(null)
+      if (!over) return
+      const target = event.collisions?.find((c) => c.id !== GRID_ID)
+      addWidget(String(active.id).slice(ADD_PREFIX.length), target ? String(target.id) : undefined)
+      return
+    }
+
     if (!over || active.id === over.id) return
 
     const oldIndex = visibleWidgets.findIndex((w) => w.id === active.id)
@@ -215,11 +271,23 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
     )
   }
 
+  const draggedCard = dashboardLayout.widgets.find((w) => w.id === draggedAddId)
+
   return (
-    <div className="flex gap-4 items-start">
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+    <DndContext
+      id="dashboard"
+      sensors={sensors}
+      collisionDetection={collisionDetection}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragCancel={() => setDraggedAddId(null)}
+    >
+    <div className="flex items-start">
+      <div className="flex-1 min-w-0">
+        {header}
+        <div className="flex gap-4 items-start px-4 lg:px-6 pb-8">
         <SortableContext items={visibleWidgets.map((w) => w.id)} strategy={rectSortingStrategy}>
-          <div className="flex-1 min-w-0 grid grid-cols-1 lg:grid-cols-4 gap-5 pb-10" style={{ gridAutoRows: "minmax(170px, auto)" }}>
+          <GridDropZone highlight={draggedAddId !== null}>
             {visibleWidgets.map((w) => (
               <SortableWidget
                 key={w.id}
@@ -228,16 +296,15 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
                 count={WIDGET_COUNTS[w.id]}
                 onRemove={() => removeWidget(w.id)}
                 onResize={() => handleResize(w.id)}
-                onInfo={() => setInfoWidgetId(w.id)}
+                onInfo={() => { setAddWidgetsOpen(false); setInfoWidgetId(w.id) }}
               >
                 {widgets[w.id]}
               </SortableWidget>
             ))}
-          </div>
+          </GridDropZone>
         </SortableContext>
-      </DndContext>
 
-      {infoWidgetId && (
+      {showInfo && (
         <div className="w-[300px] shrink-0 sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto max-lg:fixed max-lg:inset-x-0 max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:max-h-none max-lg:bg-white">
           <WidgetInfoPanel
             widgetId={infoWidgetId}
@@ -246,6 +313,29 @@ export default function DashboardGrid({ widgets }: DashboardGridProps) {
           />
         </div>
       )}
+        </div>
+        {/* Room for the phone bottom sheet so it never hides the last widgets */}
+        {addWidgetsOpen && <div className="lg:hidden" style={{ height: splitPanelPadding(sheetHeight) }} />}
+      </div>
+
+      {addWidgetsOpen && (
+        <AddWidgetsPanel
+          availableIds={hiddenIds}
+          onAdd={(id) => addWidget(id)}
+          sheetHeight={sheetHeight}
+          onSheetResize={setSheetHeight}
+          onClose={() => setAddWidgetsOpen(false)}
+        />
+      )}
     </div>
+
+    <DragOverlay dropAnimation={null}>
+      {draggedCard && (
+        <div className="w-[294px] cursor-grabbing shadow-xl rounded-2xl">
+          <AddWidgetCard widget={draggedCard} />
+        </div>
+      )}
+    </DragOverlay>
+    </DndContext>
   )
 }

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import FavoriteStar from "@/components/ui/FavoriteStar"
 import services from "@/data/services.json"
 import { openSans } from "@/lib/awsFont"
 
@@ -173,15 +174,7 @@ export default function SearchBar() {
                         </p>
                         <p className="text-[16px] leading-6 text-[#dedee3] truncate">{service.description}</p>
                       </button>
-                      <button
-                        onMouseDown={(e) => e.preventDefault()}
-                        className="shrink-0 mt-0.5 text-[#b4b4bb] hover:text-[#ffb400] transition-colors"
-                        title="Add to favorites"
-                      >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 20.6l1.6-6.9L2 9.1l7-.6z" strokeLinejoin="round" />
-                        </svg>
-                      </button>
+                      <FavoriteStar serviceId={service.id} className="mt-0.5" />
                     </div>
                   ))}
                 </div>

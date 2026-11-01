@@ -1,11 +1,8 @@
 import Link from "next/link"
 import StatusBadge from "@/components/ui/StatusBadge"
-import Breadcrumb from "@/components/layout/Breadcrumb"
 import { formatPeriod } from "@/lib/formatDate"
 import iamGroups from "@/data/iam-groups.json"
 import iamUsers from "@/data/iam-users.json"
-import { serviceTitle } from "@/lib/serviceTitle"
-import iamConsole from "@/data/iam-console.json"
 
 interface GroupDetailProps {
   groupId: string
@@ -19,14 +16,6 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
 
   return (
     <div>
-      <Breadcrumb
-        items={[
-          { label: serviceTitle("iam"), href: "/iam/home" },
-          { label: iamConsole.pages.groups.breadcrumb, href: "/iam/groups" },
-          { label: group.label },
-        ]}
-      />
-
       <div className="flex items-center gap-3 mb-6">
         <span
           className="w-3 h-8 rounded-full shrink-0"

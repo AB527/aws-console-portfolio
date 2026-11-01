@@ -69,6 +69,7 @@ Store: `src/store/useConsoleStore.ts` — persisted to localStorage key `"aws-co
 | activeBucket      | string \| null                    | S3 drill-down state                          |
 | visualMode        | "browser-default" \| "light"      | Theme — applied as data-theme on <html>      |
 | hiddenWidgets     | string[]                          | Widget IDs removed from dashboard            |
+| favorites         | string[]                          | Starred serviceIds (search, services menu)   |
 
 ## Region System
 - Two regions: `ap-south-1` (Mumbai) and `ap-south-17` (Raipur)
@@ -100,7 +101,7 @@ Store: `src/store/useConsoleStore.ts` — persisted to localStorage key `"aws-co
 - Resize: bottom-right corner handle (⤡) cycles colSpan between min↔max from dashboard-layout.json
 - Layout persisted in Zustand widgetLayout
 - "Reset to default layout" reloads from dashboard-layout.json defaults
-- No "+ Add widgets" button (future feature)
+- "+ Add widgets" opens a side panel listing widgets that are off the dashboard (Favourites is hidden by default via `defaultVisible: false`); drag a card onto the grid to place it, or click it to add it at the end
 - Each widget card has: drag handle top-left | title + Info badge | ⋮ menu (Remove only) | resize handle bottom-right
 
 ## IAM Service

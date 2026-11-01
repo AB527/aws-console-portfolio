@@ -1,10 +1,12 @@
-import MobileServiceBar from "@/components/layout/MobileServiceBar"
-import { serviceTitle } from "@/lib/serviceTitle"
+import ServiceTopBar from "@/components/layout/ServiceTopBar"
+import ServiceBreadcrumb from "@/components/layout/ServiceBreadcrumb"
 
 export default function S3Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-[calc(100vh-56px)]">
-      <MobileServiceBar title={serviceTitle("s3")} />
+      <ServiceTopBar>
+        <ServiceBreadcrumb />
+      </ServiceTopBar>
       <main className="min-w-0">{children}</main>
     </div>
   )

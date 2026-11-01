@@ -1,14 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import Breadcrumb from "@/components/layout/Breadcrumb"
 import StatusBadge from "@/components/ui/StatusBadge"
 import PolicyTag from "@/components/ui/PolicyTag"
 import { formatPeriod } from "@/lib/formatDate"
 import iamUsers from "@/data/iam-users.json"
 import iamGroups from "@/data/iam-groups.json"
-import { serviceTitle } from "@/lib/serviceTitle"
-import iamConsole from "@/data/iam-console.json"
 
 interface UserDetailProps {
   userId: string
@@ -34,14 +31,6 @@ export default function UserDetail({ userId }: UserDetailProps) {
 
   return (
     <div>
-      <Breadcrumb
-        items={[
-          { label: serviceTitle("iam"), href: "/iam/home" },
-          { label: iamConsole.pages.roles.breadcrumb, href: "/iam/users" },
-          { label: user.username },
-        ]}
-      />
-
       <div className="flex items-center gap-4 mb-6">
         <span className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-sm bg-[#0073bb] shrink-0">
           {user.avatar}

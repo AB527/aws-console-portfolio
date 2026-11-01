@@ -3,10 +3,10 @@
 import { usePathname } from "next/navigation"
 import services from "@/data/services.json"
 import ServiceIcon from "@/components/ui/ServiceIcon"
-import MobileServiceBar from "@/components/layout/MobileServiceBar"
+import ServiceTopBar from "@/components/layout/ServiceTopBar"
+import ServiceBreadcrumb from "@/components/layout/ServiceBreadcrumb"
 import { mobileDrawerClass } from "@/components/ui/SidebarIcons"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import { serviceTitle } from "@/lib/serviceTitle"
 
 function GenericServiceSidebar({ serviceId }: { serviceId: string }) {
   const service = services.find((s) => s.id === serviceId)
@@ -44,7 +44,9 @@ export default function ServiceLayout({
 
   return (
     <>
-      <MobileServiceBar title={serviceTitle(serviceId)} />
+      <ServiceTopBar>
+        <ServiceBreadcrumb />
+      </ServiceTopBar>
       <div className="flex min-h-[calc(100vh-56px)]">
         <GenericServiceSidebar serviceId={serviceId} />
         <main className="flex-1 min-w-0">{children}</main>

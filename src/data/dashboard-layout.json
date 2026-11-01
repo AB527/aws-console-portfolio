@@ -3,6 +3,9 @@
   "widgets": [
     {
       "id": "recently-visited",
+      "title": "Recently visited",
+      "description": "Jump back into the services you opened most recently.",
+      "defaultVisible": true,
       "defaultColSpan": 2,
       "defaultRowSpan": 1,
       "minColSpan": 1,
@@ -12,7 +15,10 @@
       "removable": true
     },
     {
-      "id": "pinned",
+      "id": "favourites",
+      "title": "Favourites",
+      "description": "Quickly access your favourite services.",
+      "defaultVisible": false,
       "defaultColSpan": 2,
       "defaultRowSpan": 1,
       "minColSpan": 1,
@@ -23,6 +29,9 @@
     },
     {
       "id": "know-me",
+      "title": "Know Me",
+      "description": "Background, values and what drives Atharva.",
+      "defaultVisible": true,
       "defaultColSpan": 1,
       "defaultRowSpan": 1,
       "minColSpan": 1,
@@ -33,6 +42,9 @@
     },
     {
       "id": "system-status",
+      "title": "GitHub",
+      "description": "Open-source activity on GitHub at a glance.",
+      "defaultVisible": true,
       "defaultColSpan": 1,
       "defaultRowSpan": 1,
       "minColSpan": 1,
@@ -43,6 +55,9 @@
     },
     {
       "id": "solutions",
+      "title": "Solutions",
+      "description": "Solutions and projects across cloud, full-stack and AI/ML.",
+      "defaultVisible": true,
       "defaultColSpan": 2,
       "defaultRowSpan": 2,
       "minColSpan": 2,
@@ -53,6 +68,9 @@
     },
     {
       "id": "achievements",
+      "title": "Achievements",
+      "description": "Certifications, milestones and recognitions.",
+      "defaultVisible": true,
       "defaultColSpan": 2,
       "defaultRowSpan": 2,
       "minColSpan": 2,
@@ -63,6 +81,9 @@
     },
     {
       "id": "announcements",
+      "title": "Latest announcements",
+      "description": "Latest milestones, recognitions and project launches.",
+      "defaultVisible": true,
       "defaultColSpan": 1,
       "defaultRowSpan": 1,
       "minColSpan": 1,
@@ -73,6 +94,9 @@
     },
     {
       "id": "blog-posts",
+      "title": "Recent blog posts",
+      "description": "Recent write-ups on DevOps, security and cloud engineering.",
+      "defaultVisible": true,
       "defaultColSpan": 1,
       "defaultRowSpan": 1,
       "minColSpan": 1,
