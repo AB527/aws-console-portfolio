@@ -1,6 +1,7 @@
 "use client"
 
 import { useConsoleStore } from "@/store/useConsoleStore"
+import InfoLink from "@/components/ui/InfoLink"
 
 export default function ConsoleHomeHeader() {
   const resetLayout = useConsoleStore((s) => s.resetLayout)
@@ -11,7 +12,7 @@ export default function ConsoleHomeHeader() {
     <div className="flex items-center justify-between gap-4 flex-wrap px-4 lg:px-6 pt-4 pb-4">
       <div className="flex items-baseline gap-2">
         <h1 className="text-[24px] leading-[30px] font-bold text-[#0f141a]">Console home</h1>
-        <span className="text-[12px] font-bold text-[#006ce0] hover:underline cursor-pointer">Info</span>
+        <InfoLink topic="console-home" />
       </div>
       <div className="flex items-center gap-2">
         <button

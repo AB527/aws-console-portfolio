@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { GITHUB_REPO_URL } from "@/lib/constants"
 import iamConsole from "@data/iam-console.json"
+import InfoLink from "@/components/ui/InfoLink"
 
 export interface Column<T> {
   header: string
@@ -13,6 +14,8 @@ export interface Column<T> {
 
 interface ResourceTableProps<T> {
   title: string
+  // Help topic opened by the Info link
+  infoTopic: string
   description: string
   columns: Column<T>[]
   rows: T[]
@@ -37,6 +40,7 @@ function SortIcon({ dir }: { dir: SortDir | null }) {
 
 export default function ResourceTable<T>({
   title,
+  infoTopic,
   description,
   columns,
   rows,
@@ -103,7 +107,7 @@ export default function ResourceTable<T>({
             <h1 className="text-[22px] font-bold text-gray-900">
               {title} <span className="font-normal text-gray-500">({status ? "–" : rows.length})</span>
             </h1>
-            <a className="text-xs font-bold text-[#0073bb] hover:underline cursor-pointer">{labels.infoLabel}</a>
+            <InfoLink topic={infoTopic} className="text-xs font-bold text-[#0073bb] hover:underline" />
           </div>
           <div className="flex items-center gap-2">
             <button

@@ -11,6 +11,7 @@ import EC2HomeView from "./EC2HomeView"
 import EC2InstanceTypesView from "./EC2InstanceTypesView"
 import EC2InstanceTypeFinderView from "./EC2InstanceTypeFinderView"
 import EC2SplitPanel, { splitPanelPadding } from "./EC2SplitPanel"
+import InfoLink from "@/components/ui/InfoLink"
 
 type Instance = ContentData["ec2-projects"]["instances"][number]
 
@@ -136,7 +137,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
           <span className="font-normal text-[#656871]">
             ({!ec2Data ? "–" : selectedRows.length ? `${selectedRows.length}/${filtered.length}` : filtered.length})
           </span>{" "}
-          <span className="text-xs font-bold text-[#006ce0] align-middle">Info</span>
+          <InfoLink topic="ec2-projects" className="text-xs font-bold text-[#006ce0] hover:underline align-middle" />
         </h1>
         <div className="flex items-center gap-2 flex-wrap">
           <p className="text-right text-[#424650] leading-[18px] mr-1">
@@ -448,7 +449,7 @@ function ProjectSummaryPanel({
             <path d="M0 2h10L5 9z" />
           </svg>
           Project summary
-          <span className="text-xs font-bold text-[#0073bb]">Info</span>
+          <InfoLink topic="ec2-project-summary" inline className="text-xs font-bold text-[#0073bb] hover:underline" />
         </button>
 
         {summaryOpen && (

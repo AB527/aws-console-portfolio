@@ -19,9 +19,16 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
   const cloudShellOpen = useConsoleStore((s) => s.cloudShellOpen)
   const amazonQOpen = useConsoleStore((s) => s.amazonQOpen)
 
+  const setHelpTopic = useConsoleStore((s) => s.setHelpTopic)
+
   useEffect(() => {
     document.documentElement.dataset.theme = visualMode === "light" ? "light" : ""
   }, [visualMode])
+
+  // Help is about the page it was opened on, so it closes when the visitor moves on
+  useEffect(() => {
+    setHelpTopic(null)
+  }, [pathname, setHelpTopic])
 
   // Show the current service's icon as the tab favicon, falling back to the site icon elsewhere
   useEffect(() => {

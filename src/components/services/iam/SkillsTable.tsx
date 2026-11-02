@@ -42,6 +42,7 @@ export default function SkillsTable() {
   return (
     <ResourceTable
       title={page.title}
+      infoTopic="iam-skills"
       description={page.description}
       columns={columns}
       rows={rows}

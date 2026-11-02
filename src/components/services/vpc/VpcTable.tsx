@@ -1,3 +1,5 @@
+import InfoLink from "@/components/ui/InfoLink"
+
 const TH = "text-left py-1.5 font-bold text-[#424650]"
 
 export function StateBadge({ state }: { state: string }) {
@@ -14,6 +16,8 @@ export function StateBadge({ state }: { state: string }) {
 
 interface VpcTableProps {
   title: string
+  // Help topic opened by the Info link
+  infoTopic: string
   count: number | string
   description: string
   columns: string[]
@@ -21,14 +25,14 @@ interface VpcTableProps {
 }
 
 // Card + table frame shared by the Your Connects and Subnets pages; rows are passed as children
-export default function VpcTable({ title, count, description, columns, children }: VpcTableProps) {
+export default function VpcTable({ title, infoTopic, count, description, columns, children }: VpcTableProps) {
   return (
     <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
       <div className="flex items-baseline gap-2">
         <h1 className="text-[20px] leading-6 font-bold">
           {title} <span className="font-normal text-[#656871]">({count})</span>
         </h1>
-        <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+        <InfoLink topic={infoTopic} />
       </div>
       <p className="mt-1 mb-3">{description}</p>
       <div className="overflow-x-auto">

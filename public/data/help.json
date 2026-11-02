@@ -1,0 +1,442 @@
+{
+  "labels": {
+    "helpful": "Was this content helpful?",
+    "yes": "Yes",
+    "no": "No",
+    "learnMore": "Learn more",
+    "open": "Open help panel",
+    "close": "Close help panel",
+    "info": "Info"
+  },
+  "feedback": {
+    "yesUrl": "https://github.com/AB527/aws-console-portfolio",
+    "noUrl": "https://github.com/AB527/aws-console-portfolio/issues/new"
+  },
+  "pages": {
+    "/ec2/home?view=instances": "ec2-projects",
+    "/ec2/home?view=instance-types": "ec2-project-types",
+    "/ec2/home?view=instance-type-finder": "ec2-type-finder",
+    "/s3/buckets": "s3-bucket",
+    "/iam/groups": "iam-groups",
+    "/iam/skills": "iam-skills",
+    "/iam/users": "iam-roles",
+    "/vpc/connects": "vpc-connects",
+    "/vpc/subnets": "vpc-subnets",
+    "/vpc/route-tables": "vpc-route-tables",
+    "/cloudtrail/events": "cloudtrail-events",
+    "/cloudtrail/trails": "cloudtrail-trails"
+  },
+  "topics": {
+    "console-home": {
+      "title": "Console Home",
+      "body": [
+        {
+          "text": "**Console Home** displays **widgets** with important information about this portfolio."
+        },
+        {
+          "heading": "Customize your Console Home dashboard"
+        },
+        {
+          "text": "**Add**, **remove**, **rearrange**, and **resize** widgets to customize your Console Home dashboard. Changes you make are saved in this browser and do not affect other visitors."
+        },
+        {
+          "text": "**Add widgets** by choosing the **+Add widgets** button and the **drag indicator** (six vertical dots) on the widget title bar to drag it to your Console Home dashboard."
+        },
+        {
+          "text": "**Remove widgets** by choosing the **ellipsis** (three vertical dots) at the top-right corner."
+        },
+        {
+          "text": "**Rearrange widgets** by choosing the **drag indicator** (six vertical dots) on the title bar and dragging it to a new location."
+        },
+        {
+          "text": "**Resize widgets** by choosing the **resize icon** at the bottom-right corner."
+        },
+        {
+          "text": "For more information, see [Working with widgets](https://github.com/AB527/aws-console-portfolio)."
+        }
+      ],
+      "links": [
+        {
+          "label": "Getting started with the AB Management Console",
+          "href": "https://github.com/AB527/aws-console-portfolio"
+        }
+      ]
+    },
+    "recently-visited": {
+      "body": [
+        {
+          "text": "**Jump in where you left off** and navigate to the services and projects you most recently worked with."
+        },
+        {
+          "text": "To view all services, choose [View all services](/console/services) at the bottom of the widget."
+        }
+      ],
+      "links": [
+        {
+          "label": "Getting started with the Console",
+          "href": "/getting-started"
+        }
+      ]
+    },
+    "know-me": {
+      "body": [
+        {
+          "text": "Get to know **Atharva Bedekar**: his background, values, and what drives his passion for engineering and technology."
+        }
+      ],
+      "links": [
+        {
+          "label": "View IAM profile",
+          "href": "/iam/home"
+        }
+      ]
+    },
+    "system-status": {
+      "body": [
+        {
+          "text": "Track Atharva's open-source activity on **GitHub** at a glance: **public repositories**, **recent contributions**, and **followers**."
+        }
+      ],
+      "links": [
+        {
+          "label": "Visit GitHub profile",
+          "href": "https://github.com/AB527"
+        },
+        {
+          "service": "ec2",
+          "href": "/ec2/home"
+        }
+      ]
+    },
+    "achievements": {
+      "body": [
+        {
+          "text": "Explore **certifications**, **milestones**, and **recognitions** that mark key moments in Atharva's engineering journey."
+        }
+      ],
+      "links": [
+        {
+          "label": "Skills & experience",
+          "href": "/iam/home"
+        }
+      ]
+    },
+    "solutions": {
+      "body": [
+        {
+          "text": "Browse solutions and projects built across **cloud infrastructure**, **full-stack development**, and **AI/ML** domains."
+        }
+      ],
+      "links": [
+        {
+          "service": "ec2",
+          "href": "/ec2/home"
+        },
+        {
+          "label": "Getting started",
+          "href": "/getting-started"
+        }
+      ]
+    },
+    "announcements": {
+      "body": [
+        {
+          "text": "Stay up to date with Atharva's latest **milestones**, **recognitions**, and **project launches**."
+        }
+      ],
+      "links": [
+        {
+          "label": "View all projects",
+          "href": "/ec2/home"
+        },
+        {
+          "label": "Skills & experience",
+          "href": "/iam/home"
+        }
+      ]
+    },
+    "blog-posts": {
+      "body": [
+        {
+          "text": "Read Atharva's recent write-ups and articles on **DevOps**, **security**, and **cloud engineering**."
+        }
+      ],
+      "links": [
+        {
+          "service": "ec2",
+          "href": "/ec2/home"
+        },
+        {
+          "service": "s3",
+          "href": "/s3/home"
+        }
+      ]
+    },
+    "ec2-projects": {
+      "title": "Projects",
+      "body": [
+        {
+          "text": "**Projects** are the systems and code Atharva has built and shipped. Each row is one project, with its type, state, the users it served and the period it ran."
+        },
+        {
+          "text": "**Select a project** to open its summary, or choose **Connect** to open the live project."
+        }
+      ],
+      "links": [
+        {
+          "label": "Project types",
+          "href": "/ec2/home?view=instance-types"
+        }
+      ]
+    },
+    "ec2-project-summary": {
+      "title": "Project summary",
+      "body": [
+        {
+          "text": "The summary shows a project's **type**, **tech stack**, **state**, **period**, **scale** and **link**, followed by a description and its tags."
+        }
+      ],
+      "links": [
+        {
+          "label": "All projects",
+          "href": "/ec2/home?view=instances"
+        }
+      ]
+    },
+    "s3-buckets": {
+      "title": "Buckets",
+      "body": [
+        {
+          "text": "**Buckets** are containers for the documents stored in Documents. Each bucket groups one kind of document, such as resumes, certifications or letters."
+        },
+        {
+          "text": "Choose a **bucket name** to see the objects inside it."
+        }
+      ]
+    },
+    "s3-bucket": {
+      "title": "Objects",
+      "body": [
+        {
+          "text": "A bucket holds **objects**, and each object is **one document**."
+        },
+        {
+          "text": "**Select an object** to copy its **URI**. **Open** and **Download** are available when the file has been added to the site."
+        }
+      ],
+      "links": [
+        {
+          "label": "All buckets",
+          "href": "/s3/home"
+        }
+      ]
+    },
+    "s3-object": {
+      "title": "Object",
+      "body": [
+        {
+          "text": "An **object** is a single document. The overview lists its **size**, **type**, **last modified date** and identifiers."
+        },
+        {
+          "text": "**Open** and **Download** are available when the file has been added to the site."
+        }
+      ],
+      "links": [
+        {
+          "label": "All buckets",
+          "href": "/s3/home"
+        }
+      ]
+    },
+    "iam-groups": {
+      "title": "Skill groups",
+      "body": [
+        {
+          "text": "A **skill group** is a collection of related skills. Roles in the experience history draw on one or more skill groups."
+        },
+        {
+          "text": "Choose a **group name** to see its skills and the roles that used them."
+        }
+      ],
+      "links": [
+        {
+          "label": "All skills",
+          "href": "/iam/skills"
+        }
+      ]
+    },
+    "iam-skills": {
+      "title": "Skills",
+      "body": [
+        {
+          "text": "Every individual **skill**, the **group** it belongs to, and the **proficiency level**."
+        }
+      ],
+      "links": [
+        {
+          "label": "Skill groups",
+          "href": "/iam/groups"
+        }
+      ]
+    },
+    "iam-roles": {
+      "title": "Role history",
+      "body": [
+        {
+          "text": "**Roles** held, the **organization**, and the **skill groups** each role used. **Choose a role** to see its summary and permissions."
+        }
+      ],
+      "links": [
+        {
+          "service": "cloudtrail",
+          "href": "/cloudtrail/home"
+        }
+      ]
+    },
+    "vpc-connects": {
+      "title": "Your Connects",
+      "body": [
+        {
+          "text": "A **Connect** is the network that holds every way to get in touch. It contains **subnets**, and each subnet routes to **contact links**."
+        }
+      ],
+      "links": [
+        {
+          "label": "Subnets",
+          "href": "/vpc/subnets"
+        },
+        {
+          "label": "Route tables",
+          "href": "/vpc/route-tables"
+        }
+      ]
+    },
+    "vpc-connect": {
+      "title": "Connect details",
+      "body": [
+        {
+          "text": "Details lists the Connect's **ID**, **state**, **address range** and **owner**, along with the number of subnets it holds."
+        }
+      ]
+    },
+    "vpc-resource-map": {
+      "title": "Resource map",
+      "body": [
+        {
+          "text": "The **resource map** shows how the **Connect**, its **subnets** and their **route tables** relate."
+        },
+        {
+          "text": "**Choose a route table** to see where it leads. Turn on **Show all details** to see names and address ranges."
+        }
+      ]
+    },
+    "vpc-subnets": {
+      "title": "Subnets",
+      "body": [
+        {
+          "text": "A **subnet** groups one kind of contact route. **Select a subnet** to see its details and the route table it uses."
+        }
+      ],
+      "links": [
+        {
+          "label": "Route tables",
+          "href": "/vpc/route-tables"
+        }
+      ]
+    },
+    "vpc-route-tables": {
+      "title": "Route tables",
+      "body": [
+        {
+          "text": "A **route table** lists the routes of a subnet. The **target** of each route is a real link you can open."
+        }
+      ],
+      "links": [
+        {
+          "label": "Subnets",
+          "href": "/vpc/subnets"
+        }
+      ]
+    },
+    "cloudtrail-dashboard": {
+      "title": "Dashboard",
+      "body": [
+        {
+          "text": "**Experience** records the work history as **trails** and **events**. The dashboard shows every trail and the most recent role changes."
+        }
+      ],
+      "links": [
+        {
+          "label": "Event history",
+          "href": "/cloudtrail/events"
+        },
+        {
+          "label": "Trails",
+          "href": "/cloudtrail/trails"
+        }
+      ]
+    },
+    "cloudtrail-trails": {
+      "title": "Trails",
+      "body": [
+        {
+          "text": "Each **trail** is one role in the work history. A trail that is still **logging** is a **current role**."
+        },
+        {
+          "text": "Choose a **trail name** to open that role."
+        }
+      ],
+      "links": [
+        {
+          "label": "Event history",
+          "href": "/cloudtrail/events"
+        }
+      ]
+    },
+    "cloudtrail-events": {
+      "title": "Event history",
+      "body": [
+        {
+          "text": "Every role **started** and **ended**, newest first. On the full Event history page you can **filter** by an attribute and **sort** the columns."
+        }
+      ],
+      "links": [
+        {
+          "label": "Trails",
+          "href": "/cloudtrail/trails"
+        }
+      ]
+    },
+    "ec2-project-types": {
+      "title": "Project types",
+      "body": [
+        {
+          "text": "A **project type** groups projects of the same kind and scale. Each row shows the tech stack, the users served and the hours spent across its projects."
+        },
+        {
+          "text": "**Select a type** to see its details and the projects that belong to it."
+        }
+      ],
+      "links": [
+        {
+          "label": "Project type finder",
+          "href": "/ec2/home?view=instance-type-finder"
+        }
+      ]
+    },
+    "ec2-type-finder": {
+      "title": "Project type finder",
+      "body": [
+        {
+          "text": "Describe what you are looking for, such as scale or whether the work is open source, and the **finder** suggests the **project types** that match."
+        }
+      ],
+      "links": [
+        {
+          "label": "Project types",
+          "href": "/ec2/home?view=instance-types"
+        }
+      ]
+    }
+  }
+}

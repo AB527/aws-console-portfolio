@@ -3,6 +3,7 @@ import EC2Breadcrumb from "@/components/services/ec2/EC2Breadcrumb"
 import ServiceSidebar from "@/components/layout/ServiceSidebar"
 import ServiceTopBar from "@/components/layout/ServiceTopBar"
 import { openSans } from "@/lib/awsFont"
+import HelpPanel from "@/components/layout/HelpPanel"
 
 export default function EC2Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -16,6 +17,7 @@ export default function EC2Layout({ children }: { children: React.ReactNode }) {
       <div className="flex flex-1">
         <ServiceSidebar serviceId="ec2" />
         <main className="flex-1 min-w-0">{children}</main>
+        <HelpPanel />
       </div>
     </div>
   )

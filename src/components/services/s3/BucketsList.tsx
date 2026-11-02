@@ -8,6 +8,7 @@ import { GITHUB_REPO_URL } from "@/lib/constants"
 import { openSans } from "@/lib/awsFont"
 import { DataStatusRow } from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
+import InfoLink from "@/components/ui/InfoLink"
 
 const REGION_NAMES: Record<string, string> = {
   "ap-south-1": "Asia Pacific (Mumbai) ap-south-1",
@@ -115,7 +116,7 @@ export default function BucketsList() {
                 <h2 className="text-[20px] leading-6 font-bold">
                   General purpose buckets <span className="font-normal text-[#656871]">({s3Data ? buckets.length : "–"})</span>
                 </h2>
-                <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
+                <InfoLink topic="s3-buckets" />
               </div>
               <p className="mt-1">Buckets are containers for data stored in Documents.</p>
             </div>

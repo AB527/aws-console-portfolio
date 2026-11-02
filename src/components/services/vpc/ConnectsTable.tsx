@@ -13,6 +13,7 @@ export default function ConnectsTable() {
   return (
     <VpcTable
       title="Your Connects"
+      infoTopic="vpc-connects"
       count={data ? 1 : "–"}
       description="One Connect holds every way to get in touch."
       columns={COLUMNS}

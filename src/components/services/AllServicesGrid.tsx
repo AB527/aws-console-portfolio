@@ -4,80 +4,63 @@ import Link from "next/link"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
 
-function CategoryIcon({ color }: { color: string }) {
-  return (
-    <span
-      className="inline-flex items-center justify-center w-5 h-5 rounded-md shrink-0"
-      style={{ backgroundColor: color }}
-    >
-      <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-        <path
-          d="M6 1L11 3.5V8.5L6 11L1 8.5V3.5L6 1Z"
-          stroke="white"
-          strokeWidth="1"
-          strokeLinejoin="round"
-        />
-        <path d="M1 3.5L6 6L11 3.5M6 6V11" stroke="white" strokeWidth="1" strokeLinejoin="round" />
-      </svg>
-    </span>
-  )
-}
-
 interface ServiceLink {
   name: string
   link?: string
-  note?: string
 }
 
 interface Category {
   name: string
-  color: string
+  // File name of the category icon in public/icons, without ".svg"
+  icon: string
   services: ServiceLink[]
 }
 
-function ServiceEntry({ service }: { service: ServiceLink }) {
+function CategoryBlock({ category }: { category: Category }) {
   return (
-    <li className="leading-tight">
-      {service.link ? (
-        <Link href={service.link} className="text-[13px] text-[#0073bb] hover:underline">
-          {service.name}
-        </Link>
-      ) : (
-        <span className="text-[13px] text-[#0073bb] hover:underline cursor-pointer">
-          {service.name}
-        </span>
-      )}
-      {service.note && (
-        <span className="block text-[12px] text-gray-500 leading-tight">{service.note}</span>
-      )}
-    </li>
+    <section>
+      <div className="flex items-center gap-3">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/icons/${category.icon}.svg`} alt="" width={24} height={24} className="shrink-0" />
+        <h3 className="text-[18px] leading-[22px] font-bold">{category.name}</h3>
+      </div>
+      {/* Indented to line up under the category name */}
+      <ul className="mt-3 pl-9">
+        {category.services.map((service) => (
+          <li key={service.name}>
+            {service.link ? (
+              <Link href={service.link} className="text-[#006ce0] hover:underline">
+                {service.name}
+              </Link>
+            ) : (
+              <span className="text-[#424650]">{service.name}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }
 
 export default function AllServicesGrid() {
   const { data, error, reload } = useData("all-services")
-  if (!data) return <DataStatus label="services" error={error} onRetry={reload} />
-  const columns = data.columns as Category[][]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-8">
-      {columns.map((column, ci) => (
-        <div key={ci} className="flex flex-col gap-7">
-          {column.map((category) => (
-            <div key={category.name} className="break-inside-avoid">
-              <div className="flex items-center gap-2 mb-2.5">
-                <CategoryIcon color={category.color} />
-                <h3 className="text-[15px] font-bold text-gray-900">{category.name}</h3>
-              </div>
-              <ul className="flex flex-col gap-2 pl-0.5">
-                {category.services.map((service) => (
-                  <ServiceEntry key={service.name} service={service} />
-                ))}
-              </ul>
+    <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 pt-4 pb-6">
+      <h2 className="text-[20px] leading-6 font-bold">{data?.heading ?? " "}</h2>
+      {data ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 mt-5">
+          {(data.columns as Category[][]).map((column, i) => (
+            <div key={i} className="flex flex-col gap-6">
+              {column.map((category) => (
+                <CategoryBlock key={category.name} category={category} />
+              ))}
             </div>
           ))}
         </div>
-      ))}
+      ) : (
+        <DataStatus label="services" error={error} onRetry={reload} />
+      )}
     </div>
   )
 }

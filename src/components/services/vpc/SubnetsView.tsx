@@ -38,6 +38,7 @@ export default function SubnetsView({ initialId }: { initialId?: string }) {
       // Remount when the data arrives so the first row gets selected
       key={vpc ? "ready" : "loading"}
       title="Subnets"
+      infoTopic="vpc-subnets"
       createLabel="Create subnet"
       searchPlaceholder="Find subnets by attribute or tag"
       items={vpc?.subnets ?? []}

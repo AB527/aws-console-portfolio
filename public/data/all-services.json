@@ -1,66 +1,58 @@
 {
+  "heading": "Services by category",
   "columns": [
     [
       {
-        "name": "Projects",
-        "color": "#ED7100",
+        "name": "Compute",
         "services": [
-          { "name": "Projects", "link": "/ec2/home" },
-          { "name": "Enterprise & Government Scale" },
-          { "name": "Production SaaS" },
-          { "name": "Production Platform" },
-          { "name": "IoT & Research" },
-          { "name": "Developer Tools" }
-        ]
+          {
+            "name": "Projects",
+            "link": "/ec2/home"
+          }
+        ],
+        "icon": "category-compute"
       },
       {
-        "name": "Documents",
-        "color": "#3F8624",
+        "name": "Storage",
         "services": [
-          { "name": "Documents", "link": "/s3/home" },
-          { "name": "Internship Letters", "link": "/s3/home/internship-letters" },
-          { "name": "Certifications", "link": "/s3/home/certifications" },
-          { "name": "Resumes", "link": "/s3/home/resumes" },
-          { "name": "Patent Docs", "link": "/s3/home/patent-docs" }
-        ]
+          {
+            "name": "Documents",
+            "link": "/s3/home"
+          }
+        ],
+        "icon": "category-storage"
+      },
+      {
+        "name": "Networking & Content Delivery",
+        "services": [
+          {
+            "name": "Connect",
+            "link": "/vpc/home"
+          }
+        ],
+        "icon": "category-networking"
       }
     ],
     [
       {
-        "name": "Skills",
-        "color": "#DD344C",
+        "name": "Security, Identity, & Compliance",
         "services": [
-          { "name": "Skills", "link": "/iam/home" },
-          { "name": "Cloud", "link": "/iam/groups/cloud" },
-          { "name": "App Development", "link": "/iam/groups/appdev" },
-          { "name": "Backend", "link": "/iam/groups/backend" },
-          { "name": "Cybersecurity", "link": "/iam/groups/cybersec" },
-          { "name": "DevOps", "link": "/iam/groups/devops" }
-        ]
-      }
-    ],
-    [
-      {
-        "name": "Connect",
-        "color": "#8C4FFF",
-        "services": [
-          { "name": "Connect", "link": "/vpc/home" },
-          { "name": "Your Connects", "link": "/vpc/connects" },
-          { "name": "Subnets", "link": "/vpc/subnets" },
-          { "name": "Route tables", "link": "/vpc/route-tables" }
-        ]
+          {
+            "name": "Skills",
+            "link": "/iam/home"
+          }
+        ],
+        "icon": "category-security"
       },
       {
-        "name": "Experience",
-        "color": "#E7157B",
+        "name": "Management & Governance",
         "services": [
-          { "name": "Experience", "link": "/cloudtrail/home" },
-          { "name": "Infobahn", "link": "/iam/users/infobahn-intern" },
-          { "name": "TransBnk", "link": "/iam/users/transbnk-intern" },
-          { "name": "Hackoverse Edu", "link": "/iam/users/hackoverse-edu" },
-          { "name": "CG Tribal", "link": "/iam/users/cg-tribal" },
-          { "name": "CipherCell", "link": "/iam/users/ciphercell" }
-        ]
+          {
+            "name": "Experience",
+            "link": "/cloudtrail/home"
+          }
+        ],
+        "icon": "category-management"
       }
     ]
   ]

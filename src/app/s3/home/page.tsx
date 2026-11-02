@@ -3,6 +3,7 @@ import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
 import BucketsList from "@/components/services/s3/BucketsList"
 import ServiceSidebar from "@/components/layout/ServiceSidebar"
 import site from "@data/site.json"
+import HelpPanel from "@/components/layout/HelpPanel"
 
 export const metadata: Metadata = { title: site.pageTitles.s3 }
 
@@ -19,6 +20,7 @@ export default async function S3Page() {
           {/* Header, tabs and buckets table */}
           <BucketsList />
         </div>
+        <HelpPanel />
       </div>
     </>
   )

@@ -50,7 +50,7 @@ export default function RecentlyVisitedWidget() {
         })}
       </div>
       <div className="mt-auto border-t border-[#c6c6cd] pt-3 text-center">
-        <Link href="/getting-started" className="text-[#006ce0] hover:underline">
+        <Link href="/console/services" className="text-[#006ce0] hover:underline">
           View all services
         </Link>
       </div>

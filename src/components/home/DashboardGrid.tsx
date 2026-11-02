@@ -24,7 +24,6 @@ import { CSS } from "@dnd-kit/utilities"
 import { useConsoleStore, WidgetLayout } from "@/store/useConsoleStore"
 import dashboardLayout from "@data/dashboard-layout.json"
 import { useData } from "@/hooks/useData"
-import WidgetInfoPanel from "./WidgetInfoPanel"
 import { splitPanelPadding } from "@/components/services/ec2/EC2SplitPanel"
 import AddWidgetsPanel, { AddWidgetCard, ADD_PREFIX } from "./AddWidgetsPanel"
 
@@ -211,12 +210,10 @@ export default function DashboardGrid({ widgets, header }: DashboardGridProps) {
     achievements: explore?.items.length,
   }
 
-  const [infoWidgetId, setInfoWidgetId] = useState<string | null>(null)
+  const setHelpTopic = useConsoleStore((s) => s.setHelpTopic)
   const [draggedAddId, setDraggedAddId] = useState<string | null>(null)
   const [sheetHeight, setSheetHeight] = useState<number | null>(null)
 
-  // The side slot holds one panel at a time; Add widgets takes precedence
-  const showInfo = infoWidgetId !== null && !addWidgetsOpen
   const hiddenIds = widgetLayout
     .filter((w) => !w.visible && widgets[w.id] !== undefined)
     .map((w) => w.id)
@@ -298,23 +295,13 @@ export default function DashboardGrid({ widgets, header }: DashboardGridProps) {
                 count={widgetCounts[w.id]}
                 onRemove={() => removeWidget(w.id)}
                 onResize={() => handleResize(w.id)}
-                onInfo={() => { setAddWidgetsOpen(false); setInfoWidgetId(w.id) }}
+                onInfo={() => setHelpTopic(w.id)}
               >
                 {widgets[w.id]}
               </SortableWidget>
             ))}
           </GridDropZone>
         </SortableContext>
-
-      {showInfo && (
-        <div className="w-[300px] shrink-0 sticky top-[56px] max-h-[calc(100vh-56px)] overflow-y-auto max-lg:fixed max-lg:inset-x-0 max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:max-h-none max-lg:bg-white">
-          <WidgetInfoPanel
-            widgetId={infoWidgetId}
-            title={WIDGET_TITLES[infoWidgetId] ?? infoWidgetId}
-            onClose={() => setInfoWidgetId(null)}
-          />
-        </div>
-      )}
         </div>
         {/* Room for the phone bottom sheet so it never hides the last widgets */}
         {addWidgetsOpen && <div className="lg:hidden" style={{ height: splitPanelPadding(sheetHeight) }} />}

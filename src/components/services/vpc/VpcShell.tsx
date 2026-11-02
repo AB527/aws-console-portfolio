@@ -6,6 +6,7 @@ import { openSans } from "@/lib/awsFont"
 import ServiceSidebar, { sidebarNav } from "@/components/layout/ServiceSidebar"
 import ServiceTopBar from "@/components/layout/ServiceTopBar"
 import { useData } from "@/hooks/useData"
+import HelpPanel from "@/components/layout/HelpPanel"
 
 // The resource pages, i.e. everything in the sidebar except the dashboard
 const NAV = (sidebarNav("vpc").sections ?? []).flatMap((s) => s.items)
@@ -40,6 +41,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
           </div>
         </ServiceSidebar>
         <main className="flex-1 min-w-0 px-4 lg:px-6 py-5">{children}</main>
+        <HelpPanel />
       </div>
     </div>
   )
