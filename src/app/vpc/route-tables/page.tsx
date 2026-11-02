@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import RouteTablesView from "@/components/services/vpc/RouteTablesView"
-import site from "@/data/site.json"
+import site from "@data/site.json"
 
 export const metadata: Metadata = { title: site.pageTitles.vpcRouteTables }
 

@@ -4,8 +4,8 @@ import Link from "next/link"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import ServiceIcon from "@/components/ui/ServiceIcon"
 import FavoriteStar from "@/components/ui/FavoriteStar"
-import services from "@/data/services.json"
-import menu from "@/data/services-menu.json"
+import services from "@data/services.json"
+import menu from "@data/services-menu.json"
 
 const EMPTY_TEXT = menu.sections.find((s) => s.id === "favourites")?.empty
 

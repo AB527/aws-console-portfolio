@@ -3,8 +3,9 @@
 import Link from "next/link"
 import ResourceTable, { type Column } from "./ResourceTable"
 import StatusBadge from "@/components/ui/StatusBadge"
-import iamGroups from "@/data/iam-groups.json"
-import iamConsole from "@/data/iam-console.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import iamConsole from "@data/iam-console.json"
 
 const LEVEL_RANK: Record<string, number> = { Beginner: 1, Intermediate: 2, Advanced: 3 }
 
@@ -16,11 +17,12 @@ interface SkillRow {
   groupColor: string
 }
 
-const rows: SkillRow[] = iamGroups.groups.flatMap((g) =>
-  g.skills.map((s) => ({ name: s.name, level: s.level, groupId: g.id, groupLabel: g.label, groupColor: g.color }))
-)
-
 export default function SkillsTable() {
+  const { data: iamGroups, error, reload } = useData("iam-groups")
+  const rows: SkillRow[] = (iamGroups?.groups ?? []).flatMap((g) =>
+    g.skills.map((s) => ({ name: s.name, level: s.level, groupId: g.id, groupLabel: g.label, groupColor: g.color }))
+  )
+
   const page = iamConsole.pages.skills
   const columns: Column<SkillRow>[] = [
     { header: page.columns.name, sortValue: (r) => r.name, render: (r) => <span className="text-gray-900">{r.name}</span> },
@@ -43,6 +45,7 @@ export default function SkillsTable() {
       description={page.description}
       columns={columns}
       rows={rows}
+      status={iamGroups ? undefined : <DataStatus label="skills" error={error} onRetry={reload} />}
       rowKey={(r) => `${r.groupId}:${r.name}`}
       searchText={(r) => `${r.name} ${r.groupLabel}`}
       searchPlaceholder={page.searchPlaceholder}

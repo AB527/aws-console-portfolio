@@ -1,6 +1,6 @@
 # S3 object files
 
-Each folder is named by the object `id` in `src/data/s3.json`. Drop the document into its folder using the file name shown below; the Open / Download buttons enable automatically once the file exists.
+Each folder is named by the object `id` in `public/data/s3.json`. Drop the document into its folder using the file name shown below; the Open / Download buttons enable automatically once the file exists.
 
 | Folder (object id) | Bucket | Object key | File name |
 |---|---|---|---|

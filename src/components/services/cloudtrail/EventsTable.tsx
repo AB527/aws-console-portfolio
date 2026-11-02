@@ -49,7 +49,14 @@ function Chevron({ dir }: { dir: "left" | "right" }) {
 }
 
 // `filterable` adds the lookup-attribute filter, pagination and column sorting of the full Event history page
-export default function EventsTable({ events, filterable = false }: { events: TrailEvent[]; filterable?: boolean }) {
+interface EventsTableProps {
+  events: TrailEvent[]
+  filterable?: boolean
+  // Shown in place of the rows while the events are loading
+  status?: React.ReactNode
+}
+
+export default function EventsTable({ events, filterable = false, status }: EventsTableProps) {
   const [attribute, setAttribute] = useState<Attribute>("name")
   const [query, setQuery] = useState("")
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "time", dir: "desc" })
@@ -170,7 +177,12 @@ export default function EventsTable({ events, filterable = false }: { events: Tr
                 <td className="px-4 py-3 whitespace-nowrap">{event.region}</td>
               </tr>
             ))}
-            {rows.length === 0 && (
+            {status && (
+              <tr>
+                <td colSpan={COLUMNS.length}>{status}</td>
+              </tr>
+            )}
+            {!status && rows.length === 0 && (
               <tr>
                 <td colSpan={COLUMNS.length} className="py-8 text-center text-[#424650]">
                   <p className="font-bold">No events</p>

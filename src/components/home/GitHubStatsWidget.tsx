@@ -1,6 +1,12 @@
-import github from "@/data/github.json"
+"use client"
+
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 export default function GitHubStatsWidget() {
+  const { data: github, error, reload } = useData("github")
+  if (!github) return <DataStatus label="GitHub stats" error={error} onRetry={reload} />
+
   return (
     <div className="flex flex-col h-full -mx-5 -mb-5">
       {/* Stats */}

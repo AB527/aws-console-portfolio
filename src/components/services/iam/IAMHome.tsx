@@ -1,12 +1,16 @@
+"use client"
+
 import Link from "next/link"
+import DataStatus, { DataStatusRow } from "@/components/ui/DataStatus"
 import StatusBadge from "@/components/ui/StatusBadge"
+import { useData } from "@/hooks/useData"
 import { formatPeriod } from "@/lib/formatDate"
-import iamGroups from "@/data/iam-groups.json"
-import iamUsers from "@/data/iam-users.json"
 
 export default function IAMHome() {
-  const previewGroups = iamGroups.groups.slice(0, 3)
-  const previewUsers = iamUsers.users.slice(0, 5)
+  const groups = useData("iam-groups")
+  const users = useData("iam-users")
+  const previewGroups = groups.data?.groups.slice(0, 3) ?? []
+  const previewUsers = users.data?.users.slice(0, 5) ?? []
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -19,6 +23,7 @@ export default function IAMHome() {
           </Link>
         </div>
         <div className="divide-y divide-gray-100">
+          {!groups.data && <DataStatus label="skill groups" error={groups.error} onRetry={groups.reload} />}
           {previewGroups.map((group) => (
             <Link
               key={group.id}
@@ -62,6 +67,7 @@ export default function IAMHome() {
               </tr>
             </thead>
             <tbody>
+              {!users.data && <DataStatusRow colSpan={3} label="roles" error={users.error} onRetry={users.reload} />}
               {previewUsers.map((user) => (
                 <tr key={user.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
                   <td className="px-4 py-2.5">

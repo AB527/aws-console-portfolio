@@ -6,7 +6,8 @@ import Link from "next/link"
 import { formatDate } from "@/lib/formatDate"
 import { GITHUB_REPO_URL } from "@/lib/constants"
 import { openSans } from "@/lib/awsFont"
-import s3Data from "@/data/s3.json"
+import { DataStatusRow } from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 const REGION_NAMES: Record<string, string> = {
   "ap-south-1": "Asia Pacific (Mumbai) ap-south-1",
@@ -52,7 +53,9 @@ export default function BucketsList() {
   const [spinning, setSpinning] = useState(false)
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "name", dir: "asc" })
 
-  const buckets = s3Data.buckets
+  const { data: s3Data, error, reload } = useData("s3")
+
+  const buckets = (s3Data?.buckets ?? [])
     .filter((b) => b.name.toLowerCase().includes(query.trim().toLowerCase()))
     .sort((a, b) => a[sort.key].localeCompare(b[sort.key]) * (sort.dir === "asc" ? 1 : -1))
 
@@ -110,7 +113,7 @@ export default function BucketsList() {
             <div>
               <div className="flex items-baseline gap-2">
                 <h2 className="text-[20px] leading-6 font-bold">
-                  General purpose buckets <span className="font-normal text-[#656871]">({buckets.length})</span>
+                  General purpose buckets <span className="font-normal text-[#656871]">({s3Data ? buckets.length : "–"})</span>
                 </h2>
                 <a className="text-xs font-bold text-[#006ce0] hover:underline cursor-pointer">Info</a>
               </div>
@@ -231,7 +234,8 @@ export default function BucketsList() {
                     <td className="px-4 py-3">{formatDate(bucket.createdDate)}, 01:47:56 (UTC+05:30)</td>
                   </tr>
                 ))}
-                {buckets.length === 0 && (
+                {!s3Data && <DataStatusRow colSpan={4} label="buckets" error={error} onRetry={reload} />}
+                {s3Data && buckets.length === 0 && (
                   <tr>
                     <td colSpan={4} className="px-4 py-8 text-center text-[#424650]">
                       No buckets match &ldquo;{query}&rdquo;

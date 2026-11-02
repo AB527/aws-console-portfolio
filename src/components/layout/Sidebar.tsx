@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
 import ServiceIcon from "@/components/ui/ServiceIcon"
-import services from "@/data/services.json"
+import services from "@data/services.json"
 
 export default function Sidebar() {
   const pathname = usePathname()

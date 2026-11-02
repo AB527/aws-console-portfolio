@@ -7,10 +7,12 @@ import ResourceSplitView, {
   RoutesCard,
   SimpleTable,
 } from "@/components/services/vpc/ResourceSplitView"
-import { connect, ownerId, routeTables, routesFor, subnetForRouteTable, type RouteTable } from "@/lib/vpc"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import { routesFor, subnetForRouteTable, type RouteTable, type VpcData } from "@/lib/vpc"
 
-function SubnetLink({ routeTable }: { routeTable: RouteTable }) {
-  const subnet = subnetForRouteTable(routeTable)
+function SubnetLink({ vpc, routeTable }: { vpc: VpcData; routeTable: RouteTable }) {
+  const subnet = subnetForRouteTable(vpc, routeTable)
   if (!subnet) return <>–</>
   return (
     <Link href={`/vpc/subnets?id=${subnet.id}`} className={LINK}>
@@ -19,21 +21,27 @@ function SubnetLink({ routeTable }: { routeTable: RouteTable }) {
   )
 }
 
-function ConnectLink() {
+function ConnectLink({ vpc }: { vpc: VpcData }) {
   return (
-    <Link href={`/vpc/connects/${connect.id}`} className={LINK}>
-      {connect.id} | {connect.name}
+    <Link href={`/vpc/connects/${vpc.vpc.id}`} className={LINK}>
+      {vpc.vpc.id} | {vpc.vpc.name}
     </Link>
   )
 }
 
 export default function RouteTablesView({ initialId }: { initialId?: string }) {
+  const { data: vpc, error, reload } = useData("vpc")
+
+  // Rows only exist once `vpc` has loaded, so the cells below never run without it
   return (
     <ResourceSplitView
+      // Remount when the data arrives so the first row gets selected
+      key={vpc ? "ready" : "loading"}
       title="Route tables"
       createLabel="Create route table"
       searchPlaceholder="Find route tables by attribute or tag"
-      items={routeTables}
+      items={vpc?.routeTables ?? []}
+      status={vpc ? undefined : <DataStatus label="route tables" error={error} onRetry={reload} />}
       initialId={initialId}
       searchText={(rt) => `${rt.name} ${rt.id} ${rt.routes.map((r) => `${r.destination} ${r.target}`).join(" ")}`}
       columns={[
@@ -46,36 +54,37 @@ export default function RouteTablesView({ initialId }: { initialId?: string }) {
             </button>
           ),
         },
-        { label: "Explicit subnet associations", cell: (rt) => <SubnetLink routeTable={rt} /> },
+        { label: "Explicit subnet associations", cell: (rt) => vpc && <SubnetLink vpc={vpc} routeTable={rt} /> },
         { label: "Edge associations", cell: () => "–" },
         { label: "Main", cell: () => "No" },
-        { label: "Connect", cell: () => <ConnectLink /> },
+        { label: "Connect", cell: () => vpc && <ConnectLink vpc={vpc} /> },
       ]}
       tabs={[
         {
           label: "Details",
-          render: (rt) => (
-            <DetailsCard
-              fields={[
-                { label: "Route table ID", value: rt.id, copy: rt.id },
-                { label: "Main", value: "No" },
-                { label: "Explicit subnet associations", value: <SubnetLink routeTable={rt} /> },
-                { label: "Edge associations", value: "–" },
-                { label: "Connect", value: <ConnectLink /> },
-                { label: "Owner ID", value: ownerId, copy: ownerId },
-              ]}
-            />
-          ),
+          render: (rt) =>
+            vpc && (
+              <DetailsCard
+                fields={[
+                  { label: "Route table ID", value: rt.id, copy: rt.id },
+                  { label: "Main", value: "No" },
+                  { label: "Explicit subnet associations", value: <SubnetLink vpc={vpc} routeTable={rt} /> },
+                  { label: "Edge associations", value: "–" },
+                  { label: "Connect", value: <ConnectLink vpc={vpc} /> },
+                  { label: "Owner ID", value: vpc.ownerId, copy: vpc.ownerId },
+                ]}
+              />
+            ),
         },
         {
           label: "Routes",
           // key resets the route filter when another table is selected
-          render: (rt) => <RoutesCard key={rt.id} routes={routesFor(rt)} />,
+          render: (rt) => <RoutesCard key={rt.id} routes={vpc ? routesFor(vpc, rt) : []} />,
         },
         {
           label: "Subnet associations",
           render: (rt) => {
-            const subnet = subnetForRouteTable(rt)
+            const subnet = vpc ? subnetForRouteTable(vpc, rt) : undefined
             return (
               <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
                 <h3 className="text-[20px] leading-6 font-bold mb-3">

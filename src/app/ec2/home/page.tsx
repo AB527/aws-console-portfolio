@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 import EC2Dashboard from "@/components/services/ec2/EC2Dashboard"
 import ServiceVisitor from "@/app/[serviceId]/home/ServiceVisitor"
-import site from "@/data/site.json"
+import site from "@data/site.json"
 
 export const metadata: Metadata = { title: site.pageTitles.ec2 }
 

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import ConsoleLayout from "@/components/layout/ConsoleLayout"
-import site from "@/data/site.json"
+import site from "@data/site.json"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 

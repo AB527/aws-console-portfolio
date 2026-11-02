@@ -1,25 +1,4 @@
 {
-  "nav": {
-    "dashboard": { "label": "Dashboard", "href": "/iam/home" },
-    "backLabel": "Back to console",
-    "sections": [
-      {
-        "id": "skill-management",
-        "label": "Skill Management",
-        "items": [
-          { "label": "Skill groups", "href": "/iam/groups" },
-          { "label": "Skills", "href": "/iam/skills" }
-        ]
-      },
-      {
-        "id": "experience-management",
-        "label": "Experience Management",
-        "items": [
-          { "label": "Role history", "href": "/iam/users" }
-        ]
-      }
-    ]
-  },
   "table": {
     "refreshLabel": "Refresh",
     "deleteLabel": "Delete",

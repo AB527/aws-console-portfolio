@@ -3,13 +3,13 @@
 import Link from "next/link"
 import ResourceTable, { type Column } from "./ResourceTable"
 import StatusBadge from "@/components/ui/StatusBadge"
-import iamGroups from "@/data/iam-groups.json"
-import iamUsers from "@/data/iam-users.json"
-import iamConsole from "@/data/iam-console.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData, type ContentData } from "@/hooks/useData"
+import iamConsole from "@data/iam-console.json"
 
 const LEVEL_RANK: Record<string, number> = { Beginner: 1, Intermediate: 2, Advanced: 3 }
 
-type Group = (typeof iamGroups.groups)[number]
+type Group = ContentData["iam-groups"]["groups"][number]
 
 interface GroupRow {
   group: Group
@@ -17,16 +17,24 @@ interface GroupRow {
   topLevel: string
 }
 
-const rows: GroupRow[] = iamGroups.groups.map((group) => ({
-  group,
-  roleCount: iamUsers.users.filter((u) => u.groups.includes(group.id)).length,
-  topLevel: group.skills.reduce(
-    (best, s) => ((LEVEL_RANK[s.level] ?? 0) > (LEVEL_RANK[best] ?? 0) ? s.level : best),
-    ""
-  ),
-}))
-
 export default function SkillGroupsTable() {
+  const groups = useData("iam-groups")
+  const users = useData("iam-users")
+  const iamGroups = groups.data
+  const iamUsers = users.data
+  const loaded = iamGroups !== null && iamUsers !== null
+
+  const rows: GroupRow[] = loaded
+    ? iamGroups.groups.map((group) => ({
+        group,
+        roleCount: iamUsers.users.filter((u) => u.groups.includes(group.id)).length,
+        topLevel: group.skills.reduce(
+          (best, s) => ((LEVEL_RANK[s.level] ?? 0) > (LEVEL_RANK[best] ?? 0) ? s.level : best),
+          ""
+        ),
+      }))
+    : []
+
   const page = iamConsole.pages.groups
   const columns: Column<GroupRow>[] = [
     {
@@ -54,6 +62,18 @@ export default function SkillGroupsTable() {
       description={page.description}
       columns={columns}
       rows={rows}
+      status={
+        loaded ? undefined : (
+          <DataStatus
+            label="skill groups"
+            error={groups.error || users.error}
+            onRetry={() => {
+              groups.reload()
+              users.reload()
+            }}
+          />
+        )
+      }
       rowKey={(r) => r.group.id}
       searchText={(r) => r.group.label}
       searchPlaceholder={page.searchPlaceholder}

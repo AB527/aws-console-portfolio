@@ -4,9 +4,11 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { formatDate } from "@/lib/formatDate"
-import { fileExt } from "@/lib/fileExt"
+import { fileExt, objectFilePath } from "@/lib/fileExt"
 import { GITHUB_REPO_URL } from "@/lib/constants"
 import { openSans } from "@/lib/awsFont"
+import { DataStatusRow } from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 type S3Object = {
   id: string
@@ -17,14 +19,6 @@ type S3Object = {
   storageClass: string
   etag: string
   url: string
-}
-
-type Bucket = {
-  id: string
-  name: string
-  region: string
-  createdDate: string
-  objects: S3Object[]
 }
 
 type SortKey = "key" | "type" | "lastModified" | "size" | "storageClass"
@@ -94,20 +88,29 @@ function Chevron({ dir }: { dir: "left" | "right" }) {
   )
 }
 
-export default function BucketDetail({ bucket }: { bucket: Bucket }) {
+// `files` lists the document URLs that exist under public/s3
+export default function BucketDetail({ bucketId, files }: { bucketId: string; files: string[] }) {
   const router = useRouter()
+  const { data: s3Data, error, reload } = useData("s3")
   const [query, setQuery] = useState("")
   const [selected, setSelected] = useState<Record<string, boolean>>({})
   const [spinning, setSpinning] = useState(false)
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "key", dir: "asc" })
 
-  const objects = bucket.objects
+  const found = s3Data?.buckets.find((b) => b.id === bucketId)
+  const bucket = { id: bucketId, name: found?.name ?? bucketId }
+  const allObjects: S3Object[] = (found?.objects ?? []).map((o) => {
+    const path = objectFilePath(o)
+    return { ...o, url: files.includes(path) ? path : "" }
+  })
+
+  const objects = allObjects
     .filter((o) => o.key.toLowerCase().includes(query.trim().toLowerCase()))
     .sort((a, b) => compare(a, b, sort.key) * (sort.dir === "asc" ? 1 : -1))
 
   const selectedKeys = Object.keys(selected).filter((k) => selected[k])
   const selectedObj =
-    selectedKeys.length === 1 ? bucket.objects.find((o) => o.key === selectedKeys[0]) ?? null : null
+    selectedKeys.length === 1 ? allObjects.find((o) => o.key === selectedKeys[0]) ?? null : null
   const oneSelected = !!selectedObj
   const hasFile = !!selectedObj?.url
   const allSelected = objects.length > 0 && objects.every((o) => selected[o.key])
@@ -167,7 +170,7 @@ export default function BucketDetail({ bucket }: { bucket: Bucket }) {
 
       <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
         <h2 className="text-[20px] leading-6 font-bold">
-          Objects <span className="font-normal text-[#656871]">({objects.length})</span>
+          Objects <span className="font-normal text-[#656871]">({s3Data ? objects.length : "–"})</span>
         </h2>
 
         {/* Toolbar */}
@@ -329,7 +332,8 @@ export default function BucketDetail({ bucket }: { bucket: Bucket }) {
                   <td className="px-4 py-3">{obj.storageClass}</td>
                 </tr>
               ))}
-              {objects.length === 0 && (
+              {!s3Data && <DataStatusRow colSpan={6} label="objects" error={error} onRetry={reload} />}
+              {s3Data && objects.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-4 py-8 text-center text-[#424650]">
                     No objects match &ldquo;{query}&rdquo;

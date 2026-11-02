@@ -1,7 +1,7 @@
 "use client"
 
 import { useConsoleStore } from "@/store/useConsoleStore"
-import menu from "@/data/services-menu.json"
+import menu from "@data/services-menu.json"
 
 interface FavoriteStarProps {
   serviceId: string

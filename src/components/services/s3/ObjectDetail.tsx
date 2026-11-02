@@ -2,8 +2,13 @@
 
 import { useState } from "react"
 import { formatDate } from "@/lib/formatDate"
-import { fileExt } from "@/lib/fileExt"
+import { fileExt, objectFilePath } from "@/lib/fileExt"
 import { openSans } from "@/lib/awsFont"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import regionsData from "@data/regions.json"
+
+const regions = regionsData.groups.flatMap((g) => g.regions)
 
 type S3Object = {
   id: string
@@ -17,6 +22,13 @@ type S3Object = {
 }
 
 interface ObjectDetailProps {
+  bucketId: string
+  objectKey: string
+  // Document URLs that exist under public/s3
+  files: string[]
+}
+
+interface ObjectViewProps {
   bucketName: string
   region: string
   regionLabel: string
@@ -78,7 +90,39 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   )
 }
 
-export default function ObjectDetail({ bucketName, region, regionLabel, owner, obj }: ObjectDetailProps) {
+export default function ObjectDetail({ bucketId, objectKey, files }: ObjectDetailProps) {
+  const { data: s3Data, error, reload } = useData("s3")
+  const bucket = s3Data?.buckets.find((b) => b.id === bucketId)
+  const obj = bucket?.objects.find((o) => o.key === objectKey)
+
+  if (!s3Data || !bucket || !obj) {
+    return (
+      <div className={`${openSans.className} px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]`}>
+        <h1 className="text-[24px] leading-[30px] font-bold break-all mb-5">{objectKey}</h1>
+        <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4">
+          <h2 className="text-[20px] leading-6 font-bold">Object overview</h2>
+          {/* Loaded but missing: the object was removed from s3.json after this page was built */}
+          <DataStatus label="object" error={error || !!s3Data} onRetry={reload} />
+        </div>
+      </div>
+    )
+  }
+
+  const regionFull = regions.find((r) => r.id === bucket.region)?.full
+  const path = objectFilePath(obj)
+
+  return (
+    <ObjectView
+      bucketName={bucket.name}
+      region={bucket.region}
+      regionLabel={regionFull ? `${regionFull} ${bucket.region}` : bucket.region}
+      owner={s3Data.owner}
+      obj={{ ...obj, url: files.includes(path) ? path : "" }}
+    />
+  )
+}
+
+function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewProps) {
   const [activeTab, setActiveTab] = useState("Properties")
 
   const s3Uri = `s3://${bucketName}/${obj.key}`

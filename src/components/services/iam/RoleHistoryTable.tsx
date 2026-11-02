@@ -4,15 +4,23 @@ import Link from "next/link"
 import ResourceTable, { type Column } from "./ResourceTable"
 import StatusBadge from "@/components/ui/StatusBadge"
 import { formatPeriod } from "@/lib/formatDate"
-import iamUsers from "@/data/iam-users.json"
-import iamGroups from "@/data/iam-groups.json"
-import iamConsole from "@/data/iam-console.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData, type ContentData } from "@/hooks/useData"
+import iamConsole from "@data/iam-console.json"
 
-type User = (typeof iamUsers.users)[number]
-
-const groupById = Object.fromEntries(iamGroups.groups.map((g) => [g.id, g]))
+type User = ContentData["iam-users"]["users"][number]
+type Group = ContentData["iam-groups"]["groups"][number]
 
 export default function RoleHistoryTable() {
+  const users = useData("iam-users")
+  const groups = useData("iam-groups")
+  const iamUsers = users.data
+  const iamGroups = groups.data
+  const loaded = iamUsers !== null && iamGroups !== null
+  const groupById: Record<string, Group | undefined> = Object.fromEntries(
+    (iamGroups?.groups ?? []).map((g) => [g.id, g])
+  )
+
   const page = iamConsole.pages.roles
   const columns: Column<User>[] = [
     {
@@ -54,7 +62,19 @@ export default function RoleHistoryTable() {
       title={page.title}
       description={page.description}
       columns={columns}
-      rows={iamUsers.users}
+      rows={iamUsers?.users ?? []}
+      status={
+        loaded ? undefined : (
+          <DataStatus
+            label="role history"
+            error={users.error || groups.error}
+            onRetry={() => {
+              users.reload()
+              groups.reload()
+            }}
+          />
+        )
+      }
       rowKey={(u) => u.id}
       searchText={(u) => `${u.description} ${u.displayName} ${u.username}`}
       searchPlaceholder={page.searchPlaceholder}

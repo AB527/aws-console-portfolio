@@ -1,19 +1,8 @@
 import { Suspense } from "react"
-import EC2Sidebar from "@/components/services/ec2/EC2Sidebar"
 import EC2Breadcrumb from "@/components/services/ec2/EC2Breadcrumb"
+import ServiceSidebar from "@/components/layout/ServiceSidebar"
 import ServiceTopBar from "@/components/layout/ServiceTopBar"
-import { serviceTitle } from "@/lib/serviceTitle"
 import { openSans } from "@/lib/awsFont"
-
-function SidebarFallback() {
-  return (
-    <aside className="w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] hidden lg:block">
-      <div className="pl-7 pr-4 pt-5 pb-3">
-        <span className="text-[20px] leading-6 font-bold text-[#0f141a]">{serviceTitle("ec2")}</span>
-      </div>
-    </aside>
-  )
-}
 
 export default function EC2Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,9 +14,7 @@ export default function EC2Layout({ children }: { children: React.ReactNode }) {
         </Suspense>
       </ServiceTopBar>
       <div className="flex flex-1">
-        <Suspense fallback={<SidebarFallback />}>
-          <EC2Sidebar />
-        </Suspense>
+        <ServiceSidebar serviceId="ec2" />
         <main className="flex-1 min-w-0">{children}</main>
       </div>
     </div>

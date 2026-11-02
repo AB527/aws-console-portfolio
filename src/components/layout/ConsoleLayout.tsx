@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
-import services from "@/data/services.json"
+import services from "@data/services.json"
 import Topbar from "./Topbar"
 import ConsoleFooter from "./ConsoleFooter"
 import CloudShellPanel from "./CloudShellPanel"

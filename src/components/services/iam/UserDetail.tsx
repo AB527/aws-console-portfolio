@@ -4,8 +4,8 @@ import { useState } from "react"
 import StatusBadge from "@/components/ui/StatusBadge"
 import PolicyTag from "@/components/ui/PolicyTag"
 import { formatPeriod } from "@/lib/formatDate"
-import iamUsers from "@/data/iam-users.json"
-import iamGroups from "@/data/iam-groups.json"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
 
 interface UserDetailProps {
   userId: string
@@ -13,6 +13,26 @@ interface UserDetailProps {
 
 export default function UserDetail({ userId }: UserDetailProps) {
   const [activeTab, setActiveTab] = useState<"summary" | "permissions">("summary")
+
+  const users = useData("iam-users")
+  const groups = useData("iam-groups")
+  const iamUsers = users.data
+  const iamGroups = groups.data
+
+  if (!iamUsers || !iamGroups) {
+    return (
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
+        <DataStatus
+          label="role"
+          error={users.error || groups.error}
+          onRetry={() => {
+            users.reload()
+            groups.reload()
+          }}
+        />
+      </div>
+    )
+  }
 
   const user = iamUsers.users.find((u) => u.id === userId)
   if (!user) return <p className="text-sm text-gray-500">User not found.</p>

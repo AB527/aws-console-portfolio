@@ -3,8 +3,8 @@
 import { useEffect } from "react"
 import { useDraggable } from "@dnd-kit/core"
 import EC2SplitPanel from "@/components/services/ec2/EC2SplitPanel"
-import dashboardLayout from "@/data/dashboard-layout.json"
-import menu from "@/data/services-menu.json"
+import dashboardLayout from "@data/dashboard-layout.json"
+import menu from "@data/services-menu.json"
 
 // Drag ids of panel cards are prefixed so the grid can tell them apart from its own widgets
 export const ADD_PREFIX = "add:"

@@ -3,16 +3,18 @@
 import { useState } from "react"
 import StatusBadge from "@/components/ui/StatusBadge"
 import { formatPeriod } from "@/lib/formatDate"
-import ec2Data from "@/data/ec2-projects.json"
+import { useData, type ContentData } from "@/hooks/useData"
 
-type Instance = typeof ec2Data.instances[number]
+type Instance = ContentData["ec2-projects"]["instances"][number]
 
 export default function ProjectsList() {
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
-  const filtered = ec2Data.instances.filter((inst) => {
+  const instances = useData("ec2-projects").data?.instances ?? []
+
+  const filtered = instances.filter((inst) => {
     const matchSearch =
       search === "" ||
       inst.name.toLowerCase().includes(search.toLowerCase()) ||

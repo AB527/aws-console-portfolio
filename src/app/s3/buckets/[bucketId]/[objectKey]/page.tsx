@@ -1,15 +1,10 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import s3Data from "@/data/s3.json"
-import regionsData from "@/data/regions.json"
-import services from "@/data/services.json"
-import site from "@/data/site.json"
+import s3Data from "@data/s3.json"
+import site from "@data/site.json"
 import ObjectDetail from "@/components/services/s3/ObjectDetail"
-import S3SubSidebar from "@/components/services/s3/S3SubSidebar"
-import { objectFileUrl } from "@/lib/s3Files"
-
-const s3Service = services.find((s) => s.id === "s3")
-const regions = regionsData.groups.flatMap((g) => g.regions)
+import ServiceSidebar from "@/components/layout/ServiceSidebar"
+import { objectFileUrls } from "@/lib/s3Files"
 
 interface Props {
   params: Promise<{ bucketId: string; objectKey: string }>
@@ -35,21 +30,12 @@ export default async function ObjectPage({ params }: Props) {
   const obj = bucket.objects.find((o) => o.key === decoded)
   if (!obj) notFound()
 
-  const regionFull = regions.find((r) => r.id === bucket.region)?.full
-  const regionLabel = regionFull ? `${regionFull} ${bucket.region}` : bucket.region
-
   return (
     <div className="bg-[#f2f3f3] min-h-[calc(100vh-56px)] flex flex-col">
       <div className="flex flex-1">
-        <S3SubSidebar title={s3Service?.title} />
+        <ServiceSidebar serviceId="s3" />
         <div className="flex-1 min-w-0">
-          <ObjectDetail
-            bucketName={bucket.name}
-            region={bucket.region}
-            regionLabel={regionLabel}
-            owner={s3Data.owner}
-            obj={{ ...obj, url: objectFileUrl(obj) }}
-          />
+          <ObjectDetail bucketId={bucket.id} objectKey={obj.key} files={objectFileUrls()} />
         </div>
       </div>
     </div>

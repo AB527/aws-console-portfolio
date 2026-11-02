@@ -3,7 +3,9 @@
 import Link from "next/link"
 import ResourceSplitView, { DetailsCard, LINK, RoutesCard } from "@/components/services/vpc/ResourceSplitView"
 import { StateBadge } from "@/components/services/vpc/VpcTable"
-import { connect, ownerId, routeTableForSubnet, routesFor, subnetArn, subnets, type Subnet } from "@/lib/vpc"
+import DataStatus from "@/components/ui/DataStatus"
+import { useData } from "@/hooks/useData"
+import { routeTableForSubnet, routesFor, subnetArn, type Subnet, type VpcData } from "@/lib/vpc"
 
 function BlockPublicAccessOff() {
   return (
@@ -17,8 +19,8 @@ function BlockPublicAccessOff() {
   )
 }
 
-function RouteTableLink({ subnet }: { subnet: Subnet }) {
-  const routeTable = routeTableForSubnet(subnet.id)
+function RouteTableLink({ vpc, subnet }: { vpc: VpcData; subnet: Subnet }) {
+  const routeTable = routeTableForSubnet(vpc, subnet.id)
   if (!routeTable) return <>–</>
   return (
     <Link href={`/vpc/route-tables?id=${routeTable.id}`} className={LINK}>
@@ -28,12 +30,18 @@ function RouteTableLink({ subnet }: { subnet: Subnet }) {
 }
 
 export default function SubnetsView({ initialId }: { initialId?: string }) {
+  const { data: vpc, error, reload } = useData("vpc")
+
+  // Rows only exist once `vpc` has loaded, so the cells below never run without it
   return (
     <ResourceSplitView
+      // Remount when the data arrives so the first row gets selected
+      key={vpc ? "ready" : "loading"}
       title="Subnets"
       createLabel="Create subnet"
       searchPlaceholder="Find subnets by attribute or tag"
-      items={subnets}
+      items={vpc?.subnets ?? []}
+      status={vpc ? undefined : <DataStatus label="subnets" error={error} onRetry={reload} />}
       initialId={initialId}
       searchText={(s) => `${s.name} ${s.id} ${s.cidr}`}
       columns={[
@@ -49,39 +57,41 @@ export default function SubnetsView({ initialId }: { initialId?: string }) {
         { label: "State", cell: (s) => <StateBadge state={s.state} /> },
         {
           label: "Connect",
-          cell: () => (
-            <Link href={`/vpc/connects/${connect.id}`} className={LINK}>
-              {connect.id}
-            </Link>
-          ),
+          cell: () =>
+            vpc && (
+              <Link href={`/vpc/connects/${vpc.vpc.id}`} className={LINK}>
+                {vpc.vpc.id}
+              </Link>
+            ),
         },
         { label: "IPv4 CIDR", cell: (s) => s.cidr },
-        { label: "Route table", cell: (s) => <RouteTableLink subnet={s} /> },
+        { label: "Route table", cell: (s) => vpc && <RouteTableLink vpc={vpc} subnet={s} /> },
       ]}
       tabs={[
         {
           label: "Details",
-          render: (s) => (
-            <DetailsCard
-              fields={[
-                { label: "Subnet ID", value: s.id, copy: s.id },
-                { label: "Subnet ARN", value: subnetArn(s), copy: subnetArn(s) },
-                { label: "State", value: <StateBadge state={s.state} /> },
-                { label: "Block Public Access", value: <BlockPublicAccessOff /> },
-                { label: "Name", value: s.name },
-                { label: "IPv4 CIDR", value: s.cidr },
-                { label: "Route table", value: <RouteTableLink subnet={s} /> },
-                { label: "Owner", value: ownerId, copy: ownerId },
-              ]}
-            />
-          ),
+          render: (s) =>
+            vpc && (
+              <DetailsCard
+                fields={[
+                  { label: "Subnet ID", value: s.id, copy: s.id },
+                  { label: "Subnet ARN", value: subnetArn(vpc, s), copy: subnetArn(vpc, s) },
+                  { label: "State", value: <StateBadge state={s.state} /> },
+                  { label: "Block Public Access", value: <BlockPublicAccessOff /> },
+                  { label: "Name", value: s.name },
+                  { label: "IPv4 CIDR", value: s.cidr },
+                  { label: "Route table", value: <RouteTableLink vpc={vpc} subnet={s} /> },
+                  { label: "Owner", value: vpc.ownerId, copy: vpc.ownerId },
+                ]}
+              />
+            ),
         },
         {
           label: "Route table",
           render: (s) => {
-            const routeTable = routeTableForSubnet(s.id)
+            const routeTable = vpc && routeTableForSubnet(vpc, s.id)
             // key resets the route filter when another subnet is selected
-            return <RoutesCard key={s.id} routes={routeTable ? routesFor(routeTable) : []} />
+            return <RoutesCard key={s.id} routes={vpc && routeTable ? routesFor(vpc, routeTable) : []} />
           },
         },
       ]}

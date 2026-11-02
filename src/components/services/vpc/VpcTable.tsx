@@ -14,7 +14,7 @@ export function StateBadge({ state }: { state: string }) {
 
 interface VpcTableProps {
   title: string
-  count: number
+  count: number | string
   description: string
   columns: string[]
   children: React.ReactNode

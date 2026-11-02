@@ -1,14 +1,36 @@
+"use client"
+
 import Link from "next/link"
+import DataStatus from "@/components/ui/DataStatus"
 import StatusBadge from "@/components/ui/StatusBadge"
+import { useData } from "@/hooks/useData"
 import { formatPeriod } from "@/lib/formatDate"
-import iamGroups from "@/data/iam-groups.json"
-import iamUsers from "@/data/iam-users.json"
 
 interface GroupDetailProps {
   groupId: string
 }
 
 export default function GroupDetail({ groupId }: GroupDetailProps) {
+  const groups = useData("iam-groups")
+  const users = useData("iam-users")
+  const iamGroups = groups.data
+  const iamUsers = users.data
+
+  if (!iamGroups || !iamUsers) {
+    return (
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
+        <DataStatus
+          label="skill group"
+          error={groups.error || users.error}
+          onRetry={() => {
+            groups.reload()
+            users.reload()
+          }}
+        />
+      </div>
+    )
+  }
+
   const group = iamGroups.groups.find((g) => g.id === groupId)
   if (!group) return <p className="text-sm text-gray-500">Group not found.</p>
 
