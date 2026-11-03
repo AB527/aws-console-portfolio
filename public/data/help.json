@@ -17,6 +17,7 @@
     "/ec2/home?view=instance-types": "ec2-project-types",
     "/ec2/home?view=instance-type-finder": "ec2-type-finder",
     "/s3/buckets": "s3-bucket",
+    "/iam/home": "iam-dashboard",
     "/iam/groups": "iam-groups",
     "/iam/skills": "iam-skills",
     "/iam/users": "iam-roles",
@@ -74,7 +75,7 @@
       "links": [
         {
           "label": "Getting started with the Console",
-          "href": "/getting-started"
+          "href": "https://github.com/AB527/aws-console-portfolio"
         }
       ]
     },
@@ -134,7 +135,7 @@
         },
         {
           "label": "Getting started",
-          "href": "/getting-started"
+          "href": "https://github.com/AB527/aws-console-portfolio"
         }
       ]
     },
@@ -245,6 +246,27 @@
         {
           "label": "All buckets",
           "href": "/s3/home"
+        }
+      ]
+    },
+    "iam-dashboard": {
+      "title": "Skills Dashboard",
+      "body": [
+        {
+          "text": "The **dashboard** summarizes the skills in this portfolio: how many **skill groups**, **skills** and **roles** there are, and the role that is active now."
+        },
+        {
+          "text": "Choose a **number** under Skills resources to open the matching list."
+        }
+      ],
+      "links": [
+        {
+          "label": "Skill groups",
+          "href": "/iam/groups"
+        },
+        {
+          "label": "Role history",
+          "href": "/iam/users"
         }
       ]
     },

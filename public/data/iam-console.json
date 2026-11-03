@@ -5,6 +5,95 @@
     "infoLabel": "Info",
     "selectAllLabel": "Select all"
   },
+  "dashboard": {
+    "title": "%s Dashboard",
+    "recommendations": {
+      "title": "Skill recommendations",
+      "label": "recommendations",
+      "activeRole": {
+        "title": "Currently in an active role",
+        "text": "%s, since %s."
+      },
+      "noActiveRole": {
+        "title": "No active role",
+        "text": "Open to new roles."
+      },
+      "advanced": {
+        "title": "%s skills at Advanced level",
+        "text": "Skills used long enough to work in them without supervision."
+      }
+    },
+    "resources": {
+      "title": "Skills resources",
+      "subtitle": "Resources in this portfolio",
+      "label": "resources",
+      "groups": "Skill groups",
+      "skills": "Skills",
+      "roles": "Roles",
+      "advanced": "Advanced skills",
+      "activeRoles": "Active roles"
+    },
+    "whatsNew": {
+      "title": "What's new",
+      "viewAll": "View all",
+      "subtitle": "Latest roles in the experience history",
+      "label": "roles",
+      "item": "%s at %s."
+    },
+    "currentRole": {
+      "title": "Current role",
+      "label": "role",
+      "organization": "Organization",
+      "role": "Role",
+      "period": "Period",
+      "region": "Region",
+      "none": "No active role"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "text": "The full work history as a timeline of events."
+    },
+    "tools": {
+      "title": "Tools",
+      "label": "Project type finder",
+      "href": "/ec2/home?view=instance-type-finder",
+      "text": "The finder filters project types so you can see the kind of work each skill was used for."
+    },
+    "more": {
+      "title": "Additional information",
+      "services": ["s3", "vpc", "ec2"]
+    }
+  },
+  "detail": {
+    "summary": "Summary",
+    "notFound": "No resources to display",
+    "group": {
+      "label": "skill group",
+      "name": "Group name",
+      "skills": "Skills",
+      "roles": "Roles",
+      "topLevel": "Top level",
+      "skillsTab": "Skills",
+      "rolesTab": "Roles",
+      "skillColumns": { "name": "Skill", "level": "Level" },
+      "roleColumns": { "role": "Role", "organization": "Organization", "status": "Status", "period": "Period" },
+      "emptyRoles": "No roles in this group"
+    },
+    "role": {
+      "label": "role",
+      "organization": "Organization",
+      "role": "Role",
+      "status": "Status",
+      "period": "Period",
+      "region": "Region",
+      "groups": "Skill groups",
+      "permissionsTab": "Permissions",
+      "groupsTab": "Skill groups",
+      "permissionColumns": { "name": "Policy name", "effect": "Effect", "type": "Type" },
+      "policyType": "Inline",
+      "groupColumns": { "name": "Group name", "skills": "Skills" }
+    }
+  },
   "pages": {
     "groups": {
       "breadcrumb": "Skill groups",

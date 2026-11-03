@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
 
@@ -27,10 +26,7 @@ export default function KnowMeWidget() {
           </div>
         )
 
-        if ("route" in item && item.route) {
-          return <Link key={item.id} href={item.route}>{content}</Link>
-        }
-        if ("link" in item && item.link) {
+        if (item.link) {
           return (
             <a key={item.id} href={item.link} target="_blank" rel="noopener noreferrer">
               {content}
