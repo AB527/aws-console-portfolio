@@ -29,8 +29,8 @@ interface HelpTopic {
 
 const TOPICS: Record<string, HelpTopic | undefined> = help.topics
 const PILL =
-  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-[14px] font-bold text-[#006ce0] hover:bg-[#f0fbff] transition-colors"
-const LINK = "text-[#006ce0] hover:underline"
+  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-[14px] font-bold text-link hover:bg-surface-selected transition-colors"
+const LINK = "text-link hover:underline"
 
 function ExternalIcon({ className = "" }: { className?: string }) {
   return (
@@ -75,7 +75,7 @@ function RichText({ text }: { text: string }) {
       {parts.map((part, i) => {
         if (part.startsWith("**")) {
           return (
-            <strong key={i} className="font-bold text-[#0f141a]">
+            <strong key={i} className="font-bold text-ink">
               {part.slice(2, -2)}
             </strong>
           )
@@ -118,15 +118,15 @@ export default function HelpPanel() {
   return (
     <aside
       aria-label={title}
-      className={`${openSans.className} w-[290px] shrink-0 bg-white border-l border-[#c6c6cd] text-[14px] leading-5 text-[#424650] overflow-y-auto sticky top-[56px] h-[calc(100vh-88px)] max-lg:fixed max-lg:inset-x-0 max-lg:top-[56px] max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:h-auto`}
+      className={`${openSans.className} w-[290px] shrink-0 bg-surface border-l border-line text-[14px] leading-5 text-ink-body overflow-y-auto sticky top-[56px] h-[calc(100vh-88px)] max-lg:fixed max-lg:inset-x-0 max-lg:top-[56px] max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:h-auto`}
     >
       <div className="flex items-start justify-between gap-3 px-7 pt-5 pb-4">
-        <h2 className="text-[20px] leading-6 font-bold text-[#0f141a]">{title}</h2>
+        <h2 className="text-[20px] leading-6 font-bold text-ink">{title}</h2>
         <button
           onClick={() => setHelpTopic(null)}
           aria-label={help.labels.close}
           title={help.labels.close}
-          className="mt-0.5 shrink-0 text-[#424650] hover:text-[#0f141a] transition-colors"
+          className="mt-0.5 shrink-0 text-ink-body hover:text-ink transition-colors"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M9 18l6-6-6-6" />
@@ -137,7 +137,7 @@ export default function HelpPanel() {
       <div className="px-7 pb-2 space-y-4">
         {(topic?.body ?? []).map((block, i) =>
           block.heading ? (
-            <h3 key={i} className="pt-3 text-[18px] leading-[22px] font-bold text-[#0f141a]">
+            <h3 key={i} className="pt-3 text-[18px] leading-[22px] font-bold text-ink">
               {block.heading}
             </h3>
           ) : (
@@ -149,7 +149,7 @@ export default function HelpPanel() {
       </div>
 
       <div className="px-7 pt-3 pb-5">
-        <h4 className="text-[16px] leading-5 font-bold text-[#0f141a] mb-3">{help.labels.helpful}</h4>
+        <h4 className="text-[16px] leading-5 font-bold text-ink mb-3">{help.labels.helpful}</h4>
         <div className="flex gap-2">
           <a href={help.feedback.yesUrl} target="_blank" rel="noopener noreferrer" className={PILL}>
             <ThumbIcon />
@@ -163,8 +163,8 @@ export default function HelpPanel() {
       </div>
 
       {links.length > 0 && (
-        <div className="mx-5 px-2 pt-5 pb-8 border-t border-[#c6c6cd]">
-          <h3 className="flex items-center gap-2 text-[18px] leading-[22px] font-bold text-[#0f141a] mb-3">
+        <div className="mx-5 px-2 pt-5 pb-8 border-t border-line">
+          <h3 className="flex items-center gap-2 text-[18px] leading-[22px] font-bold text-ink mb-3">
             {help.labels.learnMore}
             <ExternalIcon />
           </h3>

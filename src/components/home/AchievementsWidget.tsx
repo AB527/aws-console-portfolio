@@ -22,7 +22,7 @@ type Achievement = {
 
 function SortIcon() {
   return (
-    <svg width="8" height="6" viewBox="0 0 8 6" fill="none" className="text-[#656871] shrink-0">
+    <svg width="8" height="6" viewBox="0 0 8 6" fill="none" className="text-ink-muted shrink-0">
       <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
@@ -57,8 +57,8 @@ export default function AchievementsWidget() {
     <div className="-mx-5 -mb-5 flex flex-col h-full">
       {/* Controls: filter + search */}
       <div className="flex items-stretch gap-3 px-5 pt-3">
-        <div className="relative border border-[#8c8c94] rounded-xl px-3 pt-2.5 pb-1.5 shrink-0">
-          <span className="absolute -top-2 left-2 bg-white px-1 text-[10px] font-bold text-[#424650]">
+        <div className="relative border border-line-strong rounded-xl px-3 pt-2.5 pb-1.5 shrink-0">
+          <span className="absolute -top-2 left-2 bg-surface px-1 text-[10px] font-bold text-ink-body">
             Filter by status
           </span>
           <select
@@ -67,7 +67,7 @@ export default function AchievementsWidget() {
               setStatusFilter(e.target.value)
               setPage(1)
             }}
-            className="appearance-none bg-transparent text-[14px] text-[#0f141a] pr-6 outline-none cursor-pointer"
+            className="appearance-none bg-transparent text-[14px] text-ink pr-6 outline-none cursor-pointer"
           >
             <option value="all">All statuses</option>
             {statuses.map((s) => (
@@ -83,12 +83,12 @@ export default function AchievementsWidget() {
             fill="none"
             className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none"
           >
-            <path d="M1 1l4.5 4.5L10 1" stroke="#006ce0" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 1l4.5 4.5L10 1" stroke="var(--color-link)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
 
-        <div className="flex-1 flex items-center gap-2 border border-[#8c8c94] rounded-xl px-3 min-w-0">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-[#656871] shrink-0">
+        <div className="flex-1 flex items-center gap-2 border border-line-strong rounded-xl px-3 min-w-0">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-ink-muted shrink-0">
             <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
             <path d="M11 11l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
@@ -99,28 +99,28 @@ export default function AchievementsWidget() {
               setPage(1)
             }}
             placeholder="Find achievements"
-            className="flex-1 min-w-0 py-2 text-[14px] outline-none bg-transparent placeholder:italic placeholder:text-[#656871]"
+            className="flex-1 min-w-0 py-2 text-[14px] outline-none bg-transparent placeholder:italic placeholder:text-ink-muted"
           />
         </div>
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-end gap-3 px-5 pt-3 text-[#656871]">
+      <div className="flex items-center justify-end gap-3 px-5 pt-3 text-ink-muted">
         <button
           onClick={() => setPage((p) => Math.max(1, p - 1))}
           disabled={currentPage <= 1}
-          className="disabled:opacity-30 hover:text-[#0f141a]"
+          className="disabled:opacity-30 hover:text-ink"
           aria-label="Previous page"
         >
           <svg width="7" height="11" viewBox="0 0 8 12" fill="none">
             <path d="M6 1L1 6l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <span className="text-[14px] font-bold text-[#0f141a]">{currentPage}</span>
+        <span className="text-[14px] font-bold text-ink">{currentPage}</span>
         <button
           onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
           disabled={currentPage >= totalPages}
-          className="disabled:opacity-30 hover:text-[#0f141a]"
+          className="disabled:opacity-30 hover:text-ink"
           aria-label="Next page"
         >
           <svg width="7" height="11" viewBox="0 0 8 12" fill="none">
@@ -131,14 +131,14 @@ export default function AchievementsWidget() {
 
       {/* Table */}
       <div className="flex-1 overflow-y-auto px-5 pt-1">
-        <div className={`${COLS} border-b border-[#c6c6cd] pb-2`}>
-          <div className="flex items-center gap-1.5 text-[14px] font-bold text-[#0f141a]">
+        <div className={`${COLS} border-b border-line pb-2`}>
+          <div className="flex items-center gap-1.5 text-[14px] font-bold text-ink">
             Name <SortIcon />
           </div>
-          <div className="flex items-center gap-1.5 text-[14px] font-bold text-[#0f141a] border-l border-[#c6c6cd] pl-3">
+          <div className="flex items-center gap-1.5 text-[14px] font-bold text-ink border-l border-line pl-3">
             Issuer <SortIcon />
           </div>
-          <div className="flex items-center gap-1.5 text-[14px] font-bold text-[#0f141a] border-l border-[#c6c6cd] pl-3">
+          <div className="flex items-center gap-1.5 text-[14px] font-bold text-ink border-l border-line pl-3">
             Status <SortIcon />
           </div>
         </div>
@@ -147,27 +147,27 @@ export default function AchievementsWidget() {
           <DataStatus label="achievements" error={error} onRetry={reload} />
         ) : pageItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-8 gap-1">
-            <span className="text-[14px] font-bold text-[#424650]">No achievements</span>
-            <span className="text-[14px] text-[#656871]">Try a different search or filter.</span>
+            <span className="text-[14px] font-bold text-ink-body">No achievements</span>
+            <span className="text-[14px] text-ink-muted">Try a different search or filter.</span>
           </div>
         ) : (
           pageItems.map((item, i) => (
-            <div key={i} className={`${COLS} items-center py-2.5 border-b border-[#ebebf0]`}>
+            <div key={i} className={`${COLS} items-center py-2.5 border-b border-line-subtle`}>
               <div className="pr-2 min-w-0">
                 {item.link ? (
                   <a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[14px] font-bold text-[#006ce0] hover:underline"
+                    className="text-[14px] font-bold text-link hover:underline"
                   >
                     {item.title}
                   </a>
                 ) : (
-                  <span className="text-[14px] font-bold text-[#0f141a]">{item.title}</span>
+                  <span className="text-[14px] font-bold text-ink">{item.title}</span>
                 )}
               </div>
-              <div className="text-[14px] text-[#424650] pl-3 min-w-0 truncate">{item.reward}</div>
+              <div className="text-[14px] text-ink-body pl-3 min-w-0 truncate">{item.reward}</div>
               <div className="pl-3">
                 <StatusBadge status={item.status} />
               </div>
@@ -178,10 +178,10 @@ export default function AchievementsWidget() {
 
       {/* Footer */}
       {exploreData && (
-        <div className="border-t border-[#c6c6cd] shrink-0">
+        <div className="border-t border-line shrink-0">
           <a
             href={exploreData.footer.href}
-            className="block text-center text-[14px] text-[#006ce0] hover:underline py-3"
+            className="block text-center text-[14px] text-link hover:underline py-3"
           >
             {exploreData.footer.label}
           </a>

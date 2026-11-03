@@ -14,7 +14,7 @@ interface InfoLinkProps {
 // The small "Info" link beside a heading. Opens the help panel on its topic.
 export default function InfoLink({
   topic,
-  className = "text-xs font-bold text-[#006ce0] hover:underline",
+  className = "text-xs font-bold text-link hover:underline",
   inline = false,
 }: InfoLinkProps) {
   const setHelpTopic = useConsoleStore((s) => s.setHelpTopic)

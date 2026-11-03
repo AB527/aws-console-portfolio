@@ -17,7 +17,7 @@ const SUGGESTIONS = [
   },
 ]
 
-const ICON_BUTTON_CLASS = "w-8 h-8 flex items-center justify-center rounded-full text-[#424650] hover:text-[#006ce0] transition-colors"
+const ICON_BUTTON_CLASS = "w-8 h-8 flex items-center justify-center rounded-full text-ink-body hover:text-link transition-colors"
 
 function HeaderIcon({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -67,10 +67,10 @@ export default function AmazonQPanel() {
   return (
     <aside
       aria-label="Amazon Q"
-      className={`${openSans.className} fixed left-0 top-[56px] bottom-[32px] w-full md:w-[420px] z-30 bg-white md:border-r-[12px] md:border-[#0f1620] flex flex-col text-[14px] leading-5 text-[#0f141a]`}
+      className={`${openSans.className} fixed left-0 top-[56px] bottom-[32px] w-full md:w-[420px] z-30 bg-surface md:border-r-[12px] md:border-[#0f1620] flex flex-col text-[14px] leading-5 text-ink`}
     >
       {/* Divider grip between the panel and the page */}
-      <span aria-hidden="true" className="hidden md:block absolute top-1/2 -right-[8px] -translate-y-1/2 w-[3px] h-5 rounded-full bg-[#c6c6cd]" />
+      <span aria-hidden="true" className="hidden md:block absolute top-1/2 -right-[8px] -translate-y-1/2 w-[3px] h-5 rounded-full bg-line" />
       {/* Header */}
       <div className="flex items-center gap-1 pl-5 pr-3 h-[52px] shrink-0">
         <h2 className="text-[16px] font-bold mr-auto">Amazon Q</h2>
@@ -89,7 +89,7 @@ export default function AmazonQPanel() {
           <circle cx="12" cy="12" r="3" />
           <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.900 4.900l2.100 2.100M17 17l2.100 2.100M4.900 19.100 7 17M17 7l2.100-2.100" />
         </HeaderIcon>
-        <span className="w-px h-6 bg-[#c6c6cd] mx-1 hidden md:block" />
+        <span className="w-px h-6 bg-line mx-1 hidden md:block" />
         <span className="hidden md:block">
           <HeaderIcon title="Expand">
             <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
@@ -114,8 +114,8 @@ export default function AmazonQPanel() {
           <div className="py-5 space-y-4">
             {history.map((item, i) => (
               <div key={i} className="space-y-2">
-                <p className="ml-auto w-fit max-w-[85%] rounded-xl bg-[#f0fbff] border border-[#b8e7ff] px-3 py-2 break-words">{item.prompt}</p>
-                <p className="w-fit max-w-[85%] rounded-xl bg-[#f6f6f9] border border-[#dedee3] px-3 py-2 text-[#424650]">{item.reply}</p>
+                <p className="ml-auto w-fit max-w-[85%] rounded-xl bg-surface-selected border border-[#b8e7ff] dark:border-line px-3 py-2 break-words">{item.prompt}</p>
+                <p className="w-fit max-w-[85%] rounded-xl bg-[#f6f6f9] dark:bg-surface-subtle border border-[#dedee3] dark:border-line px-3 py-2 text-ink-body">{item.reply}</p>
               </div>
             ))}
             <div ref={bottomRef} />
@@ -123,7 +123,7 @@ export default function AmazonQPanel() {
         )}
 
         {/* Prompt box */}
-        <div className="relative border border-[#8c8c94] rounded-lg focus-within:border-[#006ce0]">
+        <div className="relative border border-line-strong rounded-lg focus-within:border-link">
           <textarea
             value={input}
             maxLength={MAX_CHARS}
@@ -136,21 +136,21 @@ export default function AmazonQPanel() {
               }
             }}
             placeholder="Describe what you want to do, such as 'List all projects'."
-            className="block w-full resize-none bg-transparent px-3 pt-3 pb-9 outline-none placeholder:italic placeholder:text-[#656871]"
+            className="block w-full resize-none bg-transparent px-3 pt-3 pb-9 outline-none placeholder:italic placeholder:text-ink-muted"
           />
           <button
             onClick={() => ask(input)}
             disabled={!input.trim()}
             title="Send"
             aria-label="Send"
-            className="absolute right-2 bottom-2 p-1 text-[#006ce0] disabled:text-[#8c8c94]"
+            className="absolute right-2 bottom-2 p-1 text-link disabled:text-line-strong"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true">
               <path d="M4 4l17 8-17 8 4-8-4-8zM8 12h13" />
             </svg>
           </button>
         </div>
-        <p className="mt-2 text-[12px] text-[#656871]">Max {MAX_CHARS} characters</p>
+        <p className="mt-2 text-[12px] text-ink-muted">Max {MAX_CHARS} characters</p>
 
         {/* Suggestions */}
         {history.length === 0 && (
@@ -159,10 +159,10 @@ export default function AmazonQPanel() {
               <button
                 key={s.title}
                 onClick={() => ask(s.title)}
-                className="block w-full text-left border border-[#c6c6cd] rounded-2xl px-5 py-4 hover:border-[#006ce0] transition-colors"
+                className="block w-full text-left border border-line rounded-2xl px-5 py-4 hover:border-link transition-colors"
               >
                 <span className="block text-[16px] font-bold">{s.title}</span>
-                <span className="block mt-1 text-[#424650]">{s.description}</span>
+                <span className="block mt-1 text-ink-body">{s.description}</span>
               </button>
             ))}
           </div>
@@ -170,8 +170,8 @@ export default function AmazonQPanel() {
       </div>
 
       {/* Footer */}
-      <div className="shrink-0 border-t border-[#dedee3] px-5 py-3 text-[#424650]">
-        Help us improve Amazon Q by <span className="text-[#006ce0] hover:underline cursor-pointer">providing feedback</span>.
+      <div className="shrink-0 border-t border-[#dedee3] dark:border-line px-5 py-3 text-ink-body">
+        Help us improve Amazon Q by <span className="text-link hover:underline cursor-pointer">providing feedback</span>.
       </div>
     </aside>
   )

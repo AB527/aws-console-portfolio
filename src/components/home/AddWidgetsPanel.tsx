@@ -14,28 +14,28 @@ type WidgetEntry = (typeof dashboardLayout.widgets)[number]
 function Illustration({ id }: { id: string }) {
   if (id === "favourites") {
     return (
-      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#0f141a" strokeWidth="0.9" strokeLinejoin="round" className="shrink-0" aria-hidden="true">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink)" strokeWidth="0.9" strokeLinejoin="round" className="shrink-0" aria-hidden="true">
         <path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 20.6l1.6-6.9L2 9.1l7-.6z" />
       </svg>
     )
   }
   return (
     <svg width="80" height="56" viewBox="0 0 80 56" fill="none" strokeWidth="2.5" strokeLinecap="round" className="shrink-0" aria-hidden="true">
-      <circle cx="7" cy="8" r="5" stroke="#0f141a" />
-      <path d="M20 5h56M20 12h28" stroke="#0f141a" />
-      <circle cx="7" cy="28" r="5" stroke="#006ce0" />
-      <path d="M20 25h56M20 32h28" stroke="#006ce0" />
-      <circle cx="7" cy="48" r="5" stroke="#0f141a" />
-      <path d="M20 45h56M20 52h28" stroke="#0f141a" />
+      <circle cx="7" cy="8" r="5" stroke="var(--color-ink)" />
+      <path d="M20 5h56M20 12h28" stroke="var(--color-ink)" />
+      <circle cx="7" cy="28" r="5" stroke="var(--color-link)" />
+      <path d="M20 25h56M20 32h28" stroke="var(--color-link)" />
+      <circle cx="7" cy="48" r="5" stroke="var(--color-ink)" />
+      <path d="M20 45h56M20 52h28" stroke="var(--color-ink)" />
     </svg>
   )
 }
 
 export function AddWidgetCard({ widget }: { widget: WidgetEntry }) {
   return (
-    <div className="bg-white border border-[#c6c6cd] rounded-2xl px-5 pt-4 pb-6">
+    <div className="bg-surface border border-line rounded-2xl px-5 pt-4 pb-6">
       <div className="flex items-center gap-2">
-        <span className="text-[#424650] p-1 shrink-0">
+        <span className="text-ink-body p-1 shrink-0">
           <svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" aria-hidden="true">
             <circle cx="1.5" cy="2" r="1.5" />
             <circle cx="6.5" cy="2" r="1.5" />
@@ -45,11 +45,11 @@ export function AddWidgetCard({ widget }: { widget: WidgetEntry }) {
             <circle cx="6.5" cy="12" r="1.5" />
           </svg>
         </span>
-        <span className="text-[20px] leading-6 font-bold text-[#0f141a]">{widget.title}</span>
+        <span className="text-[20px] leading-6 font-bold text-ink">{widget.title}</span>
       </div>
       <div className="flex items-center gap-4 mt-5">
         <Illustration id={widget.id} />
-        <p className="text-[14px] leading-5 text-[#0f141a]">{widget.description}</p>
+        <p className="text-[14px] leading-5 text-ink">{widget.description}</p>
       </div>
     </div>
   )
@@ -93,7 +93,7 @@ export default function AddWidgetsPanel({ availableIds, onAdd, onClose, sheetHei
     return () => document.removeEventListener("keydown", handler)
   }, [onClose])
 
-  const empty = <p className="text-[14px] leading-5 text-[#424650]">{menu.addWidgets.empty}</p>
+  const empty = <p className="text-[14px] leading-5 text-ink-body">{menu.addWidgets.empty}</p>
 
   return (
     <>
@@ -118,14 +118,14 @@ export default function AddWidgetsPanel({ availableIds, onAdd, onClose, sheetHei
       </EC2SplitPanel>
     </div>
 
-    <aside className="hidden lg:block w-[350px] shrink-0 bg-white border-l border-[#c6c6cd] overflow-y-auto sticky top-[56px] h-[calc(100vh-88px)]">
+    <aside className="hidden lg:block w-[350px] shrink-0 bg-surface border-l border-line overflow-y-auto sticky top-[56px] h-[calc(100vh-88px)]">
       <div className="flex items-center justify-between px-7 pt-5 pb-4">
-        <h2 className="text-[18px] leading-[22px] font-bold text-[#0f141a]">{menu.addWidgets.title}</h2>
+        <h2 className="text-[18px] leading-[22px] font-bold text-ink">{menu.addWidgets.title}</h2>
         <button
           onClick={onClose}
           aria-label={menu.close}
           title={menu.close}
-          className="text-[#424650] hover:text-[#0f141a] transition-colors"
+          className="text-ink-body hover:text-ink transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
             <path d="M2 2l14 14M16 2L2 16" />

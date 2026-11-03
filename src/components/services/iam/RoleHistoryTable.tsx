@@ -27,7 +27,7 @@ export default function RoleHistoryTable() {
       header: page.columns.role,
       sortValue: (u) => u.description,
       render: (u) => (
-        <Link href={`/iam/users/${u.id}`} className="text-[#0073bb] hover:underline">
+        <Link href={`/iam/users/${u.id}`} className="text-[#0073bb] dark:text-link hover:underline">
           {u.description}
         </Link>
       ),

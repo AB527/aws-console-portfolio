@@ -11,7 +11,7 @@ export default function AllServicesPage() {
   const title = site.pageTitles.allServices
 
   return (
-    <div className={`${openSans.className} min-h-screen bg-[#f9f9fa] text-[14px] leading-5 text-[#0f141a]`}>
+    <div className={`${openSans.className} min-h-screen bg-surface-subtle text-[14px] leading-5 text-ink`}>
       <ConsoleHomeShell
         help={false}
         breadcrumb={[{ label: sidebars.navs.console.title, href: "/console/home" }, { label: title }]}

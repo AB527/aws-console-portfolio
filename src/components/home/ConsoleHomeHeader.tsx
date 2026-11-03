@@ -11,13 +11,13 @@ export default function ConsoleHomeHeader() {
   return (
     <div className="flex items-center justify-between gap-4 flex-wrap px-4 lg:px-6 pt-4 pb-4">
       <div className="flex items-baseline gap-2">
-        <h1 className="text-[24px] leading-[30px] font-bold text-[#0f141a]">Console home</h1>
+        <h1 className="text-[24px] leading-[30px] font-bold text-ink">Console home</h1>
         <InfoLink topic="console-home" />
       </div>
       <div className="flex items-center gap-2">
         <button
           onClick={resetLayout}
-          className="h-8 px-5 rounded-full border-2 border-[#006ce0] text-[14px] font-bold text-[#006ce0] hover:bg-[#f0fbff] transition-colors whitespace-nowrap"
+          className="h-8 px-5 rounded-full border-2 border-link text-[14px] font-bold text-link hover:bg-surface-selected transition-colors whitespace-nowrap"
         >
           Reset to default layout
         </button>

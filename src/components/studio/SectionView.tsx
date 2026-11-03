@@ -13,10 +13,10 @@ import type { Json, JsonObject } from "./json"
 import type { Column, Lookups } from "./schema"
 import { findSection } from "./sections"
 
-const CARD = "bg-white rounded-2xl border border-[#c6c6cd]"
-const TH = "text-left px-3 py-3 font-bold text-gray-900 whitespace-nowrap"
-const TD = "px-3 py-3 text-gray-700"
-const ROW_BTN = "px-2 py-0.5 text-sm font-bold rounded disabled:text-gray-300 disabled:hover:bg-transparent"
+const CARD = "bg-surface rounded-2xl border border-line"
+const TH = "text-left px-3 py-3 font-bold text-gray-900 dark:text-ink whitespace-nowrap"
+const TD = "px-3 py-3 text-gray-700 dark:text-ink-body"
+const ROW_BTN = "px-2 py-0.5 text-sm font-bold rounded disabled:text-gray-300 dark:disabled:text-ink-disabled disabled:hover:bg-transparent"
 
 function cell(row: Row, column: Column): React.ReactNode {
   if (column.key === PARENT) return row.parentLabel
@@ -130,18 +130,18 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
 
   return (
     <div>
-      <Link href="/studio" className="text-sm text-[#006ce0] hover:underline">
+      <Link href="/studio" className="text-sm text-link hover:underline">
         ← Studio
       </Link>
       <div className="flex items-end justify-between gap-3 flex-wrap mt-2 mb-4">
         <div>
-          <h1 className="text-[24px] leading-[30px] font-bold text-gray-900">{section.title}</h1>
-          <p className="mt-1 text-sm text-[#424650]">
-            {section.description} <span className="text-[#656871]">Saved in {section.file}.json.</span>
+          <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 dark:text-ink">{section.title}</h1>
+          <p className="mt-1 text-sm text-ink-body">
+            {section.description} <span className="text-ink-muted">Saved in {section.file}.json.</span>
           </p>
         </div>
         {message && (
-          <span role="status" className={`text-sm font-bold ${message.ok ? "text-[#00802f]" : "text-[#d91515]"}`}>
+          <span role="status" className={`text-sm font-bold ${message.ok ? "text-success" : "text-danger"}`}>
             {message.text}
           </span>
         )}
@@ -166,8 +166,8 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
         <div className="space-y-6">
           <section className={`${CARD} overflow-hidden`}>
             <div className="flex items-center justify-between gap-3 flex-wrap px-5 pt-5">
-              <h2 className="text-[18px] leading-6 font-bold text-gray-900">
-                {section.title} <span className="font-normal text-gray-500">({rows.length})</span>
+              <h2 className="text-[18px] leading-6 font-bold text-gray-900 dark:text-ink">
+                {section.title} <span className="font-normal text-gray-500 dark:text-ink-muted">({rows.length})</span>
               </h2>
               <button
                 type="button"
@@ -187,13 +187,13 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Search ${section.title.toLowerCase()}`}
                 aria-label={`Search ${section.title.toLowerCase()}`}
-                className="w-full max-w-[420px] h-9 px-3 text-sm text-gray-900 border border-[#8c8c94] rounded-lg outline-none focus:border-[#006ce0]"
+                className="w-full max-w-[420px] h-9 px-3 text-sm text-gray-900 dark:text-ink border border-line-strong rounded-lg outline-none focus:border-link"
               />
             </div>
             <div className="mt-3 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-300">
+                  <tr className="border-b border-gray-300 dark:border-line">
                     {(section.columns ?? []).map((column, i) => (
                       <th key={column.key} className={`${TH} ${i === 0 ? "pl-5" : ""}`}>
                         {column.label}
@@ -204,9 +204,9 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
                 </thead>
                 <tbody>
                   {visible.map((row) => (
-                    <tr key={`${row.ref.parent}-${row.ref.index}-${row.ref.key}`} className="border-b border-gray-100 hover:bg-[#f1faff]">
+                    <tr key={`${row.ref.parent}-${row.ref.index}-${row.ref.key}`} className="border-b border-gray-100 dark:border-line-subtle hover:bg-[#f1faff] dark:hover:bg-surface-selected">
                       {(section.columns ?? []).map((column, i) => (
-                        <td key={column.key} className={`${TD} ${i === 0 ? "pl-5 text-gray-900" : ""} max-w-[320px] truncate`}>
+                        <td key={column.key} className={`${TD} ${i === 0 ? "pl-5 text-gray-900 dark:text-ink" : ""} max-w-[320px] truncate`}>
                           {cell(row, column)}
                         </td>
                       ))}
@@ -216,7 +216,7 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
                           disabled={saving || q !== "" || row.ref.index === 0}
                           onClick={() => move(row, -1)}
                           aria-label="Move up"
-                          className={`${ROW_BTN} text-[#006ce0] hover:bg-[#f0fbff]`}
+                          className={`${ROW_BTN} text-link hover:bg-surface-selected`}
                         >
                           ↑
                         </button>
@@ -225,7 +225,7 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
                           disabled={saving || q !== "" || row.ref.index === siblingCount(rows, row.ref) - 1}
                           onClick={() => move(row, 1)}
                           aria-label="Move down"
-                          className={`${ROW_BTN} text-[#006ce0] hover:bg-[#f0fbff]`}
+                          className={`${ROW_BTN} text-link hover:bg-surface-selected`}
                         >
                           ↓
                         </button>
@@ -235,11 +235,11 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
                             setPanelError("")
                             setEditing(row)
                           }}
-                          className={`${ROW_BTN} text-[#006ce0] hover:bg-[#f0fbff]`}
+                          className={`${ROW_BTN} text-link hover:bg-surface-selected`}
                         >
                           Edit
                         </button>
-                        <button type="button" onClick={() => setDeleting(row)} className={`${ROW_BTN} text-[#d91515] hover:bg-[#fff5f5]`}>
+                        <button type="button" onClick={() => setDeleting(row)} className={`${ROW_BTN} text-danger hover:bg-[#fff5f5] dark:hover:bg-danger/10`}>
                           Delete
                         </button>
                       </td>
@@ -247,7 +247,7 @@ export default function SectionView({ sectionId, initial, lookups }: SectionView
                   ))}
                   {visible.length === 0 && (
                     <tr>
-                      <td colSpan={(section.columns?.length ?? 0) + 1} className="px-4 py-6 text-center text-sm font-bold text-gray-500">
+                      <td colSpan={(section.columns?.length ?? 0) + 1} className="px-4 py-6 text-center text-sm font-bold text-gray-500 dark:text-ink-muted">
                         {q ? "Nothing matches the search" : `No ${section.title.toLowerCase()} yet`}
                       </td>
                     </tr>

@@ -80,14 +80,14 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
 
   return (
     <div ref={setNodeRef} style={style} className="relative group min-h-[160px] min-w-0 lg:[grid-column:span_var(--col)] lg:[grid-row:span_var(--row)]">
-      <div className="bg-white border border-[#c6c6cd] h-full flex flex-col overflow-hidden rounded-2xl">
+      <div className="bg-surface border border-line h-full flex flex-col overflow-hidden rounded-2xl">
         {/* Widget header */}
         <div className="flex items-center gap-2 pl-5 lg:pl-3 pr-4 pt-4 pb-3 shrink-0">
           {/* Drag handle */}
           <button
             {...listeners}
             {...attributes}
-            className="hidden lg:block text-[#424650] hover:text-[#0f141a] cursor-grab active:cursor-grabbing select-none p-1 shrink-0"
+            className="hidden lg:block text-ink-body hover:text-ink cursor-grab active:cursor-grabbing select-none p-1 shrink-0"
             title="Drag to reorder"
           >
             <svg width="8" height="14" viewBox="0 0 8 14" fill="currentColor" aria-hidden="true">
@@ -100,15 +100,15 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
             </svg>
           </button>
 
-          <span className="text-[20px] leading-6 font-bold text-[#0f141a]">
+          <span className="text-[20px] leading-6 font-bold text-ink">
             {title}
-            {count !== undefined && <span className="font-normal text-[#656871]"> ({count})</span>}
+            {count !== undefined && <span className="font-normal text-ink-muted"> ({count})</span>}
           </span>
 
           {/* Info button — no border */}
           <button
             onClick={onInfo}
-            className="text-[12px] font-bold text-[#006ce0] hover:underline cursor-pointer shrink-0 self-end pb-0.5"
+            className="text-[12px] font-bold text-link hover:underline cursor-pointer shrink-0 self-end pb-0.5"
           >
             Info
           </button>
@@ -119,7 +119,7 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
           <div ref={menuRef} className="relative shrink-0">
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="flex text-[#424650] hover:text-[#0f141a] p-1"
+              className="flex text-ink-body hover:text-ink p-1"
               title="Widget options"
             >
               <svg width="4" height="16" viewBox="0 0 4 16" fill="currentColor" aria-hidden="true">
@@ -129,10 +129,10 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
               </svg>
             </button>
             {menuOpen && (
-              <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-[#c6c6cd] shadow-lg z-20 py-1 rounded-lg overflow-hidden">
+              <div className="absolute right-0 top-full mt-1 w-36 bg-surface border border-line shadow-lg z-20 py-1 rounded-lg overflow-hidden">
                 <button
                   onClick={() => { setMenuOpen(false); onRemove() }}
-                  className="w-full text-left px-4 py-2 text-[14px] text-[#0f141a] hover:bg-[#f0fbff]"
+                  className="w-full text-left px-4 py-2 text-[14px] text-ink hover:bg-surface-selected"
                 >
                   Remove
                 </button>
@@ -149,7 +149,7 @@ function SortableWidget({ layout, title, count, children, onRemove, onResize, on
         {/* Resize handle */}
         <button
           onClick={onResize}
-          className="hidden lg:block absolute bottom-2 right-2 text-[#424650] hover:text-[#006ce0]"
+          className="hidden lg:block absolute bottom-2 right-2 text-ink-body hover:text-link"
           title="Resize widget"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">

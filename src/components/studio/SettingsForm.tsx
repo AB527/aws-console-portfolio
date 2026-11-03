@@ -6,8 +6,8 @@ import { fromForm, getIn, sectionLabels, setIn, toForm, validate } from "./engin
 import { isObject, type Json, type JsonObject } from "./json"
 import type { Field, Lookups, Section } from "./schema"
 
-const CARD = "bg-white rounded-2xl border border-[#c6c6cd]"
-const SAVE = "h-8 px-5 rounded-full bg-[#ff9900] text-sm font-bold text-[#0f141a] hover:bg-[#fa6f00] disabled:bg-gray-200 disabled:text-gray-400"
+const CARD = "bg-surface rounded-2xl border border-line"
+const SAVE = "h-8 px-5 rounded-full bg-[#ff9900] text-sm font-bold text-[#0f141a] hover:bg-[#fa6f00] disabled:bg-gray-200 dark:disabled:bg-line disabled:text-gray-400 dark:disabled:text-ink-disabled"
 
 interface FormProps {
   data: Json
@@ -20,11 +20,11 @@ function SaveBar({ dirty, saving, error }: { dirty: boolean; saving: boolean; er
   return (
     <div className="flex items-center justify-end gap-3 mt-5">
       {error && (
-        <span role="alert" className="mr-auto text-sm font-bold text-[#d91515]">
+        <span role="alert" className="mr-auto text-sm font-bold text-danger">
           {error}
         </span>
       )}
-      {dirty && !error && <span className="text-sm text-[#855900]">Unsaved changes</span>}
+      {dirty && !error && <span className="text-sm text-warning">Unsaved changes</span>}
       <button type="submit" disabled={!dirty || saving} className={SAVE}>
         {saving ? "Saving" : "Save"}
       </button>
@@ -56,7 +56,7 @@ export function SettingsForm({ title, fields, data, lookups, saving, onSave }: F
 
   return (
     <form onSubmit={submit} className={`${CARD} p-5`}>
-      <h2 className="text-[18px] leading-6 font-bold text-gray-900">{title}</h2>
+      <h2 className="text-[18px] leading-6 font-bold text-gray-900 dark:text-ink">{title}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         {fields.map((field) => (
           <div key={field.key} className={field.type === "textarea" || field.type === "rows" ? "md:col-span-2" : ""}>
@@ -99,7 +99,7 @@ export function LabelsForm({ section, data, saving, onSave }: FormProps & { sect
       <div className="space-y-4">
         {groups.map((group) => (
           <section key={group} className={`${CARD} p-5`}>
-            <h2 className="text-[18px] leading-6 font-bold text-gray-900">{group}</h2>
+            <h2 className="text-[18px] leading-6 font-bold text-gray-900 dark:text-ink">{group}</h2>
             <div className="mt-4 space-y-3">
               {labels
                 .filter((l) => l.path[0] === group)
@@ -112,7 +112,7 @@ export function LabelsForm({ section, data, saving, onSave }: FormProps & { sect
                   }
                   return (
                     <div key={id} className="flex items-start gap-3 max-md:flex-col max-md:gap-1">
-                      <label htmlFor={id} className="w-[260px] max-md:w-full shrink-0 pt-1.5 text-sm text-[#424650] break-words">
+                      <label htmlFor={id} className="w-[260px] max-md:w-full shrink-0 pt-1.5 text-sm text-ink-body break-words">
                         {name}
                       </label>
                       {l.value.length > 80 ? (

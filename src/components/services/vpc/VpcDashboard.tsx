@@ -12,8 +12,8 @@ import { endpointCount } from "@/lib/vpc"
 
 const regions = regionsData.groups.flatMap((g) => g.regions)
 
-const CARD = "bg-white rounded-2xl border border-[#c6c6cd]"
-const LINK = "text-[#006ce0] underline underline-offset-4"
+const CARD = "bg-surface rounded-2xl border border-line"
+const LINK = "text-link underline underline-offset-4"
 
 export default function VpcDashboard() {
   const router = useRouter()
@@ -55,19 +55,19 @@ export default function VpcDashboard() {
           </a>
           <Link
             href="/ec2/home"
-            className="h-8 px-5 flex items-center rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
+            className="h-8 px-5 flex items-center rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
           >
             Launch EC2 Instances
           </Link>
         </div>
-        <p className="mt-2 text-xs text-[#424650]">Note: Your Instances will launch in the Asia Pacific region.</p>
+        <p className="mt-2 text-xs text-ink-body">Note: Your Instances will launch in the Asia Pacific region.</p>
 
-        <div className="flex items-end justify-between gap-4 flex-wrap mt-6 pb-2 border-b-2 border-[#c6c6cd]">
+        <div className="flex items-end justify-between gap-4 flex-wrap mt-6 pb-2 border-b-2 border-line">
           <div>
             <h1 className="text-[20px] leading-6 font-bold">Resources by Region</h1>
             <p className="mt-2">You are using the following Connect resources</p>
           </div>
-          <button onClick={handleRefresh} className="flex items-center gap-2 mb-6 font-bold text-[#006ce0]">
+          <button onClick={handleRefresh} className="flex items-center gap-2 mb-6 font-bold text-link">
             <svg
               className={spinning ? "animate-spin" : ""}
               width="16"
@@ -129,11 +129,11 @@ export default function VpcDashboard() {
         </div>
         <div className={`${CARD} px-5 py-5`}>
           <h2 className="text-[20px] leading-6 font-bold">Additional Information ↗</h2>
-          {!vpc && <DataStatus label="links" error={error} onRetry={reload} className="py-4 text-[#424650]" />}
-          <ul className="mt-2 divide-y divide-[#ebebf0]">
+          {!vpc && <DataStatus label="links" error={error} onRetry={reload} className="py-4 text-ink-body" />}
+          <ul className="mt-2 divide-y divide-line-subtle">
             {endpoints.map((e) => (
               <li key={e.url} className="py-2.5">
-                <a href={e.url} target="_blank" rel="noopener noreferrer" className="text-[#006ce0] hover:underline break-all">
+                <a href={e.url} target="_blank" rel="noopener noreferrer" className="text-link hover:underline break-all">
                   {e.target}
                 </a>
               </li>

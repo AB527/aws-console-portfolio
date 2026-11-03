@@ -22,8 +22,8 @@ const COLS: { key: SortKey; label: string }[] = [
 const TABS = ["Details", "Projects"]
 
 const OUTLINE_BTN =
-  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap"
-const LINK = "text-[#006ce0] underline underline-offset-4"
+  "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
+const LINK = "text-link underline underline-offset-4"
 
 function SortIcon({ dir }: { dir: "asc" | "desc" | null }) {
   // Filled = active sort column, outlined = sortable but inactive
@@ -51,7 +51,7 @@ function CopyField({ label, value }: { label: string; value: string }) {
         <button
           onClick={() => navigator.clipboard?.writeText(value)}
           aria-label={`Copy ${label}`}
-          className="shrink-0 mt-0.5 text-[#006ce0] hover:text-[#002b66]"
+          className="shrink-0 mt-0.5 text-link hover:text-link-hover"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="8" y="8" width="13" height="13" />
@@ -130,14 +130,14 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
 
   return (
     <div
-      className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-[#0f141a]"
+      className="px-4 lg:px-6 py-5 text-[14px] leading-5 text-ink"
       style={selected ? { paddingBottom: splitPanelPadding(panelHeight) } : undefined}
     >
       {/* Header */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <h1 className="text-[24px] leading-[30px] font-bold">
           Project types{" "}
-          <span className="font-normal text-[#656871]">
+          <span className="font-normal text-ink-muted">
             ({!ec2Data ? "–" : selectedRows.length ? `${selectedRows.length}/${enriched.length}` : enriched.length})
           </span>
         </h1>
@@ -145,7 +145,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
           <button
             onClick={handleRefresh}
             aria-label="Refresh"
-            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]"
+            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-link text-link hover:bg-surface-selected"
           >
             <svg
               className={spinning ? "animate-spin" : ""}
@@ -174,8 +174,8 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
 
       {/* Search + pagination */}
       <div className="flex items-center justify-between gap-4 mt-3 mb-2">
-        <div className="flex-1 max-w-[915px] flex items-center gap-2 h-8 px-3 border border-[#8c8c94] rounded-lg bg-white">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#424650" strokeWidth="2.5">
+        <div className="flex-1 max-w-[915px] flex items-center gap-2 h-8 px-3 border border-line-strong rounded-lg bg-surface">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-body)" strokeWidth="2.5">
             <circle cx="11" cy="11" r="7" />
             <path d="m21 21-5-5" />
           </svg>
@@ -185,18 +185,18 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
             aria-label="Find project type by attribute"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 min-w-0 text-sm placeholder:italic placeholder-[#656871] outline-none bg-transparent"
+            className="flex-1 min-w-0 text-sm placeholder:italic placeholder-ink-muted outline-none bg-transparent"
           />
         </div>
-        <div className="flex items-center gap-4 text-[#424650]">
-          <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <div className="flex items-center gap-4 text-ink-body">
+          <svg className="text-ink-disabled" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="m15 18-6-6 6-6" />
           </svg>
-          <span className="font-bold text-[#0f141a]">1</span>
-          <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <span className="font-bold text-ink">1</span>
+          <svg className="text-ink-disabled" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="m9 18 6-6-6-6" />
           </svg>
-          <span className="w-px h-8 bg-[#c6c6cd]" />
+          <span className="w-px h-8 bg-line" />
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -208,7 +208,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-[#c6c6cd]">
+            <tr className="border-b border-line">
               <th className="w-12 px-4 py-1.5">
                 <span className="flex items-center h-5">
                   <input
@@ -217,15 +217,15 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                     ref={(el) => { if (el) el.indeterminate = selectedRows.length > 0 && !allSelected }}
                     onChange={() => setSelectedIds(selectedRows.length ? [] : filtered.map((t) => t.id))}
                     aria-label="Select all project types"
-                    className="block w-4 h-4 m-0 accent-[#006ce0]"
+                    className="block w-4 h-4 m-0 accent-link"
                   />
                 </span>
               </th>
               {COLS.map((col) => (
-                <th key={col.key} className="text-left py-1.5 font-bold text-[#424650]">
+                <th key={col.key} className="text-left py-1.5 font-bold text-ink-body">
                   <button
                     onClick={() => toggleSort(col.key)}
-                    className="w-full flex items-center justify-between gap-3 px-4 py-0.5 border-l border-[#c6c6cd] font-bold whitespace-nowrap"
+                    className="w-full flex items-center justify-between gap-3 px-4 py-0.5 border-l border-line font-bold whitespace-nowrap"
                   >
                     {col.label}
                     <SortIcon dir={sort.key === col.key ? sort.dir : null} />
@@ -242,8 +242,8 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                   key={t.id}
                   className={
                     isSelected
-                      ? "bg-[#f0fbff] outline outline-2 -outline-offset-2 outline-[#006ce0]"
-                      : "border-b border-[#ebebf0]"
+                      ? "bg-surface-selected outline outline-2 -outline-offset-2 outline-link"
+                      : "border-b border-line-subtle"
                   }
                 >
                   <td className="w-12 px-4 py-2.5">
@@ -253,7 +253,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                         checked={isSelected}
                         onChange={() => toggleSelect(t.id)}
                         aria-label={`Select ${t.id}`}
-                        className="block w-4 h-4 m-0 accent-[#006ce0]"
+                        className="block w-4 h-4 m-0 accent-link"
                       />
                     </span>
                   </td>
@@ -274,7 +274,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
             {!ec2Data && <DataStatusRow colSpan={COLS.length + 1} label="project types" error={error} onRetry={reload} />}
             {ec2Data && filtered.length === 0 && (
               <tr>
-                <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-[#424650]">
+                <td colSpan={COLS.length + 1} className="px-4 py-10 text-center font-bold text-ink-body">
                   {regionInstances.length === 0
                     ? `No projects in the selected region (${selectedRegion}).`
                     : "No project types match your search."}
@@ -294,14 +294,14 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
           onResize={setPanelHeight}
           onClose={() => select(null)}
         >
-          <div className="flex flex-wrap border-b border-[#c6c6cd] mb-5">
+          <div className="flex flex-wrap border-b border-line mb-5">
             {TABS.map((tab, i) => (
               <div key={tab} className="flex items-center">
-                {i > 0 && <span className="w-px h-6 bg-[#c6c6cd]" />}
+                {i > 0 && <span className="w-px h-6 bg-line" />}
                 <button
                   onClick={() => setActiveTab(tab)}
                   className={`relative px-5 py-3 text-[16px] leading-5 font-bold whitespace-nowrap transition-colors ${
-                    activeTab === tab ? "text-[#006ce0]" : "text-[#424650] hover:text-[#006ce0]"
+                    activeTab === tab ? "text-link" : "text-ink-body hover:text-link"
                   }`}
                 >
                   {tab}
@@ -326,7 +326,7 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
                 { label: "Users served", value: panelType.usersServed.toLocaleString("en-US") },
                 { label: "Hours spent", value: panelType.hoursSpent.toLocaleString("en-US") },
               ].map((field, i) => (
-                <div key={field.label} className={`pr-5 ${i % 4 === 0 ? "" : "xl:pl-5 xl:border-l border-[#c6c6cd]"}`}>
+                <div key={field.label} className={`pr-5 ${i % 4 === 0 ? "" : "xl:pl-5 xl:border-l border-line"}`}>
                   <CopyField label={field.label} value={field.value} />
                 </div>
               ))}
@@ -334,18 +334,18 @@ export default function EC2InstanceTypesView({ activeType }: { activeType: strin
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#c6c6cd]">
-                  <th className="text-left py-1.5 pr-4 font-bold text-[#424650]">Name</th>
+                <tr className="border-b border-line">
+                  <th className="text-left py-1.5 pr-4 font-bold text-ink-body">Name</th>
                   {["Project state", "Users served", "Hours spent"].map((col) => (
-                    <th key={col} className="text-left py-1.5 font-bold text-[#424650]">
-                      <span className="block px-4 border-l border-[#c6c6cd] whitespace-nowrap">{col}</span>
+                    <th key={col} className="text-left py-1.5 font-bold text-ink-body">
+                      <span className="block px-4 border-l border-line whitespace-nowrap">{col}</span>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {panelType.projects.map((p) => (
-                  <tr key={p.id} className="border-b border-[#ebebf0] last:border-b-0">
+                  <tr key={p.id} className="border-b border-line-subtle last:border-b-0">
                     <td className="py-2.5 pr-4">
                       <Link href={`/ec2/home?view=instances&project=${p.id}&region=${selectedRegion}`} className={LINK}>
                         {p.name}

@@ -149,7 +149,7 @@ Persisted (listed in `partialize`):
 | widgetLayout      | colSpan / rowSpan / order / visible per widget       |
 | hiddenWidgets     | widget ids removed from the dashboard                |
 | favorites         | starred service ids                                  |
-| visualMode        | `"browser-default"` \| `"light"` → `data-theme` on `<html>` |
+| visualMode        | `"browser-default"` \| `"light"` \| `"dark"`, see "Dark mode"  |
 | notificationsRead | bell badge cleared                                   |
 | activeBucket      | Documents drill-down state                           |
 
@@ -158,6 +158,35 @@ Session-only UI flags (do **not** add these to `partialize`): `cloudShellOpen`, 
 
 The store's `merge` drops widgets that no longer exist and appends new defaults, so changing
 `dashboard-layout.json` is safe for returning visitors.
+
+## Dark mode
+`visualMode` resolves to `data-theme="light"` or `"dark"` on `<html>` (`resolveTheme()` in
+`src/lib/theme.ts`). Browser default follows the system setting. An inline script in the root layout
+sets the attribute before first paint; `ConsoleLayout` keeps it in sync afterwards.
+
+Page content is coloured with tokens declared in `globals.css` (`@theme` holds the light values,
+`:root[data-theme="dark"]` the dark ones). The already-dark chrome (top bar, footer, dropdown
+panels, `Sidebar`, `CloudShellPanel`) does not use them and looks the same in both modes.
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `page` | `#f2f3f3` | `#0f141a` | page background |
+| `surface` | `#ffffff` | `#161d26` | cards, tables, modals, panels |
+| `surface-subtle` | `#f9f9fa` | `#1b232d` | table headers, chips, neutral hover |
+| `surface-selected` | `#f0fbff` | `#001129` | hover and selected rows |
+| `line` / `line-subtle` / `line-strong` | `#c6c6cd` / `#ebebf0` / `#8c8c94` | `#424650` / `#232b37` / `#656871` | borders, dividers |
+| `ink` / `ink-body` / `ink-muted` / `ink-disabled` | `#0f141a` / `#424650` / `#656871` / `#b4b4bb` | `#ebebf0` / `#c6c6cd` / `#a4a4ad` / `#656871` | text |
+| `link` / `link-hover` | `#006ce0` / `#002b66` | `#42b4ff` / `#75cfff` | links, outlined buttons, focus rings |
+| `success` / `warning` / `warning-surface` / `danger` | `#00802f` / `#855900` / `#fffef0` / `#d91515` | `#2bb534` / `#fbd332` / `#2a2410` / `#ff7a7a` | status text |
+
+- New page content uses the token utilities (`bg-surface`, `text-ink`, `border-line`, …), never a
+  bare light hex or `bg-white`.
+- An older class whose light value differs from the token (`text-gray-900`, `border-gray-200`,
+  `text-[#0073bb]`) stays, with a dark variant beside it: `text-gray-900 dark:text-ink`. That keeps
+  light mode unchanged.
+- Fills that keep their colour in both modes keep fixed text too: orange CTA
+  `bg-[#ff9900] text-[#0f141a]`, blue `bg-[#006ce0] text-white`, white toggle knobs `bg-white`.
+- SVG strokes use `currentColor` or `var(--color-…)`, not a hex.
 
 ## Regions
 - Two regions, defined in `public/data/regions.json`: `ap-south-1` (Mumbai) and `ap-south-17` (Raipur).

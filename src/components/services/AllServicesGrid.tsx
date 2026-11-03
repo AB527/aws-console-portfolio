@@ -29,11 +29,11 @@ function CategoryBlock({ category }: { category: Category }) {
         {category.services.map((service) => (
           <li key={service.name}>
             {service.link ? (
-              <Link href={service.link} className="text-[#006ce0] hover:underline">
+              <Link href={service.link} className="text-link hover:underline">
                 {service.name}
               </Link>
             ) : (
-              <span className="text-[#424650]">{service.name}</span>
+              <span className="text-ink-body">{service.name}</span>
             )}
           </li>
         ))}
@@ -46,7 +46,7 @@ export default function AllServicesGrid() {
   const { data, error, reload } = useData("all-services")
 
   return (
-    <div className="bg-white rounded-2xl border border-[#c6c6cd] px-5 pt-4 pb-6">
+    <div className="bg-surface rounded-2xl border border-line px-5 pt-4 pb-6">
       <h2 className="text-[20px] leading-6 font-bold">{data?.heading ?? " "}</h2>
       {data ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 mt-5">

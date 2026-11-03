@@ -32,7 +32,7 @@ export interface SidebarData {
 }
 
 const NAVS: Record<string, SidebarData | undefined> = sidebars.navs
-const ASIDE_CLASS = "w-[280px] shrink-0 bg-white border-r border-[#c6c6cd] text-[14px] leading-5 text-[#0f141a]"
+const ASIDE_CLASS = "w-[280px] shrink-0 bg-surface border-r border-line text-[14px] leading-5 text-ink"
 
 // What a sidebar shows for `id`: its entry in sidebars.json, or the default one for any other service
 export function sidebarNav(id: string): SidebarData & { title: string } {
@@ -83,7 +83,7 @@ function PanelInner({ id, onClose, className = "", children }: SidebarPanelProps
       key={item.href}
       href={withRegion(item.href)}
       className={`block pl-7 pr-4 py-1.5 transition-colors ${
-        isActive(item, pathname, view) ? "font-bold text-[#006ce0]" : "text-[#424650] hover:text-[#006ce0]"
+        isActive(item, pathname, view) ? "font-bold text-link" : "text-ink-body hover:text-link"
       }`}
     >
       {item.label}
@@ -110,7 +110,7 @@ function PanelInner({ id, onClose, className = "", children }: SidebarPanelProps
               <button
                 onClick={() => setClosed((c) => ({ ...c, [section.id]: open }))}
                 aria-expanded={open}
-                className="w-full flex items-center gap-3 px-4 py-1.5 text-[16px] font-bold hover:text-[#006ce0] transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-1.5 text-[16px] font-bold hover:text-link transition-colors"
               >
                 <SectionCaret open={open} />
                 {section.label}
@@ -151,7 +151,7 @@ export default function ServiceSidebar({ serviceId, children }: { serviceId: str
 
   if (collapsed) {
     return (
-      <aside className="w-[44px] shrink-0 bg-white border-r border-[#c6c6cd] hidden lg:flex flex-col items-center pt-3">
+      <aside className="w-[44px] shrink-0 bg-surface border-r border-line hidden lg:flex flex-col items-center pt-3">
         <button onClick={() => setCollapsed(false)} aria-label={sidebars.labels.expand} className={SIDEBAR_CLOSE_BUTTON_CLASS}>
           <SidebarChevron direction="right" />
         </button>

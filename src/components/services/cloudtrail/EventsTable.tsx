@@ -83,7 +83,7 @@ export default function EventsTable({ events, filterable = false, status }: Even
                 value={attribute}
                 onChange={(e) => setAttribute(e.target.value as Attribute)}
                 aria-label="Lookup attribute"
-                className="h-8 pl-3 pr-9 border border-[#8c8c94] rounded-lg bg-white text-sm appearance-none outline-none cursor-pointer"
+                className="h-8 pl-3 pr-9 border border-line-strong rounded-lg bg-surface text-sm appearance-none outline-none cursor-pointer"
               >
                 {ATTRIBUTES.map((a) => (
                   <option key={a.key} value={a.key}>
@@ -92,7 +92,7 @@ export default function EventsTable({ events, filterable = false, status }: Even
                 ))}
               </select>
               <svg
-                className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#424650]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-ink-body"
                 width="10"
                 height="10"
                 viewBox="0 0 10 10"
@@ -101,8 +101,8 @@ export default function EventsTable({ events, filterable = false, status }: Even
                 <path d="M1 3h8L5 8z" />
               </svg>
             </div>
-            <div className="flex-1 min-w-[200px] max-w-[455px] flex items-center gap-2 h-8 px-3 border border-[#8c8c94] rounded-lg bg-white">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#424650" strokeWidth="2.5">
+            <div className="flex-1 min-w-[200px] max-w-[455px] flex items-center gap-2 h-8 px-3 border border-line-strong rounded-lg bg-surface">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-body)" strokeWidth="2.5">
                 <circle cx="11" cy="11" r="7" />
                 <path d="m21 21-5-5" />
               </svg>
@@ -112,10 +112,10 @@ export default function EventsTable({ events, filterable = false, status }: Even
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Enter ${attributeLabel.toLowerCase()}`}
                 aria-label={`Filter by ${attributeLabel.toLowerCase()}`}
-                className="flex-1 min-w-0 text-sm placeholder:italic placeholder-[#656871] outline-none bg-transparent"
+                className="flex-1 min-w-0 text-sm placeholder:italic placeholder-ink-muted outline-none bg-transparent"
               />
               {query && (
-                <button onClick={() => setQuery("")} aria-label="Clear filter" className="text-[#424650]">
+                <button onClick={() => setQuery("")} aria-label="Clear filter" className="text-ink-body">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <path d="M5 5l14 14M19 5 5 19" />
                   </svg>
@@ -123,15 +123,15 @@ export default function EventsTable({ events, filterable = false, status }: Even
               )}
             </div>
           </div>
-          <div className="flex items-center gap-4 text-[#424650]">
-            <span className="text-[#b4b4bb]">
+          <div className="flex items-center gap-4 text-ink-body">
+            <span className="text-ink-disabled">
               <Chevron dir="left" />
             </span>
-            <span className="font-bold text-[#0f141a]">1</span>
-            <span className="text-[#b4b4bb]">
+            <span className="font-bold text-ink">1</span>
+            <span className="text-ink-disabled">
               <Chevron dir="right" />
             </span>
-            <span className="w-px h-8 bg-[#c6c6cd]" />
+            <span className="w-px h-8 bg-line" />
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="3" />
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -143,13 +143,13 @@ export default function EventsTable({ events, filterable = false, status }: Even
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-[#c6c6cd]">
+            <tr className="border-b border-line">
               {COLUMNS.map((col, i) => {
                 const inner = `flex items-center justify-between gap-2 py-0.5 whitespace-nowrap font-bold ${
-                  i === 0 ? "pr-4" : "px-4 border-l border-[#c6c6cd]"
+                  i === 0 ? "pr-4" : "px-4 border-l border-line"
                 }`
                 return (
-                  <th key={col.key} className="text-left py-1.5 font-bold text-[#424650]">
+                  <th key={col.key} className="text-left py-1.5 font-bold text-ink-body">
                     {filterable ? (
                       <button onClick={() => toggleSort(col.key)} className={`w-full ${inner}`}>
                         {col.label}
@@ -165,9 +165,9 @@ export default function EventsTable({ events, filterable = false, status }: Even
           </thead>
           <tbody>
             {rows.map((event) => (
-              <tr key={event.id} className="border-b border-[#ebebf0] last:border-b-0">
+              <tr key={event.id} className="border-b border-line-subtle last:border-b-0">
                 <td className="pr-4 py-3">
-                  <Link href={`/iam/users/${event.trailId}`} className="text-[#006ce0] underline underline-offset-4">
+                  <Link href={`/iam/users/${event.trailId}`} className="text-link underline underline-offset-4">
                     {event.name}
                   </Link>
                 </td>
@@ -184,7 +184,7 @@ export default function EventsTable({ events, filterable = false, status }: Even
             )}
             {!status && rows.length === 0 && (
               <tr>
-                <td colSpan={COLUMNS.length} className="py-8 text-center text-[#424650]">
+                <td colSpan={COLUMNS.length} className="py-8 text-center text-ink-body">
                   <p className="font-bold">No events</p>
                   <p className="mt-1">No events to display</p>
                 </td>

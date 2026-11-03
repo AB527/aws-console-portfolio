@@ -22,7 +22,7 @@ export default function FavoriteStar({ serviceId, size = 20, className = "" }: F
       aria-pressed={isFavorite}
       aria-label={label}
       title={label}
-      className={`shrink-0 transition-colors ${isFavorite ? "text-[#ffb400]" : "text-[#b4b4bb] hover:text-[#ffb400]"} ${className}`}
+      className={`shrink-0 transition-colors ${isFavorite ? "text-[#ffb400]" : "text-ink-disabled hover:text-[#ffb400]"} ${className}`}
     >
       <svg width={size} height={size} viewBox="0 0 24 24" fill={isFavorite ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
         <path d="M12 2l3 6.5 7 .6-5.3 4.6 1.6 6.9L12 17.8 5.7 20.6l1.6-6.9L2 9.1l7-.6z" strokeLinejoin="round" />

@@ -16,15 +16,15 @@ export default function FavouritesWidget() {
     .filter(Boolean) as typeof services
 
   if (favoriteServices.length === 0) {
-    return <p className="text-[#656871] py-4 text-center">{EMPTY_TEXT}</p>
+    return <p className="text-ink-muted py-4 text-center">{EMPTY_TEXT}</p>
   }
 
   return (
     <div className="grid grid-cols-2 gap-x-10 content-start">
       {favoriteServices.map((service) => (
-        <div key={service.id} className="flex items-center gap-3 py-2.5 border-b border-[#c6c6cd]">
+        <div key={service.id} className="flex items-center gap-3 py-2.5 border-b border-line">
           <ServiceIcon iconId={service.iconId} color={service.color} size="sm" />
-          <Link href={`/${service.id}/home`} className="flex-1 min-w-0 text-[#006ce0] hover:underline truncate">
+          <Link href={`/${service.id}/home`} className="flex-1 min-w-0 text-link hover:underline truncate">
             {service.title}
           </Link>
           <FavoriteStar serviceId={service.id} size={16} />

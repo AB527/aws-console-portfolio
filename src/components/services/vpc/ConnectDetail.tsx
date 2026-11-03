@@ -19,9 +19,9 @@ interface ConnectViewProps {
 
 const TABS = ["Resource map", "CIDRs"]
 
-const CARD = "bg-white rounded-2xl border border-[#c6c6cd]"
+const CARD = "bg-surface rounded-2xl border border-line"
 const MAP_CARD = `${CARD} w-[360px] shrink-0 px-5 py-5 self-start`
-const PILL = "flex items-center gap-3 h-9 px-3 border-2 border-[#8c8c94] rounded-lg bg-white whitespace-nowrap"
+const PILL = "flex items-center gap-3 h-9 px-3 border-2 border-line-strong rounded-lg bg-surface whitespace-nowrap"
 // Each map row is a label line + a pill, so rows in neighbouring cards line up for the connectors
 const ROW_LABEL = "h-5 pl-4 font-bold truncate"
 
@@ -30,7 +30,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
     <button
       onClick={() => navigator.clipboard?.writeText(text)}
       aria-label={`Copy ${label}`}
-      className="inline-flex align-middle mr-1.5 text-[#006ce0] hover:text-[#002b66]"
+      className="inline-flex align-middle mr-1.5 text-link hover:text-link-hover"
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="8" y="8" width="13" height="13" />
@@ -75,7 +75,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
     <div>
       <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
         <h1 className="text-[24px] leading-[30px] font-bold break-all">{connect.id}</h1>
-        <button className="h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap">
+        <button className="h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap">
           Actions
           <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
             <path d="M1 3h8L5 8z" />
@@ -89,7 +89,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
           <h2 className="text-[20px] leading-6 font-bold">Details</h2>
           <InfoLink topic="vpc-connect" />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-y-4 xl:divide-x divide-[#c6c6cd]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-y-4 xl:divide-x divide-line">
           <dl className="space-y-4 xl:pr-5">
             <Field label="Connect ID">
               <CopyButton text={connect.id} label="Connect ID" />
@@ -107,7 +107,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
           </dl>
           <dl className="space-y-4 xl:px-5">
             <Field label="Block Public Access">
-              <span className="inline-flex items-center gap-1.5 text-[#656871]">
+              <span className="inline-flex items-center gap-1.5 text-ink-muted">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10" />
                   <path d="M8 12h8" />
@@ -130,14 +130,14 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap border-b border-[#c6c6cd] mb-5">
+      <div className="flex flex-wrap border-b border-line mb-5">
         {TABS.map((tab, i) => (
           <div key={tab} className="flex items-center">
-            {i > 0 && <span className="w-px h-6 bg-[#c6c6cd]" />}
+            {i > 0 && <span className="w-px h-6 bg-line" />}
             <button
               onClick={() => setActiveTab(tab)}
               className={`relative px-5 py-3 text-[16px] leading-5 font-bold whitespace-nowrap transition-colors ${
-                activeTab === tab ? "text-[#006ce0]" : "text-[#424650] hover:text-[#006ce0]"
+                activeTab === tab ? "text-link" : "text-ink-body hover:text-link"
               }`}
             >
               {tab}
@@ -171,7 +171,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
             </label>
           </div>
 
-          <div className="flex gap-[60px] px-11 py-4 bg-[#f6f6f9] overflow-x-auto">
+          <div className="flex gap-[60px] px-11 py-4 bg-[#f6f6f9] dark:bg-surface-subtle overflow-x-auto">
             <div className={MAP_CARD}>
               <h3 className="text-[18px] leading-6 font-bold">Connect</h3>
               <p className="mt-2 mb-5">Your contact network</p>
@@ -213,7 +213,7 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
                       {/* The ::before line runs back across the gap to the matching subnet pill */}
                       <Link
                         href={`/vpc/route-tables?id=${routeTable.id}`}
-                        className={`${PILL} relative mt-1 text-[#006ce0] hover:bg-[#f0fbff] before:absolute before:right-full before:top-1/2 before:w-[104px] before:h-0.5 before:mr-0.5 before:bg-[#8c8c94]`}
+                        className={`${PILL} relative mt-1 text-link hover:bg-surface-selected before:absolute before:right-full before:top-1/2 before:w-[104px] before:h-0.5 before:mr-0.5 before:bg-line-strong`}
                       >
                         <span className="truncate">
                           {showDetails
@@ -231,30 +231,30 @@ function ConnectView({ connect, subnets, routeTables, ownerId }: ConnectViewProp
       ) : (
         <div className={`${CARD} px-5 py-4`}>
           <h2 className="text-[20px] leading-6 font-bold mb-3">
-            IPv4 CIDRs <span className="font-normal text-[#656871]">({subnets.length + 1})</span>
+            IPv4 CIDRs <span className="font-normal text-ink-muted">({subnets.length + 1})</span>
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#c6c6cd]">
-                  <th className="text-left py-1.5 pr-4 font-bold text-[#424650]">CIDR</th>
-                  <th className="text-left py-1.5 font-bold text-[#424650]">
-                    <span className="block px-4 border-l border-[#c6c6cd]">Resource</span>
+                <tr className="border-b border-line">
+                  <th className="text-left py-1.5 pr-4 font-bold text-ink-body">CIDR</th>
+                  <th className="text-left py-1.5 font-bold text-ink-body">
+                    <span className="block px-4 border-l border-line">Resource</span>
                   </th>
-                  <th className="text-left py-1.5 font-bold text-[#424650]">
-                    <span className="block px-4 border-l border-[#c6c6cd]">Status</span>
+                  <th className="text-left py-1.5 font-bold text-ink-body">
+                    <span className="block px-4 border-l border-line">Status</span>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {[connect, ...subnets].map((item) => (
-                  <tr key={item.id} className="border-b border-[#ebebf0] last:border-b-0">
+                  <tr key={item.id} className="border-b border-line-subtle last:border-b-0">
                     <td className="pr-4 py-3 whitespace-nowrap">{item.cidr}</td>
                     <td className="px-4 py-3">
                       {item.id} | {item.name}
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-flex items-center gap-1.5 text-[#00802f]">
+                      <span className="inline-flex items-center gap-1.5 text-success">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <circle cx="12" cy="12" r="10" />
                           <path d="m7 12 3.5 3.5L17 9" />

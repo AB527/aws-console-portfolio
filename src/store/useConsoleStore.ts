@@ -3,6 +3,7 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import dashboardLayout from "@data/dashboard-layout.json"
+import { STORE_KEY, type VisualMode } from "@/lib/theme"
 
 export interface WidgetLayout {
   id: string
@@ -17,7 +18,7 @@ interface ConsoleStore {
   recentlyVisited: string[]
   widgetLayout: WidgetLayout[]
   activeBucket: string | null
-  visualMode: "browser-default" | "light"
+  visualMode: VisualMode
   hiddenWidgets: string[]
   cloudShellOpen: boolean
   notificationsRead: boolean
@@ -39,7 +40,7 @@ interface ConsoleStore {
   visitService: (id: string) => void
   setWidgetLayout: (layout: WidgetLayout[]) => void
   setActiveBucket: (id: string | null) => void
-  setVisualMode: (m: "browser-default" | "light") => void
+  setVisualMode: (m: VisualMode) => void
   removeWidget: (id: string) => void
   resetLayout: () => void
   setCloudShellOpen: (open: boolean) => void
@@ -153,7 +154,7 @@ export const useConsoleStore = create<ConsoleStore>()(
       markNotificationsRead: () => set({ notificationsRead: true }),
     }),
     {
-      name: "aws-console-state",
+      name: STORE_KEY,
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<ConsoleStore>
         const defaults = getDefaultLayout()

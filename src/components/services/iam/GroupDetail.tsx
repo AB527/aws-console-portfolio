@@ -39,7 +39,7 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
   }
 
   const group = iamGroups.groups.find((g) => g.id === groupId)
-  if (!group) return <p className="text-sm font-bold text-gray-500">{iamConsole.detail.notFound}</p>
+  if (!group) return <p className="text-sm font-bold text-gray-500 dark:text-ink-muted">{iamConsole.detail.notFound}</p>
 
   const usersInGroup = iamUsers.users.filter((u) => u.groups.includes(groupId))
   const topLevel = group.skills.reduce(
@@ -49,7 +49,7 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
 
   return (
     <div>
-      <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 mb-4">{group.label}</h1>
+      <h1 className="text-[24px] leading-[30px] font-bold text-gray-900 dark:text-ink mb-4">{group.label}</h1>
 
       <SummaryGrid
         items={[
@@ -80,7 +80,7 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
       {activeTab === "skills" ? (
         <TableCard title={copy.skillsTab} count={group.skills.length}>
           <thead>
-            <tr className="border-b border-gray-300">
+            <tr className="border-b border-gray-300 dark:border-line">
               <th className={`${TH} pl-5`}>{copy.skillColumns.name}</th>
               <th className={TH}>
                 <span className={TH_INNER}>{copy.skillColumns.level}</span>
@@ -103,7 +103,7 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
       ) : (
         <TableCard title={copy.rolesTab} count={usersInGroup.length}>
           <thead>
-            <tr className="border-b border-gray-300">
+            <tr className="border-b border-gray-300 dark:border-line">
               <th className={`${TH} pl-5`}>{copy.roleColumns.role}</th>
               <th className={TH}>
                 <span className={TH_INNER}>{copy.roleColumns.organization}</span>
@@ -139,7 +139,7 @@ export default function GroupDetail({ groupId }: GroupDetailProps) {
             ))}
             {usersInGroup.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-6 text-center text-sm font-bold text-gray-500">
+                <td colSpan={4} className="px-4 py-6 text-center text-sm font-bold text-gray-500 dark:text-ink-muted">
                   {copy.emptyRoles}
                 </td>
               </tr>

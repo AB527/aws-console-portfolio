@@ -6,13 +6,13 @@ import { GITHUB_REPO_URL } from "@/lib/constants"
 import type { Route } from "@/lib/vpc"
 import InfoLink from "@/components/ui/InfoLink"
 
-const CARD = "bg-white rounded-2xl border border-[#c6c6cd] px-5 py-4"
-export const LINK = "text-[#006ce0] underline underline-offset-4"
+const CARD = "bg-surface rounded-2xl border border-line px-5 py-4"
+export const LINK = "text-link underline underline-offset-4"
 
 function SearchBox({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder: string }) {
   return (
-    <div className="flex-1 max-w-[970px] flex items-center gap-2 h-8 px-3 border border-[#8c8c94] rounded-lg bg-white">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#424650" strokeWidth="2.5">
+    <div className="flex-1 max-w-[970px] flex items-center gap-2 h-8 px-3 border border-line-strong rounded-lg bg-surface">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-ink-body)" strokeWidth="2.5">
         <circle cx="11" cy="11" r="7" />
         <path d="m21 21-5-5" />
       </svg>
@@ -22,7 +22,7 @@ function SearchBox({ value, onChange, placeholder }: { value: string; onChange: 
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="flex-1 min-w-0 text-sm placeholder:italic placeholder-[#656871] outline-none bg-transparent"
+        className="flex-1 min-w-0 text-sm placeholder:italic placeholder-ink-muted outline-none bg-transparent"
       />
     </div>
   )
@@ -30,15 +30,15 @@ function SearchBox({ value, onChange, placeholder }: { value: string; onChange: 
 
 function Pager() {
   return (
-    <div className="flex items-center gap-4 text-[#424650]">
-      <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <div className="flex items-center gap-4 text-ink-body">
+      <svg className="text-ink-disabled" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <path d="m15 18-6-6 6-6" />
       </svg>
-      <span className="font-bold text-[#0f141a]">1</span>
-      <svg className="text-[#b4b4bb]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <span className="font-bold text-ink">1</span>
+      <svg className="text-ink-disabled" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <path d="m9 18 6-6-6-6" />
       </svg>
-      <span className="w-px h-8 bg-[#c6c6cd]" />
+      <span className="w-px h-8 bg-line" />
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="3" />
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H2a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H8a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V8a1.65 1.65 0 0 0 1.51 1H22a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
@@ -52,7 +52,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
     <button
       onClick={() => navigator.clipboard?.writeText(text)}
       aria-label={`Copy ${label}`}
-      className="inline-flex align-middle mr-1.5 text-[#006ce0] hover:text-[#002b66]"
+      className="inline-flex align-middle mr-1.5 text-link hover:text-link-hover"
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="8" y="8" width="13" height="13" />
@@ -71,7 +71,7 @@ export function DetailsCard({ fields }: { fields: DetailField[] }) {
       <h3 className="text-[20px] leading-6 font-bold mb-4">Details</h3>
       <dl className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-y-4">
         {fields.map((field, i) => (
-          <div key={field.label} className={`pr-5 ${i % 4 === 0 ? "" : "xl:pl-5 xl:border-l border-[#c6c6cd]"}`}>
+          <div key={field.label} className={`pr-5 ${i % 4 === 0 ? "" : "xl:pl-5 xl:border-l border-line"}`}>
             <dt className="font-bold">{field.label}</dt>
             <dd className="break-all mt-0.5">
               {field.copy && <CopyButton text={field.copy} label={field.label} />}
@@ -93,7 +93,7 @@ export function RoutesCard({ routes }: { routes: Route[] }) {
   return (
     <div className={CARD}>
       <h3 className="text-[20px] leading-6 font-bold">
-        Routes <span className="font-normal text-[#656871]">({rows.length})</span>
+        Routes <span className="font-normal text-ink-muted">({rows.length})</span>
       </h3>
       <div className="flex items-center justify-between gap-4 mt-2 mb-2">
         <SearchBox value={query} onChange={setQuery} placeholder="Filter routes" />
@@ -101,7 +101,7 @@ export function RoutesCard({ routes }: { routes: Route[] }) {
       </div>
       <SimpleTable columns={["Destination", "Target"]} empty="No routes">
         {rows.map((route) => (
-          <tr key={route.destination} className="border-b border-[#ebebf0] last:border-b-0">
+          <tr key={route.destination} className="border-b border-line-subtle last:border-b-0">
             <td className="pr-4 py-2">{route.destination}</td>
             <td className="px-4 py-2">
               {route.url ? (
@@ -124,10 +124,10 @@ export function SimpleTable({ columns, empty, children }: { columns: string[]; e
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-[#c6c6cd]">
+          <tr className="border-b border-line">
             {columns.map((col, i) => (
-              <th key={col} className="text-left py-1.5 font-bold text-[#424650]">
-                <span className={`block py-0.5 whitespace-nowrap ${i === 0 ? "pr-4" : "px-4 border-l border-[#c6c6cd]"}`}>
+              <th key={col} className="text-left py-1.5 font-bold text-ink-body">
+                <span className={`block py-0.5 whitespace-nowrap ${i === 0 ? "pr-4" : "px-4 border-l border-line"}`}>
                   {col}
                 </span>
               </th>
@@ -138,7 +138,7 @@ export function SimpleTable({ columns, empty, children }: { columns: string[]; e
           {children}
           {children.length === 0 && (
             <tr>
-              <td colSpan={columns.length} className="py-6 text-center font-bold text-[#424650]">
+              <td colSpan={columns.length} className="py-6 text-center font-bold text-ink-body">
                 {empty}
               </td>
             </tr>
@@ -202,7 +202,7 @@ export default function ResourceSplitView<T extends { id: string }>({
         <div className="flex items-baseline gap-2">
           <h1 className="text-[24px] leading-[30px] font-bold">
             {title}{" "}
-            <span className="font-normal text-[#656871]">
+            <span className="font-normal text-ink-muted">
               ({status ? "–" : selected ? `1/${items.length}` : items.length})
             </span>
           </h1>
@@ -212,7 +212,7 @@ export default function ResourceSplitView<T extends { id: string }>({
           <button
             onClick={handleRefresh}
             aria-label="Refresh"
-            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-[#006ce0] text-[#006ce0] hover:bg-[#f0fbff]"
+            className="w-8 h-8 flex items-center justify-center rounded-full border-2 border-link text-link hover:bg-surface-selected"
           >
             <svg
               className={spinning ? "animate-spin" : ""}
@@ -227,7 +227,7 @@ export default function ResourceSplitView<T extends { id: string }>({
               <path d="M21 4v5h-5" />
             </svg>
           </button>
-          <button className="h-8 px-5 flex items-center gap-2 rounded-full border-2 border-[#006ce0] text-sm font-bold text-[#006ce0] hover:bg-[#f0fbff] whitespace-nowrap">
+          <button className="h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap">
             Actions
             <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
               <path d="M1 3h8L5 8z" />
@@ -252,7 +252,7 @@ export default function ResourceSplitView<T extends { id: string }>({
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-[#c6c6cd]">
+            <tr className="border-b border-line">
               <th className="w-12 px-4 py-1.5">
                 <span className="flex items-center h-5">
                   <input
@@ -260,13 +260,13 @@ export default function ResourceSplitView<T extends { id: string }>({
                     checked={!!selected}
                     onChange={() => setSelectedId(selected ? null : rows[0]?.id ?? null)}
                     aria-label="Toggle selection"
-                    className="block w-4 h-4 m-0 accent-[#006ce0]"
+                    className="block w-4 h-4 m-0 accent-link"
                   />
                 </span>
               </th>
               {columns.map((col) => (
-                <th key={col.label} className="text-left py-1.5 font-bold text-[#424650]">
-                  <span className="block px-4 py-0.5 border-l border-[#c6c6cd] whitespace-nowrap">{col.label}</span>
+                <th key={col.label} className="text-left py-1.5 font-bold text-ink-body">
+                  <span className="block px-4 py-0.5 border-l border-line whitespace-nowrap">{col.label}</span>
                 </th>
               ))}
             </tr>
@@ -280,8 +280,8 @@ export default function ResourceSplitView<T extends { id: string }>({
                   key={item.id}
                   className={
                     isSelected
-                      ? "bg-[#f0fbff] outline outline-2 -outline-offset-2 outline-[#006ce0]"
-                      : "border-b border-[#ebebf0]"
+                      ? "bg-surface-selected outline outline-2 -outline-offset-2 outline-link"
+                      : "border-b border-line-subtle"
                   }
                 >
                   <td className="w-12 px-4 py-2.5">
@@ -291,7 +291,7 @@ export default function ResourceSplitView<T extends { id: string }>({
                         checked={isSelected}
                         onChange={() => setSelectedId(isSelected ? null : item.id)}
                         aria-label={`Select ${item.id}`}
-                        className="block w-4 h-4 m-0 accent-[#006ce0]"
+                        className="block w-4 h-4 m-0 accent-link"
                       />
                     </span>
                   </td>
@@ -310,7 +310,7 @@ export default function ResourceSplitView<T extends { id: string }>({
             )}
             {!status && rows.length === 0 && (
               <tr>
-                <td colSpan={columns.length + 1} className="py-8 text-center font-bold text-[#424650]">
+                <td colSpan={columns.length + 1} className="py-8 text-center font-bold text-ink-body">
                   No matches for &ldquo;{query}&rdquo;
                 </td>
               </tr>
@@ -321,16 +321,16 @@ export default function ResourceSplitView<T extends { id: string }>({
 
       {/* Detail panel */}
       {selected && (
-        <div className="mt-8 -mx-4 px-4 lg:-mx-6 lg:px-6 pt-5 border-t border-[#c6c6cd]">
+        <div className="mt-8 -mx-4 px-4 lg:-mx-6 lg:px-6 pt-5 border-t border-line">
           <h2 className="text-[18px] leading-6 font-bold break-all">{selected.id}</h2>
-          <div className="flex flex-wrap border-b border-[#c6c6cd] mt-4 mb-5">
+          <div className="flex flex-wrap border-b border-line mt-4 mb-5">
             {tabs.map((t, i) => (
               <div key={t.label} className="flex items-center">
-                {i > 0 && <span className="w-px h-6 bg-[#c6c6cd]" />}
+                {i > 0 && <span className="w-px h-6 bg-line" />}
                 <button
                   onClick={() => setActiveTab(t.label)}
                   className={`relative px-5 py-3 text-[16px] leading-5 font-bold whitespace-nowrap transition-colors ${
-                    tab.label === t.label ? "text-[#006ce0]" : "text-[#424650] hover:text-[#006ce0]"
+                    tab.label === t.label ? "text-link" : "text-ink-body hover:text-link"
                   }`}
                 >
                   {t.label}

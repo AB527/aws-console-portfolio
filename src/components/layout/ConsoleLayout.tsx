@@ -3,6 +3,7 @@
 import { useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import { DARK_QUERY, resolveTheme } from "@/lib/theme"
 import services from "@data/services.json"
 import Topbar from "./Topbar"
 import ConsoleFooter from "./ConsoleFooter"
@@ -21,8 +22,15 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
 
   const setHelpTopic = useConsoleStore((s) => s.setHelpTopic)
 
+  // Browser default follows the system setting, and keeps following it while the page is open
   useEffect(() => {
-    document.documentElement.dataset.theme = visualMode === "light" ? "light" : ""
+    const media = window.matchMedia(DARK_QUERY)
+    const apply = () => {
+      document.documentElement.dataset.theme = resolveTheme(visualMode, media.matches)
+    }
+    apply()
+    media.addEventListener("change", apply)
+    return () => media.removeEventListener("change", apply)
   }, [visualMode])
 
   // Help is about the page it was opened on, so it closes when the visitor moves on
@@ -56,7 +64,7 @@ export default function ConsoleLayout({ children }: ConsoleLayoutProps) {
   }, [pathname])
 
   return (
-    <div className="min-h-screen bg-[#f2f3f3]">
+    <div className="min-h-screen bg-page">
       <Topbar />
       <div className={`mt-[56px] flex min-h-[calc(100vh-56px)] ${amazonQOpen ? "md:pl-[420px]" : ""}`}>
         <main className="flex-1 min-w-0 overflow-x-clip pb-[32px]">

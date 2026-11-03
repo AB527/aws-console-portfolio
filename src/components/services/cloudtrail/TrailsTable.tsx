@@ -2,12 +2,12 @@ import Link from "next/link"
 import { formatPeriod } from "@/lib/formatDate"
 import { regionFull, type Trail } from "@/lib/cloudtrail"
 
-const TH = "text-left py-1.5 font-bold text-[#424650]"
-const TH_INNER = "block px-4 py-0.5 border-l border-[#c6c6cd] whitespace-nowrap"
+const TH = "text-left py-1.5 font-bold text-ink-body"
+const TH_INNER = "block px-4 py-0.5 border-l border-line whitespace-nowrap"
 
 function TrailStatus({ logging }: { logging: boolean }) {
   return logging ? (
-    <span className="inline-flex items-center gap-1.5 text-[#00802f]">
+    <span className="inline-flex items-center gap-1.5 text-success">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <path d="m7 12 3.5 3.5L17 9" />
@@ -15,7 +15,7 @@ function TrailStatus({ logging }: { logging: boolean }) {
       Logging
     </span>
   ) : (
-    <span className="inline-flex items-center gap-1.5 text-[#656871]">
+    <span className="inline-flex items-center gap-1.5 text-ink-muted">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <path d="M8 12h8" />
@@ -37,7 +37,7 @@ export default function TrailsTable({ trails, detailed = false, status }: Trails
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-[#c6c6cd]">
+          <tr className="border-b border-line">
             <th className={TH}>
               <span className="flex items-center justify-between gap-2 pr-4 py-0.5 whitespace-nowrap">
                 Name
@@ -66,9 +66,9 @@ export default function TrailsTable({ trails, detailed = false, status }: Trails
         </thead>
         <tbody>
           {trails.map((trail) => (
-            <tr key={trail.id} className="border-b border-[#ebebf0] last:border-b-0">
+            <tr key={trail.id} className="border-b border-line-subtle last:border-b-0">
               <td className="pr-4 py-3">
-                <Link href={`/iam/users/${trail.id}`} className="text-[#006ce0] underline underline-offset-4">
+                <Link href={`/iam/users/${trail.id}`} className="text-link underline underline-offset-4">
                   {trail.name}
                 </Link>
               </td>
@@ -91,7 +91,7 @@ export default function TrailsTable({ trails, detailed = false, status }: Trails
           )}
           {!status && trails.length === 0 && (
             <tr>
-              <td colSpan={detailed ? 5 : 2} className="py-8 text-center text-[#424650]">
+              <td colSpan={detailed ? 5 : 2} className="py-8 text-center text-ink-body">
                 <p className="font-bold">No trails</p>
                 <p className="mt-1">No trails to display</p>
               </td>
