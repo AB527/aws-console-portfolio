@@ -20,8 +20,9 @@
           "city": "Raipur",
           "full": "Asia Pacific (Raipur)",
           "zones": [
-            { "name": "ap-south-17a", "zoneId": "aps17-az1", "note": "Tribal — Chhattisgarh" },
-            { "name": "ap-south-17b", "zoneId": "aps17-az2", "note": "IIIT NR Campus" }
+            { "name": "ap-south-17a", "zoneId": "aps17-az1", "note": "Tribal, Chhattisgarh" },
+            { "name": "ap-south-17b", "zoneId": "aps17-az2", "note": "IIIT NR Campus" },
+            { "name": "ap-south-17c", "zoneId": "aps17-az3", "note": "Hackathons" }
           ]
         }
       ]

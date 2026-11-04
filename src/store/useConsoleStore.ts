@@ -65,6 +65,7 @@ interface ConsoleStore extends ConsoleSettings {
   resetUserSettings: () => void
   visitService: (id: string) => void
   setWidgetLayout: (layout: WidgetLayout[]) => void
+  resizeWidget: (id: string, colSpan: number, rowSpan: number) => void
   setActiveBucket: (id: string | null) => void
   setVisualMode: (m: VisualMode) => void
   removeWidget: (id: string) => void
@@ -179,6 +180,16 @@ export const useConsoleStore = create<ConsoleStore>()(
 
       setWidgetLayout: (layout) => set({ widgetLayout: layout }),
 
+      // Called on every pointer move of a resize, so an unchanged size leaves the state alone
+      resizeWidget: (id, colSpan, rowSpan) =>
+        set((state) => {
+          const current = state.widgetLayout.find((w) => w.id === id)
+          if (!current) return state
+          const next = clampToConfig({ ...current, colSpan, rowSpan })
+          if (next.colSpan === current.colSpan && next.rowSpan === current.rowSpan) return state
+          return { widgetLayout: state.widgetLayout.map((w) => (w.id === id ? next : w)) }
+        }),
+
       setActiveBucket: (id) => set({ activeBucket: id }),
 
       setVisualMode: (m) => set({ visualMode: m }),
@@ -200,6 +211,13 @@ export const useConsoleStore = create<ConsoleStore>()(
     }),
     {
       name: STORE_KEY,
+      // v1 halved the dashboard row height, so a saved widget covers twice as many rows
+      version: 1,
+      migrate: (persisted, version) => {
+        const p = (persisted ?? {}) as ConsoleStore
+        if (version >= 1 || !p.widgetLayout) return p
+        return { ...p, widgetLayout: p.widgetLayout.map((w) => ({ ...w, rowSpan: w.rowSpan * 2 })) }
+      },
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<ConsoleStore>
         const defaults = getDefaultLayout()

@@ -10,7 +10,6 @@ import type vpcJson from "@data/vpc.json"
 import type servicesJson from "@data/services.json"
 import type helpJson from "@data/help.json"
 import type s3Json from "@data/s3.json"
-import { fileExt } from "@/lib/fileExt"
 
 // Server-side helpers for the data studio (development only)
 
@@ -118,23 +117,4 @@ export async function removeObjectFile(id: string): Promise<boolean> {
   if (!dir) return false
   await fs.rm(dir, { recursive: true, force: true })
   return true
-}
-
-// Keeps the table in public/s3/README.md in step with s3.json
-export async function writeS3Readme(data: Json): Promise<void> {
-  const s3 = data as unknown as typeof s3Json
-  const rows = s3.buckets.flatMap((bucket) =>
-    bucket.objects.map((obj) => `| \`${obj.id}\` | ${bucket.name} | ${obj.key} | \`file.${fileExt(obj.key)}\` |`)
-  )
-  const readme = [
-    "# S3 object files",
-    "",
-    "Each folder is named by the object `id` in `public/data/s3.json`. Drop the document into its folder using the file name shown below; the Open / Download buttons enable automatically once the file exists.",
-    "",
-    "| Folder (object id) | Bucket | Object key | File name |",
-    "|---|---|---|---|",
-    ...rows,
-    "",
-  ].join("\n")
-  await fs.writeFile(path.join(S3_DIR, "README.md"), readme, "utf8")
 }

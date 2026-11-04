@@ -5,19 +5,39 @@
   },
   "items": [
     {
-      "date": "2026-06-19",
+      "date": "2026-10-15",
       "title": "Now live: AWS Console-style portfolio rebuilt on Next.js 16",
       "link": "https://github.com/AB527"
     },
     {
-      "date": "2026-05-20",
-      "title": "Recognised in the CERT-In Hall of Fame for responsible vulnerability disclosure",
-      "link": ""
+      "date": "2026-09-14",
+      "title": "Leading the AWS Student Builder Group at IIIT Naya Raipur",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7505271158481747968/"
     },
     {
-      "date": "2026-04-12",
+      "date": "2026-07-30",
+      "title": "Certified: AWS Certified Solutions Architect Associate",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7488450829536927745/"
+    },
+    {
+      "date": "2026-07-16",
+      "title": "Certified: AWS Certified Cloud Practitioner",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7483377493266251776/"
+    },
+    {
+      "date": "2026-07-09",
+      "title": "Certified: AWS Certified AI Practitioner",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7480843178816782336/"
+    },
+    {
+      "date": "2026-05-19",
       "title": "Indian Patent IN 589608 officially granted",
-      "link": ""
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7462358883630546944/"
+    },
+    {
+      "date": "2025-08-15",
+      "title": "Recognised in the CERT-In Hall of Fame for responsible vulnerability disclosure",
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7361831617557839873/"
     }
   ]
 }

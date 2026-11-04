@@ -7,7 +7,7 @@ import { useData } from "@/hooks/useData"
 type Tab = "recent" | "user-configured" | "ab-managed"
 
 function relativeTime(dateStr: string): string {
-  const now = new Date("2026-06-13")
+  const now = new Date()
   const then = new Date(dateStr)
   const diffMs = now.getTime() - then.getTime()
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
@@ -20,13 +20,6 @@ function relativeTime(dateStr: string): string {
   if (diffDays < 60) return "1 month ago"
   const months = Math.floor(diffDays / 30)
   return `${months} months ago`
-}
-
-function isWithinLastMonth(dateStr: string): boolean {
-  const now = new Date("2026-06-13")
-  const then = new Date(dateStr)
-  const diffMs = now.getTime() - then.getTime()
-  return diffMs <= 30 * 24 * 60 * 60 * 1000
 }
 
 function HealthIcon() {
@@ -62,7 +55,8 @@ export default function NotificationsDropdown() {
 
   const { data: notificationsData, error, reload } = useData("notifications")
   const allItems = notificationsData?.items ?? []
-  const recentItems = allItems.filter((n) => isWithinLastMonth(n.date))
+  // The three newest, whatever their age
+  const recentItems = [...allItems].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3)
   const abManagedItems = allItems.filter((n) => n.type === "ab-managed")
 
   const displayItems =

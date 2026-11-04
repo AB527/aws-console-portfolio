@@ -322,7 +322,7 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
                   <td className="px-4 py-2.5 whitespace-nowrap">
                     {inst.status === "running" ? <span className="text-success">2/2 checks passed</span> : "–"}
                   </td>
-                  <td className="px-4 py-2.5 whitespace-nowrap">{zone}</td>
+                  <td className="px-4 py-2.5 whitespace-nowrap">{inst.zone || zone}</td>
                   <td className="px-4 py-2.5">{inst.metrics.usersServed.toLocaleString("en-US")}</td>
                   <td className="px-4 py-2.5 whitespace-nowrap">{formatPeriod(inst.periodFrom, inst.periodTo)}</td>
                 </tr>

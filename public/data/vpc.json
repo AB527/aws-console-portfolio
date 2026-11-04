@@ -36,7 +36,8 @@
       "routes": [
         { "destination": "linkedin", "target": "linkedin.com/in/atharva-bedekar", "url": "https://www.linkedin.com/in/atharva-bedekar" },
         { "destination": "github", "target": "github.com/AB527", "url": "https://github.com/AB527" },
-        { "destination": "medium", "target": "medium.com/@atharvabedekar527", "url": "https://medium.com/@atharvabedekar527" }
+        { "destination": "medium", "target": "medium.com/@atharvabedekar527", "url": "https://medium.com/@atharvabedekar527" },
+        { "destination": "aws-builder", "target": "builder.aws.com/community/@atharvabedekar", "url": "https://builder.aws.com/community/@atharvabedekar" }
       ]
     },
     {

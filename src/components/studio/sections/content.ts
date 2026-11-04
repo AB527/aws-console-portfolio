@@ -36,6 +36,7 @@ export const projects: SectionGroup = {
         { key: "instanceType", label: "Project type", type: "select", required: true, options: "projectTypes" },
         { key: "techStack", label: "Tech stack", type: "text" },
         { key: "region", label: "Region", type: "select", required: true, options: "regions" },
+        { key: "zone", label: "Availability Zone", type: "text", hint: "A zone name of the Region, for example ap-south-17b." },
         { key: "periodFrom", label: "Started", type: "date", required: true },
         { key: "periodTo", label: "Ended", type: "date", hint: "Leave empty for Present." },
         { key: "tags", label: "Tags", type: "tags" },

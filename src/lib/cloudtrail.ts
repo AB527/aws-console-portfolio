@@ -9,14 +9,6 @@ export function regionFull(region: string): string {
   return regions.find((r) => r.id === region)?.full ?? region
 }
 
-// "Hackoverse Edu" → "hackoverse-edu"
-function slug(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-}
-
 // "Cloud & DevOps Intern" → "CloudDevOpsIntern"
 function pascal(text: string): string {
   return text
@@ -66,7 +58,7 @@ export function buildTrails(users: User[]): Trail[] {
 export function buildEvents(trails: Trail[]): TrailEvent[] {
   return trails
     .flatMap((t) => {
-      const base = { userName: pascal(t.role), source: slug(t.organization), trailId: t.id, region: t.region }
+      const base = { userName: pascal(t.role), source: t.name, trailId: t.id, region: t.region }
       const start: TrailEvent = { ...base, id: `${t.id}-start`, name: "StartRole", time: t.periodFrom }
       const end: TrailEvent = { ...base, id: `${t.id}-end`, name: "EndRole", time: t.periodTo }
       return t.periodTo ? [start, end] : [start]

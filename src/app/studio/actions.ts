@@ -2,7 +2,7 @@
 
 import { createHash } from "crypto"
 import { promises as fs } from "fs"
-import { dataFilePath, readDataFile, removeObjectFile, writeObjectFile, writeS3Readme } from "@/lib/studio"
+import { dataFilePath, readDataFile, removeObjectFile, writeObjectFile } from "@/lib/studio"
 import { sameKind, type Json } from "@/components/studio/json"
 import { fileExt } from "@/lib/fileExt"
 
@@ -22,7 +22,6 @@ export async function saveDataFile(name: string, data: Json): Promise<SaveResult
 
   try {
     await fs.writeFile(file, JSON.stringify(data, null, 2) + "\n", "utf8")
-    if (name === "s3") await writeS3Readme(data)
     return { ok: true }
   } catch (err) {
     return { ok: false, error: err instanceof Error ? err.message : "The file could not be written." }

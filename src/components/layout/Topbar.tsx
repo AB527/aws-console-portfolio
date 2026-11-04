@@ -14,6 +14,7 @@ import servicesMenu from "@data/services-menu.json"
 import regionsData from "@data/regions.json"
 import services from "@data/services.json"
 import { useData } from "@/hooks/useData"
+import { GITHUB_REPO_URL } from "@/lib/constants"
 
 function TerminalIcon() {
   return (
@@ -115,9 +116,9 @@ function RegionDropdown({
 
           {/* Footer */}
           <div className="flex items-center gap-4 px-4 py-2.5 border-t border-[#2d3f52]">
-            <button className="text-[12px] text-[#4db8ff] hover:underline">Manage Regions</button>
+            <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="text-[12px] text-[#4db8ff] hover:underline">Manage Regions</a>
             <span className="text-[#2d3f52]">|</span>
-            <button className="text-[12px] text-[#4db8ff] hover:underline">Manage local zones</button>
+            <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="text-[12px] text-[#4db8ff] hover:underline">Manage local zones</a>
           </div>
         </>
       ) : (
@@ -141,10 +142,8 @@ function TopbarInner() {
   const notificationsRead = useConsoleStore((s) => s.notificationsRead)
   const markNotificationsRead = useConsoleStore((s) => s.markNotificationsRead)
   const notifications = useData("notifications").data
-  const recentNotificationCount = (notifications?.items ?? []).filter((n) => {
-    const diffMs = new Date("2026-06-13").getTime() - new Date(n.date).getTime()
-    return diffMs <= 30 * 24 * 60 * 60 * 1000
-  }).length
+  // Matches the "Most recent" tab of the dropdown, which lists the three newest
+  const recentNotificationCount = Math.min(notifications?.items.length ?? 0, 3)
 
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [regionOpen, setRegionOpen] = useState(false)

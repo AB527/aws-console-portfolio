@@ -1,15 +1,28 @@
 {
   "users": [
     {
+      "id": "aws-sbg-leader",
+      "username": "aws-sbg-leader",
+      "displayName": "AWS SBG at IIIT Naya Raipur",
+      "description": "Student Builder Group Leader",
+      "periodFrom": "2026-09-01",
+      "periodTo": "",
+      "region": "ap-south-17",
+      "groups": ["cloud"],
+      "status": "Active",
+      "avatar": "SB",
+      "policies": []
+    },
+    {
       "id": "infobahn-intern",
       "username": "infobahn-intern",
       "displayName": "Infobahn Technical Solutions",
-      "description": "Cloud & DevOps Intern",
+      "description": "Cloud Intern",
       "periodFrom": "2026-05-01",
-      "periodTo": "",
+      "periodTo": "2026-07-31",
       "region": "ap-south-1",
       "groups": ["cloud", "devops"],
-      "status": "Active",
+      "status": "Inactive",
       "avatar": "IT",
       "policies": [
         { "name": "ansible:playbook", "effect": "Allow" },
@@ -20,25 +33,30 @@
         { "name": "aws:rds:stop-idle", "effect": "Allow" },
         { "name": "aws:eventbridge:pipeline", "effect": "Allow" },
         { "name": "postgres:migrate", "effect": "Allow" },
-        { "name": "hpe:ilo4:virtual-media", "effect": "Allow" }
+        { "name": "hpe:ilo4:virtual-media", "effect": "Allow" },
+        { "name": "aws:aurora:snapshot-restore", "effect": "Allow" },
+        { "name": "aws:network-firewall:rules", "effect": "Allow" },
+        { "name": "aws:lambda:finops", "effect": "Allow" },
+        { "name": "zabbix:monitoring", "effect": "Allow" },
+        { "name": "hpe:pcai:evaluate", "effect": "Allow" }
       ]
     },
     {
-      "id": "transbnk-intern",
-      "username": "transbnk-intern",
-      "displayName": "TransBnk",
-      "description": "Backend Intern",
+      "id": "technovate-web-lead",
+      "username": "technovate-web-lead",
+      "displayName": "Technovate IIIT Naya Raipur",
+      "description": "Website Lead",
       "periodFrom": "2026-01-01",
-      "periodTo": "2026-04-30",
+      "periodTo": "2026-03-31",
       "region": "ap-south-17",
-      "groups": ["backend", "appdev"],
+      "groups": ["appdev", "devops"],
       "status": "Inactive",
-      "avatar": "TB",
+      "avatar": "TN",
       "policies": [
-        { "name": "nodejs:cli", "effect": "Allow" },
-        { "name": "gemini:api", "effect": "Allow" },
-        { "name": "springboot:schema-analysis", "effect": "Allow" },
-        { "name": "postgres:query", "effect": "Allow" }
+        { "name": "ticketing:sales", "effect": "Allow" },
+        { "name": "mail:ticket-automation", "effect": "Allow" },
+        { "name": "qr:scanner-app", "effect": "Allow" },
+        { "name": "web:deploy-automation", "effect": "Allow" }
       ]
     },
     {
@@ -62,12 +80,47 @@
       ]
     },
     {
+      "id": "club-de-theatre",
+      "username": "club-de-theatre",
+      "displayName": "Club De Theatre, IIIT Naya Raipur",
+      "description": "Senior Member",
+      "periodFrom": "2025-08-01",
+      "periodTo": "",
+      "region": "ap-south-17",
+      "groups": [],
+      "status": "Active",
+      "avatar": "CT",
+      "policies": [
+        { "name": "theatre:creative-direction", "effect": "Allow" },
+        { "name": "theatre:play-film-design", "effect": "Allow" }
+      ]
+    },
+    {
+      "id": "ciphercell",
+      "username": "ciphercell",
+      "displayName": "CipherCell, IIIT Naya Raipur",
+      "description": "Vice Head, InfoSec & Blockchain",
+      "periodFrom": "2025-08-01",
+      "periodTo": "2026-08-31",
+      "region": "ap-south-17",
+      "groups": ["cybersec", "devops"],
+      "status": "Inactive",
+      "avatar": "CC",
+      "policies": [
+        { "name": "ctf:challenge-design", "effect": "Allow" },
+        { "name": "blockchain:stellar", "effect": "Allow" },
+        { "name": "blockchain:midnight", "effect": "Allow" },
+        { "name": "web:pentest", "effect": "Allow" },
+        { "name": "cert-in:disclosure", "effect": "Allow" }
+      ]
+    },
+    {
       "id": "cg-tribal",
       "username": "cg-tribal",
-      "displayName": "Govt of Chhattisgarh — TFFM",
-      "description": "Full Stack Developer",
-      "periodFrom": "2025-03-01",
-      "periodTo": "2025-07-31",
+      "displayName": "Govt of Chhattisgarh, TFFM",
+      "description": "SDE Intern",
+      "periodFrom": "2025-07-01",
+      "periodTo": "2026-01-31",
       "region": "ap-south-17",
       "groups": ["appdev", "backend", "devops", "cybersec"],
       "status": "Inactive",
@@ -78,27 +131,45 @@
         { "name": "aws:cloudfront:cdn", "effect": "Allow" },
         { "name": "postgres:rds", "effect": "Allow" },
         { "name": "security:pentest-hardening", "effect": "Allow" },
-        { "name": "nic:coordination", "effect": "Allow" }
+        { "name": "nic:coordination", "effect": "Allow" },
+        { "name": "react:frontend", "effect": "Allow" },
+        { "name": "flutter:windows-kiosk", "effect": "Allow" },
+        { "name": "github-actions:self-hosted", "effect": "Allow" },
+        { "name": "ansible:deploy", "effect": "Allow" }
       ]
     },
     {
-      "id": "ciphercell",
-      "username": "ciphercell",
-      "displayName": "CipherCell — IIIT Naya Raipur",
-      "description": "Vice Head, InfoSec & Blockchain",
-      "periodFrom": "2024-08-01",
-      "periodTo": "",
-      "region": "ap-south-17",
-      "groups": ["cybersec", "devops"],
-      "status": "Active",
-      "avatar": "CC",
+      "id": "transbnk-intern",
+      "username": "transbnk-intern",
+      "displayName": "TransBnk",
+      "description": "SWE Intern",
+      "periodFrom": "2025-06-01",
+      "periodTo": "2025-07-31",
+      "region": "ap-south-1",
+      "groups": ["backend", "appdev"],
+      "status": "Inactive",
+      "avatar": "TB",
       "policies": [
-        { "name": "ctf:challenge-design", "effect": "Allow" },
-        { "name": "blockchain:stellar", "effect": "Allow" },
-        { "name": "blockchain:midnight", "effect": "Allow" },
-        { "name": "web:pentest", "effect": "Allow" },
-        { "name": "cert-in:disclosure", "effect": "Allow" }
+        { "name": "nodejs:cli", "effect": "Allow" },
+        { "name": "gemini:api", "effect": "Allow" },
+        { "name": "springboot:schema-analysis", "effect": "Allow" },
+        { "name": "postgres:query", "effect": "Allow" },
+        { "name": "jacoco:coverage", "effect": "Allow" },
+        { "name": "snyk:dependency-scan", "effect": "Allow" }
       ]
+    },
+    {
+      "id": "acc-intern",
+      "username": "acc-intern",
+      "displayName": "Applied Cloud Computing",
+      "description": "Intern",
+      "periodFrom": "2022-04-01",
+      "periodTo": "2022-05-31",
+      "region": "ap-south-1",
+      "groups": ["cloud"],
+      "status": "Inactive",
+      "avatar": "AC",
+      "policies": []
     }
   ]
 }
