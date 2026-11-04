@@ -1,17 +1,10 @@
 "use client"
 
+import Link from "next/link"
 import { useConsoleStore } from "@/store/useConsoleStore"
 
-function FlaskIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="shrink-0">
-      <path d="M9 3h6M10 3v5.5L5.2 18.3A1.2 1.2 0 0 0 6.3 20h11.4a1.2 1.2 0 0 0 1.1-1.7L14 8.5V3" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M7.5 14h9" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-export default function SettingsDropdown() {
+// `onNavigate` lets the top bar close the dropdown when the link is followed
+export default function SettingsDropdown({ onNavigate }: { onNavigate?: () => void }) {
   const visualMode = useConsoleStore((s) => s.visualMode)
   const setVisualMode = useConsoleStore((s) => s.setVisualMode)
 
@@ -70,13 +63,9 @@ export default function SettingsDropdown() {
 
       {/* Footer links */}
       <div className="px-5 py-4 border-t border-[#2d3f52] flex flex-col gap-3">
-        <button className="text-[13px] font-bold text-[#539fe5] text-left hover:underline">
+        <Link href="/settings/home" onClick={onNavigate} className="text-[13px] font-bold text-[#539fe5] text-left hover:underline">
           See all user settings
-        </button>
-        <button className="text-[13px] font-bold text-[#539fe5] text-left hover:underline flex items-center gap-2">
-          AWS experimental preview
-          <FlaskIcon />
-        </button>
+        </Link>
       </div>
     </div>
   )

@@ -40,8 +40,8 @@
     "title": "Experience",
     "description": "Work history timeline",
     "iconId": "cloudtrail",
-    "global": true,
-    "regions": [],
+    "global": false,
+    "regions": ["ap-south-1", "ap-south-17"],
     "color": "#E7157B"
   }
 ]

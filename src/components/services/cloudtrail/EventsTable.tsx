@@ -54,9 +54,11 @@ interface EventsTableProps {
   filterable?: boolean
   // Shown in place of the rows while the events are loading
   status?: React.ReactNode
+  // Second line of the empty state when there are no events at all
+  emptyNote?: string
 }
 
-export default function EventsTable({ events, filterable = false, status }: EventsTableProps) {
+export default function EventsTable({ events, filterable = false, status, emptyNote }: EventsTableProps) {
   const [attribute, setAttribute] = useState<Attribute>("name")
   const [query, setQuery] = useState("")
   const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "time", dir: "desc" })
@@ -186,7 +188,7 @@ export default function EventsTable({ events, filterable = false, status }: Even
               <tr>
                 <td colSpan={COLUMNS.length} className="py-8 text-center text-ink-body">
                   <p className="font-bold">No events</p>
-                  <p className="mt-1">No events to display</p>
+                  <p className="mt-1">{(events.length === 0 && emptyNote) || "No events to display"}</p>
                 </td>
               </tr>
             )}

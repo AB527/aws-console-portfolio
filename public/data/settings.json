@@ -1,0 +1,192 @@
+{
+  "title": "Unified settings",
+  "helpTopic": "unified-settings",
+  "tabs": [
+    {
+      "id": "user",
+      "label": "User settings",
+      "href": "/settings/home",
+      "description": "Manage settings for the current user. These settings do not apply to other visitors or browsers.",
+      "resettable": true
+    },
+    {
+      "id": "account",
+      "label": "Account settings",
+      "href": "/settings/account",
+      "description": "Manage settings associated with this console. These settings apply to every page of the portfolio.",
+      "resettable": false
+    }
+  ],
+  "labels": {
+    "resetAll": "Reset all",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "all": "All %s",
+    "some": "%d of %t %s",
+    "selectAll": "Select all",
+    "minOne": "Keep at least one selected."
+  },
+  "sections": [
+    {
+      "id": "localization",
+      "tab": "user",
+      "title": "Localisation and default region",
+      "description": "Choose the language and locale settings in the AB Console and control which region is active when you open it.",
+      "editTitle": "Edit localisation and default region",
+      "editDescription": "Manage localisation and default region settings for the current user. These settings do not apply to other visitors or browsers.",
+      "helpTopic": "settings-localization",
+      "saveLabel": "Save settings",
+      "groups": [
+        {
+          "title": "Localisation",
+          "fields": [
+            {
+              "key": "language",
+              "label": "Language",
+              "control": "select",
+              "options": [{ "value": "browser-default", "label": "Browser default" }]
+            }
+          ]
+        },
+        {
+          "title": "Default region",
+          "fields": [
+            {
+              "key": "selectedRegion",
+              "label": "Default Region",
+              "hint": "Choose the region that will be selected by default in the AB Console each time you open it.",
+              "note": "Only Regions enabled for this console will appear.",
+              "control": "select",
+              "optionsFrom": "regions"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "display",
+      "tab": "user",
+      "title": "Display",
+      "description": "Customise the appearance of AB Console elements.",
+      "editTitle": "Edit display",
+      "editDescription": "Manage display settings for the current user. These settings do not apply to other visitors or browsers.",
+      "helpTopic": "settings-display",
+      "saveLabel": "Save settings",
+      "groups": [
+        {
+          "title": "Display settings",
+          "fields": [
+            {
+              "key": "visualMode",
+              "label": "Visual mode",
+              "badge": "Beta",
+              "hint": "Choose your preferred visual theme.",
+              "control": "radio",
+              "options": [
+                { "value": "browser-default", "label": "Browser default" },
+                { "value": "light", "label": "Light" },
+                { "value": "dark", "label": "Dark" }
+              ]
+            },
+            {
+              "key": "favoritesBarDisplay",
+              "label": "Favourites bar display",
+              "hint": "Choose how you prefer to see your favourite services in the top navigation favourites bar.",
+              "control": "radio",
+              "options": [
+                { "value": "name-icon", "label": "Name and icon" },
+                { "value": "icon", "label": "Icon only" }
+              ]
+            },
+            {
+              "key": "favoritesBarIconSize",
+              "label": "Favourites bar icon size",
+              "hint": "Choose the size of the icons for items in the top navigation favourites bar.",
+              "control": "radio",
+              "options": [
+                { "value": "small", "label": "Small" },
+                { "value": "large", "label": "Large" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings_management",
+      "tab": "user",
+      "title": "Settings management",
+      "description": "Decide if the AB Console will remember your activity.",
+      "editTitle": "Edit settings management",
+      "editDescription": "Manage settings for the current user. These settings do not apply to other visitors or browsers.",
+      "saveLabel": "Save changes",
+      "groups": [
+        {
+          "title": "Settings management",
+          "fields": [
+            {
+              "key": "rememberRecentlyVisited",
+              "label": "Remember recently visited services",
+              "hint": "The console can remember pages that you visit to provide quick access to the services that you have visited recently. If this feature is turned off, nothing is added to the Recently visited lists in the services menu and on Console Home, and your existing recently visited services data will be cleared.",
+              "control": "toggle"
+            },
+            {
+              "key": "qHelpLinks",
+              "label": "Enable Q help links",
+              "hint": "Receive personalised guidance for console tasks through Q by clicking the Q help link. If you deactivate this setting, you'll receive static help content when available.",
+              "control": "toggle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "visible_regions",
+      "tab": "account",
+      "title": "Visible Regions",
+      "description": "Choose which Regions are visible in the Console.",
+      "editTitle": "Edit visible Regions",
+      "editDescription": "Choose which Regions appear in the Region menu. A hidden Region cannot be selected.",
+      "saveLabel": "Save changes",
+      "groups": [
+        {
+          "title": "Visible Regions",
+          "fields": [
+            {
+              "key": "hiddenRegions",
+              "label": "Regions",
+              "noun": "Regions",
+              "control": "checklist",
+              "optionsFrom": "regions"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "visible_services",
+      "tab": "account",
+      "title": "Visible services",
+      "description": "Choose which services are visible in the Console.",
+      "editTitle": "Edit visible services",
+      "editDescription": "Choose which services appear in the services menu, in search and on the All services page. A hidden service can still be opened by its link.",
+      "saveLabel": "Save changes",
+      "groups": [
+        {
+          "title": "Visible services",
+          "fields": [
+            {
+              "key": "hiddenServices",
+              "label": "Services",
+              "noun": "services",
+              "control": "checklist",
+              "optionsFrom": "services"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

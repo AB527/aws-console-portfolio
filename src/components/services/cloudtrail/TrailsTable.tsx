@@ -30,9 +30,11 @@ interface TrailsTableProps {
   detailed?: boolean
   // Shown in place of the rows while the trails are loading
   status?: React.ReactNode
+  // Second line of the empty state
+  emptyNote?: string
 }
 
-export default function TrailsTable({ trails, detailed = false, status }: TrailsTableProps) {
+export default function TrailsTable({ trails, detailed = false, status, emptyNote = "No trails to display" }: TrailsTableProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
@@ -93,7 +95,7 @@ export default function TrailsTable({ trails, detailed = false, status }: Trails
             <tr>
               <td colSpan={detailed ? 5 : 2} className="py-8 text-center text-ink-body">
                 <p className="font-bold">No trails</p>
-                <p className="mt-1">No trails to display</p>
+                <p className="mt-1">{emptyNote}</p>
               </td>
             </tr>
           )}

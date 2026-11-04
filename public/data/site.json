@@ -20,12 +20,15 @@
     "vpcSubnets": "Subnets | Connect",
     "vpcRouteTables": "Route tables | Connect",
     "privacy": "Privacy Notice",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "settings": "Unified settings",
+    "settingsAccount": "Account settings | Unified settings"
   },
   "detailTitles": {
     "s3": "%s | Documents",
     "iam": "%s | Skills",
-    "vpc": "%s | Connect"
+    "vpc": "%s | Connect",
+    "settings": "%s | Unified settings"
   },
   "data": {
     "loading": "Loading %s",

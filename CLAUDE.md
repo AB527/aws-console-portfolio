@@ -67,6 +67,9 @@ per service — add or edit the service's entry in `public/data/sidebars.json`.
 /                               → redirects to /console/home
 /console/home                   dashboard
 /console/services               all services
+/settings/home                  Unified settings, User settings tab
+/settings/account               Unified settings, Account settings tab
+/settings/[section]/edit        edit page for one settings card
 /privacy  /terms
 /ec2/home                       ?view=instances | instance-types | instance-type-finder, ?project=, ?type=
 /s3/home                        buckets list
@@ -114,7 +117,7 @@ public/
 Everything in `public/data/` is also a public URL (`/data/<name>.json`). The files fall in two groups.
 
 **Frame files** — `site`, `services`, `services-menu`, `regions`, `dashboard-layout`, `iam-console`,
-`sidebars`, `help`.
+`sidebars`, `help`, `settings`.
 They drive the top bar, sidebars, tab titles and the store defaults, so they are imported
 (`import site from "@data/site.json"`) and are there on first paint.
 
@@ -152,12 +155,33 @@ Persisted (listed in `partialize`):
 | visualMode        | `"browser-default"` \| `"light"` \| `"dark"`, see "Dark mode"  |
 | notificationsRead | bell badge cleared                                   |
 | activeBucket      | Documents drill-down state                           |
+| language, favoritesBarDisplay, favoritesBarIconSize, qHelpLinks | Unified settings values that are only remembered |
+| rememberRecentlyVisited | off: `visitService` records nothing            |
+| hiddenRegions, hiddenServices | ids hidden on the Account settings tab     |
 
 Session-only UI flags (do **not** add these to `partialize`): `cloudShellOpen`, `amazonQOpen`,
 `mobileNavOpen`, `addWidgetsOpen`, `sidebarCollapsed`, `helpTopic`.
 
 The store's `merge` drops widgets that no longer exist and appends new defaults, so changing
 `dashboard-layout.json` is safe for returning visitors.
+
+## Unified settings
+The gear dropdown links to `/settings/home` ("See all user settings"). The pages are **described,
+not hand-built**: every card is a section in `public/data/settings.json` (title, copy, `tab`,
+`groups` of `fields`), rendered by `components/settings/SettingsHome.tsx` (cards with current
+values) and `SettingsEdit.tsx` (the Edit page). To add a setting, add a field there and a key to
+`ConsoleSettings` in the store; do not write a page for it.
+
+- A field's `key` is a `ConsoleSettings` key. `control` is `select`, `radio`, `toggle` or
+  `checklist`; options are inline or `optionsFrom: "regions" | "services"`.
+- A checklist stores what is **hidden**, so an empty list means "all visible". It cannot be saved
+  with everything unticked.
+- An edit page changes nothing until Save, which calls `applySettings(patch)`. "Reset all" calls
+  `resetUserSettings()` and leaves the account tab alone.
+- `hiddenRegions` filters the Region menu and the Default Region select; `hiddenServices` filters
+  the services menu, search and the All services page. A new list of regions or services should
+  honour them too.
+- Helpers (options, card summaries) are in `src/lib/settings.ts`.
 
 ## Dark mode
 `visualMode` resolves to `data-theme="light"` or `"dark"` on `<html>` (`resolveTheme()` in
@@ -193,6 +217,10 @@ panels, `Sidebar`, `CloudShellPanel`) does not use them and looks the same in bo
   UI copy calls them "AB Region".
 - The region lives in the store **and** in the `?region=` query param; `useRegion()` keeps them in
   sync — use it wherever region is read or set.
+- `s3`, `iam` and `vpc` are `global: true`: on their pages the Region selector reads "Global"
+  (`globalLabel` in `regions.json`) and its list is disabled. `ec2` and `cloudtrail` are regional;
+  Experience filters its trails and events to the selected Region in `useTrails()`
+  (`CloudTrailData.tsx`), while Skills still lists every role.
 - Services with `global: true` ignore the region. Others are only available in the regions listed
   in their `regions` array.
 

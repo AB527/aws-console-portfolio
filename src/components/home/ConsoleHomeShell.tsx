@@ -9,18 +9,18 @@ import { SidebarPanel } from "@/components/layout/ServiceSidebar"
 import { TopBarCrumbs } from "@/components/layout/ServiceTopBar"
 import { mobileDrawerClass } from "@/components/ui/SidebarIcons"
 
-const HELP_TOPIC = "console-home"
-
 interface ConsoleHomeShellProps {
   children: React.ReactNode
   // Shown next to the navigation toggle
   breadcrumb?: BreadcrumbItem[]
   // Info icon and the help panel it opens
   help?: boolean
+  // Topic the info icon opens
+  helpTopic?: string
 }
 
 // Top bar with the navigation toggle, the side navigation it opens, and the page beside it
-export default function ConsoleHomeShell({ children, breadcrumb, help: showHelp = true }: ConsoleHomeShellProps) {
+export default function ConsoleHomeShell({ children, breadcrumb, help: showHelp = true, helpTopic = "console-home" }: ConsoleHomeShellProps) {
   // Closed until asked for, so the dashboard keeps its full width
   const [navOpen, setNavOpen] = useState(false)
 
@@ -33,7 +33,7 @@ export default function ConsoleHomeShell({ children, breadcrumb, help: showHelp 
           {breadcrumb && <TopBarCrumbs items={breadcrumb} />}
         </div>
         {/* The negative margin keeps the bar the height of the bare icon */}
-        {showHelp && <HelpToggle topic={HELP_TOPIC} className="-m-2" />}
+        {showHelp && <HelpToggle topic={helpTopic} className="-m-2" />}
       </div>
 
       <div className="flex">
