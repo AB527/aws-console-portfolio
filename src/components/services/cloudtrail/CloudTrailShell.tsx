@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import { serviceTitle } from "@/lib/serviceTitle"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import ServiceSidebar, { sidebarLinks } from "@/components/layout/ServiceSidebar"
 import ServiceTopBar from "@/components/layout/ServiceTopBar"
 import HelpPanel from "@/components/layout/HelpPanel"

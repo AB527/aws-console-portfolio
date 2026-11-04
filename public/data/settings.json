@@ -134,8 +134,8 @@
             },
             {
               "key": "qHelpLinks",
-              "label": "Enable Q help links",
-              "hint": "Receive personalised guidance for console tasks through Q by clicking the Q help link. If you deactivate this setting, you'll receive static help content when available.",
+              "label": "Enable AB Q help links",
+              "hint": "Receive personalised guidance for console tasks through AB Q by clicking the AB Q help link. If you deactivate this setting, you'll receive static help content when available.",
               "control": "toggle"
             }
           ]

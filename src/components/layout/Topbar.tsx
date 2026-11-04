@@ -137,8 +137,8 @@ function TopbarInner() {
   const selectedRegion = useConsoleStore((s) => s.selectedRegion)
   const setRegion = useConsoleStore((s) => s.setRegion)
   const setCloudShellOpen = useConsoleStore((s) => s.setCloudShellOpen)
-  const amazonQOpen = useConsoleStore((s) => s.amazonQOpen)
-  const setAmazonQOpen = useConsoleStore((s) => s.setAmazonQOpen)
+  const abQOpen = useConsoleStore((s) => s.abQOpen)
+  const setAbQOpen = useConsoleStore((s) => s.setAbQOpen)
   const notificationsRead = useConsoleStore((s) => s.notificationsRead)
   const markNotificationsRead = useConsoleStore((s) => s.markNotificationsRead)
   const notifications = useData("notifications").data
@@ -197,19 +197,19 @@ function TopbarInner() {
     <header className="fixed top-0 left-0 right-0 h-[56px] bg-[#0f1620] border-t-[5px] border-[#7d8998] flex items-center z-40 text-white text-[13px] select-none">
       {/* Logo */}
       <a href="/console/home" className="flex items-center justify-center h-full px-3 hover:bg-[#37475a] transition-colors shrink-0">
-        <img src="/icons/navbar.png" alt="AWS" className="h-[22px] w-auto" />
+        <img src="/icons/navbar.png" alt="AB" className="h-[22px] w-auto" />
       </a>
 
       <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />
 
-      {/* Amazon Q */}
+      {/* AB Q */}
       <button
-        onClick={() => { setMoreOpen(false); setAmazonQOpen(!amazonQOpen) }}
-        aria-expanded={amazonQOpen}
+        onClick={() => { setMoreOpen(false); setAbQOpen(!abQOpen) }}
+        aria-expanded={abQOpen}
         className="flex items-center justify-center h-full px-2.5 transition-colors shrink-0"
-        title="Amazon Q"
+        title="AB Q"
       >
-        <img src="/icons/amazon-q.png" alt="" className="h-[24px] w-[24px]" />
+        <img src="/icons/ab-q.png" alt="" className="h-[24px] w-[24px]" />
       </button>
 
       <div className="w-[0.5px] h-8 bg-[#7d8998] mx-1.5 shrink-0 hidden md:block" />

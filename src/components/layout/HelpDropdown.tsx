@@ -72,7 +72,7 @@ export default function HelpDropdown() {
 
       <div className="px-6 py-4">
         <a
-          href={`mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent("Feedback: AWS Console Portfolio")}`}
+          href={`mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent("Feedback: AB Console Portfolio")}`}
           className="text-left text-[15px] font-bold text-[#539fe5] hover:underline"
         >
           Send feedback

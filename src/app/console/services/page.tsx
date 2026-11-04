@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import ConsoleHomeShell from "@/components/home/ConsoleHomeShell"
 import AllServicesGrid from "@/components/services/AllServicesGrid"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import sidebars from "@data/sidebars.json"
 import site from "@data/site.json"
 

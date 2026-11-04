@@ -18,11 +18,10 @@ export function subnetForRouteTable(vpc: VpcData, routeTable: RouteTable): Subne
   return vpc.subnets.find((s) => s.id === routeTable.subnetId)
 }
 
-// Like AWS, each table starts with the local route for the Connect's own range
 export function routesFor(vpc: VpcData, routeTable: RouteTable): Route[] {
   return [{ destination: vpc.vpc.cidr, target: "local" }, ...routeTable.routes]
 }
 
 export function subnetArn(vpc: VpcData, subnet: Subnet): string {
-  return `arn:aws:ec2:${vpc.region}:${vpc.ownerId}:subnet/${subnet.id}`
+  return `arn:ab:ec2:${vpc.region}:${vpc.ownerId}:subnet/${subnet.id}`
 }

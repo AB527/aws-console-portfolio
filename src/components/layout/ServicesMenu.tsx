@@ -6,7 +6,7 @@ import { useConsoleStore } from "@/store/useConsoleStore"
 import FavoriteStar from "@/components/ui/FavoriteStar"
 import services from "@data/services.json"
 import menu from "@data/services-menu.json"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 
 type Service = (typeof services)[number]
 
@@ -84,7 +84,6 @@ export default function ServicesMenu({ onClose }: { onClose: () => void }) {
             <ul className="flex flex-col gap-4">
               {items.map((service) => (
                 <li key={service.id} className="group flex items-start gap-1">
-                  {/* Like AWS, the star only shows on hover unless the service is already a favourite */}
                   <FavoriteStar
                     serviceId={service.id}
                     size={12}

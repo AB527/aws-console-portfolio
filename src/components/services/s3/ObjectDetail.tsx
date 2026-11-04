@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useSyncExternalStore } from "react"
 import { formatDate } from "@/lib/formatDate"
 import { fileExt, objectFilePath } from "@/lib/fileExt"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
 import regionsData from "@data/regions.json"
@@ -31,7 +31,6 @@ interface ObjectDetailProps {
 
 interface ObjectViewProps {
   bucketName: string
-  region: string
   regionLabel: string
   owner: string
   obj: S3Object
@@ -39,9 +38,11 @@ interface ObjectViewProps {
 
 const TABS = ["Properties", "Permissions", "Versions"]
 
-const ALL_USERS_GROUP = "http://acs.amazonaws.com/groups/global/AllUsers"
-
 const copy = (text: string) => navigator.clipboard?.writeText(text)
+
+// The site's own origin, so the object URL is where the file is really served; empty while server rendering
+const noSubscribe = () => () => {}
+const useOrigin = () => useSyncExternalStore(noSubscribe, () => window.location.origin, () => "")
 
 function InfoIcon() {
   return (
@@ -115,7 +116,6 @@ export default function ObjectDetail({ bucketId, objectKey, files }: ObjectDetai
   return (
     <ObjectView
       bucketName={bucket.name}
-      region={bucket.region}
       regionLabel={regionFull ? `${regionFull} ${bucket.region}` : bucket.region}
       owner={s3Data.owner}
       obj={{ ...obj, url: files.includes(path) ? path : "" }}
@@ -123,12 +123,14 @@ export default function ObjectDetail({ bucketId, objectKey, files }: ObjectDetai
   )
 }
 
-function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewProps) {
+function ObjectView({ bucketName, regionLabel, owner, obj }: ObjectViewProps) {
   const [activeTab, setActiveTab] = useState("Properties")
 
   const s3Uri = `s3://${bucketName}/${obj.key}`
-  const arn = `arn:aws:s3:::${bucketName}/${obj.key}`
-  const objectUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${obj.key}`
+  const arn = `arn:ab:s3:::${bucketName}/${obj.key}`
+  const origin = useOrigin()
+  // Only a file that exists under public/s3 has a URL
+  const objectUrl = obj.url ? `${origin}${obj.url}` : ""
 
   const activeBtn =
     "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-link text-sm font-bold text-link hover:bg-surface-selected whitespace-nowrap"
@@ -230,7 +232,7 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
                 <CopyButton text={s3Uri} label="URI" />
                 {s3Uri}
               </Field>
-              <Field label="Amazon Resource Name (ARN)">
+              <Field label="AB Resource Name (ARN)">
                 <CopyButton text={arn} label="ARN" />
                 {arn}
               </Field>
@@ -239,13 +241,15 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
                 {obj.etag}
               </Field>
               <Field label="Object URL">
-                <CopyButton text={objectUrl} label="Object URL" />
-                {obj.url ? (
-                  <a href={obj.url} target="_blank" rel="noopener noreferrer" className="text-link hover:underline">
-                    {objectUrl}
-                  </a>
+                {objectUrl ? (
+                  <>
+                    <CopyButton text={objectUrl} label="Object URL" />
+                    <a href={obj.url} target="_blank" rel="noopener noreferrer" className="text-link hover:underline">
+                      {objectUrl}
+                    </a>
+                  </>
                 ) : (
-                  objectUrl
+                  "–"
                 )}
               </Field>
             </dl>
@@ -257,7 +261,7 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
             <div>
               <h2 className="text-[20px] leading-6 font-bold text-ink">Access control list (ACL)</h2>
               <p className="text-sm text-ink-body mt-1">
-                Grant basic read/write permissions to AWS accounts.{" "}
+                Grant basic read/write permissions to AB accounts.{" "}
                 <a className="text-link underline cursor-pointer">Learn more ↗</a>
               </p>
             </div>
@@ -289,9 +293,9 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-line">
+                <tr>
                   <td className="py-3">
-                    <p className="font-bold text-ink">Object owner (your AWS account)</p>
+                    <p className="font-bold text-ink">Object owner (your AB account)</p>
                     <p className="text-xs text-ink break-all mt-0.5">
                       Canonical ID: <CopyButton text={owner} label="Canonical ID" />
                       {owner}
@@ -299,17 +303,6 @@ function ObjectView({ bucketName, region, regionLabel, owner, obj }: ObjectViewP
                   </td>
                   <td className="px-4 py-3 text-ink">Read</td>
                   <td className="px-4 py-3 text-ink">Read, Write</td>
-                </tr>
-                <tr>
-                  <td className="py-3">
-                    <p className="font-bold text-ink">Everyone (public access)</p>
-                    <p className="text-xs text-ink break-all mt-0.5">
-                      Group: <CopyButton text={ALL_USERS_GROUP} label="Group" />
-                      {ALL_USERS_GROUP}
-                    </p>
-                  </td>
-                  <td className="px-4 py-3 text-ink">-</td>
-                  <td className="px-4 py-3 text-ink">-</td>
                 </tr>
               </tbody>
             </table>

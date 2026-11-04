@@ -47,7 +47,7 @@ interface ConsoleStore extends ConsoleSettings {
   cloudShellOpen: boolean
   notificationsRead: boolean
   mobileNavOpen: boolean
-  amazonQOpen: boolean
+  abQOpen: boolean
   favorites: string[]
   addWidgetsOpen: boolean
   sidebarCollapsed: boolean
@@ -58,7 +58,7 @@ interface ConsoleStore extends ConsoleSettings {
   toggleFavorite: (id: string) => void
   addWidget: (id: string, beforeId?: string) => void
   setAddWidgetsOpen: (open: boolean) => void
-  setAmazonQOpen: (open: boolean) => void
+  setAbQOpen: (open: boolean) => void
   setMobileNavOpen: (open: boolean) => void
   setRegion: (r: RegionId) => void
   applySettings: (patch: Partial<ConsoleSettings>) => void
@@ -109,7 +109,7 @@ export const useConsoleStore = create<ConsoleStore>()(
       cloudShellOpen: false,
       notificationsRead: false,
       mobileNavOpen: false,
-      amazonQOpen: false,
+      abQOpen: false,
       favorites: [],
       addWidgetsOpen: false,
       sidebarCollapsed: false,
@@ -148,7 +148,7 @@ export const useConsoleStore = create<ConsoleStore>()(
 
       setAddWidgetsOpen: (open) => set(open ? { addWidgetsOpen: true, helpTopic: null } : { addWidgetsOpen: false }),
 
-      setAmazonQOpen: (open) => set({ amazonQOpen: open }),
+      setAbQOpen: (open) => set({ abQOpen: open }),
 
       setMobileNavOpen: (open) => set({ mobileNavOpen: open }),
 

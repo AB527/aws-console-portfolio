@@ -10,30 +10,47 @@
       "objects": [
         {
           "id": "6560bf61-3f16-4a68-838f-c59466e56822",
-          "key": "infobahn-internship-completion-letter.png",
-          "size": "160 KB",
+          "key": "infobahn-internship-completion-letter.pdf",
+          "size": "318 KB",
           "lastModified": "2026-08-07",
-          "type": "image/png",
+          "type": "application/pdf",
           "storageClass": "Standard",
-          "etag": "c4447d6b9f69179ce829de7e7aa5fad6"
-        },
-        {
-          "id": "67fbb449-43b1-430a-871e-cde7827aa1d4",
-          "key": "transbnk-internship-completion-letter.png",
-          "size": "216 KB",
-          "lastModified": "2025-07-07",
-          "type": "image/png",
-          "storageClass": "Standard",
-          "etag": "0e7faf3656a85c306321d151cb39e412"
+          "etag": "ed16d80934698e1a7aa29722fea411f3"
         },
         {
           "id": "356a5801-3e1d-4a6b-9a27-de98d9b7e86a",
-          "key": "tffm-letter-of-recommendation.png",
+          "key": "cg-govt-letter-of-recommendation.png",
           "size": "158 KB",
           "lastModified": "2026-10-14",
           "type": "image/png",
           "storageClass": "Standard",
           "etag": "3acbac878a3342b6615eb91fd5b1e8e7"
+        },
+        {
+          "id": "67fbb449-43b1-430a-871e-cde7827aa1d4",
+          "key": "transbnk-internship-completion-letter.pdf",
+          "size": "367 KB",
+          "lastModified": "2025-07-07",
+          "type": "application/pdf",
+          "storageClass": "Standard",
+          "etag": "6f58001fcd7d6f4ad9ab7667a0772d55"
+        }
+      ]
+    },
+    {
+      "id": "recommendation-letters",
+      "name": "recommendation-letters",
+      "region": "ap-south-17",
+      "createdDate": "2026-05-22",
+      "objects": [
+        {
+          "id": "0f869de2-3aa8-42be-afd1-11f04229b8dc",
+          "key": "cgpd-commendation-letter.png",
+          "size": "666 KB",
+          "lastModified": "2026-05-22",
+          "type": "image/png",
+          "storageClass": "Standard",
+          "etag": "77c1ca11b61a55b605950a3ade9ca915"
         }
       ]
     },

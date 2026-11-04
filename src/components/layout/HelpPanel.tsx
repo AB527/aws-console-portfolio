@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import Link from "next/link"
 import help from "@data/help.json"
 import dashboardLayout from "@data/dashboard-layout.json"
-import { openSans } from "@/lib/awsFont"
+import { openSans } from "@/lib/font"
 import { serviceTitle } from "@/lib/serviceTitle"
 import { useConsoleStore } from "@/store/useConsoleStore"
 

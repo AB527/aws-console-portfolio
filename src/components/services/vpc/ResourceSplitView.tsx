@@ -164,7 +164,6 @@ interface ResourceSplitViewProps<T extends { id: string }> {
   tabs: { label: string; render: (item: T) => React.ReactNode }[]
 }
 
-// List on top, detail panel for the selected row below — the layout of the AWS Subnets and Route tables pages
 export default function ResourceSplitView<T extends { id: string }>({
   title,
   infoTopic,

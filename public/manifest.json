@@ -1,7 +1,7 @@
 {
-  "name": "Atharva Bedekar — AWS Console Portfolio",
+  "name": "Atharva Bedekar: AB Console Portfolio",
   "short_name": "AB Console",
-  "description": "Personal portfolio built as an AWS Management Console",
+  "description": "Personal portfolio built as the AB Management Console",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#232f3e",
