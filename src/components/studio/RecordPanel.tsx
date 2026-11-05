@@ -86,7 +86,7 @@ export default function RecordPanel({ section, data, row, rows, lookups, saving,
       <div className="absolute inset-0 bg-black/40" onClick={cancel} />
       <form
         onSubmit={submit}
-        className="absolute right-0 top-[56px] bottom-[32px] w-[560px] max-w-full flex flex-col bg-surface border-l border-line shadow-2xl"
+        className="absolute right-0 top-[53px] bottom-[32px] w-[560px] max-w-full flex flex-col bg-surface border-l border-line shadow-2xl"
       >
         <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-line">
           <h2 className="text-[20px] leading-6 font-bold text-gray-900 dark:text-ink">

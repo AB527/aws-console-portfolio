@@ -297,7 +297,7 @@ desktop classes.
 - `lg` switches the service sidebars and the dashboard; `md` switches the top bar.
 - Sidebars become a slide-in drawer below `lg`. `ServiceSidebar` handles this itself; render
   `<MobileNavToggle />` in the service top bar (`ServiceTopBar` already does).
-- Top bar below `md`: search collapses to an icon that expands on focus; Help, Settings, Region and
+- Top bar: below `lg` search collapses to an icon that expands on focus; below `md` Help, Settings, Region and
   Account move into the full-screen "More" panel (`MobileMoreMenu`).
 - Tables keep their columns and scroll sideways inside an `overflow-x-auto` wrapper. No page-level
   horizontal scroll at 360–390px.
@@ -315,7 +315,7 @@ Page background         #f2f3f3
 Links                   #0073bb (light) / #006ce0 (console) / #75b8ff, #42b4ff (on dark)
 CTA orange              #ff9900
 Cards                   white, rounded, border-gray-200, shadow-sm
-Fixed chrome            top bar 56px, footer 32px
+Fixed chrome            top bar 53px (48px + 5px top border), footer 32px
 ```
 
 ## Packages

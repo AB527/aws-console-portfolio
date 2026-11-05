@@ -118,7 +118,7 @@ export default function HelpPanel() {
   return (
     <aside
       aria-label={title}
-      className={`${openSans.className} w-[290px] shrink-0 bg-surface border-l border-line text-[14px] leading-5 text-ink-body overflow-y-auto sticky top-[56px] h-[calc(100vh-88px)] max-lg:fixed max-lg:inset-x-0 max-lg:top-[56px] max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:h-auto`}
+      className={`${openSans.className} w-[290px] shrink-0 bg-surface border-l border-line text-[14px] leading-5 text-ink-body overflow-y-auto sticky top-[53px] h-[calc(100vh-85px)] max-lg:fixed max-lg:inset-x-0 max-lg:top-[53px] max-lg:bottom-[32px] max-lg:z-40 max-lg:w-auto max-lg:h-auto`}
     >
       <div className="flex items-start justify-between gap-3 px-7 pt-5 pb-4">
         <h2 className="text-[20px] leading-6 font-bold text-ink">{title}</h2>

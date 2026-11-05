@@ -27,7 +27,7 @@ export default async function BucketPage({ params }: Props) {
   if (!bucket) notFound()
 
   return (
-    <div className="bg-page min-h-[calc(100vh-56px)] flex flex-col">
+    <div className="bg-page min-h-[calc(100vh-53px)] flex flex-col">
       <div className="flex flex-1">
         <ServiceSidebar serviceId="s3" />
         <div className="flex-1 min-w-0">

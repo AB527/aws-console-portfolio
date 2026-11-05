@@ -19,7 +19,7 @@ export default function ServiceLayout({
       <ServiceTopBar>
         <ServiceBreadcrumb />
       </ServiceTopBar>
-      <div className="flex min-h-[calc(100vh-56px)]">
+      <div className="flex min-h-[calc(100vh-53px)]">
         <ServiceSidebar serviceId={serviceId} />
         <main className="flex-1 min-w-0">{children}</main>
         <HelpPanel />

@@ -18,7 +18,7 @@ export default function VpcShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-56px)] flex flex-col text-[14px] leading-5 text-ink`}
+      className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-53px)] flex flex-col text-[14px] leading-5 text-ink`}
     >
       <ServiceTopBar
         items={[

@@ -29,7 +29,7 @@ export function SidebarChevron({ direction }: { direction: "left" | "right" }) {
 
 // Below lg a sidebar becomes a slide-in drawer, toggled by MobileNavToggle.
 export function mobileDrawerClass(open: boolean) {
-  return `max-lg:fixed max-lg:top-[56px] max-lg:bottom-[32px] max-lg:left-0 max-lg:z-50 max-lg:h-auto max-lg:w-[280px] max-lg:max-w-[85vw] max-lg:overflow-y-auto max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-200 ${
+  return `max-lg:fixed max-lg:top-[53px] max-lg:bottom-[32px] max-lg:left-0 max-lg:z-50 max-lg:h-auto max-lg:w-[280px] max-lg:max-w-[85vw] max-lg:overflow-y-auto max-lg:shadow-2xl max-lg:transition-transform max-lg:duration-200 ${
     open ? "max-lg:translate-x-0" : "max-lg:-translate-x-full"
   }`
 }

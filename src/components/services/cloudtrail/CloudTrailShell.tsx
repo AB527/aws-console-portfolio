@@ -15,7 +15,7 @@ export default function CloudTrailShell({ children }: { children: React.ReactNod
 
   return (
     <div
-      className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-56px)] flex flex-col text-[14px] leading-5 text-ink`}
+      className={`${openSans.className} bg-surface-subtle min-h-[calc(100vh-53px)] flex flex-col text-[14px] leading-5 text-ink`}
     >
       <ServiceTopBar items={[{ label: serviceTitle("cloudtrail"), href: "/cloudtrail/home" }, { label: current.label }]} />
 
