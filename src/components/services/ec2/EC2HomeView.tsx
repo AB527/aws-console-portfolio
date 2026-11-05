@@ -190,10 +190,15 @@ export default function EC2HomeView() {
                   <RefreshIcon />
                 </button>
               </div>
-              <button className={`${OUTLINE_BTN} mt-2 max-w-full`}>
+              <a
+                href="https://www.linkedin.com/in/atharva-bedekar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${OUTLINE_BTN} mt-2 max-w-full`}
+              >
                 <span className="truncate">AB Health Dashboard</span>
                 <ExternalIcon />
-              </button>
+              </a>
               <dl className="mt-5 space-y-5">
                 <div>
                   <dt className="font-bold">Region</dt>

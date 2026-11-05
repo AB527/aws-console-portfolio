@@ -164,13 +164,13 @@ function EC2InstancesView({ activeProject }: { activeProject: string | null }) {
             </svg>
           </button>
           <a
-            href={selected?.link}
+            href={selected?.link || undefined}
             target="_blank"
             rel="noopener noreferrer"
-            aria-disabled={!selected}
-            onClick={(e) => { if (!selected) e.preventDefault() }}
+            aria-disabled={!selected?.link}
+            onClick={(e) => { if (!selected?.link) e.preventDefault() }}
             className={
-              selected
+              selected?.link
                 ? OUTLINE_BTN
                 : "h-8 px-5 flex items-center gap-2 rounded-full border-2 border-ink-disabled text-sm font-bold text-line-strong cursor-not-allowed whitespace-nowrap"
             }
@@ -433,11 +433,13 @@ function ProjectSummaryPanel({
       onResize={onResize}
       onClose={onClose}
       actions={
-        <a href={inst.link} target="_blank" rel="noopener noreferrer" title="Open project" className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-surface-subtle">
-          <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <path d="M9 2h5v5M14 2 7 9M12 9.5V14H2V4h4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
+        inst.link ? (
+          <a href={inst.link} target="_blank" rel="noopener noreferrer" title="Open project" className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-surface-subtle">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+              <path d="M9 2h5v5M14 2 7 9M12 9.5V14H2V4h4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        ) : undefined
       }
     >
         <button
@@ -469,15 +471,17 @@ function ProjectSummaryPanel({
               </div>
               <div className="space-y-5 md:pl-6 md:border-l border-gray-200 dark:border-line mt-5 md:mt-0">
                 <Field label="Project link">
-                  <span className="inline-flex items-start gap-2">
-                    <CopyButton value={inst.link} />
-                    <span>
-                      {inst.link.replace(/^https?:\/\//, "")} |{" "}
-                      <a href={inst.link} target="_blank" rel="noopener noreferrer" className="text-[#0073bb] dark:text-link hover:underline">
-                        open address<ExternalIcon />
-                      </a>
+                  {inst.link ? (
+                    <span className="inline-flex items-start gap-2">
+                      <CopyButton value={inst.link} />
+                      <span>
+                        {inst.link.replace(/^https?:\/\//, "")} |{" "}
+                        <a href={inst.link} target="_blank" rel="noopener noreferrer" className="text-[#0073bb] dark:text-link hover:underline">
+                          open address<ExternalIcon />
+                        </a>
+                      </span>
                     </span>
-                  </span>
+                  ) : "–"}
                 </Field>
                 <Field label="Region">{inst.region}</Field>
                 <Field label="Scale / Hours spent">{inst.metrics.scale} · {inst.metrics.hoursSpent}h</Field>

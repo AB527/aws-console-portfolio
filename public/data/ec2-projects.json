@@ -136,7 +136,7 @@
         "GitHub Actions",
         "Ansible"
       ],
-      "link": "https://tffm.cg.gov.in/",
+      "link": "",
       "details": "Flutter-based Windows ticketing kiosk for the museum, built from scratch with thermal printing, offline Hive storage and real-time sync with the website's ticketing APIs. Processes 100+ tickets a day in production, with kiosk releases automated through the same GitHub Actions and Ansible pipeline as the website.",
       "metrics": {
         "hoursSpent": 0,
@@ -151,8 +151,8 @@
       "status": "stopped",
       "instanceType": "compute.large",
       "techStack": "ECS Fargate + RDS + ElastiCache",
-      "region": "ap-south-1",
-      "zone": "ap-south-1a",
+      "region": "ap-south-17",
+      "zone": "ap-south-17a",
       "periodFrom": "2025-08-01",
       "periodTo": "2025-12-31",
       "tags": [
@@ -162,7 +162,7 @@
         "PostgreSQL",
         "Cashfree"
       ],
-      "link": "https://github.com/AB527",
+      "link": "https://play.google.com/store/apps/details?id=in.hackoverseedu.app",
       "details": "Flutter frontend with AWS ECS Fargate backend, RDS PostgreSQL, ElastiCache for session management, and Cashfree payment gateway integration.",
       "metrics": {
         "hoursSpent": 400,
@@ -189,7 +189,7 @@
         "Ansible",
         "Grafana"
       ],
-      "link": "https://atharvabedekar.dev",
+      "link": "",
       "details": "Full production stack for a crime-reporting platform used by 250+ police officers across 10 stations and 5+ sub-divisions in Chhattisgarh. Provisioned end to end with Terraform and Ansible, with the backend and database isolated in private subnets behind a public ALB with TLS. Held 99%+ uptime across 15 production releases in 6 months, with observability through Prometheus, Grafana and Loki, and cut compute costs 38% by moving to 1-year Reserved pricing.",
       "metrics": {
         "hoursSpent": 200,
@@ -214,7 +214,7 @@
         "IoT",
         "Patent"
       ],
-      "link": "https://github.com/AB527",
+      "link": "https://play.google.com/store/apps/details?id=com.iiitnr.attendance",
       "details": "Flutter + Firebase attendance app using IoT hardware that marks attendance for a whole class in under 5 seconds, at any scale. Proximity-based verification with MAC address randomization and dual-band Wi-Fi signal strength checks makes presence hard to spoof, and it works fully offline during verification. Granted Indian Patent IN 589608 on 18 May 2026.",
       "metrics": {
         "hoursSpent": 300,
@@ -274,6 +274,31 @@
       }
     },
     {
+      "id": "technovate-admin",
+      "name": "Technovate Admin App",
+      "description": "Admin app for Technovate, IIIT Naya Raipur, for ticket sales and QR entry scanning",
+      "status": "running",
+      "instanceType": "web.medium",
+      "techStack": "Flutter + Node.js",
+      "region": "ap-south-17",
+      "zone": "ap-south-17b",
+      "periodFrom": "2026-01-01",
+      "periodTo": "2026-03-31",
+      "tags": [
+        "Flutter",
+        "Android",
+        "QR Scanner",
+        "Ticketing"
+      ],
+      "link": "https://play.google.com/store/apps/details?id=com.iiitnr.technovate_admin",
+      "details": "Android admin app for the Technovate team at IIIT Naya Raipur. Organisers use it to manage ticket sales and scan attendee QR codes at entry, working alongside the event website and automated ticket mails.",
+      "metrics": {
+        "hoursSpent": 0,
+        "usersServed": 0,
+        "scale": "Institutional"
+      }
+    },
+    {
       "id": "aarambh",
       "name": "Aarambh: IIIT NR Sports Fest",
       "description": "Official website for IIIT Naya Raipur's annual sports event",
@@ -292,7 +317,7 @@
         "Prisma",
         "AWS Amplify"
       ],
-      "link": "https://github.com/AB527/AARAMBH",
+      "link": "https://aarambh.atharvabedekar.dev",
       "details": "Website for Aarambh, the annual sports event at IIIT Naya Raipur, with live scores, event schedules, team standings and a photo gallery. Next.js frontend with a Node.js/Express API and PostgreSQL via Prisma; deployment config for AWS Amplify.",
       "metrics": {
         "hoursSpent": 0,
@@ -347,7 +372,7 @@
         "PostgreSQL",
         "Codemagic"
       ],
-      "link": "https://github.com/AB527",
+      "link": "https://play.google.com/store/apps/details?id=in.ac.iiitnr.iiitnr_app",
       "details": "Found critical security vulnerabilities in the official campus app (1,000+ installs, 750+ active users) through reverse engineering, which led to an institute-commissioned rebuild. The new Flutter app has Google Sign-In and OTP authentication and role-based dashboards for students, wardens, guards and the chairman using Riverpod and GoRouter, backed by a Node.js, Prisma and PostgreSQL API. Codemagic CI/CD covers Android and iOS, self-hosted GitHub Actions runners deploy the web build, and Ansible provisions the production server. Currently in beta ahead of the institute relaunch.",
       "metrics": {
         "hoursSpent": 0,
@@ -372,7 +397,7 @@
         "YouTube API",
         "Hackathon"
       ],
-      "link": "https://github.com/AB527",
+      "link": "https://github.com/AB527/SF",
       "details": "Tool that cuts through a YouTube comments section to give clear, summarized sentiment insights. Built with the YouTube API and a Gemini model, it classifies comments, generates summaries and offers content improvement tips for creators, with a chatbot for a deeper breakdown of audience sentiment. Runner-up at E-Summit Hackathon 2025.",
       "metrics": {
         "hoursSpent": 0,
