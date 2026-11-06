@@ -27,14 +27,6 @@ function TerminalIcon() {
   )
 }
 
-function ChevronDown() {
-  return (
-    <svg width="9" height="6" viewBox="0 0 10 6" fill="none" className="opacity-70 shrink-0">
-      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 function CaretDown() {
   return (
     <svg width="9" height="6" viewBox="0 0 10 6" fill="currentColor" className="shrink-0" aria-hidden="true">
@@ -121,19 +113,19 @@ function RegionDropdown({
               </div>
             ))}
           </div>
-
-          {/* Footer */}
-          <div className="flex items-center gap-4 px-4 py-2.5 border-t border-[#2d3f52]">
-            <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="text-[12px] text-[#4db8ff] hover:underline">Manage Regions</a>
-            <span className="text-[#2d3f52]">|</span>
-            <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="text-[12px] text-[#4db8ff] hover:underline">Manage local zones</a>
-          </div>
         </>
       ) : (
         <div className="px-4 py-8 text-center text-gray-400 text-sm">
           No Local Zones available.
         </div>
       )}
+
+      {/* Footer, shown on both tabs */}
+      <div className="flex items-center gap-4 px-4 py-2.5 border-t border-[#2d3f52]">
+        <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="text-[12px] text-[#4db8ff] hover:underline">Manage Regions</a>
+        <span className="text-[#2d3f52]">|</span>
+        <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="text-[12px] text-[#4db8ff] hover:underline">Manage local zones</a>
+      </div>
     </div>
   )
 }
@@ -365,11 +357,11 @@ function TopbarInner() {
             onClick={() => setAccountOpen((o) => !o)}
             className="group flex flex-col items-end h-full"
           >
-            <span className={`flex items-center gap-2 rounded-b-md px-2 md:px-5 py-0.5 text-[11px] font-semibold text-[#1b242e] transition-colors ${accountOpen ? "bg-[#8b96a3]" : "bg-[#7d8998] group-hover:bg-[#8b96a3]"}`}>
+            <span className={`flex items-center gap-1.5 mr-3 rounded-b-md px-1.5 py-0.5 text-[11px] font-bold text-[#1b242e] transition-colors ${accountOpen ? "bg-[#8b96a3]" : "bg-[#7d8998] group-hover:bg-[#8b96a3]"}`}>
               <span className="max-md:max-w-[72px] truncate">{site.account.name} ({site.account.id})</span>
-              <ChevronDown />
+              <CaretDown />
             </span>
-            <span className="hidden md:block text-[11px] text-white leading-none pt-1.5 pr-5">{site.account.name}</span>
+            <span className="hidden md:block text-[11px] text-[#c6c6cd] leading-none pt-1.5 pr-5">{site.account.name}</span>
           </button>
           {accountOpen && (
             <AccountDropdown

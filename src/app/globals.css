@@ -11,7 +11,7 @@
 /* Colours for page content. Light values here, dark values below; the already-dark chrome
    (top bar, footer, dropdown panels) does not use them. */
 @theme {
-  --color-page: #f2f3f3;
+  --color-page: #ffffff;
   --color-surface: #ffffff;
   --color-surface-subtle: #f9f9fa;
   --color-surface-selected: #f0fbff;
