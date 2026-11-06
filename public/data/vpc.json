@@ -1,6 +1,5 @@
 {
   "serviceId": "vpc",
-  "ownerId": "9820173314",
   "region": "ap-south-1",
   "vpc": {
     "id": "connect-0d37e8a9e1f987113",

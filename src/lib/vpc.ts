@@ -1,4 +1,5 @@
 import type vpcData from "@data/vpc.json"
+import site from "@data/site.json"
 
 export type VpcData = typeof vpcData
 export type Route = { destination: string; target: string; url?: string }
@@ -23,5 +24,5 @@ export function routesFor(vpc: VpcData, routeTable: RouteTable): Route[] {
 }
 
 export function subnetArn(vpc: VpcData, subnet: Subnet): string {
-  return `arn:ab:ec2:${vpc.region}:${vpc.ownerId}:subnet/${subnet.id}`
+  return `arn:ab:ec2:${vpc.region}:${site.account.id}:subnet/${subnet.id}`
 }

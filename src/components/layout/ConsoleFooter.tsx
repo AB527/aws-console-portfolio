@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useConsoleStore } from "@/store/useConsoleStore"
+import site from "@data/site.json"
 import CookiePreferencesDialog from "./CookiePreferencesDialog"
 
 function TerminalIcon({ size = 13 }: { size?: number }) {
@@ -57,7 +58,7 @@ export default function ConsoleFooter() {
           )}
         </div>
         <div className="hidden md:flex items-center gap-3">
-          <span>© 2026 Atharva Bedekar</span>
+          <span>© 2026 {site.account.name}</span>
           <button
             onClick={() => router.push("/privacy")}
             className="hover:text-white transition-colors"

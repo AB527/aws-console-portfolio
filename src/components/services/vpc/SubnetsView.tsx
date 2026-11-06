@@ -5,6 +5,7 @@ import ResourceSplitView, { DetailsCard, LINK, RoutesCard } from "@/components/s
 import { StateBadge } from "@/components/services/vpc/VpcTable"
 import DataStatus from "@/components/ui/DataStatus"
 import { useData } from "@/hooks/useData"
+import site from "@data/site.json"
 import { routeTableForSubnet, routesFor, subnetArn, type Subnet, type VpcData } from "@/lib/vpc"
 
 function BlockPublicAccessOff() {
@@ -82,7 +83,7 @@ export default function SubnetsView({ initialId }: { initialId?: string }) {
                   { label: "Name", value: s.name },
                   { label: "IPv4 CIDR", value: s.cidr },
                   { label: "Route table", value: <RouteTableLink vpc={vpc} subnet={s} /> },
-                  { label: "Owner", value: vpc.ownerId, copy: vpc.ownerId },
+                  { label: "Owner", value: site.account.id, copy: site.account.id },
                 ]}
               />
             ),
