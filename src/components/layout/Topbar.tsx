@@ -10,6 +10,7 @@ import NotificationsDropdown from "./NotificationsDropdown"
 import HelpDropdown from "./HelpDropdown"
 import SearchBar from "./SearchBar"
 import MobileMoreMenu from "./MobileMoreMenu"
+import MobileAppDialog from "./MobileAppDialog"
 import ServicesMenu from "./ServicesMenu"
 import servicesMenu from "@data/services-menu.json"
 import regionsData from "@data/regions.json"
@@ -390,30 +391,7 @@ function TopbarInner() {
       )}
 
       {/* PWA install dialog */}
-      {pwaOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-[70] flex items-center justify-center p-4"
-          onClick={(e) => e.target === e.currentTarget && setPwaOpen(false)}
-        >
-          <div className="bg-surface rounded-2xl p-6 max-w-md w-full shadow-2xl text-gray-900 dark:text-ink">
-            <h2 className="text-base font-semibold mb-3">Install Console Mobile App</h2>
-            <p className="text-sm text-gray-600 dark:text-ink-body mb-4">Install this portfolio as an app on your device:</p>
-            <ol className="text-sm text-gray-600 dark:text-ink-body list-decimal list-inside space-y-2 mb-5">
-              <li><strong>Chrome / Edge</strong> — click the install icon (⊕) in the address bar</li>
-              <li><strong>Safari (iOS/macOS)</strong> — tap Share → &ldquo;Add to Home Screen&rdquo;</li>
-              <li><strong>Firefox</strong> — tap the menu → &ldquo;Install&rdquo;</li>
-            </ol>
-            <div className="flex justify-end">
-              <button
-                onClick={() => setPwaOpen(false)}
-                className="px-4 py-1.5 bg-[#0073bb] text-white text-sm rounded-full hover:bg-[#005f99] transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {pwaOpen && <MobileAppDialog onClose={() => setPwaOpen(false)} />}
     </header>
   )
 }
