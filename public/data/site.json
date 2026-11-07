@@ -7,6 +7,10 @@
     "name": "Atharva Bedekar",
     "id": "021212173314"
   },
+  "feedback": {
+    "label": "Send feedback",
+    "url": "https://github.com/AB527/aws-console-portfolio"
+  },
   "pageTitles": {
     "consoleHome": "Console Home",
     "allServices": "All services",

@@ -60,14 +60,14 @@ export default function MobileMoreMenu({ regionLabel, sections }: MobileMoreMenu
         )
       })}
 
-      <button className="self-start py-1 text-[12px] font-bold text-[#539fe5] hover:underline">Send feedback</button>
-
-      <div className="mt-auto flex flex-col items-end gap-3 p-3">
-        <button className="h-7 px-4 rounded-full border-2 border-[#539fe5] text-[13px] font-bold text-[#539fe5]">
-          Turn on multi-session support
-        </button>
-        <button className="h-7 px-5 rounded-full bg-[#ff9900] text-[13px] font-bold text-[#0f141a]">Sign out</button>
-      </div>
+      <a
+        href={site.feedback.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="self-start py-1 text-[12px] font-bold text-[#539fe5] hover:underline"
+      >
+        {site.feedback.label}
+      </a>
     </div>
   )
 }
